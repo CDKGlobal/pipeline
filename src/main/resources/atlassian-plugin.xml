@@ -29,6 +29,11 @@
     <label key="cd-pipeline.label"/>
     <link linkId="cd-pipeline-link">/plugins/servlet/cdpipeline</link>
   </web-item>
+  
+  <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+  <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
+  <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+  
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.cdpipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>
     <url-pattern>/cdpipeline</url-pattern>
