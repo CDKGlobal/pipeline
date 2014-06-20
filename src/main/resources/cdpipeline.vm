@@ -1,20 +1,55 @@
 <html>
-  <head>
-    <title>XProduct Admin</title>
-  </head>
-  <body>
-    <form id="admin">
-      <div>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name">
-      </div>
-      <div>
-        <label for="time">Time</label>
-        <input type="text" id="time" name="time">
-      </div>
-      <div>
-        <input type="submit" value="Save">
-      </div>
-    </form>
-  </body>
+	<head>
+		<title>Pipeline Information Radiator - Team Superpipe</title>
+		<meta name="decorator" content="atl.general">
+		<style>			
+			table, th, td{
+				padding: 10px;
+				border: 1px solid black;
+			}
+			
+			tr:hover {
+				background-color: gray;
+			}
+			</style>
+	</head>
+	
+	<body>
+		<table id="admin">
+			<tr>
+				<th>Users</th>
+				<th>Builds</th>
+				<th>Updates</th>
+			</tr>
+			<tr>
+				<td>Good Team</td>
+				<td>10</td>
+				<td>100</td>
+			</tr>
+			
+			<tr>
+				<td>Bad Team</td>
+				<td>0</td>
+				<td>2</td>
+			</tr>
+			
+			<tr>
+				<td>Mediocre Team</td>
+				<td>4</td>
+				<td>50</td>
+			</tr>
+			
+			<tr>
+				<td>Kinda Good Team</td>
+				<td>3</td>
+				<td>87</td>
+			</tr>
+			
+			<tr>
+				<td>Somewhat Bad Team</td>
+				<td>1</td>
+				<td>0</td>
+			</tr>
+		</table>
+	</body>
 </html>
