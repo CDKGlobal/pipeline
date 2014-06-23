@@ -1,13 +1,13 @@
 package com.cobalt.cdpipeline.Models;
 
-import org.joda.time.DateTime;
+import java.util.Date;
 
 public class Build {
 	private String buildKey;
 	private int buildNumber;
-	private DateTime completeTime;
+	private Date completeTime;
 	
-	public Build(String buildKey, int buildNumber, DateTime completeTime){
+	public Build(String buildKey, int buildNumber, Date completeTime){
 		this.buildKey = buildKey;
 		this.buildNumber = buildNumber;
 		this.completeTime = completeTime;
@@ -21,7 +21,7 @@ public class Build {
 		return buildNumber;
 	}
 
-	public DateTime getCompleteTime() {
+	public Date getCompleteTime() {
 		return completeTime;
 	}
 
