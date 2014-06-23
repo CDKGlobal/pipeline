@@ -11,7 +11,7 @@ public class Plan {
 	public int changes;
 	
 	public Contributor[] contributors;
-	public CurrentBuild currentBuild;
+	public Build currentBuild;
 	public PipelineStage[] PipelineStages; 
 	
 	/**
