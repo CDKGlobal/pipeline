@@ -1,6 +1,8 @@
 package com.cobalt.cdpipeline.Models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;;
 
 /**
  * 
@@ -10,9 +12,9 @@ public class Plan {
 	public Date completedTime, lastUpdate;
 	public int changes;
 	
-	public Contributor[] contributors;
+	public List<Contributor> contributors;
 	public Build currentBuild;
-	public PipelineStage[] PipelineStages; 
+	public List<PipelineStage> pipelineStages; 
 	
 	/**
 	 * Construct a Plan object 
@@ -21,6 +23,9 @@ public class Plan {
 	 * @param planKey
 	 */
 	public Plan (String projectName, String planName, String planKey) {
+		contributors = new ArrayList<Contributor>();
+		pipelineStages = new ArrayList<PipelineStage>();
+
 		this.projectName = projectName;
 		this.planName = planName;
 		this.planKey = planKey;
