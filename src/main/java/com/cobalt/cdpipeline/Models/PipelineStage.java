@@ -5,9 +5,9 @@ package com.cobalt.cdpipeline.Models;
  *
  */
 public class PipelineStage {
-	public static final int FAILED = 0;
-	public static final int UNKNOWN = 1;
-	public static final int SUCCESSFUL = 2;
+	public static final int STATE_FAILED = 0;
+	public static final int STATE_UNKNOWN = 1;
+	public static final int STATE_SUCCESSFUL = 2;
 	
 	private String stageName;
 	private int state;
@@ -22,11 +22,11 @@ public class PipelineStage {
 		this.stageName = stageName;
 		
 		if (state.equals("Failed"))
-			this.state = PipelineStage.FAILED;
+			this.state = PipelineStage.STATE_FAILED;
 		else if (state.equals("Successful"))
-			this.state = PipelineStage.SUCCESSFUL;
+			this.state = PipelineStage.STATE_SUCCESSFUL;
 		else
-			this.state = PipelineStage.UNKNOWN;
+			this.state = PipelineStage.STATE_UNKNOWN;
 	}
 	
 	/**
