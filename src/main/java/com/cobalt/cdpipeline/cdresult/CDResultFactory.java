@@ -29,9 +29,48 @@ public class CDResultFactory {
 	
 	private void setLastDeploymentInfo() {
 		int totalChanges = 0;
-		Set<Contributor> contributors = new HashSet<Contributor>();
+		//Set<Contributor> contributors = new HashSet<Contributor>();
 		
-		// TODO
+		// Find the last completed build in buildList
+		int totalBuilds = buildList.size();
+		boolean lastCompletedFound = false;
+		int currBuildNum = 0;
+		ResultsSummary currBuild = null;
+		// not yet found & within the range
+		
+		while (!lastCompletedFound && currBuildNum < totalBuilds) { 
+			currBuild = buildList.get(currBuildNum);
+			// check completed
+		
+			/*
+			boolean currCompleted = false;
+			BuildResultsSummary brs = (BuildResultsSummary) currBuild; // TODO better name
+			ChainResultsSummary crs = brs.getChainResultsSummary();
+			List<ChainStageResult> stages = crs.getStageResults();
+			*/
+				
+			if (currBuild.isFinished() ) {
+				break;
+			}
+			
+			List<Commit> commits = currBuild.getCommits();
+			int changesInCurrBuild = currBuild.getCommits().size();
+			
+			// update the two counts
+			totalChanges += changesInCurrBuild;
+			addAllAuthorsInCommits(commits);
+			
+			currBuildNum++;
+		}		
+		
+		// set 3 fields of CDResult
+		if (lastCompletedFound) {
+			cdresult.setLastDeploymentTime(currBuild.getBuildCompletedDate()); 
+		} else { // N/A
+			cdresult.setLastDeploymentTime(null);
+		}
+		cdresult.setNumChanges(totalChanges);								// # changes since
+																			// contributors are updated in the process		
 	}
 	
 	private void setCurrentBuildInfo() {
