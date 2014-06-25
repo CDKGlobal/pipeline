@@ -38,8 +38,14 @@ public class MainManager {
 			List<Plan> plans = planManager.getAllPlansByProject(project, PlanType);
 			for (Plan plan : plans) {
 				String planName = plan.getName();
-				List<ResultsSummary> resultSummaryList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
+				List<ResultsSummary> resultSummaryList = resultsSummaryManager.getResultSummariesForPlan(plan, int, int);
+				
+				CDResultFactory factory = new CDResultFactory();
+				CDResult result = factory.createCDResult(projectName, planName, resultSummaryList);
+				resultList.add(result);
 			}
 		}
+		
+		return resultList;
 	}*/
 }
