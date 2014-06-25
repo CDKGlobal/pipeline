@@ -22,4 +22,6 @@ public class Contributor {
 	public String getUsername() {
 		return username;
 	}
+	
+	// TODO override equals
 }
