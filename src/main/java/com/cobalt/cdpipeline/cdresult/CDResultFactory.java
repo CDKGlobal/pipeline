@@ -13,9 +13,9 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactory {
 	private CDResult cdresult;
-	private List<BuildResultsSummary> buildList;
+	private List<ResultsSummary> buildList;
 	
-	public CDResultFactory(String projectName, String planName, List<BuildResultsSummary> buildList) {
+	public CDResultFactory(String projectName, String planName, List<ResultsSummary> buildList) {
 		cdresult = new CDResult(projectName, planName);
 		this.buildList = buildList;
 	}
@@ -32,18 +32,19 @@ public class CDResultFactory {
 		Set<Contributor> contributors = new HashSet<Contributor>();
 		
 		// TODO
+		addAllAuthorsInCommits(buildList.get(0).getCommits());
 	}
 	
 	private void setCurrentBuildInfo() {
-		BuildResultsSummary currentResult = buildList.get(0);
+		ResultsSummary currentResult = buildList.get(0);
 		Date lastUpdate = currentResult.getBuildCompletedDate();
 		this.cdresult.setLastUpdateTime(lastUpdate);
 		String buildKey = currentResult.getBuildKey();
 		int buildNum = currentResult.getBuildNumber();
 		Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
 		this.cdresult.setCurrentBuild(currentBuild);
-		ChainResultsSummary pipeline = currentResult.getChainResultsSummary();
-		setPipelineStages(pipeline);
+		//ChainResultsSummary pipeline = currentResult.getChainResultsSummary();
+		//setPipelineStages(pipeline);
 	}
 	
 	private void addAllAuthorsInCommits(List<Commit> commits) {
