@@ -1,4 +1,4 @@
-package com.cobalt.cdpipeline.Models;
+package com.cobalt.cdpipeline.cdresult;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -19,7 +19,7 @@ import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.cdpipeline.Controllers.MainManager;
-import com.cobalt.cdpipeline.Models.CDResult;
+import com.cobalt.cdpipeline.cdresult.CDResult;
 
 public class MainPage extends HttpServlet{
     private static final Logger log = LoggerFactory.getLogger(MainPage.class);
