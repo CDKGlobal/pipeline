@@ -19,12 +19,13 @@ public class CDResult {
 	private List<PipelineStage> pipelineStages; 
 	
 	/**
-	 * Construct a Plan object 
+	 * Construct a CDResult Object.
+	 * Access modifier left out intentionally for package protection.
+	 * 
 	 * @param projectName
 	 * @param planName
-	 * @param planKey
 	 */
-	public CDResult(String projectName, String planName) {
+	CDResult(String projectName, String planName) {
 		this.projectName = projectName;
 		this.planName = planName;
 		
@@ -34,7 +35,7 @@ public class CDResult {
 	
 	/**
 	 * Set lastDeploymentTime to the given date.
-	 * Scope identifier left out intentionally for package protection.
+	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param lastDeployment
 	 */
@@ -53,7 +54,7 @@ public class CDResult {
 	
 	/**
 	 * Set lastUpdate time to the given date.
-	 * Scope identifier left out intentionally for package protection.
+	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param lastUpdate
 	 */
@@ -71,7 +72,7 @@ public class CDResult {
 	
 	/**
 	 * Set number of changes to the given number.
-	 * Scope identifier left out intentionally for package protection.
+	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param numChanges
 	 */
@@ -89,7 +90,7 @@ public class CDResult {
 	
 	/**
 	 * Add given contributor to contributors set.
-	 * Scope identifier left out intentionally for package protection.
+	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param contributor
 	 */
@@ -107,7 +108,7 @@ public class CDResult {
 	
 	/**
 	 * Add given PipelineStage to the pipelineStages list.
-	 * Scope identifier left out intentionally for package protection.
+	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param stage
 	 */
