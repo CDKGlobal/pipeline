@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
+import com.atlassian.bamboo.chains.ChainStageResult;
 import com.atlassian.bamboo.commit.Commit;
 import com.atlassian.bamboo.resultsummary.BuildResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
@@ -93,7 +94,15 @@ public class CDResultFactory {
 		}
 	}
 	
-	private void setPipelineStages(ChainResultsSummary pipeline) {
-		// TODO
+	/*
+	 * Set the list of PipelineStage in cdresult with the given build result.
+	 */
+	private void setPipelineStages(ChainResultsSummary buildResult) {
+		List<ChainStageResult> stages = buildResult.getStageResults();
+
+		for (ChainStageResult stageResult : stages) {
+			PipelineStage stage = new PipelineStage(stageResult.getName(), stageResult.getState());
+			cdresult.addPipelineStageToList(stage);
+		}
 	}
 }
