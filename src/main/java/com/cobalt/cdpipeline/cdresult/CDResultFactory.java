@@ -29,49 +29,31 @@ public class CDResultFactory {
 	}
 	
 	private void setLastDeploymentInfo() {
-		int totalChanges = 0;
-		//Set<Contributor> contributors = new HashSet<Contributor>();
+		int totalChanges = 0;		
 		// Find the last completed build in buildList
 		int totalBuilds = buildList.size();
-		boolean lastCompletedFound = false;
-		int currBuildNum = 0;
+		int currBuildNum = 1; 	// skip the curr build
 		ResultsSummary currBuild = null;
-		// not yet found & within the range
+		cdresult.setLastDeploymentTime(null);
 		
-		while (!lastCompletedFound && currBuildNum < totalBuilds) { 
-			currBuild = buildList.get(currBuildNum);
+		while (currBuildNum < totalBuilds) { 
+			currBuild = buildList.get(currBuildNum);	
 			// check completed
-		
-			/*
-			boolean currCompleted = false;
-			BuildResultsSummary brs = (BuildResultsSummary) currBuild; // TODO better name
-			ChainResultsSummary crs = brs.getChainResultsSummary();
-			List<ChainStageResult> stages = crs.getStageResults();
-			*/
-				
-			if (currBuild.isFinished() ) {
+			ChainResultsSummary crs = (ChainResultsSummary) currBuild;
+			if (!crs.isContinuable() && crs.isSuccessful()) {
+				cdresult.setLastDeploymentTime(currBuild.getBuildCompletedDate()); 
 				break;
-			}
-			
+			}		
 			List<Commit> commits = currBuild.getCommits();
-			int changesInCurrBuild = currBuild.getCommits().size();
-			
-			// update the two counts
+			int changesInCurrBuild = currBuild.getCommits().size();			
+			// update the 2 counts
 			totalChanges += changesInCurrBuild;
 			addAllAuthorsInCommits(commits);
 			
 			currBuildNum++;
-		}		
-		
-		// set 3 fields of CDResult
-		if (lastCompletedFound) {
-			cdresult.setLastDeploymentTime(currBuild.getBuildCompletedDate()); 
-		} else { // N/A
-			cdresult.setLastDeploymentTime(null);
-		}
-		cdresult.setNumChanges(totalChanges);								// # changes since
-																			// contributors are updated in the process		
-
+		}			
+		// set #changes (contributors and date are set in the progress)
+		cdresult.setNumChanges(totalChanges + buildList.get(0).getCommits().size());	
 	}
 	
 	private void setCurrentBuildInfo() {
