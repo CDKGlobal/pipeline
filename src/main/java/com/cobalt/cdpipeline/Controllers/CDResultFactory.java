@@ -8,6 +8,6 @@ import com.cobalt.cdpipeline.Models.CDResult;
 public class CDResultFactory {
 	
 	public CDResult createCDResult(String projectName, String planName, List<ResultsSummary> buildList) {
-		return null;
+		return new CDResult(projectName, planName);
 	}
 }

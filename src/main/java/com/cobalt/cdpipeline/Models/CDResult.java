@@ -8,7 +8,7 @@ import java.util.List;;
  * 
  */
 public class CDResult {
-	private String projectName, planName, planKey;
+	private String projectName, planName;
 	public Date completedTime, lastUpdate;
 	public int changes;
 	
@@ -22,13 +22,12 @@ public class CDResult {
 	 * @param planName
 	 * @param planKey
 	 */
-	public CDResult (String projectName, String planName, String planKey) {
+	public CDResult (String projectName, String planName) {
 		contributors = new ArrayList<Contributor>();
 		pipelineStages = new ArrayList<PipelineStage>();
 
 		this.projectName = projectName;
 		this.planName = planName;
-		this.planKey = planKey;
 	}
 	
 	/**
@@ -46,13 +45,4 @@ public class CDResult {
 	public String getPlanName() {
 		return planName;
 	}
-	
-	/**
-	 * Get plan key
-	 * @return
-	 */
-	public String getPlanKey() {
-		return planKey;
-	}
-	
 }
