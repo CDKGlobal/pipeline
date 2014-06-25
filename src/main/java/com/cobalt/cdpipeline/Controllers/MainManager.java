@@ -9,6 +9,7 @@ import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
 import com.atlassian.bamboo.project.ProjectManager;
+import com.atlassian.bamboo.resultsummary.BuildResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.cobalt.cdpipeline.cdresult.CDResult;
@@ -36,7 +37,7 @@ public class MainManager {
 			List<TopLevelPlan> plans = planManager.getAllPlansByProject(project, TopLevelPlan.class);
 			for (Plan plan : plans) {
 				String planName = plan.getName();
-				List<ResultsSummary> resultSummaryList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
+				List<BuildResultsSummary> resultSummaryList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 				
 				CDResultFactory factory = new CDResultFactory(projectName, planName, resultSummaryList);
 				CDResult result = factory.createCDResult();
