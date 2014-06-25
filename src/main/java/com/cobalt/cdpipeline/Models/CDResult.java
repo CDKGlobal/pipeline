@@ -7,7 +7,7 @@ import java.util.List;;
 /**
  * 
  */
-public class Plan {
+public class CDResult {
 	private String projectName, planName, planKey;
 	public Date completedTime, lastUpdate;
 	public int changes;
@@ -22,7 +22,7 @@ public class Plan {
 	 * @param planName
 	 * @param planKey
 	 */
-	public Plan (String projectName, String planName, String planKey) {
+	public CDResult (String projectName, String planName, String planKey) {
 		contributors = new ArrayList<Contributor>();
 		pipelineStages = new ArrayList<PipelineStage>();
 
