@@ -81,8 +81,9 @@ public class CDResultFactory {
 		int buildNum = currentResult.getBuildNumber();
 		Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
 		this.cdresult.setCurrentBuild(currentBuild);
-		//ChainResultsSummary pipeline = currentResult.getChainResultsSummary();
-		//setPipelineStages(pipeline);
+		
+		ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
+		setPipelineStages(pipeline);
 	}
 	
 	private void addAllAuthorsInCommits(List<Commit> commits) {
