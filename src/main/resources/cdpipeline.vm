@@ -1,55 +1,85 @@
+<!-- Velocity file interface to be displayed for CDPipeline -->
 <html>
 	<head>
 		<title>Pipeline Information Radiator - Team Superpipe</title>
-		<meta name="decorator" content="atl.general">
-		<style>			
-			table, th, td{
-				padding: 10px;
-				border: 1px solid black;
-			}
-			
-			tr:hover {
-				background-color: gray;
-			}
-			</style>
+		<!-- applies Atlassian UI -->
+		<meta name="decorator" content="atl.general"> 
+		<!-- makes table sortable -->
+		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-table-sortable")} 
 	</head>
-	
-	<body>
-		<table id="admin">
-			<tr>
-				<th>Users</th>
-				<th>Builds</th>
-				<th>Updates</th>
-			</tr>
-			<tr>
-				<td>Good Team</td>
-				<td>10</td>
-				<td>100</td>
-			</tr>
-			
-			<tr>
-				<td>Bad Team</td>
-				<td>0</td>
-				<td>2</td>
-			</tr>
-			
-			<tr>
-				<td>Mediocre Team</td>
-				<td>4</td>
-				<td>50</td>
-			</tr>
-			
-			<tr>
-				<td>Kinda Good Team</td>
-				<td>3</td>
-				<td>87</td>
-			</tr>
-			
-			<tr>
-				<td>Somewhat Bad Team</td>
-				<td>1</td>
-				<td>0</td>
-			</tr>
-		</table>
+
+
+	<body class="aui-layout aui-style-default">
+		<div id="page">
+		<section id="content" role="main">
+		<!-- header and header-actions -->
+			<header class="aui-page-header">
+  				<div class="aui-page-header-inner">
+  					<div class="aui-page-header-main">
+  						<h1 id="dashboard-instance-name">Pipeline Information Radiator</h1>
+						</div>
+						<div class="aui-page-header-actions">
+							<div class="aui-buttons aui-dropdown2-trigger-group"></div>
+					</div>
+				</div>
+  			</header>
+
+  			<div class="aui-page-panel">
+  				<div class="aui-page-panel-inner">
+	  				<section class="aui-page-panel-content">
+	  				<div class="dashboard-project">
+	  					<div class="aui-message warning">
+  							<span class="aui-icon aui-icon-warning">Info</span> 
+    							currently all hard coded data
+						</div>
+		  				<!-- table of the info -->
+						<table id="pipelineTable" class="aui aui-table-sortable">
+							<!-- Table titles -->
+							<thead>
+								<tr>
+									<th>Project</th>
+									<th>Plan</th>
+									<th>Days since Deployment</th>
+									<th>Changes since Deployment</th>
+									<th>Contributors</th>
+									<th>Current Build</th>
+									<th>Last Update</th>
+									<th>Pipeline Stage</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr>
+									<td>Team Superpipe</td>
+									<td>CDPipeline</td>
+									<td>10</td>
+									<td>100</td>
+									<td>Chenmin, Yunyi, Ariel, Wilbert, Branden [gravatar?]</td>
+									<td>build_v4.0.1</td>
+									<td>Today</td>
+									<td>blah blah blah => blah blah blah</td>
+								</tr>
+
+								<tr>
+									<td>Team Badpipe</td>
+									<td>CruddyPipeline</td>
+									<td>1</td>
+									<td>2</td>
+									<td>Bob, Larry, Leroy, Harry, Mary [gravatar?]</td>
+									<td>build_v1.0.0</td>
+									<td>Three years ago</td>
+									<td>blah blah blah => blah blah blah</td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+					</section>			
+				</div>
+			</section>
+		</div>
+
+		<footer id="footer" class="bamboo-footer">
+
+		</footer>
 	</body>
 </html>

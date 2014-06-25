@@ -6,8 +6,8 @@
     <artifactId>cdpipeline</artifactId>
     <version>1.0-SNAPSHOT</version>
     <organization>
-        <name>Example Company</name>
-        <url>http://www.example.com/</url>
+        <name>Team Superpipe</name>
+        <url>https://confluence.cobalt.com/display/DEV/Team+SuperPipe+Project+page</url>
     </organization>
     <name>cdpipeline</name>
     <description>This is the com.cobalt.cdpipeline:cdpipeline plugin for Atlassian Bamboo.</description>
