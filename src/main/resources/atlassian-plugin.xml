@@ -36,6 +36,9 @@
   <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
   <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
   
+  <component-import key="projectManager" interface="com.atlassian.bamboo.project.ProjectManager" />
+  <component-import key="planManager" interface="com.atlassian.bamboo.plan.PlanManager" />
+  <component-import key="resultsSummaryManager" interface="com.atlassian.bamboo.resultsummary.ResultsSummaryManager" />
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.cdpipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>
     <url-pattern>/cdpipeline</url-pattern>

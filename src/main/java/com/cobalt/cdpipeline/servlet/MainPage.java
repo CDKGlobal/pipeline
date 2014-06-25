@@ -7,25 +7,34 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
+import java.io.IOException;
 import java.net.URI;
+import java.util.List;
+
+import com.atlassian.bamboo.plan.PlanManager;
+import com.atlassian.bamboo.project.ProjectManager;
+import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
-
 import com.atlassian.templaterenderer.TemplateRenderer;
+import com.cobalt.cdpipeline.Controllers.MainManager;
+import com.cobalt.cdpipeline.Models.CDResult;
 
 public class MainPage extends HttpServlet{
     private static final Logger log = LoggerFactory.getLogger(MainPage.class);
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer renderer;
+    private final MainManager mainManager;
    
-    public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer)
+    public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
+    				ProjectManager projectManager, PlanManager planManager, ResultsSummaryManager resultsSummaryManager)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
+      this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager);
     }
    
     @Override

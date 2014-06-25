@@ -8,7 +8,6 @@
 		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-table-sortable")} 
 	</head>
 
-
 	<body class="aui-layout aui-style-default">
 		<div id="page">
 		<section id="content" role="main">
