@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.PlanManager;
+import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
@@ -28,17 +25,17 @@ public class MainManager {
 		this.resultsSummaryManager = resultsSummaryManager;
 	}
 	
-	/*public List<CDResult> getCDResults() {
+	public List<CDResult> getCDResults() {
 		List<CDResult> resultList = new ArrayList<CDResult>();
 		
 		Set<Project> projects = projectManager.getAllProjects();
 		for (Project project : projects) {
 			String projectName = project.getName();
 			
-			List<Plan> plans = planManager.getAllPlansByProject(project, PlanType);
+			List<TopLevelPlan> plans = planManager.getAllPlansByProject(project, TopLevelPlan.class);
 			for (Plan plan : plans) {
 				String planName = plan.getName();
-				List<ResultsSummary> resultSummaryList = resultsSummaryManager.getResultSummariesForPlan(plan, int, int);
+				List<ResultsSummary> resultSummaryList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 				
 				CDResultFactory factory = new CDResultFactory();
 				CDResult result = factory.createCDResult(projectName, planName, resultSummaryList);
@@ -47,5 +44,5 @@ public class MainManager {
 		}
 		
 		return resultList;
-	}*/
+	}
 }
