@@ -8,13 +8,14 @@ import java.util.List;
 import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.commit.Commit;
+import com.atlassian.bamboo.resultsummary.BuildResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactory {
 	private CDResult cdresult;
-	private List<ResultsSummary> buildList;
+	private List<BuildResultsSummary> buildList;
 	
-	public CDResultFactory(String projectName, String planName, List<ResultsSummary> buildList) {
+	public CDResultFactory(String projectName, String planName, List<BuildResultsSummary> buildList) {
 		cdresult = new CDResult(projectName, planName);
 		this.buildList = buildList;
 	}
@@ -34,12 +35,15 @@ public class CDResultFactory {
 	}
 	
 	private void setCurrentBuildInfo() {
-		ResultsSummary currentResult = buildList.get(0);
+		BuildResultsSummary currentResult = buildList.get(0);
 		Date lastUpdate = currentResult.getBuildCompletedDate();
 		this.cdresult.setLastUpdateTime(lastUpdate);
 		String buildKey = currentResult.getBuildKey();
 		int buildNum = currentResult.getBuildNumber();
 		Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
+		this.cdresult.setCurrentBuild(currentBuild);
+		ChainResultsSummary pipeline = currentResult.getChainResultsSummary();
+		setPipelineStages(pipeline);
 	}
 	
 	private void addAllAuthorsInCommits(List<Commit> commits) {
