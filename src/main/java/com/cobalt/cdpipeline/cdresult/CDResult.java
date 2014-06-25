@@ -44,15 +44,6 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return last deployment date and time.
-	 * Return null if there's no deployment yet.
-	 * @return
-	 */
-	public Date getLastDeploymentTime(){
-		return this.lastDeploymentTime;
-	}
-	
-	/**
 	 * Set lastUpdate time to the given date.
 	 * Access modifier left out intentionally for package protection.
 	 * 
@@ -60,14 +51,6 @@ public class CDResult {
 	 */
 	void setLastUpdateTime(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
-	}
-	
-	/**
-	 * Return last update date and time
-	 * @return
-	 */
-	public Date getLastUpdateTime(){
-		return this.lastUpdate;
 	}
 	
 	/**
@@ -81,14 +64,6 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return changes(commits) since last deployment
-	 * @return
-	 */
-	public int getNumChanges(){
-		return this.numChanges;
-	}
-	
-	/**
 	 * Add given contributor to contributors set.
 	 * Access modifier left out intentionally for package protection.
 	 * 
@@ -96,14 +71,6 @@ public class CDResult {
 	 */
 	void addContributor(Contributor contributor) {
 		contributors.add(contributor);
-	}
-	
-	/**
-	 * Return all contributors since last deployment
-	 * @return
-	 */
-	public Set<Contributor> getContributors(){
-		return this.contributors;
 	}
 	
 	/**
@@ -117,27 +84,11 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return all pipeline stages of the current build.
-	 * @return
-	 */
-	public List<PipelineStage> getPipelineStages(){
-		return this.pipelineStages;
-	}
-	
-	/**
 	 * Set current build information with the given Build
 	 * @param current
 	 */
 	void setCurrentBuild(Build current){
 		this.currentBuild = current;
-	}
-	
-	/**
-	 * Return current build information.
-	 * @return
-	 */
-	public Build getCurrentBuild(){
-		return this.currentBuild;
 	}
 	
 	/**
@@ -154,5 +105,70 @@ public class CDResult {
 	 */
 	public String getPlanName() {
 		return planName;
+	}
+	
+	/**
+	 * Return last deployment date and time.
+	 * Return null if there's no deployment yet.
+	 * @return
+	 */
+	public Date getLastDeploymentTime(){
+		return this.lastDeploymentTime;
+	}
+	
+	/**
+	 * Return days since last deployment until given date
+	 * Return -1 if given date is before last deployment date or 
+	 * no last deployment is found.
+	 * @param currentDate
+	 * @return
+	 */
+	public int getDaysSinceDeploymentFrom(Date currentDate){
+		if(this.lastDeploymentTime == null || this.lastDeploymentTime.compareTo(currentDate) > 0){
+			return -1;
+		}
+		long deploymentTime = this.lastDeploymentTime.getTime();
+		long currentTime = currentDate.getTime();
+		return (int) ((currentTime - deploymentTime) / (1000 * 60 * 60 * 24));
+	}
+	
+	/**
+	 * Return last update date and time
+	 * @return
+	 */
+	public Date getLastUpdateTime(){
+		return this.lastUpdate;
+	}
+	
+	/**
+	 * Return changes(commits) since last deployment
+	 * @return
+	 */
+	public int getNumChanges(){
+		return this.numChanges;
+	}
+	
+	/**
+	 * Return current build information.
+	 * @return
+	 */
+	public Build getCurrentBuild(){
+		return this.currentBuild;
+	}
+	
+	/**
+	 * Return all contributors since last deployment
+	 * @return
+	 */
+	public Set<Contributor> getContributors(){
+		return this.contributors;
+	}
+	
+	/**
+	 * Return all pipeline stages of the current build.
+	 * @return
+	 */
+	public List<PipelineStage> getPipelineStages(){
+		return this.pipelineStages;
 	}
 }
