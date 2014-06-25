@@ -1,5 +1,7 @@
 package com.cobalt.cdpipeline.cdresult;
 
+import java.util.HashSet;
+
 /**
  * 
  */
@@ -23,5 +25,20 @@ public class Contributor {
 		return username;
 	}
 	
-	// TODO override equals
+	@Override
+	public boolean equals(Object o){
+		if (o instanceof Contributor){
+			Contributor other = (Contributor) o;
+			if(other.username.equals(this.username)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode(){
+		return this.username.hashCode();
+	}
+	
 }
