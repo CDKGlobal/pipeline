@@ -1,16 +1,18 @@
 package com.cobalt.cdpipeline.cdresult;
 
+import com.atlassian.bamboo.builder.BuildState;
+
 /**
  * 
  *
  */
 public class PipelineStage {
-	public static final int STATE_FAILED = 0;
-	public static final int STATE_UNKNOWN = 1;
-	public static final int STATE_SUCCESSFUL = 2;
+	public static final BuildState STATE_FAILED = BuildState.FAILED;
+	public static final BuildState STATE_UNKNOWN = BuildState.UNKNOWN;
+	public static final BuildState STATE_SUCCESSFUL = BuildState.SUCCESS;
 	
 	private String stageName;
-	private int state;
+	private BuildState state;
 	
 	/**
 	 * Constructs a PipelineStage object.
@@ -18,15 +20,9 @@ public class PipelineStage {
 	 * @param stageName name of this pipeline stage
 	 * @param state state of this pipeline stage in the build
 	 */
-	public PipelineStage(String stageName, String state) {
+	public PipelineStage(String stageName, BuildState state) {
 		this.stageName = stageName;
-		
-		if (state.equals("Failed"))
-			this.state = PipelineStage.STATE_FAILED;
-		else if (state.equals("Successful"))
-			this.state = PipelineStage.STATE_SUCCESSFUL;
-		else
-			this.state = PipelineStage.STATE_UNKNOWN;
+		this.state = state;
 	}
 	
 	/**
@@ -43,7 +39,7 @@ public class PipelineStage {
 	 * 
 	 * @return the state, which can be FAILED, UNKNOWN, or SUCCESSFUL.
 	 */
-	public int getState() {
+	public BuildState getState() {
 		return state;
 	}
 }
