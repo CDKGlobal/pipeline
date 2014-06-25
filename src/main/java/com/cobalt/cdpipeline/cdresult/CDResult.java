@@ -43,6 +43,15 @@ public class CDResult {
 	}
 	
 	/**
+	 * Return last deployment date and time.
+	 * Return null if there's no deployment yet.
+	 * @return
+	 */
+	public Date getLastDeploymentTime(){
+		return this.lastDeploymentTime;
+	}
+	
+	/**
 	 * Set lastUpdate time to the given date.
 	 * Scope identifier left out intentionally for package protection.
 	 * 
@@ -50,6 +59,14 @@ public class CDResult {
 	 */
 	void setLastUpdateTime(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+	
+	/**
+	 * Return last update date and time
+	 * @return
+	 */
+	public Date getLastUpdateTime(){
+		return this.lastUpdate;
 	}
 	
 	/**
@@ -63,13 +80,29 @@ public class CDResult {
 	}
 	
 	/**
+	 * Return changes(commits) since last deployment
+	 * @return
+	 */
+	public int getNumChanges(){
+		return this.numChanges;
+	}
+	
+	/**
 	 * Add given contributor to contributors set.
 	 * Scope identifier left out intentionally for package protection.
 	 * 
 	 * @param contributor
 	 */
-	void addContributorToSet(Contributor contributor) {
+	void addContributor(Contributor contributor) {
 		contributors.add(contributor);
+	}
+	
+	/**
+	 * Return all contributors since last deployment
+	 * @return
+	 */
+	public Set<Contributor> getContributors(){
+		return this.contributors;
 	}
 	
 	/**
@@ -80,6 +113,30 @@ public class CDResult {
 	 */
 	void addPipelineStageToList(PipelineStage stage) {
 		pipelineStages.add(stage);
+	}
+	
+	/**
+	 * Return all pipeline stages of the current build.
+	 * @return
+	 */
+	public List<PipelineStage> getPipelineStages(){
+		return this.pipelineStages;
+	}
+	
+	/**
+	 * Set current build information with the given Build
+	 * @param current
+	 */
+	void setCurrentBuild(Build current){
+		this.currentBuild = current;
+	}
+	
+	/**
+	 * Return current build information.
+	 * @return
+	 */
+	public Build getCurrentBuild(){
+		return this.currentBuild;
 	}
 	
 	/**
