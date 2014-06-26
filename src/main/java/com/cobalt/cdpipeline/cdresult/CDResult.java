@@ -1,6 +1,7 @@
 package com.cobalt.cdpipeline.cdresult;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -118,7 +119,7 @@ public class CDResult {
 	 * @return date/time of last deployment
 	 */
 	public Date getLastDeploymentTime(){
-		return this.lastDeploymentTime;
+		return new Date(lastDeploymentTime.getTime());
 	}
 	
 	/**
@@ -143,8 +144,8 @@ public class CDResult {
 	 * 
 	 * @return date/time of last update
 	 */
-	public Date getLastUpdateTime(){
-		return this.lastUpdate;
+	public Date getLastUpdateTime(){		
+		return new Date(lastUpdate.getTime());
 	}
 	
 	/**
@@ -173,7 +174,7 @@ public class CDResult {
 	 * @return a Set of Contributor
 	 */
 	public Set<Contributor> getContributors(){
-		return this.contributors;
+		return Collections.unmodifiableSet(contributors);
 	}
 	
 	/**
@@ -182,6 +183,6 @@ public class CDResult {
 	 * @return a List of PipelineStates with the list starting with the first stage.
 	 */
 	public List<PipelineStage> getPipelineStages(){
-		return this.pipelineStages;
+		return Collections.unmodifiableList(pipelineStages);
 	}
 }
