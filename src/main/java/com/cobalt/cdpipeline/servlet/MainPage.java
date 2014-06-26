@@ -1,5 +1,9 @@
 package com.cobalt.cdpipeline.servlet;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import com.google.common.collect.Maps;
 
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
@@ -46,9 +53,12 @@ public class MainPage extends HttpServlet{
         redirectToLogin(request, response);
         return;
       }
-      
+
+      List<CDResult> resultList = mainManager.getCDResults();
+      Map<String, Object> context =  Maps.newHashMap();
+      context.put("results", resultList);
       response.setContentType("text/html;charset=utf-8");
-      renderer.render("cdpipeline.vm", response.getWriter());
+      renderer.render("cdpipeline.vm", context, response.getWriter());
     }
     
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException
