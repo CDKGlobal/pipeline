@@ -27,9 +27,9 @@
   				<div class="aui-page-panel-inner">
 	  				<section class="aui-page-panel-content">
 	  				<div class="dashboard-project">
-	  					<div class="aui-message warning">
-  							<span class="aui-icon aui-icon-warning">Info</span> 
-    							currently all hard coded data
+	  					<div class="aui-message info">
+  							<span class="aui-icon aui-icon-info">Info</span> 
+    							currently all not hard coded data
 						</div>
 		  				<!-- table of the info -->
 						<table id="pipelineTable" class="aui aui-table-sortable">
@@ -48,38 +48,52 @@
 							</thead>
 
 							<tbody>
+							#foreach ($result in $results)
 								<tr>
-									<td>Team Superpipe</td>
-									<td>CDPipeline</td>
-									<td>10</td>
-									<td>100</td>
-									<td>Chenmin, Yunyi, Ariel, Wilbert, Branden [gravatar?]</td>
-									<td>build_v4.0.1</td>
-									<td>Today</td>
-									<td>blah blah blah => blah blah blah</td>
-								</tr>
+									<td>$result.projectName</td>
+									<td>$result.planName</td>
+									<td>
+										#set ($days = $result.getDaysSinceDeploymentFromCurrent())
+										#if ($days == -1)
+											-
+										#else
+											$days
+										#end
+									</td>
+									<td>$result.numChanges</td>
+									<td>
 
-								<tr>
-									<td>Team Badpipe</td>
-									<td>CruddyPipeline</td>
-									<td>1</td>
-									<td>2</td>
-									<td>Bob, Larry, Leroy, Harry, Mary [gravatar?]</td>
-									<td>build_v1.0.0</td>
-									<td>Three years ago</td>
-									<td>blah blah blah => blah blah blah</td>
+										#set ($setContributors = $result.getContributors())
+										#set ($contributorSize = $setContributors.size())
+										#if ($contributorSize == 0)
+											-
+										#else
+											#set ($contributorCount = 1)
+											#foreach ($contributor in $setContributors)
+												$contributor.username
+												#if ($contributorCount < $ContributorSize)
+													,
+												#end
+												#set ($contributorCount = $contributorCount + 1)
+											#end
+										#end
+									</td>
+									<td>$result.getCurrentBuild().buildNumber</td>
+									<td>$result.lastUpdateTime</td>
+									<td>
+										#set ($pipelineCount = 1)
+										#set ($pipelineSet = $result.getPipelineStages())
+										#set ($pipelineSize = $pipelineSet.size())
+										#foreach ($pipeline in $pipelineSet)
+											$pipeline.stageName [$pipeline.state]
+											#if ($pipelineCount < $pipelineSize)
+												=>
+											#end
+											#set ($pipelineCount = $pipelineCount + 1)
+										#end
+									</td>
 								</tr>
-
-								<tr>
-									<td>Panda Team</td>
-									<td>Fail work</td>
-									<td>100</td>
-									<td>6900</td>
-									<td>AAA BBB CCC DDD EEE [gravatar?]</td>
-									<td>build_v0.0.6</td>
-									<td>18 days ago</td>
-									<td>blah blah blah => blah blah blah</td>
-								</tr>
+							#end
 							</tbody>
 						</table>
 						</div>
