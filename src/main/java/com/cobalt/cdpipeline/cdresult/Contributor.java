@@ -1,10 +1,5 @@
 package com.cobalt.cdpipeline.cdresult;
 
-import java.util.HashSet;
-
-/**
- * 
- */
 public class Contributor {
 	private String username;
 	
@@ -18,7 +13,7 @@ public class Contributor {
 	}
 	
 	/**
-	 * Gets the username of this.
+	 * Gets the username of this contributor.
 	 * @return the username
 	 */
 	public String getUsername() {
