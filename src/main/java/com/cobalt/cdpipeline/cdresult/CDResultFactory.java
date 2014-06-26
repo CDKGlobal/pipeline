@@ -14,7 +14,11 @@ public class CDResultFactory {
 	private List<ResultsSummary> buildList;
 	
 	public CDResultFactory(String projectName, String planName, List<ResultsSummary> buildList) {
-		cdresult = new CDResult(projectName, planName);
+		// planName is in the format of "[project] - [plan]"
+		// Strip planName so that it contains purely the plan's name.
+		String strippedPlanName = planName.substring(projectName.length() + 3);
+		
+		cdresult = new CDResult(projectName, strippedPlanName);
 		this.buildList = buildList;
 	}
 	
