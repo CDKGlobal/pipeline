@@ -119,6 +119,9 @@ public class CDResult {
 	 * @return date/time of last deployment
 	 */
 	public Date getLastDeploymentTime(){
+		if(lastDeploymentTime == null){
+			return null;
+		}
 		return new Date(lastDeploymentTime.getTime());
 	}
 	
@@ -144,8 +147,12 @@ public class CDResult {
 	 * 
 	 * @return date/time of last update
 	 */
-	public Date getLastUpdateTime(){		
-		return new Date(lastUpdate.getTime());
+	public Date getLastUpdateTime(){
+		if(lastUpdate == null){
+			return null;
+		}else{
+			return new Date(lastUpdate.getTime());
+		}
 	}
 	
 	/**
