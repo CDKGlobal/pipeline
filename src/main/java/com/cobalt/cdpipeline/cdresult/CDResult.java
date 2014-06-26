@@ -42,7 +42,7 @@ public class CDResult {
 	 * @param lastDeployment
 	 */
 	void setLastDeploymentTime(Date lastDeployment) {
-		this.lastDeploymentTime = lastDeployment;
+		this.lastDeploymentTime = new Date(lastDeployment.getTime());
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class CDResult {
 	 * @param lastUpdate
 	 */
 	void setLastUpdateTime(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
+		this.lastUpdate = new Date(lastUpdate.getTime());
 	}
 	
 	/**
