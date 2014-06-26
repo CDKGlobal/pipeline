@@ -3,8 +3,7 @@ package com.cobalt.cdpipeline.cdresult;
 import com.atlassian.bamboo.builder.BuildState;
 
 /**
- * 
- *
+ * Represents a single stage in the pipeline.
  */
 public class PipelineStage {
 	public static final BuildState STATE_FAILED = BuildState.FAILED;
@@ -36,8 +35,11 @@ public class PipelineStage {
 	
 	/**
 	 * Gets the state of this pipeline stage.
+	 * To get String representation of the state, use toString().
+	 * To determine the state, compare state to STATE_FAILED, STATE_UNKNOWN,
+	 * or STATE_SUCCESSFUL.
 	 * 
-	 * @return the state, which can be FAILED, UNKNOWN, or SUCCESSFUL.
+	 * @return the state, which can be STATE_FAILED, STATE_UNKNOWN, or STATE_SUCCESSFUL.
 	 */
 	public BuildState getState() {
 		return state;

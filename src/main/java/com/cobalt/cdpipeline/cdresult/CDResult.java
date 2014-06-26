@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ * CDResult contains all the information needed for one single row
+ * of the table display for CDPipeline Plugin Project.
  */
 public class CDResult {
 	private String projectName, planName;
@@ -84,7 +85,8 @@ public class CDResult {
 	}
 	
 	/**
-	 * Set current build information with the given Build
+	 * Set current build information to the given Build
+	 * 
 	 * @param current
 	 */
 	void setCurrentBuild(Build current){
@@ -92,16 +94,18 @@ public class CDResult {
 	}
 	
 	/**
-	 * Get project name
-	 * @return
+	 * Get the project name associated with this result.
+	 * 
+	 * @return project name
 	 */
 	public String getProjectName() {
 		return projectName;
 	}
 	
 	/**
-	 * Get plan name
-	 * @return
+	 * Get the plan name associated with this result.
+	 * 
+	 * @return plan name
 	 */
 	public String getPlanName() {
 		return planName;
@@ -110,7 +114,8 @@ public class CDResult {
 	/**
 	 * Return last deployment date and time.
 	 * Return null if there's no deployment yet.
-	 * @return
+	 * 
+	 * @return date/time of last deployment
 	 */
 	public Date getLastDeploymentTime(){
 		return this.lastDeploymentTime;
@@ -120,8 +125,9 @@ public class CDResult {
 	 * Return days since last deployment until given date
 	 * Return -1 if given date is before last deployment date or 
 	 * no last deployment is found.
-	 * @param currentDate
-	 * @return
+	 * 
+	 * @param currentDate The date to compare to
+	 * @return the number of days from last deployment date to given date
 	 */
 	public int getDaysSinceDeploymentFrom(Date currentDate){
 		if(this.lastDeploymentTime == null || this.lastDeploymentTime.compareTo(currentDate) > 0){
@@ -133,8 +139,9 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return last update date and time
-	 * @return
+	 * Return last update (the most current build) date and time
+	 * 
+	 * @return date/time of last update
 	 */
 	public Date getLastUpdateTime(){
 		return this.lastUpdate;
@@ -142,7 +149,8 @@ public class CDResult {
 	
 	/**
 	 * Return changes(commits) since last deployment
-	 * @return
+	 * 
+	 * @return number of changes since last deployment
 	 */
 	public int getNumChanges(){
 		return this.numChanges;
@@ -150,15 +158,18 @@ public class CDResult {
 	
 	/**
 	 * Return current build information.
-	 * @return
+	 * 
+	 * @return a Build object that contains information about the most
+	 *         current build.
 	 */
 	public Build getCurrentBuild(){
 		return this.currentBuild;
 	}
 	
 	/**
-	 * Return all contributors since last deployment
-	 * @return
+	 * Return all contributors since last deployment.
+	 * 
+	 * @return a Set of Contributor
 	 */
 	public Set<Contributor> getContributors(){
 		return this.contributors;
@@ -166,7 +177,8 @@ public class CDResult {
 	
 	/**
 	 * Return all pipeline stages of the current build.
-	 * @return
+	 * 
+	 * @return a List of PipelineStates with the list starting with the first stage.
 	 */
 	public List<PipelineStage> getPipelineStages(){
 		return this.pipelineStages;
