@@ -133,7 +133,8 @@ public class CDResult {
 	 * @param currentDate The date to compare to
 	 * @return the number of days from last deployment date to given date
 	 */
-	public int getDaysSinceDeploymentFrom(Date currentDate){
+	public int getDaysSinceDeploymentFromCurrent(){
+		Date currentDate = new Date();
 		if(this.lastDeploymentTime == null || this.lastDeploymentTime.compareTo(currentDate) > 0){
 			return -1;
 		}
