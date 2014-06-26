@@ -158,6 +158,7 @@ public class CDResult {
 	
 	/**
 	 * Return current build information.
+	 * Return null if there's no build yet.
 	 * 
 	 * @return a Build object that contains information about the most
 	 *         current build.
