@@ -33,6 +33,9 @@ public class MainManager {
 	 */
 	public MainManager(ProjectManager projectManager, PlanManager planManager, 
 			                       ResultsSummaryManager resultsSummaryManager) {
+        if (projectManager == null || planManager == null || resultsSummaryManager == null) {
+            throw new IllegalArgumentException("Null arguments not allowed");
+        }
 		this.projectManager = projectManager;
 		this.planManager = planManager;
 		this.resultsSummaryManager = resultsSummaryManager;
