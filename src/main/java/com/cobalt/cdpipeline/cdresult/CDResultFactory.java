@@ -1,15 +1,12 @@
 package com.cobalt.cdpipeline.cdresult;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
 
 import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.ChainStageResult;
 import com.atlassian.bamboo.commit.Commit;
-import com.atlassian.bamboo.resultsummary.BuildResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactory {
@@ -21,6 +18,13 @@ public class CDResultFactory {
 		this.buildList = buildList;
 	}
 	
+	/**
+	 * Return a CDResult with project name, plan name, days, changes, contributors info since
+	 * last deployment and current build information (name, last update time, pipeline stages
+	 * with status) based on the given projectName, planName and all builds when construct.
+	 * 
+	 * @return
+	 */
 	public CDResult createCDResult() {
 		setLastDeploymentInfo();
 		setCurrentBuildInfo();
@@ -28,6 +32,11 @@ public class CDResultFactory {
 		return cdresult;
 	}
 	
+	/*
+	 * Set the days, changes and contributors info since last deployment.
+	 * Days will be -1 if there's no deployment.
+	 * Changes and contributors will be all since the first build.
+	 */
 	private void setLastDeploymentInfo() {
 		int totalChanges = 0;		
 		// Find the last completed build in buildList
@@ -56,19 +65,33 @@ public class CDResultFactory {
 		cdresult.setNumChanges(totalChanges + buildList.get(0).getCommits().size());	
 	}
 	
+	/*
+	 * Set the current build information (build number, build key...), last build
+	 * updated time and all pipeline stages.
+	 * Current build may be null if there's no builds in build list.
+	 * last build updated time may be null if it hasn't finished the first stage.
+	 */
 	private void setCurrentBuildInfo() {
-		ResultsSummary currentResult = buildList.get(0);
-		Date lastUpdate = currentResult.getBuildCompletedDate();
-		this.cdresult.setLastUpdateTime(lastUpdate);
-		String buildKey = currentResult.getBuildKey();
-		int buildNum = currentResult.getBuildNumber();
-		Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
-		this.cdresult.setCurrentBuild(currentBuild);
-		
-		ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
-		setPipelineStages(pipeline);
+		if(buildList != null && buildList.size() > 0){
+			
+			// get the last build and set current build info.
+			ResultsSummary currentResult = buildList.get(0);
+			Date lastUpdate = currentResult.getBuildCompletedDate();
+			this.cdresult.setLastUpdateTime(lastUpdate);
+			String buildKey = currentResult.getBuildKey();
+			int buildNum = currentResult.getBuildNumber();
+			Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
+			this.cdresult.setCurrentBuild(currentBuild);
+			
+			// set the pipeline stages.
+			ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
+			setPipelineStages(pipeline);
+		}
 	}
 	
+	/*
+	 * Add all contributors of the given commits to the contributors list.
+	 */
 	private void addAllAuthorsInCommits(List<Commit> commits) {
 		for(Commit c : commits){
 			Author author = c.getAuthor();
