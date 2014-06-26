@@ -53,24 +53,7 @@ public class MainPage extends HttpServlet{
         redirectToLogin(request, response);
         return;
       }
-//      VelocityEngine velocity = new VelocityEngine();
-//      velocity.init();
-      
-     
-//      Template temp = velocity.getTemplate("cdpipeline.vm");
-//      
-//      VelocityContext context = new VelocityContext();
-//      context.put("results", resultList);
-//      StringWriter writer = new StringWriter();
-//      temp.merge(context, writer);
-//      System.out.println(writer);
-      
-      
-   // Create the Velocity Context
-//      Map context = MacroUtils.defaultVelocityContext();
-//      context.put("results", resultList);
-//      // Render the Template
-//      String result = VelocityUtils.getRenderedTemplate("cdpipeline.vm", context);
+
       List<CDResult> resultList = mainManager.getCDResults();
       Map<String, Object> context =  Maps.newHashMap();
       context.put("results", resultList);
