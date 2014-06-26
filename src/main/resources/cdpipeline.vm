@@ -3,7 +3,7 @@
 	<head>
 		<title>Pipeline Information Radiator - Team Superpipe</title>
 		<!-- applies Atlassian UI -->
-		<meta name="decorator" content="atl.general"> 
+		<meta name="decorator" content="deploymentMinimal"> 
 		<!-- makes table sortable -->
 		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-table-sortable")} 
 	</head>
@@ -67,6 +67,17 @@
 									<td>Bob, Larry, Leroy, Harry, Mary [gravatar?]</td>
 									<td>build_v1.0.0</td>
 									<td>Three years ago</td>
+									<td>blah blah blah => blah blah blah</td>
+								</tr>
+
+								<tr>
+									<td>Panda Team</td>
+									<td>Fail work</td>
+									<td>100</td>
+									<td>6900</td>
+									<td>AAA BBB CCC DDD EEE [gravatar?]</td>
+									<td>build_v0.0.6</td>
+									<td>18 days ago</td>
 									<td>blah blah blah => blah blah blah</td>
 								</tr>
 							</tbody>

@@ -16,7 +16,6 @@
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
-    <resource type="download" name="aui-experimental-tables-sortable.js" location="/js/aui-experimental-tables-sortable.js"/>
     <resource type="download" name="images/" location="/images"/>
 	<context>cdpipeline</context>
   </web-resource>
