@@ -11,7 +11,7 @@ import com.cobalt.cdpipeline.cdresult.Contributor;
 
 public class ContributorTest {
 	Contributor super1, super2, super3;
-    
+    	
     @Before
     public void setup() {
         super1 = new Contributor("super pipe");
@@ -19,6 +19,8 @@ public class ContributorTest {
         super3 = new Contributor("SUPER PIPE");
     }
     
+	// test constructor
+
 	@Test
 	public void test_constuctor() {
 		new Contributor("Like Boss");
