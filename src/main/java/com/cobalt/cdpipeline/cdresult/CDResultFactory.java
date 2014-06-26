@@ -41,7 +41,7 @@ public class CDResultFactory {
 	 * Days will be -1 if there's no deployment.
 	 * Changes and contributors will be all since the first build.
 	 */
-	private void setLastDeploymentInfo() {
+	protected void setLastDeploymentInfo() {
 		int totalChanges = 0;		
 		// Find the last completed build in buildList
 		int totalBuilds = buildList.size();
@@ -81,7 +81,7 @@ public class CDResultFactory {
 	 * Current build may be null if there's no builds in build list.
 	 * last build updated time may be null if it hasn't finished the first stage.
 	 */
-	private void setCurrentBuildInfo() {
+	protected void setCurrentBuildInfo() {
 		if(buildList != null && buildList.size() > 0){
 			
 			// get the last build and set current build info.
@@ -102,7 +102,7 @@ public class CDResultFactory {
 	/*
 	 * Add all contributors of the given commits to the contributors list.
 	 */
-	private void addAllAuthorsInCommits(List<Commit> commits) {
+	protected void addAllAuthorsInCommits(List<Commit> commits) {
 		for(Commit c : commits){
 			Author author = c.getAuthor();
 			Contributor contributor = new Contributor(author.getFullName());
@@ -113,7 +113,7 @@ public class CDResultFactory {
 	/*
 	 * Set the list of PipelineStage in cdresult with the given build result.
 	 */
-	private void setPipelineStages(ChainResultsSummary buildResult) {
+	protected void setPipelineStages(ChainResultsSummary buildResult) {
 		List<ChainStageResult> stages = buildResult.getStageResults();
 
 		for (ChainStageResult stageResult : stages) {
