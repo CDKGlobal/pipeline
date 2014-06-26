@@ -41,6 +41,12 @@ public class CDResultFactory {
 		int totalChanges = 0;		
 		// Find the last completed build in buildList
 		int totalBuilds = buildList.size();
+		
+		// add changes and contributors of the first build
+		// into cdresult
+		totalChanges += buildList.get(0).getCommits().size();
+		addAllAuthorsInCommits(buildList.get(0).getCommits());
+				
 		int currBuildNum = 1; 	// skip the curr build
 		ResultsSummary currBuild = null;
 		cdresult.setLastDeploymentTime(null);
@@ -62,7 +68,7 @@ public class CDResultFactory {
 			currBuildNum++;
 		}			
 		// set #changes (contributors and date are set in the progress)
-		cdresult.setNumChanges(totalChanges + buildList.get(0).getCommits().size());	
+		cdresult.setNumChanges(totalChanges);
 	}
 	
 	/*
