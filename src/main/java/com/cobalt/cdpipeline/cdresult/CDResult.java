@@ -82,6 +82,14 @@ public class CDResult {
 	}
 	
 	/**
+	 * Resets the pipelineStages list to an empty list.
+	 * Access modifier left out intentionally for package protection.
+	 */
+	void resetPipelineStagesList() {
+		pipelineStages.clear();
+	}
+	
+	/**
 	 * Add given PipelineStage to the pipelineStages list.
 	 * By default, pipelineStages will be an empty list.
 	 * Access modifier left out intentionally for package protection.
