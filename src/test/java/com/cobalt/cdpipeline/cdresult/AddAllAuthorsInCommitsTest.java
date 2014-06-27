@@ -1,13 +1,104 @@
 package com.cobalt.cdpipeline.cdresult;
 
+import static org.mockito.Mockito.mock;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.junit.Before;
 import org.junit.Test;
 
+import com.atlassian.bamboo.author.Author;
+import com.atlassian.bamboo.commit.Commit;
+import com.atlassian.bamboo.resultsummary.ResultsSummary;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 public class AddAllAuthorsInCommitsTest {
 
+	private static final int COMMIT_LIST_SIZE = 10;
+	CDResultFactory cdfac; 
+	
+	@Before
+	public void setup() {
+		cdfac = new CDResultFactory("project", "project - plan", new ArrayList<ResultsSummary>());		
+	}
+	
 	@Test
-	public void testAddAllAuthorsInCommits() throws Exception {
-		throw new RuntimeException("not yet implemented");
+	public void testNoCommit() {
+		List<Commit> commits = createCommitListWithoutAuthors(0);
+    	cdfac.addAllAuthorsInCommits(commits);
+    	assertEquals("0 commit should have 0 contributor", 0, cdfac.cdresult.getContributors().size());   
+	}
+		
+	@Test
+	public void testOneCommit() {
+		List<Commit> commits = createCommitListWithoutAuthors(1);
+		List<Author> authors = createAuthorListWithoutName(1);
+		for (int i = 0; i < 1; i++) {
+	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
+		}
+    	cdfac.addAllAuthorsInCommits(commits);
+    	assertEquals("1 commit and 1 contributor", 1, cdfac.cdresult.getContributors().size());  
+	}
+		
+	@Test
+	public void testManyCommitsUniqueAuthors() {
+		// create lists of commits and their corresponding authors
+		List<Commit> commits = createCommitListWithoutAuthors(COMMIT_LIST_SIZE);
+		List<Author> authors = createAuthorListWithoutName(10);
+		// assign unique authors to each commit
+		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
+	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
+		}
+
+    	cdfac.addAllAuthorsInCommits(commits);
+    	// check that all unique authors are counted
+    	assertEquals("10 commits, each w/ unique contributor", COMMIT_LIST_SIZE, cdfac.cdresult.getContributors().size());    	
+	}
+	
+	@Test
+	public void testMultipleCommitsDuplicateAuthors() {
+		List<Commit> commits = createCommitListWithoutAuthors(COMMIT_LIST_SIZE);
+		List<Author> authors = createAuthorListWithoutName(3);
+		// randomly assign authors to commits (#authors < #commits)
+		Random r = new Random();			
+		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
+	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(r.nextInt(3)));
+		}
+		
+    	cdfac.addAllAuthorsInCommits(commits);
+    	// check the duplicate authors are only counted once
+    	assertEquals("10 commits w/ duplicate contributors", 3, cdfac.cdresult.getContributors().size()); 	
+	}
+	
+	
+	// private helper methods
+	
+	/*
+	 * Create a list of commits w/o assigning them the authors
+	 */
+	private List<Commit> createCommitListWithoutAuthors(int numCommits) {
+		List<Commit> commits = new ArrayList<Commit>();
+		for (int i = 0; i < numCommits; i++) {
+			commits.add(mock(Commit.class));
+		}
+		return commits;
 	}
 
+	/*
+	 * Create a list of authors w/o assigning them the names
+	 */
+	private List<Author> createAuthorListWithoutName(int numAuthors) {
+		List<Author> authors = new ArrayList<Author>();
+		for (int i = 0; i < numAuthors; i++) {
+			authors.add(mock(Author.class));
+		}
+		for (int i = 0; i < numAuthors; i++) {
+	    	when(authors.get(i).getFullName()).thenReturn("author" + i);
+		}
+		return authors;
+	}
 }
