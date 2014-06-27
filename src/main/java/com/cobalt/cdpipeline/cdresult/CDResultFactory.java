@@ -37,44 +37,41 @@ public class CDResultFactory {
 	}
 	
 	/*
-	 * Set the days, changes and contributors info since last deployment.
-	 * If there's no deployment, days since last deployment will be -1,
-	 * changes and contributors will be all since the first build.
+	 * Set the lastDeploymentTime, numChanges, and contributors info since last
+	 * deployment in the cdresult. 
+	 * If there are no builds, cdresult will maintain the default values. 
+	 * If there are no last deployment, lastDeploymentTime will be default, and 
+	 * changes and contributors will be since the first build.
 	 */
 	protected void setLastDeploymentInfo() {
+		// don't need to set anything if there are no builds at all
 		if(buildList == null || buildList.size() <= 0){
 			return;
 		}
 		
-		int totalChanges = 0;		
-		// Find the last completed build in buildList
-		int totalBuilds = buildList.size();
+		// At this point: at least one build in the build list
+		
+		int totalChanges = 0;
 		
 		// add changes and contributors of the first build
 		// into cdresult
 		totalChanges += buildList.get(0).getCommits().size();
 		addAllAuthorsInCommits(buildList.get(0).getCommits());
-				
-		int currBuildNum = 1; 	// skip the curr build
-		ResultsSummary currBuild = null;
-		cdresult.setLastDeploymentTime(null);
 		
-		while (currBuildNum < totalBuilds) { 
-			currBuild = buildList.get(currBuildNum);	
-			// check completed
-			ChainResultsSummary crs = (ChainResultsSummary) currBuild;
-			if (!crs.isContinuable() && crs.isSuccessful()) {
-				cdresult.setLastDeploymentTime(currBuild.getBuildCompletedDate()); 
-				break;
-			}		
-			List<Commit> commits = currBuild.getCommits();
-			int changesInCurrBuild = currBuild.getCommits().size();			
-			// update the 2 counts
-			totalChanges += changesInCurrBuild;
-			addAllAuthorsInCommits(commits);
+		for (int i = 1; i < buildList.size(); i++) { 
+			ChainResultsSummary currentBuild = (ChainResultsSummary) buildList.get(i);	
 			
-			currBuildNum++;
-		}			
+			// check if current build is the last deployment
+			if (!currentBuild.isContinuable() && currentBuild.isSuccessful()) {
+				cdresult.setLastDeploymentTime(currentBuild.getBuildCompletedDate()); 
+				break;
+			}
+			
+			List<Commit> commits = currentBuild.getCommits();
+			totalChanges += commits.size();
+			addAllAuthorsInCommits(commits);
+		}
+		
 		// set #changes (contributors and date are set in the progress)
 		cdresult.setNumChanges(totalChanges);
 	}

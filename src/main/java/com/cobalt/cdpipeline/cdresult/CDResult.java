@@ -37,26 +37,31 @@ public class CDResult {
 	
 	/**
 	 * Set lastDeploymentTime to the given date.
+	 * By default, the lastDeploymentTime will be null.
 	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param lastDeployment
 	 */
 	void setLastDeploymentTime(Date lastDeployment) {
-		this.lastDeploymentTime = new Date(lastDeployment.getTime());
+		if(lastDeployment != null)
+			this.lastDeploymentTime = new Date(lastDeployment.getTime());
 	}
 	
 	/**
 	 * Set lastUpdate time to the given date.
+	 * By default, the lastUpdateTime will be null.
 	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param lastUpdate
 	 */
 	void setLastUpdateTime(Date lastUpdate) {
-		this.lastUpdate = new Date(lastUpdate.getTime());
+		if(lastUpdate != null)
+			this.lastUpdate = new Date(lastUpdate.getTime());
 	}
 	
 	/**
 	 * Set number of changes to the given number.
+	 * By default, numChanges will be 0.
 	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param numChanges
@@ -67,6 +72,7 @@ public class CDResult {
 	
 	/**
 	 * Add given contributor to contributors set.
+	 * By default, contributors will be an empty list.
 	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param contributor
@@ -77,6 +83,7 @@ public class CDResult {
 	
 	/**
 	 * Add given PipelineStage to the pipelineStages list.
+	 * By default, pipelineStages will be an empty list.
 	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param stage
@@ -86,7 +93,8 @@ public class CDResult {
 	}
 	
 	/**
-	 * Set current build information to the given Build
+	 * Set current build information to the given Build.
+	 * By default, currentBuild will be null.
 	 * 
 	 * @param current
 	 */
@@ -144,7 +152,8 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return last update (the most current build) date and time
+	 * Return last update (the most current build) date and time.
+	 * Return null if there are no builds.
 	 * 
 	 * @return date/time of last update
 	 */
@@ -157,7 +166,7 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return changes(commits) since last deployment
+	 * Return changes(commits) since last deployment.
 	 * 
 	 * @return number of changes since last deployment
 	 */
