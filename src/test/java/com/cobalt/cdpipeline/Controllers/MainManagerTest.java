@@ -1,6 +1,5 @@
 package com.cobalt.cdpipeline.Controllers;
 
-import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
@@ -9,9 +8,7 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.cobalt.cdpipeline.cdresult.CDResult;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
