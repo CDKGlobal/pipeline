@@ -36,7 +36,7 @@ public class AddAllAuthorsInCommitsTest {
 	@Test
 	public void testOneCommit() {
 		List<Commit> commits = createCommitListWithoutAuthors(1);
-		List<Author> authors = createAuthorListWithoutName(1);
+		List<Author> authors = createAuthorListWithNames(1);
 		for (int i = 0; i < 1; i++) {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
 		}
@@ -48,7 +48,7 @@ public class AddAllAuthorsInCommitsTest {
 	public void testManyCommitsUniqueAuthors() {
 		// create lists of commits and their corresponding authors
 		List<Commit> commits = createCommitListWithoutAuthors(COMMIT_LIST_SIZE);
-		List<Author> authors = createAuthorListWithoutName(10);
+		List<Author> authors = createAuthorListWithNames(10);
 		// assign unique authors to each commit
 		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
@@ -62,7 +62,7 @@ public class AddAllAuthorsInCommitsTest {
 	@Test
 	public void testMultipleCommitsDuplicateAuthors() {
 		List<Commit> commits = createCommitListWithoutAuthors(COMMIT_LIST_SIZE);
-		List<Author> authors = createAuthorListWithoutName(3);
+		List<Author> authors = createAuthorListWithNames(3);
 		// randomly assign authors to commits (#authors < #commits)
 		Random r = new Random();			
 		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
@@ -91,7 +91,7 @@ public class AddAllAuthorsInCommitsTest {
 	/*
 	 * Create a list of authors w/o assigning them the names
 	 */
-	private List<Author> createAuthorListWithoutName(int numAuthors) {
+	private List<Author> createAuthorListWithNames(int numAuthors) {
 		List<Author> authors = new ArrayList<Author>();
 		for (int i = 0; i < numAuthors; i++) {
 			authors.add(mock(Author.class));
