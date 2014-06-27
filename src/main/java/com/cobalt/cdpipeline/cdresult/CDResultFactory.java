@@ -10,7 +10,7 @@ import com.atlassian.bamboo.commit.Commit;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactory {
-	private CDResult cdresult;
+	protected CDResult cdresult;
 	private List<ResultsSummary> buildList;
 	
 	public CDResultFactory(String projectName, String planName, List<ResultsSummary> buildList) {
