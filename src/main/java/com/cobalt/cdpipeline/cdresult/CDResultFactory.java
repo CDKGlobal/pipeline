@@ -38,8 +38,8 @@ public class CDResultFactory {
 	
 	/*
 	 * Set the days, changes and contributors info since last deployment.
-	 * Days will be -1 if there's no deployment.
-	 * Changes and contributors will be all since the first build.
+	 * If there's no deployment, days since last deployment will be -1,
+	 * changes and contributors will be all since the first build.
 	 */
 	protected void setLastDeploymentInfo() {
 		if(buildList == null || buildList.size() <= 0){
