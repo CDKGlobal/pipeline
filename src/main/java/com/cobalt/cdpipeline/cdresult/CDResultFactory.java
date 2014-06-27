@@ -115,6 +115,7 @@ public class CDResultFactory {
 	 * Set the list of PipelineStage in cdresult with the given build result.
 	 */
 	protected void setPipelineStages(ChainResultsSummary buildResult) {
+		cdresult.resetPipelineStagesList();
 		List<ChainStageResult> stages = buildResult.getStageResults();
 
 		for (ChainStageResult stageResult : stages) {
