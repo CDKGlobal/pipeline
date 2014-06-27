@@ -42,6 +42,10 @@ public class CDResultFactory {
 	 * Changes and contributors will be all since the first build.
 	 */
 	protected void setLastDeploymentInfo() {
+		if(buildList == null || buildList.size() <= 0){
+			return;
+		}
+		
 		int totalChanges = 0;		
 		// Find the last completed build in buildList
 		int totalBuilds = buildList.size();
