@@ -13,7 +13,7 @@ public class CDResultTest {
 	
 	@Test
 	public void testGetDaysSinceYesterdayFromCurrent() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		Date yest = new Date(current.getTime());
 		yest.setDate(current.getDate() - 1);
@@ -23,7 +23,7 @@ public class CDResultTest {
 	
 	@Test
 	public void testGetDaysSinceRandomNumberFromCurrent() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		Date yest = new Date(current.getTime());
 		yest.setDate(current.getDate() - 100);
@@ -33,7 +33,7 @@ public class CDResultTest {
 
 	@Test
 	public void testGetDaysSinceTodayFromCurrent() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		Date yest = new Date(current.getTime());
 		yest.setMinutes(current.getMinutes() - 100);
@@ -43,7 +43,7 @@ public class CDResultTest {
 	
 	@Test
 	public void testGetDaysSinceFutureFromCurrent() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		Date yest = new Date(current.getTime());
 		yest.setDate(current.getDate() + 1);
@@ -53,13 +53,13 @@ public class CDResultTest {
 	
 	@Test
 	public void testGetDaysSinceNullFromCurrent() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		assertEquals("The days between was not what we expected", -1, cdr.getDaysSinceDeploymentFromCurrent());
 	}
 	
 	@Test
 	public void immutableTestOfgetLastUpdateTime() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		cdr.setLastUpdateTime(current);
 		Date update = cdr.getLastUpdateTime();
@@ -69,7 +69,7 @@ public class CDResultTest {
 	
 	@Test
 	public void immutableTestOfsetLastUpdateTime() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		cdr.setLastUpdateTime(current);
 		current.setDate(current.getDate() - 1);
@@ -79,7 +79,7 @@ public class CDResultTest {
 	
 	@Test
 	public void immutableTestOfgetLastDeploymentTime() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		cdr.setLastDeploymentTime(current);
 		Date update = cdr.getLastDeploymentTime();
@@ -89,7 +89,7 @@ public class CDResultTest {
 	
 	@Test
 	public void immutableTestOfsetLastDeploymentTime() {
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
 		cdr.setLastDeploymentTime(current);
 		current.setDate(current.getDate() - 1);
@@ -99,7 +99,7 @@ public class CDResultTest {
 	
 	@Test (expected = UnsupportedOperationException.class)
 	public void immutableTestOfGetContributors(){
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Contributor c = new Contributor("test1");
 		cdr.addContributor(c);
 		Set<Contributor> cs = cdr.getContributors();
@@ -108,7 +108,7 @@ public class CDResultTest {
 	
 	@Test (expected = UnsupportedOperationException.class)
 	public void immutableTestOfGetPipelineStages(){
-		CDResult cdr = new CDResult("test", "test");
+		CDResult cdr = new CDResult("test", "test", "test", "test");
 		PipelineStage p = new PipelineStage("test1", PipelineStage.STATE_FAILED);
 		cdr.addPipelineStageToList(p);
 		List<PipelineStage> ps = cdr.getPipelineStages();
