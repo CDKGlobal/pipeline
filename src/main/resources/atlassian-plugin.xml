@@ -12,8 +12,8 @@
   <resource type="i18n" name="i18n" location="cdpipeline"/>
   <!-- add our web resources -->
   <web-resource key="cdpipeline-resources" name="cdpipeline Web Resources">
+  	<dependency>com.atlassian.auiplugin:ajs</dependency>
   	<dependency>com.atlassian.auiplugin:aui-experimental-table-sortable</dependency>
-    <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
     <resource type="download" name="images/" location="/images"/>
