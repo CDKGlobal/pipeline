@@ -25,11 +25,11 @@ which has authors with names "Author1", "Author2", ..., "Authori".
 public class SetLastDeploymentInfoTest {
 
 	private final int LIST_SIZE = 5;
-	private ChainResultsSummary CS;
-	private ChainResultsSummary CNS;
-	private ChainResultsSummary NCNS;
-	private ChainResultsSummary NCS1;
-	private ChainResultsSummary NCS2;
+	private ChainResultsSummary ContinueSuccess;
+	private ChainResultsSummary ContinueNotSuccess;
+	private ChainResultsSummary NotContinueNotSuccess;
+	private ChainResultsSummary NotContinueSuccess1;
+	private ChainResultsSummary NotContinueSuccess2;
 	private ChainResultsSummary fail2;
 	private Date day1;
 	private Date day2;
@@ -40,17 +40,17 @@ public class SetLastDeploymentInfoTest {
 		day1 = new Date();
 		day2 = new Date();
 		day1.setDate(day1.getDate() - 1);
-		CS = getChainResultsSummary(true, true, "1", day1);
-		CNS = getChainResultsSummary(true, false, "2", day1);
-		NCNS = getChainResultsSummary(false, false, "3", day1);
+		ContinueSuccess = getChainResultsSummary(true, true, "1", day1);
+		ContinueNotSuccess = getChainResultsSummary(true, false, "2", day1);
+		NotContinueNotSuccess = getChainResultsSummary(false, false, "3", day1);
 		fail2 = getChainResultsSummary(true, false, "6", day2);
-		NCS1 = getChainResultsSummary(false, true, "4", day1);
-		NCS2 = getChainResultsSummary(false, true, "5", day2);
+		NotContinueSuccess1 = getChainResultsSummary(false, true, "4", day1);
+		NotContinueSuccess2 = getChainResultsSummary(false, true, "5", day2);
 	}
 	
 	@Test
 	public void testTwoBuildsWithNoDeploymentCS() {
-		CDResultFactory cdr = getCDResultFactory(fail2, CS);
+		CDResultFactory cdr = getCDResultFactory(fail2, ContinueSuccess);
 		assertEquals("Last Deployment can't be found", null, cdr.cdresult.getLastDeploymentTime());
 		assertEquals("Number of Commits should be the commits of all builds", 2, cdr.cdresult.getNumChanges());
 		assertEquals("Number of Contributors should be contributors of all builds", 2, cdr.cdresult.getContributors().size());
@@ -58,7 +58,7 @@ public class SetLastDeploymentInfoTest {
 	
 	@Test
 	public void testTwoBuildsWithNoDeploymentCNS() {
-		CDResultFactory cdr = getCDResultFactory(fail2, CNS);
+		CDResultFactory cdr = getCDResultFactory(fail2, ContinueNotSuccess);
 		assertEquals("Last Deployment can't be found", null, cdr.cdresult.getLastDeploymentTime());
 		assertEquals("Number of Commits should be the commits of all builds", 2, cdr.cdresult.getNumChanges());
 		assertEquals("Number of Contributors should be contributors of all builds", 2, cdr.cdresult.getContributors().size());
@@ -66,7 +66,7 @@ public class SetLastDeploymentInfoTest {
 	
 	@Test
 	public void testTwoBuildsWithNoDeploymentNCNS() {
-		CDResultFactory cdr = getCDResultFactory(fail2, NCNS);
+		CDResultFactory cdr = getCDResultFactory(fail2, NotContinueNotSuccess);
 		assertEquals("Last Deployment can't be found", null, cdr.cdresult.getLastDeploymentTime());
 		assertEquals("Number of Commits should be the commits of all builds", 2, cdr.cdresult.getNumChanges());
 		assertEquals("Number of Contributors should be contributors of all builds", 2, cdr.cdresult.getContributors().size());
@@ -74,7 +74,7 @@ public class SetLastDeploymentInfoTest {
 	
 	@Test
 	public void testTwoBuildsWithOneDeployment1(){
-		CDResultFactory cdr = getCDResultFactory(fail2, NCS1);
+		CDResultFactory cdr = getCDResultFactory(fail2, NotContinueSuccess1);
 		assertEquals("Last Deployment should be the date of first build", day1, cdr.cdresult.getLastDeploymentTime());
 		assertEquals("Number of Commits should be the commits of second build", 1, cdr.cdresult.getNumChanges());
 		assertEquals("Number of Contributors should be contributors of second build", 1, cdr.cdresult.getContributors().size());
@@ -82,7 +82,7 @@ public class SetLastDeploymentInfoTest {
 	
 	@Test
 	public void testTwoBuildsWithNoDeployment2() {
-		CDResultFactory cdr = getCDResultFactory(NCS2, CNS);
+		CDResultFactory cdr = getCDResultFactory(NotContinueSuccess2, ContinueNotSuccess);
 		assertEquals("Last Deployment can't be found", null, cdr.cdresult.getLastDeploymentTime());
 		assertEquals("Number of Commits should be the commits of all builds", 2, cdr.cdresult.getNumChanges());
 		assertEquals("Number of Contributors should be contributors of all builds", 2, cdr.cdresult.getContributors().size());
@@ -90,7 +90,7 @@ public class SetLastDeploymentInfoTest {
 	
 	@Test
 	public void testTwoBuildsWithTwoDeployment(){
-		CDResultFactory cdr = getCDResultFactory(NCS2, NCS1);
+		CDResultFactory cdr = getCDResultFactory(NotContinueSuccess2, NotContinueSuccess1);
 		assertEquals("Last Deployment should be the date of first build", day1, cdr.cdresult.getLastDeploymentTime());
 		assertEquals("Number of Commits should be the commits of second build", 1, cdr.cdresult.getNumChanges());
 		assertEquals("Number of Contributors should be contributors of second build", 1, cdr.cdresult.getContributors().size());
