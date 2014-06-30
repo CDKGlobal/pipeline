@@ -13,6 +13,7 @@ import java.util.Set;
  */
 public class CDResult {
 	private String projectName, planName;
+	private String projectKey, planKey;
 	private Date lastDeploymentTime, lastUpdate;
 	private int numChanges;
 	
@@ -27,9 +28,11 @@ public class CDResult {
 	 * @param projectName
 	 * @param planName
 	 */
-	CDResult(String projectName, String planName) {
+	CDResult(String projectName, String planName, String projectKey, String planKey) {
 		this.projectName = projectName;
 		this.planName = planName;
+		this.projectKey = projectKey;
+		this.planKey = planKey;
 		
 		contributors = new HashSet<Contributor>();
 		pipelineStages = new ArrayList<PipelineStage>();
