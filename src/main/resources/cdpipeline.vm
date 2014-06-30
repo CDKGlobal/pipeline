@@ -3,9 +3,11 @@
 	<head>
 		<title>Pipeline Information Radiator - Team Superpipe</title>
 		<!-- applies Atlassian UI -->
-		<meta name="decorator" content="deploymentMinimal"> 
+		<meta name="decorator" content="deploymentMinimal">
 		<!-- makes table sortable -->
 		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-table-sortable")} 
+		${webResourceManager.requireResource("com.cobalt.cdpipeline:cdpipeline-resources")}
+
 	</head>
 
 	<body class="aui-layout aui-style-default">
@@ -29,7 +31,7 @@
 	  				<div class="dashboard-project">
 	  					<div class="aui-message info">
   							<span class="aui-icon aui-icon-info">Info</span> 
-    							currently all not hard coded data
+    							currently NOT hard coded data
 						</div>
 		  				<!-- table of the info -->
 						<table id="pipelineTable" class="aui aui-table-sortable">
@@ -62,7 +64,6 @@
 									</td>
 									<td>$result.numChanges</td>
 									<td>
-
 										#set ($setContributors = $result.getContributors())
 										#set ($contributorSize = $setContributors.size())
 										#if ($contributorSize == 0)
@@ -78,8 +79,8 @@
 											#end
 										#end
 									</td>
-									<td>$result.getCurrentBuild().buildNumber</td>
-									<td>$result.lastUpdateTime</td>
+									<td>$!result.getCurrentBuild().buildNumber</td>
+									<td>$!result.lastUpdateTime</td>
 									<td>
 										#set ($pipelineCount = 1)
 										#set ($pipelineSet = $result.getPipelineStages())
@@ -89,7 +90,9 @@
 											#if ($pipelineCount < $pipelineSize)
 												=>
 											#end
+											
 											#set ($pipelineCount = $pipelineCount + 1)
+
 										#end
 									</td>
 								</tr>
@@ -97,7 +100,7 @@
 							</tbody>
 						</table>
 						</div>
-					</section>			
+					</section>
 				</div>
 			</section>
 		</div>
