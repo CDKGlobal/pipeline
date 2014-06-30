@@ -23,7 +23,8 @@ public class CDResultFactory {
 	 * @throws IllegalArgumentException if (projectName == null || planName == null || 
 	 *         buildList == null || !planName.startWith(projectName + " - "))
 	 */
-	public CDResultFactory(String projectName, String planName, List<ResultsSummary> buildList) {
+	public CDResultFactory(String projectName, String planName, String projectKey,
+						   String planKey, List<ResultsSummary> buildList) {
 		if (projectName == null || planName == null || buildList == null
 				|| !planName.startsWith(projectName + " - ")) {
 			throw new IllegalArgumentException("Passed in null arguments or invalid plan name."
@@ -34,7 +35,7 @@ public class CDResultFactory {
 		// Strip planName so that it contains purely the plan's name.
 		String strippedPlanName = planName.substring(projectName.length() + 3);
 		
-		cdresult = new CDResult(projectName, strippedPlanName);
+		cdresult = new CDResult(projectName, strippedPlanName, projectKey, planKey);
 		this.buildList = buildList;
 	}
 	
