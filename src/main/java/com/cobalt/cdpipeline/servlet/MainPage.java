@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.google.common.collect.Maps;
 
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
@@ -50,7 +50,7 @@ public class MainPage extends HttpServlet{
       }
 
       List<CDResult> resultList = mainManager.getCDResults();
-      Map<String, Object> context =  Maps.newHashMap();
+      Map<String, Object> context = new HashMap<String, Object>();
       context.put("results", resultList);
       response.setContentType("text/html;charset=utf-8");
       renderer.render("cdpipeline.vm", context, response.getWriter());
