@@ -9,7 +9,7 @@
         <name>Team Superpipe</name>
         <url>https://confluence.cobalt.com/display/DEV/Team+SuperPipe+Project+page</url>
     </organization>
-    <name>cdpipeline</name>
+    <name>Release Engineering / CDPipeline</name>
     <description>This is the com.cobalt.cdpipeline:cdpipeline plugin for Atlassian Bamboo.</description>
     <packaging>atlassian-plugin</packaging>
     <properties>
@@ -18,6 +18,12 @@
         <amps.version>5.0.3</amps.version>
         <plugin.testrunner.version>1.2.0</plugin.testrunner.version>
     </properties>
+    <scm>
+        <connection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/</connection>
+        <developerConnection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/
+        </developerConnection>
+        <url>http://perforce.cobaltgroup.com/ReleaseEngineering/CDPipeline/trunk/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>com.atlassian.bamboo</groupId>
