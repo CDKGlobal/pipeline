@@ -144,7 +144,7 @@ public class SetLastDeploymentInfoTest {
 			}
 		}
 		
-		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", buildList);
+		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", "project", "plan", buildList);
 		fac.setLastDeploymentInfo();
 		
 		assertEquals("Date of last deployment doesn't match.", 
@@ -166,7 +166,7 @@ public class SetLastDeploymentInfoTest {
 			when(crs.isSuccessful()).thenReturn(true);
 		}
 		
-		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", buildList);
+		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", "project", "plan", buildList);
 		fac.setLastDeploymentInfo();
 		
 		assertEquals("Date of last deployment doesn't match.", 
@@ -178,11 +178,12 @@ public class SetLastDeploymentInfoTest {
 	}
 	
 	// no build 
-	@Test 
-	public void testNoBuild() {
-		List<ResultsSummary> emptyBuildList = new ArrayList<ResultsSummary>();
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", emptyBuildList);		
-		cdfac.setLastDeploymentInfo();
+
+		@Test 
+		public void testNoBuild() {
+			List<ResultsSummary> emptyBuildList = new ArrayList<ResultsSummary>();
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", emptyBuildList);		
+			cdfac.setLastDeploymentInfo();
 			
 		assertEquals("No build should have no change.", 0, cdfac.cdresult.getNumChanges());
 		assertEquals("No build should have no contributor.", new HashSet<Contributor>(), cdfac.cdresult.getContributors());
@@ -194,20 +195,19 @@ public class SetLastDeploymentInfoTest {
 	@Test
 	public void testOneBuildSuccessful() {
 		List<ResultsSummary> buildList = createBuildList(1, 0);
-			
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-		cdfac.setLastDeploymentInfo();
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", buildList);		
+			cdfac.setLastDeploymentInfo();
 			
 		assertEquals("Build with size 1 should have 1 change.", 1, cdfac.cdresult.getNumChanges());		
 		assertEquals("Build with size 1  should have 1 contributor.", 1, cdfac.cdresult.getContributors().size());
 		assertEquals("Build with size 1  should have no last deployment date", null, cdfac.cdresult.getLastDeploymentTime());	
 	}
 		
-	@Test
-	public void testOneBuildFailed() {
-		List<ResultsSummary> buildList = createBuildList(1, -1);
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-		cdfac.setLastDeploymentInfo();
+		@Test
+		public void testOneBuildFailed() {
+			List<ResultsSummary> buildList = createBuildList(1, -1);
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", buildList);		
+			cdfac.setLastDeploymentInfo();
 			
 		assertEquals("Build with size 1 should have 1 change.", 1, cdfac.cdresult.getNumChanges());		
 		assertEquals("Build with size 1 should have 1 contributor.", 1, cdfac.cdresult.getContributors().size());
@@ -215,61 +215,62 @@ public class SetLastDeploymentInfoTest {
 	}
 		
 		
-	// 5 builds (first 2 cases)
-	@Test
-	public void testFiveBuildsNoDeployment() {
-		// Buildlist: N N N N N        (Is the build a deployment? Y/N)
-		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, -1);
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-		cdfac.setLastDeploymentInfo();
+		// 5 builds (first 2 cases)
+		@Test
+		public void testFiveBuildsNoDeployment() {
+			// N N N N N        (Is deployment? Y/N)
+			List<ResultsSummary> buildList = createBuildList(5, -1);
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", buildList);		
+			cdfac.setLastDeploymentInfo();
 			
 		assertEquals("Buildlist with no deployment should add up all changes", 15, cdfac.cdresult.getNumChanges());		
 		assertEquals("Buildlist with no deployment should add up all contributors", 5, cdfac.cdresult.getContributors().size());
 		assertEquals("Buildlist with no deployment should have no deployment date.", null, cdfac.cdresult.getLastDeploymentTime());	
 	}
 		
-	@Test
-	public void testFiveBuildsOneNewestDeployment() {
-		// N N N N Y
-		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 0);
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-		cdfac.setLastDeploymentInfo();
+		@Test
+		public void testFiveBuildsOneNewestDeployment() {
+			// N N N N Y
+			List<ResultsSummary> buildList = createBuildList(5, 0);
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", buildList);		
+			cdfac.setLastDeploymentInfo();
 			
 		assertEquals("Buildlist with the last build as deployment should add up all changes.", 15, cdfac.cdresult.getNumChanges());		
 		assertEquals("Buildlist with the last build as deployment should add up all contributors.", 5, cdfac.cdresult.getContributors().size());
 		assertEquals("Buildlist with the last build as deployment should have no deployment date.", null, cdfac.cdresult.getLastDeploymentTime());	
 	}
 		
-	@Test
-	public void testFiveBuildsSecondNewestDeployment() {
-		// N N N Y N
-		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 1);
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-		cdfac.setLastDeploymentInfo();
+		@Test
+		public void testFiveBuildsSecondNewestDeployment() {
+			// N N N Y N
+			List<ResultsSummary> buildList = createBuildList(5, 1);
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", buildList);		
+			cdfac.setLastDeploymentInfo();
 			
 		assertEquals("Should only count the changes in the newest build", 1, cdfac.cdresult.getNumChanges());		
 		assertEquals("Should only count the contributors in the newest build", 1, cdfac.cdresult.getContributors().size());
 		assertEquals("Should be the date of the 2nd newest build", new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());
 	}
 		
-	@Test
-	public void testFiveBuildsMidDeployment() {
-		// N N Y N N
-		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 2);
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-		cdfac.setLastDeploymentInfo();
+
+		@Test
+		public void testFiveBuildsMidDeployment() {
+			// N N Y N N
+			List<ResultsSummary> buildList = createBuildList(5, 2);
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", buildList);		
+			cdfac.setLastDeploymentInfo();
+			
+			assertEquals(3, cdfac.cdresult.getNumChanges());		
+			assertEquals(2, cdfac.cdresult.getContributors().size());
+			assertEquals(new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());	
+		}
 		
-		assertEquals("Should add up #changes in the 2 latest builds.", 3, cdfac.cdresult.getNumChanges());		
-		assertEquals("Should add the contributors in the 2 latest builds.", 2, cdfac.cdresult.getContributors().size());
-		assertEquals("Should be the date of the mid build.", new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());	
-	}
-		
-	@Test
-	public void testFiveBuildsOldestDeployment() {
-		// Y N N N N 
-		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 4);
-		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-		cdfac.setLastDeploymentInfo();
+		@Test
+		public void testFiveBuildsOldestDeployment() {
+			// Y N N N N 
+			List<ResultsSummary> buildList = createBuildList(5, 4);
+			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", "project", "plan", buildList);		
+			cdfac.setLastDeploymentInfo();
 			
 		assertEquals("Should add up #changes up to the oldest build.", 10, cdfac.cdresult.getNumChanges());		
 		assertEquals("Should add the contributors up to the oldest build.", 4, cdfac.cdresult.getContributors().size());
@@ -283,7 +284,7 @@ public class SetLastDeploymentInfoTest {
 		List<ResultsSummary> buildList = makeNormalSizeBuildList();
 		setTwoDeployments(buildList, pos1, pos2);
 		
-		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", buildList);
+		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", "project", "plan", buildList);
 		fac.setLastDeploymentInfo();
 		
 		// Last deployment should be second one in the buildList
@@ -358,7 +359,7 @@ public class SetLastDeploymentInfoTest {
 		List<ResultsSummary> builds = new ArrayList<ResultsSummary>();
 		builds.add(rs1);
 		builds.add(rs2);
-		CDResultFactory cdr = new CDResultFactory("test", "test - test", builds);
+		CDResultFactory cdr = new CDResultFactory("test", "test - test", "test", "test", builds);
 		cdr.setLastDeploymentInfo();
 		return cdr;
 	}

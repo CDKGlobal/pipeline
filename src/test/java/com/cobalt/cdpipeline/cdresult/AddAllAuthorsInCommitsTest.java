@@ -23,7 +23,7 @@ public class AddAllAuthorsInCommitsTest {
 	
 	@Before
 	public void setup() {
-		cdfac = new CDResultFactory("project", "project - plan", new ArrayList<ResultsSummary>());		
+		cdfac = new CDResultFactory("project", "project - plan", "project", "plan", new ArrayList<ResultsSummary>());		
 	}
 	
 	@Test

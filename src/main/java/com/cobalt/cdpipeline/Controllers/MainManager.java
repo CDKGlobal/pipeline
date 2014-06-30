@@ -53,13 +53,15 @@ public class MainManager {
 		Set<Project> projects = projectManager.getAllProjects();
 		for (Project project : projects) {
 			String projectName = project.getName();
+			String projectKey = project.getKey();
 			
 			List<TopLevelPlan> plans = planManager.getAllPlansByProject(project, TopLevelPlan.class);
 			for (Plan plan : plans) {
 				String planName = plan.getName();
+				String planKey = plan.getKey();
 				List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 				
-				CDResultFactory factory = new CDResultFactory(projectName, planName, buildList);
+				CDResultFactory factory = new CDResultFactory(projectName, planName, projectKey, planKey, buildList);
 				CDResult result = factory.createCDResult();
 				resultList.add(result);
 			}

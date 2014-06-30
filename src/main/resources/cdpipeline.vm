@@ -52,8 +52,8 @@
 							<tbody>
 							#foreach ($result in $results)
 								<tr>
-									<td>$result.projectName</td>
-									<td>$result.planName</td>
+									<td><a href="../../browse/$result.getProjectKey()">$result.getProjectName()</a></td>
+									<td><a href="../../browse/$result.getPlanKey()">$result.getPlanName()</a></td>
 									<td>
 										#set ($days = $result.getDaysSinceDeploymentFromCurrent())
 										#if ($days == -1)
@@ -79,7 +79,7 @@
 											#end
 										#end
 									</td>
-									<td>$!result.getCurrentBuild().buildNumber</td>
+									<td><a href="../../browse/$result.getCurrentBuild().getBuildKey()/latest">$!result.getCurrentBuild().getBuildNumber()</a></td>
 									<td>$!result.lastUpdateTime</td>
 									<td>
 										#set ($pipelineCount = 1)
