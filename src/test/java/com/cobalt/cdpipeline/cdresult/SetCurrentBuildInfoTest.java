@@ -19,7 +19,7 @@ public class SetCurrentBuildInfoTest {
 	
 	@Test
 	public void testWithNoBuilds() {
-		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", createNBuildResults(0));
+		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", "project", "plan", createNBuildResults(0));
 		fac.setCurrentBuildInfo();
 		assertEquals("Date of cdresult's lastUpdateTime should be null (default) when there are no builds.", 
 						null, fac.cdresult.getLastUpdateTime());
@@ -48,7 +48,7 @@ public class SetCurrentBuildInfoTest {
 	// against the first element in the build list (assumingly the most current build).
 	private void testForNBuilds(int N) {
 		List<ResultsSummary> buildList = createNBuildResults(N);
-		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", buildList);
+		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", "project", "plan", buildList);
 		fac.setCurrentBuildInfo();
 
 		ChainResultsSummary expectedBuild = (ChainResultsSummary) buildList.get(0);

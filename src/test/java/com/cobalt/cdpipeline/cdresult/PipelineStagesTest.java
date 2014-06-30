@@ -16,7 +16,7 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 
 public class PipelineStagesTest {
-	CDResultFactory factory = new CDResultFactory("test", "test - test", new ArrayList<ResultsSummary>());
+	CDResultFactory factory = new CDResultFactory("test", "test - test", "test", "test", new ArrayList<ResultsSummary>());
 	ChainResultsSummary noStage, oneStage, chain1, chain2;
 	
 	

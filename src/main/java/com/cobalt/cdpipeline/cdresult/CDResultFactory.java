@@ -13,12 +13,29 @@ public class CDResultFactory {
 	protected CDResult cdresult;
 	private List<ResultsSummary> buildList;
 	
-	public CDResultFactory(String projectName, String planName, List<ResultsSummary> buildList) {
+	/**
+	 * Constructs an CDResultFactory object.
+	 * 
+	 * @param projectName The name of the project this CDResult is associated with.
+	 * @param planName The name of the plan this CDResult is associated with. planName
+	 *        should be in the format of "[project] - [plan]".
+	 * @param buildList The list of build this CDResult is associated with.
+	 * @throws IllegalArgumentException if (projectName == null || planName == null || 
+	 *         buildList == null || !planName.startWith(projectName + " - "))
+	 */
+	public CDResultFactory(String projectName, String planName, String projectKey,
+						   String planKey, List<ResultsSummary> buildList) {
+		if (projectName == null || planName == null || buildList == null
+				|| !planName.startsWith(projectName + " - ")) {
+			throw new IllegalArgumentException("Passed in null arguments or invalid plan name."
+					+ "(plan name should be in the format of \"[project] - [plan]\"");
+		}
+		
 		// planName is in the format of "[project] - [plan]"
 		// Strip planName so that it contains purely the plan's name.
 		String strippedPlanName = planName.substring(projectName.length() + 3);
 		
-		cdresult = new CDResult(projectName, strippedPlanName);
+		cdresult = new CDResult(projectName, strippedPlanName, projectKey, planKey);
 		this.buildList = buildList;
 	}
 	
@@ -80,7 +97,8 @@ public class CDResultFactory {
 	 * Set the current build information (build number, build key...), last build
 	 * updated time and all pipeline stages.
 	 * Current build may be null if there's no builds in build list.
-	 * last build updated time may be null if it hasn't finished the first stage.
+	 * Last build updated time may be null if it hasn't started yet.
+	 * Last build updated time will be started time if it's not completed.
 	 */
 	protected void setCurrentBuildInfo() {
 		if(buildList != null && buildList.size() > 0){
@@ -88,7 +106,11 @@ public class CDResultFactory {
 			// get the last build and set current build info.
 			ResultsSummary currentResult = buildList.get(0);
 			Date lastUpdate = currentResult.getBuildCompletedDate();
-			this.cdresult.setLastUpdateTime(lastUpdate);
+			if(lastUpdate == null){
+				this.cdresult.setLastUpdateTime(currentResult.getBuildDate());
+			}else{
+				this.cdresult.setLastUpdateTime(lastUpdate);
+			}
 			String buildKey = currentResult.getBuildKey();
 			int buildNum = currentResult.getBuildNumber();
 			Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
