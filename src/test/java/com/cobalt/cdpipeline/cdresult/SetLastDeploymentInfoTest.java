@@ -18,7 +18,10 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
+/*
+The i-th (1-based index. 1 - oldest build. 0 - oldest build) build in a buildlist has i commits, 
+which has authors with names "Author1", "Author2", ..., "Authori".
+ */
 public class SetLastDeploymentInfoTest {
 
 	private final int LIST_SIZE = 5;
@@ -128,10 +131,10 @@ public class SetLastDeploymentInfoTest {
 	@Test
 	public void testFiveBuildsWithThreeDeployments() {
 		List<ResultsSummary> buildList = makeNormalSizeBuildList();
-		for (int i = 0; i < LIST_SIZE; i++) {
-			ChainResultsSummary crs = (ChainResultsSummary) buildList.get(i);
+		for (int i = 1; i <= LIST_SIZE; i++) {
+			ChainResultsSummary crs = (ChainResultsSummary) buildList.get(i - 1);
 			
-			if (i == 0 || i == 2 || i == 4) {  // zero-based index for 1, 3, 5
+			if (i == 1 || i == 3 || i == 5) {  // zero-based index for 1, 3, 5
 				// set to deployment condition
 				when(crs.isContinuable()).thenReturn(false);
 				when(crs.isSuccessful()).thenReturn(true);
@@ -157,8 +160,8 @@ public class SetLastDeploymentInfoTest {
 		List<ResultsSummary> buildList = makeNormalSizeBuildList();
 		
 		// set all build to deployment condition
-		for (int i = 0; i < LIST_SIZE; i++) {
-			ChainResultsSummary crs = (ChainResultsSummary) buildList.get(i);
+		for (int i = 1; i <= LIST_SIZE; i++) {
+			ChainResultsSummary crs = (ChainResultsSummary) buildList.get(i - 1);
 			when(crs.isContinuable()).thenReturn(false);
 			when(crs.isSuccessful()).thenReturn(true);
 		}
@@ -175,103 +178,103 @@ public class SetLastDeploymentInfoTest {
 	}
 	
 	// no build 
-		@Test 
-		public void testNoBuild() {
-			List<ResultsSummary> emptyBuildList = new ArrayList<ResultsSummary>();
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", emptyBuildList);		
-			cdfac.setLastDeploymentInfo();
+	@Test 
+	public void testNoBuild() {
+		List<ResultsSummary> emptyBuildList = new ArrayList<ResultsSummary>();
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", emptyBuildList);		
+		cdfac.setLastDeploymentInfo();
 			
-			assertEquals(0, cdfac.cdresult.getNumChanges());
-			assertEquals(new HashSet<Contributor>(), cdfac.cdresult.getContributors());
-			assertEquals(null, cdfac.cdresult.getLastDeploymentTime());
-		}
+		assertEquals("No build should have no change.", 0, cdfac.cdresult.getNumChanges());
+		assertEquals("No build should have no contributor.", new HashSet<Contributor>(), cdfac.cdresult.getContributors());
+		assertEquals("No build should have no last deployment date.", null, cdfac.cdresult.getLastDeploymentTime());
+	}
 			
 
-		// 1 build (succ/fail). No last deployment
-		@Test
-		public void testOneBuildSuccessful() {
-			List<ResultsSummary> buildList = createBuildList(1, 0);
+	// 1 build (succ/fail). No last deployment
+	@Test
+	public void testOneBuildSuccessful() {
+		List<ResultsSummary> buildList = createBuildList(1, 0);
 			
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-			cdfac.setLastDeploymentInfo();
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
+		cdfac.setLastDeploymentInfo();
 			
-			assertEquals(1, cdfac.cdresult.getNumChanges());		
-			assertEquals(1, cdfac.cdresult.getContributors().size());
-			assertEquals(null, cdfac.cdresult.getLastDeploymentTime());	
-		}
+		assertEquals("Build with size 1 should have 1 change.", 1, cdfac.cdresult.getNumChanges());		
+		assertEquals("Build with size 1  should have 1 contributor.", 1, cdfac.cdresult.getContributors().size());
+		assertEquals("Build with size 1  should have no last deployment date", null, cdfac.cdresult.getLastDeploymentTime());	
+	}
 		
-		@Test
-		public void testOneBuildFailed() {
-			List<ResultsSummary> buildList = createBuildList(1, -1);
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-			cdfac.setLastDeploymentInfo();
+	@Test
+	public void testOneBuildFailed() {
+		List<ResultsSummary> buildList = createBuildList(1, -1);
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
+		cdfac.setLastDeploymentInfo();
 			
-			assertEquals(1, cdfac.cdresult.getNumChanges());		
-			assertEquals(1, cdfac.cdresult.getContributors().size());
-			assertEquals(null, cdfac.cdresult.getLastDeploymentTime());	
-		}
+		assertEquals("Build with size 1 should have 1 change.", 1, cdfac.cdresult.getNumChanges());		
+		assertEquals("Build with size 1 should have 1 contributor.", 1, cdfac.cdresult.getContributors().size());
+		assertEquals("Build with size 1 should have no last deployment date", null, cdfac.cdresult.getLastDeploymentTime());	
+	}
 		
 		
-		// 5 builds (first 2 cases)
-		@Test
-		public void testFiveBuildsNoDeployment() {
-			// N N N N N        (Is deployment? Y/N)
-			List<ResultsSummary> buildList = createBuildList(5, -1);
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-			cdfac.setLastDeploymentInfo();
+	// 5 builds (first 2 cases)
+	@Test
+	public void testFiveBuildsNoDeployment() {
+		// Buildlist: N N N N N        (Is the build a deployment? Y/N)
+		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, -1);
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
+		cdfac.setLastDeploymentInfo();
 			
-			assertEquals(15, cdfac.cdresult.getNumChanges());		
-			assertEquals(5, cdfac.cdresult.getContributors().size());
-			assertEquals(null, cdfac.cdresult.getLastDeploymentTime());	
-		}
+		assertEquals("Buildlist with no deployment should add up all changes", 15, cdfac.cdresult.getNumChanges());		
+		assertEquals("Buildlist with no deployment should add up all contributors", 5, cdfac.cdresult.getContributors().size());
+		assertEquals("Buildlist with no deployment should have no deployment date.", null, cdfac.cdresult.getLastDeploymentTime());	
+	}
 		
-		@Test
-		public void testFiveBuildsOneNewestDeployment() {
-			// N N N N Y
-			List<ResultsSummary> buildList = createBuildList(5, 0);
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-			cdfac.setLastDeploymentInfo();
+	@Test
+	public void testFiveBuildsOneNewestDeployment() {
+		// N N N N Y
+		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 0);
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
+		cdfac.setLastDeploymentInfo();
 			
-			assertEquals(15, cdfac.cdresult.getNumChanges());		
-			assertEquals(5, cdfac.cdresult.getContributors().size());
-			assertEquals(null, cdfac.cdresult.getLastDeploymentTime());	
-		}
+		assertEquals("Buildlist with the last build as deployment should add up all changes.", 15, cdfac.cdresult.getNumChanges());		
+		assertEquals("Buildlist with the last build as deployment should add up all contributors.", 5, cdfac.cdresult.getContributors().size());
+		assertEquals("Buildlist with the last build as deployment should have no deployment date.", null, cdfac.cdresult.getLastDeploymentTime());	
+	}
 		
-		@Test
-		public void testFiveBuildsSecondNewestDeployment() {
-			// N N N Y N
-			List<ResultsSummary> buildList = createBuildList(5, 1);
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-			cdfac.setLastDeploymentInfo();
+	@Test
+	public void testFiveBuildsSecondNewestDeployment() {
+		// N N N Y N
+		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 1);
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
+		cdfac.setLastDeploymentInfo();
 			
-			assertEquals(1, cdfac.cdresult.getNumChanges());		
-			assertEquals(1, cdfac.cdresult.getContributors().size());
-			assertEquals(new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());
-		}
+		assertEquals("Should only count the changes in the newest build", 1, cdfac.cdresult.getNumChanges());		
+		assertEquals("Should only count the contributors in the newest build", 1, cdfac.cdresult.getContributors().size());
+		assertEquals("Should be the date of the 2nd newest build", new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());
+	}
 		
-		@Test
-		public void testFiveBuildsMidDeployment() {
-			// N N Y N N
-			List<ResultsSummary> buildList = createBuildList(5, 2);
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-			cdfac.setLastDeploymentInfo();
-			
-			assertEquals(3, cdfac.cdresult.getNumChanges());		
-			assertEquals(2, cdfac.cdresult.getContributors().size());
-			assertEquals(new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());	
-		}
+	@Test
+	public void testFiveBuildsMidDeployment() {
+		// N N Y N N
+		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 2);
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
+		cdfac.setLastDeploymentInfo();
 		
-		@Test
-		public void testFiveBuildsOldestDeployment() {
-			// Y N N N N 
-			List<ResultsSummary> buildList = createBuildList(5, 4);
-			CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
-			cdfac.setLastDeploymentInfo();
+		assertEquals("Should add up #changes in the 2 latest builds.", 3, cdfac.cdresult.getNumChanges());		
+		assertEquals("Should add the contributors in the 2 latest builds.", 2, cdfac.cdresult.getContributors().size());
+		assertEquals("Should be the date of the mid build.", new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());	
+	}
+		
+	@Test
+	public void testFiveBuildsOldestDeployment() {
+		// Y N N N N 
+		List<ResultsSummary> buildList = createBuildList(LIST_SIZE, 4);
+		CDResultFactory cdfac = new CDResultFactory("project", "project - plan", buildList);		
+		cdfac.setLastDeploymentInfo();
 			
-			assertEquals(10, cdfac.cdresult.getNumChanges());		
-			assertEquals(4, cdfac.cdresult.getContributors().size());
-			assertEquals(new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());	
-		}
+		assertEquals("Should add up #changes up to the oldest build.", 10, cdfac.cdresult.getNumChanges());		
+		assertEquals("Should add the contributors up to the oldest build.", 4, cdfac.cdresult.getContributors().size());
+		assertEquals("Should be the date of the oldest build", new Date(2014, 1, 1, 1, 1, 1), cdfac.cdresult.getLastDeploymentTime());	
+	}
 	
 	
 	// ========== Private Helper Methods ==========
@@ -322,12 +325,9 @@ public class SetLastDeploymentInfoTest {
 	}
 	
 	// pos1, pos2: the indexes of the deployments to be set at (1 - most current, 5 - oldest)
-	private void setTwoDeployments(List<ResultsSummary> list, int pos1, int pos2) {
-		pos1--;  // change to zero-based index
-		pos2--;  // change to zero-based index
-		
-		for (int i = 0; i < LIST_SIZE; i++) {
-			ChainResultsSummary crs = (ChainResultsSummary) list.get(i);
+	private void setTwoDeployments(List<ResultsSummary> list, int pos1, int pos2) {		
+		for (int i = 1; i <= LIST_SIZE; i++) {
+			ChainResultsSummary crs = (ChainResultsSummary) list.get(i - 1);
 			
 			if (i == pos1 || i == pos2) {
 				// set to deployment condition
@@ -364,70 +364,69 @@ public class SetLastDeploymentInfoTest {
 	}
 	
 	// create a list of commits, each w/ its authors' full name
-		private ImmutableList<Commit> createCommitList3(int numCommits) {
-			ImmutableList.Builder<Commit> commits = new ImmutableList.Builder <Commit>();
-			for (int i = 0; i < numCommits; i++) {
-				Author author = mock(Author.class);
-		    	when(author.getFullName()).thenReturn("author" + i);    	
-				Commit commit = mock(Commit.class);
-		    	when(commit.getAuthor()).thenReturn(author);	    	
-		    	commits.add(commit);
-			}
-			return commits.build();
+	private ImmutableList<Commit> createCommitList(int numCommits) {
+		ImmutableList.Builder<Commit> commits = new ImmutableList.Builder <Commit>();
+		for (int i = 0; i < numCommits; i++) {
+			Author author = mock(Author.class);
+		    when(author.getFullName()).thenReturn("author" + i);    	
+			Commit commit = mock(Commit.class);
+		    when(commit.getAuthor()).thenReturn(author);	    	
+		    commits.add(commit);
 		}
+		return commits.build();
+	}
 		
-		// create a build that is a deployment (!C & S)
-		private ResultsSummary createDeploymentBuild() {
-			ChainResultsSummary build = mock(ChainResultsSummary.class);
-			// set its deployment condition 
-			when(build.isContinuable()).thenReturn(false);
-			when(build.isSuccessful()).thenReturn(true);
-			when(build.getBuildCompletedDate()).thenReturn(new Date(2014, 1, 1, 1, 1, 1));
+	// create a build that is a deployment (!C & S)
+	private ResultsSummary createDeploymentBuild() {
+		ChainResultsSummary build = mock(ChainResultsSummary.class);
+		// set its deployment condition 
+		when(build.isContinuable()).thenReturn(false);
+		when(build.isSuccessful()).thenReturn(true);
+		when(build.getBuildCompletedDate()).thenReturn(new Date(2014, 1, 1, 1, 1, 1));
 			
-			return build;
-		}
-		
+		return build;
+	}
+	
 		// create a build that is not a deployment 
-		// randomly assign one of the 3 failure cases to it (C & S, C & !S, !C & !S)
-		private ResultsSummary createNonDeploymentBuild() {
-			ChainResultsSummary build = mock(ChainResultsSummary.class);
-			Random r = new Random();
-			int failCaseNum = r.nextInt(3); // randomly choose one of the failure cases
+	// randomly assign one of the 3 failure cases to it (C & S, C & !S, !C & !S)
+	private ResultsSummary createNonDeploymentBuild() {
+		ChainResultsSummary build = mock(ChainResultsSummary.class);
+		Random r = new Random();
+		int failCaseNum = r.nextInt(3); // randomly choose one of the failure cases
 			
-			// set its deployment condition 
-			if (failCaseNum == 0) { // C & S
-				when(build.isContinuable()).thenReturn(true);
-				when(build.isSuccessful()).thenReturn(true);
+		// set its deployment condition 
+		if (failCaseNum == 0) { // C & S
+			when(build.isContinuable()).thenReturn(true);
+			when(build.isSuccessful()).thenReturn(true);
 			} else if (failCaseNum == 1) { // C & !S
-				when(build.isContinuable()).thenReturn(true);
-				when(build.isSuccessful()).thenReturn(false);
-			} else { // !C & !S
-				when(build.isContinuable()).thenReturn(false);
-				when(build.isSuccessful()).thenReturn(false);
-			}
+			when(build.isContinuable()).thenReturn(true);
+			when(build.isSuccessful()).thenReturn(false);
+		} else { // !C & !S
+			when(build.isContinuable()).thenReturn(false);
+			when(build.isSuccessful()).thenReturn(false);
+		}
 			
-			return build;
-		}
+		return build;
+	}
 		
-		// create a list of builds with the specified position of deployment (-1 if no deployment)
-		private List<ResultsSummary> createBuildList(int numBuilds, int deploymentIndex) {
-			List<ResultsSummary> buildList = new ArrayList<ResultsSummary>();
-			for (int i = 0; i < numBuilds; i++) {
-				// create a deployment/non-deployment build
-				ResultsSummary build;	
-				if (i == deploymentIndex) {
-					build = createDeploymentBuild();
-				} else {
-					build = createNonDeploymentBuild();
-				}		
-				// add the build to the list
-				buildList.add(build);
+	// create a list of builds with the specified position of deployment (-1 if no deployment)
+	private List<ResultsSummary> createBuildList(int numBuilds, int deploymentIndex) {
+		List<ResultsSummary> buildList = new ArrayList<ResultsSummary>();
+		for (int i = 0; i < numBuilds; i++) {
+			// create a deployment/non-deployment build
+			ResultsSummary build;	
+			if (i == deploymentIndex) {
+				build = createDeploymentBuild();
+			} else {
+				build = createNonDeploymentBuild();
+			}		
+			// add the build to the list
+			buildList.add(build);
 
-				// associated the build with a list of commits
-				ImmutableList<Commit> commits = createCommitList3(i + 1);	 // add 1	
-				when(build.getCommits()).thenReturn(commits);
-			}
-			return buildList;
+			// associated the build with a list of commits
+			ImmutableList<Commit> commits = createCommitList(i + 1);	 // add 1	
+			when(build.getCommits()).thenReturn(commits);
 		}
-
+		return buildList;
+	}
 }
