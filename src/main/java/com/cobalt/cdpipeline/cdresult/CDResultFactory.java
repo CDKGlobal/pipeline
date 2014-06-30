@@ -13,7 +13,23 @@ public class CDResultFactory {
 	protected CDResult cdresult;
 	private List<ResultsSummary> buildList;
 	
+	/**
+	 * Constructs an CDResultFactory object.
+	 * 
+	 * @param projectName The name of the project this CDResult is associated with.
+	 * @param planName The name of the plan this CDResult is associated with. planName
+	 *        should be in the format of "[project] - [plan]".
+	 * @param buildList The list of build this CDResult is associated with.
+	 * @throws IllegalArgumentException if (projectName == null || planName == null || 
+	 *         buildList == null || !planName.startWith(projectName + " - "))
+	 */
 	public CDResultFactory(String projectName, String planName, List<ResultsSummary> buildList) {
+		if (projectName == null || planName == null || buildList == null
+				|| !planName.startsWith(projectName + " - ")) {
+			throw new IllegalArgumentException("Passed in null arguments or invalid plan name."
+					+ "(plan name should be in the format of \"[project] - [plan]\"");
+		}
+		
 		// planName is in the format of "[project] - [plan]"
 		// Strip planName so that it contains purely the plan's name.
 		String strippedPlanName = planName.substring(projectName.length() + 3);
