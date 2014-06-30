@@ -132,6 +132,24 @@ public class CDResult {
 	}
 	
 	/**
+	 * Get the project key associated with this result.
+	 * 
+	 * @return project key
+	 */
+	public String getProjectKey() {
+		return projectKey;
+	}
+	
+	/**
+	 * Get the plan key associated with this result.
+	 * 
+	 * @return plan key
+	 */
+	public String getPlanKey() {
+		return planKey;
+	}
+	
+	/**
 	 * Return last deployment date and time.
 	 * Return null if there's no deployment yet.
 	 * 
