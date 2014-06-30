@@ -79,7 +79,7 @@
 											#end
 										#end
 									</td>
-									<td>$!result.getCurrentBuild().buildNumber</td>
+									<td><a href="../../browse/$result.getCurrentBuild().getBuildKey()/latest">$!result.getCurrentBuild().getBuildNumber()</a></td>
 									<td>$!result.lastUpdateTime</td>
 									<td>
 										#set ($pipelineCount = 1)
