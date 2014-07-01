@@ -57,23 +57,23 @@
 									<td>
 										#set ($days = $result.getDaysSinceDeploymentFromCurrent())
 										#if ($days == -1)
-											-
+											--
 										#else
 											$days
 										#end
 									</td>
-									<td>$result.numChanges</td>
+									<td>$result.getNumChanges()</td>
 									<td>
 										#set ($setContributors = $result.getContributors())
 										#set ($contributorSize = $setContributors.size())
 										#if ($contributorSize == 0)
-											-
+											--
 										#else
 											#set ($contributorCount = 1)
 											#foreach ($contributor in $setContributors)
-												$contributor.username
+												$contributor.getUsername()
 												#if ($contributorCount < $ContributorSize)
-													,
+													, 
 												#end
 												#set ($contributorCount = $contributorCount + 1)
 											#end
@@ -86,7 +86,7 @@
 										#set ($pipelineSet = $result.getPipelineStages())
 										#set ($pipelineSize = $pipelineSet.size())
 										#foreach ($pipeline in $pipelineSet)
-											$pipeline.stageName [$pipeline.state]
+											$pipeline.getStageName() [$pipeline.getState()]
 											#if ($pipelineCount < $pipelineSize)
 												=>
 											#end
