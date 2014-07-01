@@ -6,9 +6,6 @@ import com.atlassian.bamboo.builder.BuildState;
  * Represents a single stage in the pipeline.
  */
 public class PipelineStage {
-	public static final BuildState STATE_FAILED = BuildState.FAILED;
-	public static final BuildState STATE_UNKNOWN = BuildState.UNKNOWN;
-	public static final BuildState STATE_SUCCESSFUL = BuildState.SUCCESS;
 	
 	private String stageName;
 	private BuildState state;
