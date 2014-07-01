@@ -16,7 +16,6 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 
 public class PipelineStagesTest {
-	CDResultFactory factory = new CDResultFactory("test", "test - test", "test", "test", new ArrayList<ResultsSummary>());
 	ChainResultsSummary noStage, oneStage, chain1, chain2;
 	
 	
@@ -70,15 +69,17 @@ public class PipelineStagesTest {
 	
 	@Test
 	public void testEmptyStageChain() {
-		factory.setPipelineStages(noStage);
-		List<PipelineStage> pipes = factory.cdresult.getPipelineStages();
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		CDResultFactory.setPipelineStages(cdr, noStage);
+		List<PipelineStage> pipes = cdr.getPipelineStages();
 		assertEquals("The pipeline stages list should be empty", 0, pipes.size());
 	}
 
 	@Test
 	public void testOneStageChain(){
-		factory.setPipelineStages(oneStage);
-		List<PipelineStage> pipes = factory.cdresult.getPipelineStages();
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		CDResultFactory.setPipelineStages(cdr, oneStage);
+		List<PipelineStage> pipes = cdr.getPipelineStages();
 		assertEquals("The pipeline stages list should have one element", 1, pipes.size());
 		assertEquals("The stage name should match", "test", pipes.get(0).getStageName());
 		assertEquals("The stage state should match", BuildState.SUCCESS, pipes.get(0).getState());
@@ -87,35 +88,40 @@ public class PipelineStagesTest {
 	@Test
 	public void testLengthOfStagesChainWithIdenticalName(){
 		ChainResultsSummary chain5 = this.getIdenticalStageChainWithGivenSize(5);
-		factory.setPipelineStages(chain5);
-		List<PipelineStage> pipes = factory.cdresult.getPipelineStages();
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		CDResultFactory.setPipelineStages(cdr, chain5);
+		List<PipelineStage> pipes = cdr.getPipelineStages();
 		assertEquals("The pipeline stages list should match", 5, pipes.size());
 		ChainResultsSummary chain100 = this.getIdenticalStageChainWithGivenSize(100);
-		factory.setPipelineStages(chain100);
-		pipes = factory.cdresult.getPipelineStages();
+		cdr = new CDResult("test", "test", "test", "test");
+		CDResultFactory.setPipelineStages(cdr, chain100);
+		pipes = cdr.getPipelineStages();
 		assertEquals("The pipeline stages list should match", 100, pipes.size());
 	}
 	
 	@Test
 	public void testFirstStageInChainWithDifferentStates(){
-		factory.setPipelineStages(chain1);
-		List<PipelineStage> pipes = factory.cdresult.getPipelineStages();
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		CDResultFactory.setPipelineStages(cdr, chain1);
+		List<PipelineStage> pipes = cdr.getPipelineStages();
 		assertEquals("The first stage name should match", "a", pipes.get(0).getStageName());
 		assertEquals("The first stage state should match", BuildState.SUCCESS, pipes.get(0).getState());
 	}
 	
 	@Test
 	public void testSecondStageInChainWithDifferentStates(){
-		factory.setPipelineStages(chain1);
-		List<PipelineStage> pipes = factory.cdresult.getPipelineStages();
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		CDResultFactory.setPipelineStages(cdr, chain1);
+		List<PipelineStage> pipes = cdr.getPipelineStages();
 		assertEquals("The first stage name should match", "b", pipes.get(1).getStageName());
 		assertEquals("The first stage state should match", BuildState.FAILED, pipes.get(1).getState());
 	}
 	
 	@Test
 	public void testThirdStageInChainWithDifferentStates(){
-		factory.setPipelineStages(chain1);
-		List<PipelineStage> pipes = factory.cdresult.getPipelineStages();
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		CDResultFactory.setPipelineStages(cdr, chain1);
+		List<PipelineStage> pipes = cdr.getPipelineStages();
 		assertEquals("The first stage name should match", "c", pipes.get(2).getStageName());
 		assertEquals("The first stage state should match", BuildState.UNKNOWN, pipes.get(2).getState());
 	}
