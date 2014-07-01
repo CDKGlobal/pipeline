@@ -8,6 +8,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.atlassian.bamboo.builder.BuildState;
+
 
 public class CDResultTest {
 	
@@ -109,10 +111,10 @@ public class CDResultTest {
 	@Test (expected = UnsupportedOperationException.class)
 	public void immutableTestOfGetPipelineStages(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");
-		PipelineStage p = new PipelineStage("test1", PipelineStage.STATE_FAILED);
+		PipelineStage p = new PipelineStage("test1", BuildState.FAILED);
 		cdr.addPipelineStageToList(p);
 		List<PipelineStage> ps = cdr.getPipelineStages();
-		ps.add(new PipelineStage("test2", PipelineStage.STATE_FAILED));
+		ps.add(new PipelineStage("test2", BuildState.FAILED));
 	}
 	
 }

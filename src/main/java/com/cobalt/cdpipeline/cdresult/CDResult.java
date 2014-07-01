@@ -46,8 +46,9 @@ public class CDResult {
 	 * @param lastDeployment
 	 */
 	void setLastDeploymentTime(Date lastDeployment) {
-		if(lastDeployment != null)
+		if(lastDeployment != null){
 			this.lastDeploymentTime = new Date(lastDeployment.getTime());
+		}
 	}
 	
 	/**
@@ -58,8 +59,9 @@ public class CDResult {
 	 * @param lastUpdate
 	 */
 	void setLastUpdateTime(Date lastUpdate) {
-		if(lastUpdate != null)
+		if(lastUpdate != null){
 			this.lastUpdate = new Date(lastUpdate.getTime());
+		}
 	}
 	
 	/**
