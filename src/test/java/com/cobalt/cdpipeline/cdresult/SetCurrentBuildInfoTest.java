@@ -19,12 +19,12 @@ public class SetCurrentBuildInfoTest {
 	
 	@Test
 	public void testWithNoBuilds() {
-		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", "project", "plan", createNBuildResults(0));
-		fac.setCurrentBuildInfo();
+		CDResult cdr = new CDResult("Project", "Project - Plan", "project", "plan");
+		CDResultFactory.setCurrentBuildInfo(cdr, createNBuildResults(0));
 		assertEquals("Date of cdresult's lastUpdateTime should be null (default) when there are no builds.", 
-						null, fac.cdresult.getLastUpdateTime());
+						null, cdr.getLastUpdateTime());
 		assertEquals("cdresult's currentBuild should be null (default) when there are no builds.",
-						null, fac.cdresult.getCurrentBuild());
+						null, cdr.getCurrentBuild());
 	}
 	
 	@Test
@@ -48,17 +48,17 @@ public class SetCurrentBuildInfoTest {
 	// against the first element in the build list (assumingly the most current build).
 	private void testForNBuilds(int N) {
 		List<ResultsSummary> buildList = createNBuildResults(N);
-		CDResultFactory fac = new CDResultFactory("Project", "Project - Plan", "project", "plan", buildList);
-		fac.setCurrentBuildInfo();
+		CDResult cdr = new CDResult("Project", "Project - Plan", "project", "plan");
+		CDResultFactory.setCurrentBuildInfo(cdr, buildList);
 
 		ChainResultsSummary expectedBuild = (ChainResultsSummary) buildList.get(0);
 		
 		assertEquals("Date of cdresult's lastUpdateTime doesn't match.", 
-					expectedBuild.getBuildCompletedDate().getTime(), fac.cdresult.getLastUpdateTime().getTime());
+					expectedBuild.getBuildCompletedDate().getTime(), cdr.getLastUpdateTime().getTime());
 		assertEquals("Build-key of cdresult's currentBuild doesn't match.", 
-					expectedBuild.getBuildKey(), fac.cdresult.getCurrentBuild().getBuildKey());
+					expectedBuild.getBuildKey(), cdr.getCurrentBuild().getBuildKey());
 		assertEquals("Build-number of cdresult's currentBuild doesn't match.", 
-					expectedBuild.getBuildNumber(), fac.cdresult.getCurrentBuild().getBuildNumber());
+					expectedBuild.getBuildNumber(), cdr.getCurrentBuild().getBuildNumber());
 	}
 	
 	private List<ResultsSummary> createNBuildResults(int N) {
