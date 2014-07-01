@@ -10,21 +10,16 @@ import com.atlassian.bamboo.commit.Commit;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactory {
-	protected CDResult cdresult;
-	private List<ResultsSummary> buildList;
 	
 	/**
-	 * Constructs an CDResultFactory object.
+	 * Return a CDResult with project name, plan name, days, changes, contributors info since
+	 * last deployment and current build information (name, last update time, pipeline stages
+	 * with status) based on the given projectName, planName and all builds when construct.
 	 * 
-	 * @param projectName The name of the project this CDResult is associated with.
-	 * @param planName The name of the plan this CDResult is associated with. planName
-	 *        should be in the format of "[project] - [plan]".
-	 * @param buildList The list of build this CDResult is associated with.
-	 * @throws IllegalArgumentException if (projectName == null || planName == null || 
-	 *         buildList == null || !planName.startWith(projectName + " - "))
+	 * @return
 	 */
-	public CDResultFactory(String projectName, String planName, String projectKey,
-						   String planKey, List<ResultsSummary> buildList) {
+	public static CDResult createCDResult(String projectName, String planName, String projectKey,
+			   String planKey, List<ResultsSummary> buildList) {
 		if (projectName == null || planName == null || buildList == null
 				|| !planName.startsWith(projectName + " - ")) {
 			throw new IllegalArgumentException("Passed in null arguments or invalid plan name."
@@ -35,20 +30,10 @@ public class CDResultFactory {
 		// Strip planName so that it contains purely the plan's name.
 		String strippedPlanName = planName.substring(projectName.length() + 3);
 		
-		cdresult = new CDResult(projectName, strippedPlanName, projectKey, planKey);
-		this.buildList = buildList;
-	}
-	
-	/**
-	 * Return a CDResult with project name, plan name, days, changes, contributors info since
-	 * last deployment and current build information (name, last update time, pipeline stages
-	 * with status) based on the given projectName, planName and all builds when construct.
-	 * 
-	 * @return
-	 */
-	public CDResult createCDResult() {
-		setLastDeploymentInfo();
-		setCurrentBuildInfo();
+		CDResult cdresult = new CDResult(projectName, strippedPlanName, projectKey, planKey);
+		
+		setLastDeploymentInfo(cdresult, buildList);
+		setCurrentBuildInfo(cdresult, buildList);
 		
 		return cdresult;
 	}
@@ -60,7 +45,7 @@ public class CDResultFactory {
 	 * If there are no last deployment, lastDeploymentTime will be default, and 
 	 * changes and contributors will be since the first build.
 	 */
-	protected void setLastDeploymentInfo() {
+	protected static void setLastDeploymentInfo(CDResult cdresult, List<ResultsSummary> buildList) {
 		// don't need to set anything if there are no builds at all
 		if(buildList == null || buildList.size() <= 0){
 			return;
@@ -73,7 +58,7 @@ public class CDResultFactory {
 		// add changes and contributors of the first build
 		// into cdresult
 		totalChanges += buildList.get(0).getCommits().size();
-		addAllAuthorsInCommits(buildList.get(0).getCommits());
+		addAllAuthorsInCommits(cdresult, buildList.get(0).getCommits());
 		
 		for (int i = 1; i < buildList.size(); i++) { 
 			ChainResultsSummary currentBuild = (ChainResultsSummary) buildList.get(i);	
@@ -86,7 +71,7 @@ public class CDResultFactory {
 			
 			List<Commit> commits = currentBuild.getCommits();
 			totalChanges += commits.size();
-			addAllAuthorsInCommits(commits);
+			addAllAuthorsInCommits(cdresult, commits);
 		}
 		
 		// set #changes (contributors and date are set in the progress)
@@ -100,43 +85,43 @@ public class CDResultFactory {
 	 * Last build updated time may be null if it hasn't started yet.
 	 * Last build updated time will be started time if it's not completed.
 	 */
-	protected void setCurrentBuildInfo() {
+	protected static void setCurrentBuildInfo(CDResult cdresult, List<ResultsSummary> buildList) {
 		if(buildList != null && buildList.size() > 0){
 			
 			// get the last build and set current build info.
 			ResultsSummary currentResult = buildList.get(0);
 			Date lastUpdate = currentResult.getBuildCompletedDate();
 			if(lastUpdate == null){
-				this.cdresult.setLastUpdateTime(currentResult.getBuildDate());
+				cdresult.setLastUpdateTime(currentResult.getBuildDate());
 			}else{
-				this.cdresult.setLastUpdateTime(lastUpdate);
+				cdresult.setLastUpdateTime(lastUpdate);
 			}
 			String buildKey = currentResult.getBuildKey();
 			int buildNum = currentResult.getBuildNumber();
 			Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
-			this.cdresult.setCurrentBuild(currentBuild);
+			cdresult.setCurrentBuild(currentBuild);
 			
 			// set the pipeline stages.
 			ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
-			setPipelineStages(pipeline);
+			setPipelineStages(cdresult, pipeline);
 		}
 	}
 	
 	/*
 	 * Add all contributors of the given commits to the contributors list.
 	 */
-	protected void addAllAuthorsInCommits(List<Commit> commits) {
+	protected static void addAllAuthorsInCommits(CDResult cdresult, List<Commit> commits) {
 		for(Commit c : commits){
 			Author author = c.getAuthor();
 			Contributor contributor = new Contributor(author.getFullName());
-			this.cdresult.addContributor(contributor);
+			cdresult.addContributor(contributor);
 		}
 	}
 	
 	/*
 	 * Set the list of PipelineStage in cdresult with the given build result.
 	 */
-	protected void setPipelineStages(ChainResultsSummary buildResult) {
+	protected static void setPipelineStages(CDResult cdresult, ChainResultsSummary buildResult) {
 		cdresult.resetPipelineStagesList();
 		List<ChainStageResult> stages = buildResult.getStageResults();
 
