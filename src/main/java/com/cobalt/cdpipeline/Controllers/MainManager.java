@@ -61,8 +61,7 @@ public class MainManager {
 				String planKey = plan.getKey();
 				List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 				
-				CDResultFactory factory = new CDResultFactory(projectName, planName, projectKey, planKey, buildList);
-				CDResult result = factory.createCDResult();
+				CDResult result = CDResultFactory.createCDResult(projectName, planName, projectKey, planKey, buildList);
 				resultList.add(result);
 			}
 		}
