@@ -19,18 +19,18 @@ import static org.mockito.Mockito.when;
 public class AddAllAuthorsInCommitsTest {
 
 	private static final int COMMIT_LIST_SIZE = 10;
-	CDResultFactory cdfac; 
+	CDResult cdresult; 
 	
 	@Before
 	public void setup() {
-		cdfac = new CDResultFactory("project", "project - plan", "project", "plan", new ArrayList<ResultsSummary>());		
+		cdresult = new CDResult("project", "project - plan", "project", "plan");		
 	}
 	
 	@Test
 	public void testNoCommit() {
 		List<Commit> commits = createCommitListWithoutAuthors(0);
-    	cdfac.addAllAuthorsInCommits(commits);
-    	assertEquals("0 commit should have 0 contributor", 0, cdfac.cdresult.getContributors().size());   
+    	CDResultFactory.addAllAuthorsInCommits(cdresult, commits);
+    	assertEquals("0 commit should have 0 contributor", 0, cdresult.getContributors().size());   
 	}
 		
 	@Test
@@ -40,8 +40,8 @@ public class AddAllAuthorsInCommitsTest {
 		for (int i = 0; i < 1; i++) {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
 		}
-    	cdfac.addAllAuthorsInCommits(commits);
-    	assertEquals("1 commit and 1 contributor", 1, cdfac.cdresult.getContributors().size());  
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits);
+    	assertEquals("1 commit and 1 contributor", 1, cdresult.getContributors().size());  
 	}
 		
 	@Test
@@ -54,9 +54,9 @@ public class AddAllAuthorsInCommitsTest {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
 		}
 
-    	cdfac.addAllAuthorsInCommits(commits);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits);
     	// check that all unique authors are counted
-    	assertEquals("10 commits, each w/ unique contributor", COMMIT_LIST_SIZE, cdfac.cdresult.getContributors().size());    	
+    	assertEquals("10 commits, each w/ unique contributor", COMMIT_LIST_SIZE, cdresult.getContributors().size());    	
 	}
 	
 	@Test
@@ -69,9 +69,9 @@ public class AddAllAuthorsInCommitsTest {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(r.nextInt(3)));
 		}
 		
-    	cdfac.addAllAuthorsInCommits(commits);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits);
     	// check the duplicate authors are only counted once
-    	assertEquals("10 commits w/ duplicate contributors", 3, cdfac.cdresult.getContributors().size()); 	
+    	assertEquals("10 commits w/ duplicate contributors", 3, cdresult.getContributors().size()); 	
 	}
 	
 	
