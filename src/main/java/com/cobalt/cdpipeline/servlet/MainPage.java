@@ -8,12 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import com.google.common.collect.Maps;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.common.collect.Maps;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
@@ -42,18 +49,30 @@ public class MainPage extends HttpServlet{
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
-      String username = userManager.getRemoteUsername(request);
-      if (username == null || !userManager.isSystemAdmin(username))
-      {
-        redirectToLogin(request, response);
-        return;
-      }
-
-      List<CDResult> resultList = mainManager.getCDResults();
-      Map<String, Object> context =  Maps.newHashMap();
-      context.put("results", resultList);
-      response.setContentType("text/html;charset=utf-8");
-      renderer.render("cdpipeline.vm", context, response.getWriter());
+      // Redirect the user if user is not admin
+	  String username = userManager.getRemoteUsername(request);
+	  if (username == null || !userManager.isSystemAdmin(username))
+	  {
+	    redirectToLogin(request, response);
+	    return;
+	  }
+	
+	  List<CDResult> resultList = mainManager.getCDResults();
+	  String query = request.getParameter("type");
+	  
+	  if (query == null || !query.equalsIgnoreCase("json")) {
+		  // Normal case: normal table page
+		  Map<String, Object> context =  Maps.newHashMap();
+		  context.put("results", resultList);
+		  response.setContentType("text/html;charset=utf-8");
+		  renderer.render("cdpipeline.vm", context, response.getWriter());
+	  } else {
+		  // Special Case: JSON request
+		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
+		  String json = writer.writeValueAsString(resultList);
+		  response.setContentType("application/json;charset=utf-8");
+		  response.getWriter().write(json);
+	  }
     }
     
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException
