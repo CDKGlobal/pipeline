@@ -313,6 +313,7 @@ public class SetLastDeploymentInfoTest {
 				Author a = mock(Author.class);
 				when(a.getFullName()).thenReturn("Author" + j);
 				when(c.getAuthor()).thenReturn(a);
+				when(c.getDate()).thenReturn(new Date());
 				builder.add(c);
 			}
 			
@@ -349,6 +350,7 @@ public class SetLastDeploymentInfoTest {
 		Author a = mock(Author.class);
 		when(a.getFullName()).thenReturn(name);
 		when(c.getAuthor()).thenReturn(a);
+		when(c.getDate()).thenReturn(new Date());
 		ImmutableList<Commit> commits = ImmutableList.of(c);
 		when(result.getCommits()).thenReturn(commits);
 		when(result.getBuildCompletedDate()).thenReturn(date);
@@ -371,7 +373,8 @@ public class SetLastDeploymentInfoTest {
 			Author author = mock(Author.class);
 		    when(author.getFullName()).thenReturn("author" + i);    	
 			Commit commit = mock(Commit.class);
-		    when(commit.getAuthor()).thenReturn(author);	    	
+		    when(commit.getAuthor()).thenReturn(author);
+		    when(commit.getDate()).thenReturn(new Date());
 		    commits.add(commit);
 		}
 		return commits.build();

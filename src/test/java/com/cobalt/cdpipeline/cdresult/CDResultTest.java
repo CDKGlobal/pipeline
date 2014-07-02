@@ -102,10 +102,10 @@ public class CDResultTest {
 	@Test (expected = UnsupportedOperationException.class)
 	public void immutableTestOfGetContributors(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");
-		Contributor c = new Contributor("test1");
+		Contributor c = new Contributor("test1", new Date());
 		cdr.addContributor(c);
 		Set<Contributor> cs = cdr.getContributors();
-		cs.add(new Contributor("test2"));
+		cs.add(new Contributor("test2", new Date()));
 	}
 	
 	@Test (expected = UnsupportedOperationException.class)
