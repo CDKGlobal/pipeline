@@ -225,6 +225,17 @@ public class CDResult {
 	}
 	
 	/**
+	 * Check if this already contains the contributor with the given username.
+	 * 
+	 * @param username of the contributor
+	 * @return true if this.contributors already contains the contributor with
+	 *         the given username, false otherwise. 
+	 */
+	public boolean containsContributor(String username) {
+		return contributors.containsKey(username);
+	}
+	
+	/**
 	 * Return all contributors since last deployment.
 	 * 
 	 * @return a Set of Contributor
