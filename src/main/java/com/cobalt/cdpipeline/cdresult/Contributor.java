@@ -1,15 +1,21 @@
 package com.cobalt.cdpipeline.cdresult;
 
+import java.util.Date;
+
 public class Contributor {
 	private String username;
+	private int numCommits;
+	private Date lastCommit;
 	
 	/**
 	 * Constructs a Contributor object.
 	 * 
 	 * @param username of the contributor
 	 */
-	public Contributor(String username) {
+	public Contributor(String username, Date commitTime) {
 		this.username = username;
+		this.numCommits = 1;
+		this.lastCommit = commitTime;
 	}
 	
 	/**
@@ -18,6 +24,39 @@ public class Contributor {
 	 */
 	public String getUsername() {
 		return username;
+	}
+	
+	/**
+	 * Gets the number of commits of this contributor after the last deployment.
+	 * @return the number of commits
+	 */
+	public int getNumCommits(){
+		return numCommits;
+	}
+	
+	/**
+	 * Gets the most recent commit time of this contributor.
+	 * @return the date and time of last commit
+	 */
+	public Date getLastCommitTime(){
+		return lastCommit;
+	}
+	
+	/**
+	 * Updates the last commit time if the given time is more recent.
+	 * @param commitTime a commit time of this contributor
+	 */
+	void updateLastCommitTime(Date commitTime){
+		if(commitTime.compareTo(lastCommit) > 0){
+			lastCommit = commitTime;
+		}
+	}
+	
+	/**
+	 * Increments the number of commits by 1.
+	 */
+	void incrementNumCommits(){
+		numCommits++;
 	}
 	
 	@Override
