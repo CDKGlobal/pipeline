@@ -113,7 +113,7 @@ public class CDResultFactory {
 	protected static void addAllAuthorsInCommits(CDResult cdresult, List<Commit> commits) {
 		for(Commit c : commits){
 			Author author = c.getAuthor();
-			Contributor contributor = new Contributor(author.getFullName());
+			Contributor contributor = new Contributor(author.getFullName(), c.getDate());
 			cdresult.addContributor(contributor);
 		}
 	}
