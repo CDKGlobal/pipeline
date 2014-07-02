@@ -3,6 +3,7 @@ package com.cobalt.cdpipeline.cdresult;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -67,6 +68,7 @@ public class AddAllAuthorsInCommitsTest {
 		Random r = new Random();			
 		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(r.nextInt(3)));
+	    	when(commits.get(i).getDate()).thenReturn(new Date());
 		}
 		
 		CDResultFactory.addAllAuthorsInCommits(cdresult, commits);

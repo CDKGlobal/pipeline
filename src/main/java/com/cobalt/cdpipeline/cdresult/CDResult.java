@@ -3,8 +3,10 @@ package com.cobalt.cdpipeline.cdresult;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -17,7 +19,7 @@ public class CDResult {
 	private Date lastDeploymentTime, lastUpdate;
 	private int numChanges;
 	
-	private Set<Contributor> contributors;
+	private Map<String, Contributor> contributors;
 	private Build currentBuild;
 	private List<PipelineStage> pipelineStages; 
 	
@@ -34,7 +36,7 @@ public class CDResult {
 		this.projectKey = projectKey;
 		this.planKey = planKey;
 		
-		contributors = new HashSet<Contributor>();
+		contributors = new HashMap<String, Contributor>();
 		pipelineStages = new ArrayList<PipelineStage>();
 	}
 	
@@ -83,7 +85,13 @@ public class CDResult {
 	 * @param contributor
 	 */
 	void addContributor(Contributor contributor) {
-		contributors.add(contributor);
+		if(contributors.keySet().contains(contributor.getUsername())){
+			Contributor c = contributors.get(contributor.getUsername());
+			c.incrementNumCommits();
+			c.updateLastCommitTime(contributor.getLastCommitTime());
+		}else{
+			contributors.put(contributor.getUsername(), contributor);
+		}
 	}
 	
 	/**
@@ -222,7 +230,11 @@ public class CDResult {
 	 * @return a Set of Contributor
 	 */
 	public Set<Contributor> getContributors(){
-		return Collections.unmodifiableSet(contributors);
+		Set<Contributor> results = new HashSet<Contributor>();
+		for(String name : contributors.keySet()){
+			results.add(contributors.get(name));
+		}
+		return Collections.unmodifiableSet(results);
 	}
 	
 	/**
