@@ -98,7 +98,7 @@ public class CDResultFactory {
 			}
 			String buildKey = currentResult.getBuildKey();
 			int buildNum = currentResult.getBuildNumber();
-			Build currentBuild = new Build(buildKey, buildNum, lastUpdate);
+			Build currentBuild = new Build(buildKey, buildNum);
 			cdresult.setCurrentBuild(currentBuild);
 			
 			// set the pipeline stages.

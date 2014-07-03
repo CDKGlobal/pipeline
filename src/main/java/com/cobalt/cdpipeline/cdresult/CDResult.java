@@ -2,12 +2,15 @@ package com.cobalt.cdpipeline.cdresult;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * CDResult contains all the information needed for one single row
@@ -255,5 +258,61 @@ public class CDResult {
 	 */
 	public List<PipelineStage> getPipelineStages(){
 		return Collections.unmodifiableList(pipelineStages);
+	}
+	
+	/**
+	 * Return all contributors sorted by number of commits in descending order.
+	 * @return a List of Contributors
+	 */
+	public List<Contributor> getContributorsSortedByNumCommits(){
+		return this.getContributorsSortedBy(new NumCommitComparator());
+	}
+	
+	/**
+	 * Return all contributors sorted by the time of their last commit, contributor
+	 * who commits most recently comes first.
+	 * @return a List of Contributors
+	 */
+	public List<Contributor> getContributorsSortedByLatestCommit(){
+		return this.getContributorsSortedBy(new RecentCommitComparator());
+	}
+	
+	// Return a list of all Contributors sorted by the given comparator of Contributors.
+	private List<Contributor> getContributorsSortedBy(Comparator<Contributor> c){
+		TreeSet<Contributor> results = new TreeSet<Contributor>(c);
+		results.addAll(contributors.values());
+		Iterator<Contributor> it = results.descendingIterator();
+		List<Contributor> list = new ArrayList<Contributor>();
+		while(it.hasNext()){
+			list.add(it.next());
+		}
+		return list;
+	}
+	
+	// A Comparator which compares the contributor by number of commits.
+	// Contributor with more commits is greater than contributor with less commits.
+	private class NumCommitComparator implements Comparator<Contributor>{
+
+		@Override
+		public int compare(Contributor a, Contributor b) {
+			return a.getNumCommits() < b.getNumCommits() ? -1 : 1;
+		}
+		
+	}
+	
+	// A Comparator which compares the contributor by number of commits.
+	// Contributor with more recent last commit date is greater than contributor
+	// with less recent last commit date.
+	private class RecentCommitComparator implements Comparator<Contributor>{
+
+		@Override
+		public int compare(Contributor a, Contributor b) {
+			int result = a.getLastCommitTime().compareTo(b.getLastCommitTime());
+			if(result == 0){
+				return 1;
+			}
+			return result;
+		}
+		
 	}
 }

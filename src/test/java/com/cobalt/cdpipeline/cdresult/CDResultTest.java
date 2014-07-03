@@ -6,12 +6,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.atlassian.bamboo.builder.BuildState;
 
 
 public class CDResultTest {
+	Contributor test1, test2, test3;
+	Date current;
+	
+	@Before
+	public void setUpContributors(){
+		current = new Date();
+		test1 = new Contributor("test 1", current);
+		test2 = new Contributor("test 2", new Date(current.getTime() - 1000));
+		test3 = new Contributor("test 3", new Date(current.getTime() - 10000));
+	}
 	
 	@Test
 	public void testGetDaysSinceYesterdayFromCurrent() {
@@ -115,6 +126,51 @@ public class CDResultTest {
 		cdr.addPipelineStageToList(p);
 		List<PipelineStage> ps = cdr.getPipelineStages();
 		ps.add(new PipelineStage("test2", BuildState.FAILED));
+	}
+	
+	@Test
+	public void identicalContributorsTest(){
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		cdr.addContributor(test1);
+		Contributor i1 = new Contributor("test 1", current);
+		Contributor i2 = new Contributor("test 1", current);
+		cdr.addContributor(i1);
+		cdr.addContributor(i2);
+		Set<Contributor> contributors = cdr.getContributors();
+		assertEquals("There should not be increment of number of Contributor", 1, contributors.size());
+		for(Contributor c : contributors){
+			assertEquals("The number of commits of the identical Contributor should be incremented", 3, c.getNumCommits());
+		}
+	}
+	
+	// Test the sorting of Contributors in CDResult.
+	@Test
+	public void numCommitSortingTestOfContributors(){
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		cdr.addContributor(test1);
+		cdr.addContributor(test1);
+		cdr.addContributor(test1);
+		cdr.addContributor(test2);
+		cdr.addContributor(test2);
+		cdr.addContributor(test3);
+		List<Contributor> contributors = cdr.getContributorsSortedByNumCommits();
+		assertEquals("There should not be dulplicate identical Contributors", 3, contributors.size());
+		assertEquals("The list of Contributors should be sorted by number of commits", test1.getUsername(), contributors.get(0).getUsername());
+		assertEquals("The list of Contributors should be sorted by number of commits", test2.getUsername(), contributors.get(1).getUsername());
+		assertEquals("The list of Contributors should be sorted by number of commits", test3.getUsername(), contributors.get(2).getUsername());
+	}
+	
+	@Test
+	public void lastCommitTimeSortingTestOfContributors(){
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		cdr.addContributor(test1);
+		cdr.addContributor(test2);
+		cdr.addContributor(test3);
+		List<Contributor> contributors = cdr.getContributorsSortedByLatestCommit();
+		assertEquals("There should not be dulplicate identical Contributors", 3, contributors.size());
+		assertEquals("The list of Contributors should be sorted by last commit time", test1.getUsername(), contributors.get(0).getUsername());
+		assertEquals("The list of Contributors should be sorted by last commit time", test2.getUsername(), contributors.get(1).getUsername());
+		assertEquals("The list of Contributors should be sorted by last commit time", test3.getUsername(), contributors.get(2).getUsername());
 	}
 	
 }
