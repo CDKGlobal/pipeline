@@ -278,6 +278,7 @@ public class CDResult {
 	
 	/**
 	 * Return all contributors sorted by number of commits in descending order.
+	 * Tie breaks by the time of their last commit (more recent comes first)
 	 * @return a List of Contributors
 	 */
 	public List<Contributor> getContributorsSortedByNumCommits(){
@@ -287,6 +288,7 @@ public class CDResult {
 	/**
 	 * Return all contributors sorted by the time of their last commit, contributor
 	 * who commits most recently comes first.
+	 * Tie breaks by number of commits (one with more commits comes first)
 	 * @return a List of Contributors
 	 */
 	public List<Contributor> getContributorsSortedByLatestCommit(){
@@ -307,11 +309,21 @@ public class CDResult {
 	
 	// A Comparator which compares the contributor by number of commits.
 	// Contributor with more commits is greater than contributor with less commits.
+	// For Contributors with the same number of commits, Contributor with more recent
+	// last commit date is greater.
 	private class NumCommitComparator implements Comparator<Contributor>{
 
 		@Override
 		public int compare(Contributor a, Contributor b) {
-			return a.getNumCommits() < b.getNumCommits() ? -1 : 1;
+			if(a.getNumCommits() != b.getNumCommits()){
+				return a.getNumCommits() < b.getNumCommits() ? -1 : 1;
+			}else{
+				int result = a.getLastCommitTime().compareTo(b.getLastCommitTime());
+				if(result == 0){
+					return 1;
+				}
+				return result; 
+			}
 		}
 		
 	}
@@ -319,13 +331,15 @@ public class CDResult {
 	// A Comparator which compares the contributor by number of commits.
 	// Contributor with more recent last commit date is greater than contributor
 	// with less recent last commit date.
+	// For Contributors with the same last commit date, Contributor with more
+	// commits is greater.
 	private class RecentCommitComparator implements Comparator<Contributor>{
 
 		@Override
 		public int compare(Contributor a, Contributor b) {
 			int result = a.getLastCommitTime().compareTo(b.getLastCommitTime());
 			if(result == 0){
-				return 1;
+				return a.getNumCommits() < b.getNumCommits() ? -1 : 1;
 			}
 			return result;
 		}
