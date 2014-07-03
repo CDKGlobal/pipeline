@@ -50,6 +50,30 @@ public class Contributor {
 	}
 	
 	/**
+	 * Gets the user's first name and last name
+	 * @return the user's first and last name
+	 */
+	public String getFullname() {
+		return fullname;
+	}
+	
+	/**
+	 * Gets a link to the user's profile picture on Jira
+	 * @return the url of the user's picture 
+	 */
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+	
+	/**
+	 * Gets a link to the user's profile page on Jira
+	 * @return the url of the user's profile page on Jira
+	 */
+	public String getProfilePageUrl() {
+		return profilePageUrl;
+	}
+	
+	/**
 	 * Updates the last commit time if the given time is more recent.
 	 * @param commitTime a commit time of this contributor
 	 */
