@@ -5,18 +5,15 @@ import java.util.Date;
 public class Build {
 	private String buildKey;
 	private int buildNumber;
-	private Date completeTime;
 	
 	/**
 	 * Constructs a Build with given params
 	 * @param buildKey
 	 * @param buildNumber
-	 * @param completeTime
 	 */
-	public Build(String buildKey, int buildNumber, Date completeTime){
+	public Build(String buildKey, int buildNumber){
 		this.buildKey = buildKey;
 		this.buildNumber = buildNumber;
-		this.completeTime = completeTime;
 	}
 
 	/**
@@ -33,14 +30,6 @@ public class Build {
 	 */
 	public int getBuildNumber() {
 		return buildNumber;
-	}
-
-	/**
-	 * Returns the completed time of this build
-	 * @return completed time
-	 */
-	public Date getCompleteTime() {
-		return completeTime;
 	}
 
 }
