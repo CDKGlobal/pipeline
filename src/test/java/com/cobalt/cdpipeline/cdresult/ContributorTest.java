@@ -18,32 +18,32 @@ public class ContributorTest {
     	
     @Before
     public void setup() {
-        super1 = new Contributor("super pipe", new Date());
-        super2 = new Contributor("Super Pipe", new Date());
-        super3 = new Contributor("SUPER PIPE", new Date());
+        super1 = new Contributor("super pipe", new Date(), null, null, null);
+        super2 = new Contributor("Super Pipe", new Date(), null, null, null);
+        super3 = new Contributor("SUPER PIPE", new Date(), null, null, null);
         current = new Date();
-        test1 = new Contributor("test 1", current);
-        test2 = new Contributor("test 2", new Date(current.getTime() - 10000));
+        test1 = new Contributor("test 1", current, null, null, null);
+        test2 = new Contributor("test 2", new Date(current.getTime() - 10000), null, null, null);
     }
     
 	// test constructor
 
 	@Test
 	public void test_constuctor() {
-		new Contributor("Like Boss", new Date());
+		new Contributor("Like Boss", new Date(), null, null, null);
 	}
 	
 	// test equals()
 	
 	@Test
 	public void test_equals_same_name() {
-        Contributor superfake = new Contributor("super pipe", new Date());
+        Contributor superfake = new Contributor("super pipe", new Date(), null, null, null);
 		assertTrue(super1.equals(superfake));
 	}
 	
 	@Test
 	public void test_equals_unique_names() {
-        Contributor anotherUser = new Contributor("super pie", new Date());
+        Contributor anotherUser = new Contributor("super pie", new Date(), null, null, null);
 		assertFalse(super1.equals(anotherUser));
 	}
 	
@@ -57,13 +57,13 @@ public class ContributorTest {
 	
     @Test
 	public void test_hash_same_name() {
-        Contributor superfake = new Contributor("super pipe", new Date());
+        Contributor superfake = new Contributor("super pipe", new Date(), null, null, null);
 		assertEquals(super1, superfake);
 	}
 	
 	@Test
 	public void test_hash_unique_names() {
-        Contributor anotherUser = new Contributor("old pie", new Date());
+        Contributor anotherUser = new Contributor("old pie", new Date(), null, null, null);
         assertTrue(super1 != anotherUser);
 
 	}
