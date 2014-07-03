@@ -64,14 +64,16 @@
 									</td>
 									<td>$result.getNumChanges()</td>
 									<td>
-										#set ($setContributors = $result.getContributors())
+										#set ($setContributors = $result.getContributorsSortedByLatestCommit())
 										#set ($contributorSize = $setContributors.size())
 										#if ($contributorSize == 0)
 											--
 										#else
 											#set ($contributorCount = 1)
 											#foreach ($contributor in $setContributors)
-												$contributor.getUsername()
+												<a href="$contributor.getProfilePageUrl()">
+													<img alt="$contributor.getFullname()" title="$contributor.getFullname()" src="$contributor.getPictureUrl()" />
+												</a>
 												#if ($contributorCount < $ContributorSize)
 													, 
 												#end
