@@ -19,7 +19,7 @@ public class CDResultFactory {
 	 * @return
 	 */
 	public static CDResult createCDResult(String projectName, String planName, String projectKey,
-			   String planKey, List<ResultsSummary> buildList) {
+			   String planKey, List<ResultsSummary> buildList, ContributorBuilder contributorBuilder) {
 		if (projectName == null || planName == null || buildList == null
 				|| !planName.startsWith(projectName + " - ")) {
 			throw new IllegalArgumentException("Passed in null arguments or invalid plan name."
@@ -32,7 +32,7 @@ public class CDResultFactory {
 		
 		CDResult cdresult = new CDResult(projectName, strippedPlanName, projectKey, planKey);
 		
-		setLastDeploymentInfo(cdresult, buildList);
+		setLastDeploymentInfo(cdresult, buildList, contributorBuilder);
 		setCurrentBuildInfo(cdresult, buildList);
 		
 		return cdresult;
@@ -45,7 +45,8 @@ public class CDResultFactory {
 	 * If there are no last deployment, lastDeploymentTime will be default, and 
 	 * changes and contributors will be since the first build.
 	 */
-	protected static void setLastDeploymentInfo(CDResult cdresult, List<ResultsSummary> buildList) {
+	protected static void setLastDeploymentInfo(CDResult cdresult, List<ResultsSummary> buildList, 
+												ContributorBuilder contributorBuilder) {
 		// don't need to set anything if there are no builds at all
 		if(buildList == null || buildList.size() <= 0){
 			return;
@@ -58,7 +59,7 @@ public class CDResultFactory {
 		// add changes and contributors of the first build
 		// into cdresult
 		totalChanges += buildList.get(0).getCommits().size();
-		addAllAuthorsInCommits(cdresult, buildList.get(0).getCommits());
+		addAllAuthorsInCommits(cdresult, buildList.get(0).getCommits(), contributorBuilder);
 		
 		for (int i = 1; i < buildList.size(); i++) { 
 			ChainResultsSummary currentBuild = (ChainResultsSummary) buildList.get(i);	
@@ -71,7 +72,7 @@ public class CDResultFactory {
 			
 			List<Commit> commits = currentBuild.getCommits();
 			totalChanges += commits.size();
-			addAllAuthorsInCommits(cdresult, commits);
+			addAllAuthorsInCommits(cdresult, commits, contributorBuilder);
 		}
 		
 		// set #changes (contributors and date are set in the progress)
@@ -110,7 +111,8 @@ public class CDResultFactory {
 	/*
 	 * Add all contributors of the given commits to the contributors list.
 	 */
-	protected static void addAllAuthorsInCommits(CDResult cdresult, List<Commit> commits) {
+	protected static void addAllAuthorsInCommits(CDResult cdresult, List<Commit> commits, 
+													ContributorBuilder contributorBuilder) {
 		for(Commit c : commits){
 			Author author = c.getAuthor();
 			// TODO create contributor
