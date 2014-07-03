@@ -2,12 +2,15 @@ package com.cobalt.cdpipeline.cdresult;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * CDResult contains all the information needed for one single row
@@ -255,5 +258,46 @@ public class CDResult {
 	 */
 	public List<PipelineStage> getPipelineStages(){
 		return Collections.unmodifiableList(pipelineStages);
+	}
+	
+	public List<Contributor> getContributorsSortedByNumCommits(){
+		return this.getContributorsSortedBy(new NumCommitComparator());
+	}
+	
+	public List<Contributor> getContributorsSortedByLatestCommit(){
+		return this.getContributorsSortedBy(new RecentCommitComparator());
+	}
+	
+	private List<Contributor> getContributorsSortedBy(Comparator<Contributor> c){
+		TreeSet<Contributor> results = new TreeSet<Contributor>(c);
+		results.addAll(contributors.values());
+		Iterator<Contributor> it = results.descendingIterator();
+		List<Contributor> list = new ArrayList<Contributor>();
+		while(it.hasNext()){
+			list.add(it.next());
+		}
+		return list;
+	}
+	
+	private class NumCommitComparator implements Comparator<Contributor>{
+
+		@Override
+		public int compare(Contributor a, Contributor b) {
+			return a.getNumCommits() < b.getNumCommits() ? -1 : 1;
+		}
+		
+	}
+	
+	private class RecentCommitComparator implements Comparator<Contributor>{
+
+		@Override
+		public int compare(Contributor a, Contributor b) {
+			int result = a.getLastCommitTime().compareTo(b.getLastCommitTime());
+			if(result == 0){
+				return 1;
+			}
+			return result;
+		}
+		
 	}
 }
