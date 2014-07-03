@@ -260,14 +260,24 @@ public class CDResult {
 		return Collections.unmodifiableList(pipelineStages);
 	}
 	
+	/**
+	 * Return all contributors sorted by number of commits in descending order.
+	 * @return a List of Contributors
+	 */
 	public List<Contributor> getContributorsSortedByNumCommits(){
 		return this.getContributorsSortedBy(new NumCommitComparator());
 	}
 	
+	/**
+	 * Return all contributors sorted by the time of their last commit, contributor
+	 * who commits most recently comes first.
+	 * @return a List of Contributors
+	 */
 	public List<Contributor> getContributorsSortedByLatestCommit(){
 		return this.getContributorsSortedBy(new RecentCommitComparator());
 	}
 	
+	// Return a list of all Contributors sorted by the given comparator of Contributors.
 	private List<Contributor> getContributorsSortedBy(Comparator<Contributor> c){
 		TreeSet<Contributor> results = new TreeSet<Contributor>(c);
 		results.addAll(contributors.values());
@@ -279,6 +289,8 @@ public class CDResult {
 		return list;
 	}
 	
+	// A Comparator which compares the contributor by number of commits.
+	// Contributor with more commits is greater than contributor with less commits.
 	private class NumCommitComparator implements Comparator<Contributor>{
 
 		@Override
@@ -288,6 +300,9 @@ public class CDResult {
 		
 	}
 	
+	// A Comparator which compares the contributor by number of commits.
+	// Contributor with more recent last commit date is greater than contributor
+	// with less recent last commit date.
 	private class RecentCommitComparator implements Comparator<Contributor>{
 
 		@Override
