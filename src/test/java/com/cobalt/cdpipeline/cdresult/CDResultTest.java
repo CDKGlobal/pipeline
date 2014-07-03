@@ -19,9 +19,9 @@ public class CDResultTest {
 	@Before
 	public void setUpContributors(){
 		current = new Date();
-		test1 = new Contributor("test 1", current);
-		test2 = new Contributor("test 2", new Date(current.getTime() - 1000));
-		test3 = new Contributor("test 3", new Date(current.getTime() - 10000));
+		test1 = new Contributor("test 1", current, null, null, null);
+		test2 = new Contributor("test 2", new Date(current.getTime() - 1000), null, null, null);
+		test3 = new Contributor("test 3", new Date(current.getTime() - 10000), null, null, null);
 	}
 	
 	@Test
@@ -113,10 +113,10 @@ public class CDResultTest {
 	@Test (expected = UnsupportedOperationException.class)
 	public void immutableTestOfGetContributors(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");
-		Contributor c = new Contributor("test1", new Date());
+		Contributor c = new Contributor("test1", new Date(), null, null, null);
 		cdr.addContributor(c);
 		Set<Contributor> cs = cdr.getContributors();
-		cs.add(new Contributor("test2", new Date()));
+		cs.add(new Contributor("test2", new Date(), null, null, null));
 	}
 	
 	@Test (expected = UnsupportedOperationException.class)
@@ -132,8 +132,8 @@ public class CDResultTest {
 	public void identicalContributorsTest(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");
 		cdr.addContributor(test1);
-		Contributor i1 = new Contributor("test 1", current);
-		Contributor i2 = new Contributor("test 1", current);
+		Contributor i1 = new Contributor("test 1", current, null, null, null);
+		Contributor i2 = new Contributor("test 1", current, null, null, null);
 		cdr.addContributor(i1);
 		cdr.addContributor(i2);
 		Set<Contributor> contributors = cdr.getContributors();
