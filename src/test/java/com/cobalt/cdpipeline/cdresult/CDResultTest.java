@@ -128,18 +128,42 @@ public class CDResultTest {
 		ps.add(new PipelineStage("test2", BuildState.FAILED));
 	}
 	
-	@Test
-	public void identicalContributorsTest(){
+	@Test (expected = IllegalArgumentException.class)
+	public void addIdenticalContributorsTest(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");
 		cdr.addContributor(test1);
 		Contributor i1 = new Contributor("test 1", current, null, null, null);
-		Contributor i2 = new Contributor("test 1", current, null, null, null);
 		cdr.addContributor(i1);
-		cdr.addContributor(i2);
-		Set<Contributor> contributors = cdr.getContributors();
-		assertEquals("There should not be increment of number of Contributor", 1, contributors.size());
-		for(Contributor c : contributors){
-			assertEquals("The number of commits of the identical Contributor should be incremented", 3, c.getNumCommits());
+	}
+	
+	// Test update contributors
+	@Test (expected = IllegalArgumentException.class)
+	public void updateNotExistContributorTest(){
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		cdr.updateContributor("test 1", current);
+	}
+	
+	@Test
+	public void updateExistContributorWithNoTimeUpdateTest(){
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		cdr.addContributor(test1);
+		cdr.updateContributor("test 1", new Date(current.getTime() - 1000));
+		assertEquals("Only one Contributor in the list", 1, cdr.getContributors().size());
+		for(Contributor c : cdr. getContributors()){
+			assertEquals("Increment the number of commits of the contributor", 2, c.getNumCommits());
+			assertEquals("Last Commit Time shouldn't be changed", current, c.getLastCommitTime());
+		}
+	}
+	
+	@Test
+	public void updateExistContributorWithTimeUpdateTest(){
+		CDResult cdr = new CDResult("test", "test", "test", "test");
+		cdr.addContributor(test2);
+		cdr.updateContributor("test 2", current);
+		assertEquals("Only one Contributor in the list", 1, cdr.getContributors().size());
+		for(Contributor c : cdr. getContributors()){
+			assertEquals("Increment the number of commits of the contributor", 2, c.getNumCommits());
+			assertEquals("Last Commit Time shouldn be updated", current, c.getLastCommitTime());
 		}
 	}
 	
@@ -148,10 +172,10 @@ public class CDResultTest {
 	public void numCommitSortingTestOfContributors(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");
 		cdr.addContributor(test1);
-		cdr.addContributor(test1);
-		cdr.addContributor(test1);
+		cdr.updateContributor("test 1", current);
+		cdr.updateContributor("test 1", current);
 		cdr.addContributor(test2);
-		cdr.addContributor(test2);
+		cdr.updateContributor("test 2", test2.getLastCommitTime());
 		cdr.addContributor(test3);
 		List<Contributor> contributors = cdr.getContributorsSortedByNumCommits();
 		assertEquals("There should not be dulplicate identical Contributors", 3, contributors.size());
