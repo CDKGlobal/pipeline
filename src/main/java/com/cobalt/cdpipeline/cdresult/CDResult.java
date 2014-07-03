@@ -82,18 +82,34 @@ public class CDResult {
 	
 	/**
 	 * Add given contributor to contributors set.
+	 * Throws IllegalArgumentException if contributor already exists in Contributors List.
 	 * By default, contributors will be an empty list.
 	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param contributor
 	 */
 	void addContributor(Contributor contributor) {
-		if(contributors.keySet().contains(contributor.getUsername())){
-			Contributor c = contributors.get(contributor.getUsername());
-			c.incrementNumCommits();
-			c.updateLastCommitTime(contributor.getLastCommitTime());
+		if(contributors.containsKey(contributor.getUsername())){
+			throw new IllegalArgumentException(contributor.getUsername() + " already exists in the Contributors List.");
 		}else{
 			contributors.put(contributor.getUsername(), contributor);
+		}
+	}
+	
+	/**
+	 * Update the contributor with the given username with the new commit time
+	 * and increment its number of commits.
+	 * Throws IllegalArgumentException if contributor doesn't exist in Contributors List.
+	 * @param username
+	 * @param lastCommitTime
+	 */
+	void updateContributor(String username, Date lastCommitTime){
+		if(contributors.containsKey(username)){
+			Contributor c = contributors.get(username);
+			c.incrementNumCommits();
+			c.updateLastCommitTime(lastCommitTime);
+		}else{
+			throw new IllegalArgumentException(username + " doesn't exist in the COntributors List.");
 		}
 	}
 	
