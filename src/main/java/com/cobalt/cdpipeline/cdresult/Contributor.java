@@ -6,16 +6,23 @@ public class Contributor {
 	private String username;
 	private int numCommits;
 	private Date lastCommit;
+	private String fullname;
+	private String pictureUrl;
+	private String profilePageUrl;
 	
 	/**
 	 * Constructs a Contributor object.
 	 * 
 	 * @param username of the contributor
 	 */
-	public Contributor(String username, Date commitTime) {
+	public Contributor(String username, Date commitTime, String fullname, String pictureUrl, String profilePageUrl) {
 		this.username = username;
 		this.numCommits = 1;
 		this.lastCommit = commitTime;
+		this.fullname = fullname;
+		this.pictureUrl = pictureUrl;
+		this.profilePageUrl = profilePageUrl;
+		
 	}
 	
 	/**
