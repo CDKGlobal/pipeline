@@ -13,6 +13,7 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.cobalt.cdpipeline.cdresult.CDResult;
 import com.cobalt.cdpipeline.cdresult.CDResultFactory;
+import com.cobalt.cdpipeline.cdresult.ContributorBuilder;
 
 /**
  * The main controller of CDPipeline Plugin Project that handles getting the
@@ -48,6 +49,9 @@ public class MainManager {
 	 *         See CDResults for more details.
 	 */
 	public List<CDResult> getCDResults() {
+		// should get the params from the current user
+		ContributorBuilder contributorBuilder = new ContributorBuilder("jira.cobalt.com", "liuch", "4eyesPet!");
+		
 		List<CDResult> resultList = new ArrayList<CDResult>();
 		
 		Set<Project> projects = projectManager.getAllProjects();
@@ -61,7 +65,7 @@ public class MainManager {
 				String planKey = plan.getKey();
 				List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 				
-				CDResult result = CDResultFactory.createCDResult(projectName, planName, projectKey, planKey, buildList);
+				CDResult result = CDResultFactory.createCDResult(projectName, planName, projectKey, planKey, buildList, contributorBuilder);
 				resultList.add(result);
 			}
 		}
