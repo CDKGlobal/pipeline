@@ -33,7 +33,8 @@ public class SetLastDeploymentInfoTest {
 	private ChainResultsSummary fail2;
 	private Date day1;
 	private Date day2;
-	
+	ContributorBuilder cb = new ContributorBuilder("testHostname", "testUsername", "testPassword");
+
 	
 	@Before
 	public void setup(){
@@ -145,7 +146,7 @@ public class SetLastDeploymentInfoTest {
 		}
 		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 		
 		assertEquals("Date of last deployment doesn't match.", 
 						(new Date(3)).getTime(), cdr.getLastDeploymentTime().getTime());
@@ -167,7 +168,7 @@ public class SetLastDeploymentInfoTest {
 		}
 		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 		
 		assertEquals("Date of last deployment doesn't match.", 
 						(new Date(2)).getTime(), cdr.getLastDeploymentTime().getTime());
@@ -183,7 +184,7 @@ public class SetLastDeploymentInfoTest {
 		public void testNoBuild() {
 			List<ResultsSummary> emptyBuildList = new ArrayList<ResultsSummary>();
 			CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-			CDResultFactory.setLastDeploymentInfo(cdr, emptyBuildList);
+			CDResultFactory.setLastDeploymentInfo(cdr, emptyBuildList, cb);
 			
 		assertEquals("No build should have no change.", 0, cdr.getNumChanges());
 		assertEquals("No build should have no contributor.", new HashSet<Contributor>(), cdr.getContributors());
@@ -196,7 +197,7 @@ public class SetLastDeploymentInfoTest {
 	public void testOneBuildSuccessful() {
 		List<ResultsSummary> buildList = createBuildList(1, 0);
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 			
 		assertEquals("Build with size 1 should have 1 change.", 1, cdr.getNumChanges());		
 		assertEquals("Build with size 1  should have 1 contributor.", 1, cdr.getContributors().size());
@@ -207,7 +208,7 @@ public class SetLastDeploymentInfoTest {
 		public void testOneBuildFailed() {
 			List<ResultsSummary> buildList = createBuildList(1, -1);
 			CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-			CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+			CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 			
 		assertEquals("Build with size 1 should have 1 change.", 1, cdr.getNumChanges());		
 		assertEquals("Build with size 1 should have 1 contributor.", 1, cdr.getContributors().size());
@@ -221,7 +222,7 @@ public class SetLastDeploymentInfoTest {
 			// N N N N N        (Is deployment? Y/N)
 			List<ResultsSummary> buildList = createBuildList(5, -1);
 			CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-			CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+			CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 			
 		assertEquals("Buildlist with no deployment should add up all changes", 15, cdr.getNumChanges());		
 		assertEquals("Buildlist with no deployment should add up all contributors", 5, cdr.getContributors().size());
@@ -233,7 +234,7 @@ public class SetLastDeploymentInfoTest {
 			// N N N N Y
 			List<ResultsSummary> buildList = createBuildList(5, 0);
 			CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-			CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+			CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 			
 		assertEquals("Buildlist with the last build as deployment should add up all changes.", 15, cdr.getNumChanges());		
 		assertEquals("Buildlist with the last build as deployment should add up all contributors.", 5, cdr.getContributors().size());
@@ -245,7 +246,7 @@ public class SetLastDeploymentInfoTest {
 			// N N N Y N
 			List<ResultsSummary> buildList = createBuildList(5, 1);
 			CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-			CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+			CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 			
 		assertEquals("Should only count the changes in the newest build", 1, cdr.getNumChanges());		
 		assertEquals("Should only count the contributors in the newest build", 1, cdr.getContributors().size());
@@ -258,7 +259,7 @@ public class SetLastDeploymentInfoTest {
 			// N N Y N N
 			List<ResultsSummary> buildList = createBuildList(5, 2);
 			CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-			CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+			CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 			
 			assertEquals(3, cdr.getNumChanges());		
 			assertEquals(2, cdr.getContributors().size());
@@ -270,7 +271,7 @@ public class SetLastDeploymentInfoTest {
 			// Y N N N N 
 			List<ResultsSummary> buildList = createBuildList(5, 4);
 			CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-			CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+			CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 			
 		assertEquals("Should add up #changes up to the oldest build.", 10, cdr.getNumChanges());		
 		assertEquals("Should add the contributors up to the oldest build.", 4, cdr.getContributors().size());
@@ -285,7 +286,7 @@ public class SetLastDeploymentInfoTest {
 		setTwoDeployments(buildList, pos1, pos2);
 		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList);
+		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
 		
 		// Last deployment should be second one in the buildList
 		
@@ -362,7 +363,7 @@ public class SetLastDeploymentInfoTest {
 		builds.add(rs1);
 		builds.add(rs2);
 		CDResult cdr = new CDResult("test", "test", "test", "test");
-		CDResultFactory.setLastDeploymentInfo(cdr, builds);
+		CDResultFactory.setLastDeploymentInfo(cdr, builds, cb);
 		return cdr;
 	}
 	
