@@ -71,11 +71,16 @@
 										#else
 											#set ($contributorCount = 1)
 											#foreach ($contributor in $setContributors)
-												<a href="$contributor.getProfilePageUrl()">
-													<img alt="$contributor.getFullname()" title="$contributor.getFullname()" src="$contributor.getPictureUrl()" />
-												</a>
-												#if ($contributorCount < $ContributorSize)
-													, 
+												#if (! $contributor.getProfilePageUrl())
+													$contributor.getUsername()
+												#else
+													<a href="$contributor.getProfilePageUrl()">
+														<img alt="$contributor.getFullname()" title="$contributor.getFullname()" src="$contributor.getPictureUrl()" />
+													</a>
+												#end
+												
+												#if ($contributorCount == 10)
+													#break
 												#end
 												#set ($contributorCount = $contributorCount + 1)
 											#end
