@@ -115,8 +115,13 @@ public class CDResultFactory {
 													ContributorBuilder contributorBuilder) {
 		for(Commit c : commits){
 			Author author = c.getAuthor();
-			// TODO create contributor
-			//cdresult.addContributor(contributor);
+			String username = author.getFullName();
+			if (!cdresult.containsContributor(username)) {
+				Contributor contributor = contributorBuilder.createContributor(author.getFullName(), c.getDate());
+				cdresult.addContributor(contributor);
+			} else {
+				cdresult.updateContributor(username, c.getDate());
+			}
 		}
 	}
 	
