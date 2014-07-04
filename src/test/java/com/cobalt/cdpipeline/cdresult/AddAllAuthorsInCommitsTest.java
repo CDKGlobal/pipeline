@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 public class AddAllAuthorsInCommitsTest {
 
-	private static final int COMMIT_LIST_SIZE = 10;
+	private static final int COMMIT_LIST_SIZE = 10; // >= 3
 	CDResult cdresult; 
 	ContributorBuilder cb = new ContributorBuilder("testHostname", "testUsername", "testPassword");
 
@@ -63,11 +63,9 @@ public class AddAllAuthorsInCommitsTest {
 	@Test
 	public void testMultipleCommitsDuplicateAuthors() {
 		List<Commit> commits = createCommitListWithoutAuthors(COMMIT_LIST_SIZE);
-		List<Author> authors = createAuthorListWithNames(3);
-		// randomly assign authors to commits (#authors < #commits)
-		Random r = new Random();			
+		List<Author> authors = createAuthorListWithNames(3);			
 		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
-	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(r.nextInt(3)));
+	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i % 3));
 	    	when(commits.get(i).getDate()).thenReturn(new Date());
 		}
 		
