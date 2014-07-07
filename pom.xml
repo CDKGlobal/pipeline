@@ -95,6 +95,7 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-lgpl</artifactId>
 			<version>1.9.13</version>
+            <scope>compile</scope>
 		</dependency>
     </dependencies>
     <build>
