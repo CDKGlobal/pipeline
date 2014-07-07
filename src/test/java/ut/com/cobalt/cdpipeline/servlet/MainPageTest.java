@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
+import com.atlassian.plugin.webresource.WebResourceManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
@@ -102,6 +103,6 @@ public class MainPageTest {
     	when(userMgr.getRemoteUsername(mockRequest)).thenReturn("admin");
     	when(userMgr.isSystemAdmin("admin")).thenReturn(true);
     	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
-    			mock(ProjectManager.class), mock(PlanManager.class), mock(ResultsSummaryManager.class));
+    			mock(ProjectManager.class), mock(PlanManager.class), mock(ResultsSummaryManager.class), mock(WebResourceManager.class));
     }
 }
