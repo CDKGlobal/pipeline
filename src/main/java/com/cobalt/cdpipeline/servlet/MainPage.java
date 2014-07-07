@@ -25,6 +25,7 @@ import com.google.common.collect.Maps;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
+import com.atlassian.plugin.webresource.WebResourceManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
@@ -36,15 +37,18 @@ public class MainPage extends HttpServlet{
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer renderer;
+    private WebResourceManager webResourceManager;
     private final MainManager mainManager;
    
     public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
-    				ProjectManager projectManager, PlanManager planManager, ResultsSummaryManager resultsSummaryManager)
+    				ProjectManager projectManager, PlanManager planManager, 
+    				ResultsSummaryManager resultsSummaryManager, WebResourceManager webResourceManager)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
       this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager);
+      this.webResourceManager = webResourceManager;
     }
    
     @Override
@@ -64,6 +68,8 @@ public class MainPage extends HttpServlet{
 	  
 	  if (query == null || !query.equalsIgnoreCase("json")) {
 		  // Normal case: normal table page
+		  webResourceManager.requireResource("com.cobalt.cdpipeline:cdpipeline-resources"); 
+		  
 		  Map<String, Object> context =  Maps.newHashMap();
 		  context.put("results", resultList);
 		  response.setContentType("text/html;charset=utf-8");

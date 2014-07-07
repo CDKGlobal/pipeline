@@ -1,3 +1,3 @@
 AJS.toInit(function() { 
-	alert("HI");
+	AJS.$("body").append("<div>HELLO THERE</div>");
 });
