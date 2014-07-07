@@ -103,6 +103,6 @@ public class MainPageTest {
     	when(userMgr.getRemoteUsername(mockRequest)).thenReturn("admin");
     	when(userMgr.isSystemAdmin("admin")).thenReturn(true);
     	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
-    			mock(ProjectManager.class), mock(PlanManager.class), mock(ResultsSummaryManager.class), mock(WebResourceManager.class));
+    			mock(ProjectManager.class), mock(PlanManager.class), mock(ResultsSummaryManager.class));
     }
 }

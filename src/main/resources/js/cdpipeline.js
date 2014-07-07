@@ -1,3 +1,3 @@
 AJS.toInit(function() { 
-	AJS.$("body").append("<div>HELLO THERE</div>");
+	AJS.$("tr").css("background-color","black");
 });

@@ -37,18 +37,16 @@ public class MainPage extends HttpServlet{
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer renderer;
-    private WebResourceManager webResourceManager;
     private final MainManager mainManager;
    
     public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
     				ProjectManager projectManager, PlanManager planManager, 
-    				ResultsSummaryManager resultsSummaryManager, WebResourceManager webResourceManager)
+    				ResultsSummaryManager resultsSummaryManager)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
       this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager);
-      this.webResourceManager = webResourceManager;
     }
    
     @Override
@@ -68,7 +66,6 @@ public class MainPage extends HttpServlet{
 	  
 	  if (query == null || !query.equalsIgnoreCase("json")) {
 		  // Normal case: normal table page
-		  webResourceManager.requireResource("com.cobalt.cdpipeline:cdpipeline-resources"); 
 		  
 		  Map<String, Object> context =  Maps.newHashMap();
 		  context.put("results", resultList);

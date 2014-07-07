@@ -17,7 +17,6 @@
     <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
     <resource type="download" name="images/" location="/images"/>
-    <context>main</context>
 	<context>cdpipeline</context>
   </web-resource>
   <!-- publish our component -->
