@@ -6,7 +6,7 @@
 		<meta name="decorator" content="deploymentMinimal">
 		<!-- makes table sortable -->
 		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-table-sortable")} 
-		${webResourceManager.requireResource("com.cobalt.cdpipeline:cdpipeline-resources")}
+		${webResourceManager.requireResourcesForContext("cdpipeline")}
 
 	</head>
 
