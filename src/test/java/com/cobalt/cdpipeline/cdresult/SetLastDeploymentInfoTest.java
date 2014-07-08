@@ -33,7 +33,7 @@ public class SetLastDeploymentInfoTest {
 	private ChainResultsSummary fail2;
 	private Date day1;
 	private Date day2;
-	ContributorBuilder cb = new ContributorBuilder("testHostname", "testUsername", "testPassword");
+	ContributorBuilder cb = new ContributorBuilder(null, null);
 
 	
 	@Before

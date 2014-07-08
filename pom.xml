@@ -96,6 +96,12 @@
 			<artifactId>jackson-core-lgpl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+		<dependency>
+      		<groupId>com.atlassian.applinks</groupId>
+      		<artifactId>applinks-api</artifactId>
+      		<version>3.2</version>
+      		<scope>provided</scope>
+    	</dependency>
     </dependencies>
     <build>
         <plugins>

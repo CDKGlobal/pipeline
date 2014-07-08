@@ -30,7 +30,7 @@ public class MainManagerTest {
 	
     @Test(expected = IllegalArgumentException.class)
     public void testGetCDResultsWithNullArguments() {
-        main = new MainManager(null, null, null);
+        main = new MainManager(null, null, null, null, null);
         List<CDResult> results = main.getCDResults();
     }
     
@@ -130,7 +130,7 @@ public class MainManagerTest {
     	}
     	createPlanManager(projects, map);
     	createEmptyResultsSummaryManager(map);
-    	main = new MainManager(projectMgr, planMgr, resultsSumMgr);
+    	main = new MainManager(projectMgr, planMgr, resultsSumMgr, null, null);
     	assertEquals("The count of CDResult list does not match", expected, main.getCDResults().size());
     }
     

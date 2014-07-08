@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.atlassian.bamboo.applinks.JiraApplinksService;
+import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
@@ -23,6 +25,7 @@ public class MainManager {
 	private ProjectManager projectManager;
 	private PlanManager planManager;
 	private ResultsSummaryManager resultsSummaryManager;
+	private ContributorBuilder contributorBuilder;
 	
 	/**
 	 * Constructs a MainManager object.
@@ -33,13 +36,15 @@ public class MainManager {
 	 *                              about builds.
 	 */
 	public MainManager(ProjectManager projectManager, PlanManager planManager, 
-			                       ResultsSummaryManager resultsSummaryManager) {
+			           ResultsSummaryManager resultsSummaryManager,
+			           JiraApplinksService jiraApplinksService, JiraRestService jiraRestService) {
         if (projectManager == null || planManager == null || resultsSummaryManager == null) {
             throw new IllegalArgumentException("Null arguments not allowed");
         }
 		this.projectManager = projectManager;
 		this.planManager = planManager;
 		this.resultsSummaryManager = resultsSummaryManager;
+		this.contributorBuilder = new ContributorBuilder(jiraApplinksService, jiraRestService);
 	}
 	
 	/**
@@ -50,7 +55,7 @@ public class MainManager {
 	 */
 	public List<CDResult> getCDResults() {
 		// should get the params from the current user
-		ContributorBuilder contributorBuilder = new ContributorBuilder("jira.cobalt.com", "liuch", "4eyesPet!");
+		//ContributorBuilder contributorBuilder = new ContributorBuilder(, "liuch", "4eyesPet!");
 		
 		List<CDResult> resultList = new ArrayList<CDResult>();
 		
