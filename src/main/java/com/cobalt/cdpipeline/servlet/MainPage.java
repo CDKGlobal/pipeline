@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class MainPage extends HttpServlet{
 	  if (query == null || !query.equalsIgnoreCase("json")) {
 		  // Normal case: normal table page
 		  
-		  Map<String, Object> context =  Maps.newHashMap();
+		  Map<String, Object> context =  new HashMap<String, Object>();
 		  context.put("results", resultList);
 		  response.setContentType("text/html;charset=utf-8");
 		  renderer.render("cdpipeline.vm", context, response.getWriter());
