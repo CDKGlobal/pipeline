@@ -61,6 +61,7 @@ public class MainPage extends HttpServlet{
 	  
 	  if (query == null || !query.equalsIgnoreCase("json")) {
 		  // Normal case: normal table page
+		  
 		  Map<String, Object> context =  Maps.newHashMap();
 		  context.put("results", resultList);
 		  response.setContentType("text/html;charset=utf-8");
