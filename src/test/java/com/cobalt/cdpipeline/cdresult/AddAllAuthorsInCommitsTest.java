@@ -20,7 +20,7 @@ public class AddAllAuthorsInCommitsTest {
 
 	private static final int COMMIT_LIST_SIZE = 10; // >= 3
 	CDResult cdresult; 
-	ContributorBuilder cb = new ContributorBuilder("testHostname", "testUsername", "testPassword");
+	ContributorBuilder cb = new ContributorBuilder(null, null);
 
 	@Before
 	public void setup() {

@@ -9,7 +9,7 @@ import org.junit.*;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactoryTest {
-	ContributorBuilder cb = new ContributorBuilder("testHostname", "testUsername", "testPassword");
+	ContributorBuilder cb = new ContributorBuilder(null, null);
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateCDResultWithNullArguments() {

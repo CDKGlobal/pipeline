@@ -8,20 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.common.collect.Maps;
+import com.atlassian.bamboo.applinks.JiraApplinksService;
+import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
@@ -32,19 +28,20 @@ import com.cobalt.cdpipeline.Controllers.MainManager;
 import com.cobalt.cdpipeline.cdresult.CDResult;
 
 public class MainPage extends HttpServlet{
-    private static final Logger log = LoggerFactory.getLogger(MainPage.class);
+	private static final Logger log = LoggerFactory.getLogger(MainPage.class);
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer renderer;
     private final MainManager mainManager;
    
     public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
-    				ProjectManager projectManager, PlanManager planManager, ResultsSummaryManager resultsSummaryManager)
+    				ProjectManager projectManager, PlanManager planManager, ResultsSummaryManager resultsSummaryManager,
+    				JiraApplinksService jiraApplinksService, JiraRestService jiraRestService)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
-      this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager);
+      this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager, jiraApplinksService, jiraRestService);
     }
    
     @Override
@@ -58,7 +55,7 @@ public class MainPage extends HttpServlet{
 	    redirectToLogin(request, response);
 	    return;
 	  }
-	
+	  
 	  List<CDResult> resultList = mainManager.getCDResults();
 	  String query = request.getParameter("type");
 	  
