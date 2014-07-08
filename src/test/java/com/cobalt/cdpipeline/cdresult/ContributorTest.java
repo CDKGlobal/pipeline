@@ -25,14 +25,7 @@ public class ContributorTest {
         test1 = new Contributor("test 1", current, null, null, null);
         test2 = new Contributor("test 2", new Date(current.getTime() - 10000), null, null, null);
     }
-    
-	// test constructor
 
-	@Test
-	public void test_constuctor() {
-		new Contributor("Like Boss", new Date(), null, null, null);
-	}
-	
 	// test equals()
 	
 	@Test
