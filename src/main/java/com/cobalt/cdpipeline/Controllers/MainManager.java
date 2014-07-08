@@ -55,7 +55,6 @@ public class MainManager {
 	 */
 	public List<CDResult> getCDResults() {
 		// should get the params from the current user
-		//ContributorBuilder contributorBuilder = new ContributorBuilder(, "liuch", "4eyesPet!");
 		
 		List<CDResult> resultList = new ArrayList<CDResult>();
 		

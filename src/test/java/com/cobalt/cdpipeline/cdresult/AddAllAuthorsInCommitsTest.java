@@ -97,7 +97,7 @@ public class AddAllAuthorsInCommitsTest {
 			authors.add(mock(Author.class));
 		}
 		for (int i = 0; i < numAuthors; i++) {
-	    	when(authors.get(i).getFullName()).thenReturn("author" + i);
+	    	when(authors.get(i).getName()).thenReturn("author" + i);
 		}
 		return authors;
 	}
