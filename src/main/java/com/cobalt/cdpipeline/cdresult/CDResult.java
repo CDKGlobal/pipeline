@@ -106,7 +106,7 @@ public class CDResult {
 	void updateContributor(String username, Date lastCommitTime){
 		if(contributors.containsKey(username)){
 			Contributor c = contributors.get(username);
-			c.incrementNumCommits();
+			c.incrementCommitCount();
 			c.updateLastCommitTime(lastCommitTime);
 		}else{
 			throw new IllegalArgumentException(username + " doesn't exist in the COntributors List.");
@@ -282,7 +282,7 @@ public class CDResult {
 	 * @return a List of Contributors
 	 */
 	public List<Contributor> getContributorsSortedByNumCommits(){
-		return this.getContributorsSortedBy(new NumCommitComparator());
+		return this.getContributorsSortedBy(new CommitCountComparator());
 	}
 	
 	/**
@@ -311,12 +311,12 @@ public class CDResult {
 	// Contributor with more commits is greater than contributor with less commits.
 	// For Contributors with the same number of commits, Contributor with more recent
 	// last commit date is greater.
-	private class NumCommitComparator implements Comparator<Contributor>{
+	private class CommitCountComparator implements Comparator<Contributor>{
 
 		@Override
 		public int compare(Contributor a, Contributor b) {
-			if(a.getNumCommits() != b.getNumCommits()){
-				return a.getNumCommits() < b.getNumCommits() ? -1 : 1;
+			if(a.getCommitCount() != b.getCommitCount()){
+				return a.getCommitCount() < b.getCommitCount() ? -1 : 1;
 			}else{
 				int result = a.getLastCommitTime().compareTo(b.getLastCommitTime());
 				if(result == 0){
@@ -339,7 +339,7 @@ public class CDResult {
 		public int compare(Contributor a, Contributor b) {
 			int result = a.getLastCommitTime().compareTo(b.getLastCommitTime());
 			if(result == 0){
-				return a.getNumCommits() < b.getNumCommits() ? -1 : 1;
+				return a.getCommitCount() < b.getCommitCount() ? -1 : 1;
 			}
 			return result;
 		}

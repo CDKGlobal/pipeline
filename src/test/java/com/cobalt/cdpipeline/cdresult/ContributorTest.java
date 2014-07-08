@@ -91,8 +91,8 @@ public class ContributorTest {
 	// test number of commits
 	@Test
 	public void test_increment_commits(){
-		assertEquals("Initial commit number should be 1", 1, test1.getNumCommits());
-		test1.incrementNumCommits();
-		assertEquals("Number of Commit should be incremented", 2, test1.getNumCommits());
+		assertEquals("Initial commit number should be 1", 1, test1.getCommitCount());
+		test1.incrementCommitCount();
+		assertEquals("Number of Commit should be incremented", 2, test1.getCommitCount());
 	}
 }

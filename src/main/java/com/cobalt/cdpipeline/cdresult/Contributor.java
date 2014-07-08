@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Contributor {
 	private String username;
-	private int numCommits;
+	private int commitCount;
 	private Date lastCommit;
 	private String fullname;
 	private String pictureUrl;
@@ -17,7 +17,7 @@ public class Contributor {
 	 */
 	public Contributor(String username, Date commitTime, String fullname, String pictureUrl, String profilePageUrl) {
 		this.username = username;
-		this.numCommits = 1;
+		this.commitCount = 1;
 		this.lastCommit = commitTime;
 		this.fullname = fullname;
 		this.pictureUrl = pictureUrl;
@@ -37,8 +37,8 @@ public class Contributor {
 	 * Gets the number of commits of this contributor after the last deployment.
 	 * @return the number of commits
 	 */
-	public int getNumCommits(){
-		return numCommits;
+	public int getCommitCount(){
+		return commitCount;
 	}
 	
 	/**
@@ -86,8 +86,8 @@ public class Contributor {
 	/**
 	 * Increments the number of commits by 1.
 	 */
-	void incrementNumCommits(){
-		numCommits++;
+	void incrementCommitCount(){
+		commitCount++;
 	}
 	
 	@Override
