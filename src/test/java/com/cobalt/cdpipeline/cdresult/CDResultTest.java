@@ -150,7 +150,7 @@ public class CDResultTest {
 		cdr.updateContributor("test 1", new Date(current.getTime() - 1000));
 		assertEquals("Only one Contributor in the list", 1, cdr.getContributors().size());
 		for(Contributor c : cdr. getContributors()){
-			assertEquals("Increment the number of commits of the contributor", 2, c.getNumCommits());
+			assertEquals("Increment the number of commits of the contributor", 2, c.getCommitCount());
 			assertEquals("Last Commit Time shouldn't be changed", current, c.getLastCommitTime());
 		}
 	}
@@ -162,7 +162,7 @@ public class CDResultTest {
 		cdr.updateContributor("test 2", current);
 		assertEquals("Only one Contributor in the list", 1, cdr.getContributors().size());
 		for(Contributor c : cdr. getContributors()){
-			assertEquals("Increment the number of commits of the contributor", 2, c.getNumCommits());
+			assertEquals("Increment the number of commits of the contributor", 2, c.getCommitCount());
 			assertEquals("Last Commit Time shouldn be updated", current, c.getLastCommitTime());
 		}
 	}
