@@ -24,6 +24,26 @@
         </developerConnection>
         <url>http://perforce.cobaltgroup.com/ReleaseEngineering/CDPipeline/trunk/</url>
     </scm>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>repo</name>
+            <url>http://artifactory.cobalt.com/artifactory/repo</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>repo</name>
+            <url>http://artifactory.cobalt.com/artifactory/repo</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.atlassian.bamboo</groupId>
