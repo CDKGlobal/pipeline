@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+	<head>
+		<title>CDPipeline Wallboard</title> <!-- update once we have an agreed name -->
+		
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<!-- <link rel="stylesheet" type="text/css" href="css/cdpipeline.css"> -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- <script src="js/angular.ui.min.js" type="text/javascript"></script> -->
+		<!-- <script src="js/plugin.js" type="text/javascript"></script>
+		<script src="js/maincontroller.js" type="text/javascript"></script>
+		<script src="js/sidecontroller.js" type="text/javascript"></script>
+		<script src="js/boardcontroller.js" type="text/javascript"></script> -->
+
+
+
+		<!-- temp AUI references stuff -->
+		<!-- <link rel="stylesheet" href="aui/css/aui-all.css" media="all">
+		
+		<script src="aui/js/aui-all.js" type="text/javascript"></script> -->
+		<!-- <script src="aui/js/aui-experimental.js"></script> -->
+${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-progress-tracker")} 
+		${webResourceManager.requireResourcesForContext("cdpipeline")}
+		
+
+	</head>
+	<body ng-app="CDPipeline">
+		<!-- main page shell -->
+		<div ng-controller="MainController">
+			<h1> {{ projectName }} </h1> 
+
+			<div class="alert alert-info alert-dismissible" role="alert">
+ 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+ 				<strong>Hey!</strong> This is CDPipeline v2 but with AngularJS now cool
+			</div>
+
+		</div>
+
+		<!-- sidebar section for expanded info -->
+		<!-- <div id="side" ng-controller="SideController">
+
+		</div> -->
+
+		<!-- board section to display all plan's initial info -->
+		<div id="board" class="container-fluid" ng-controller="BoardController">
+			<div class="row" ng-repeat="result in results.resp">
+				<div class="panel panel-default">
+					<div class="panel-body"  ng-include="'strips.html'">
+					</div>
+			</div>
+		</div>
+
+		
+		
+
+	</body>
+
+</html>
