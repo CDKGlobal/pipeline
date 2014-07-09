@@ -12,7 +12,6 @@ import static org.mockito.Mockito.when;
 import com.atlassian.bamboo.builder.BuildState;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.ChainStageResult;
-import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 
 public class PipelineStagesTest {

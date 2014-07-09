@@ -17,6 +17,12 @@ public class ContributorBuilder {
 	ApplicationLink appLink;
 	JiraRestService jiraRestService;
 	
+	/**
+	 * Constructs a ContributorBuilder object.
+	 * 
+	 * @param jiraApplinksService to connect to Jira via Application Link.
+	 * @param jiraRestService to request info from Jira"s Rest
+	 */
 	public ContributorBuilder(JiraApplinksService jiraApplinksService, JiraRestService jiraRestService){
 		// User need to make sure they put the JIRA applink as the primary application link
 		if(jiraApplinksService == null || jiraRestService == null){
@@ -32,6 +38,17 @@ public class ContributorBuilder {
 		this.jiraRestService = jiraRestService;
 	}
 	
+	/**
+	 * Create a Contributor base on the username, last commit date.
+	 * ContributorBuilder will try to access Jira via the given services in constructor and
+	 * gather user information from Jira.
+	 * 
+	 * @param username of the contributor
+	 * @param lastCommitDate of the contributor
+	 * @return the Contributor created. If user information was successfully gathered from Jira,
+	 *         Contributor's full name, picture url, and profile page url will be set accordingly, 
+	 *         otherwise, those fields will be null.
+	 */
 	public Contributor createContributor(String username, Date lastCommitDate){	
 		
   		if(appLink != null){

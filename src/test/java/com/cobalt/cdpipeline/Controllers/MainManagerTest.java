@@ -1,5 +1,8 @@
 package com.cobalt.cdpipeline.Controllers;
 
+import com.atlassian.applinks.api.ApplicationLink;
+import com.atlassian.bamboo.applinks.JiraApplinksService;
+import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
@@ -13,6 +16,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +35,8 @@ public class MainManagerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetCDResultsWithNullArguments() {
         main = new MainManager(null, null, null, null, null);
-        List<CDResult> results = main.getCDResults();
+        @SuppressWarnings("unused")
+		List<CDResult> results = main.getCDResults();
     }
     
     // The following tests only test the project-and-plan logic in
@@ -130,8 +135,21 @@ public class MainManagerTest {
     	}
     	createPlanManager(projects, map);
     	createEmptyResultsSummaryManager(map);
-    	main = new MainManager(projectMgr, planMgr, resultsSumMgr, null, null);
+    	main = new MainManager(projectMgr, planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(JiraRestService.class));
     	assertEquals("The count of CDResult list does not match", expected, main.getCDResults().size());
+    }
+    
+    // Mock up JiraApplinksService that is mainly used in ContributorBuilder
+    private JiraApplinksService setUpJiraApplinksService() {
+    	JiraApplinksService jiraApplinks = mock(JiraApplinksService.class);
+    	@SuppressWarnings("unchecked")
+		Iterable<ApplicationLink> applinks = (Iterable<ApplicationLink>) mock(Iterable.class);
+    	when(jiraApplinks.getJiraApplicationLinks()).thenReturn(applinks);
+    	@SuppressWarnings("unchecked")
+		Iterator<ApplicationLink> applinksIter = (Iterator<ApplicationLink>) mock(Iterator.class);
+    	when(applinks.iterator()).thenReturn(applinksIter);
+    	when(applinksIter.hasNext()).thenReturn(false);
+    	return jiraApplinks;
     }
     
     // create a set of N projects

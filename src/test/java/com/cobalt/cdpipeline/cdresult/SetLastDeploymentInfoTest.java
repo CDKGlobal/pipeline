@@ -44,8 +44,10 @@ public class SetLastDeploymentInfoTest {
 	public void setup(){
 		// mockup JiraApplinksService
 		JiraApplinksService jiraApplinksService = mock(JiraApplinksService.class);		
+		@SuppressWarnings("unchecked")
 		Iterator<ApplicationLink> itr = (Iterator<ApplicationLink>) mock(Iterator.class);
 		when(itr.hasNext()).thenReturn(false);	
+		@SuppressWarnings("unchecked")
 		Iterable<ApplicationLink> iterable = (Iterable<ApplicationLink>) mock(Iterable.class);
 		when(iterable.iterator()).thenReturn(itr);	
 		when(jiraApplinksService.getJiraApplicationLinks()).thenReturn(iterable);

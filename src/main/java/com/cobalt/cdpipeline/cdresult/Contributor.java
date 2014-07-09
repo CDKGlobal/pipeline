@@ -13,7 +13,14 @@ public class Contributor {
 	/**
 	 * Constructs a Contributor object.
 	 * 
-	 * @param username of the contributor
+	 * @param username Contributor's username on Bamboo
+	 * @param commitTime Contributor's commit date
+	 * @param fullname Contributor's full name on Jira, 
+	 *                 null if username not found on Jira
+	 * @param pictureUrl Contributor's pictureUrl from Jira,
+	 *                   null if username not found on Jira 
+	 * @param profilePageUrl Contributor's profilePageUrl from Jira,
+	 *                       null if username not found on Jira
 	 */
 	public Contributor(String username, Date commitTime, String fullname, String pictureUrl, String profilePageUrl) {
 		this.username = username;
@@ -50,8 +57,9 @@ public class Contributor {
 	}
 	
 	/**
-	 * Gets the user's first name and last name
-	 * @return the user's first and last name
+	 * Gets the user's first name and last name from Jira.
+	 * @return the user's first and last name from Jira user information.
+	 *         Null if the username of the contributor is not found on Jira.
 	 */
 	public String getFullname() {
 		return fullname;
@@ -59,7 +67,8 @@ public class Contributor {
 	
 	/**
 	 * Gets a link to the user's profile picture on Jira
-	 * @return the url of the user's picture 
+	 * @return the url of the user's picture from Jira user information.
+	 *         Null if the username of the contributor is not found on Jira.
 	 */
 	public String getPictureUrl() {
 		return pictureUrl;
@@ -67,7 +76,8 @@ public class Contributor {
 	
 	/**
 	 * Gets a link to the user's profile page on Jira
-	 * @return the url of the user's profile page on Jira
+	 * @return the url of the user's profile page on Jira.
+	 *         Null if the username of the contributor is not found on Jira.
 	 */
 	public String getProfilePageUrl() {
 		return profilePageUrl;

@@ -2,18 +2,19 @@ package ut.com.cobalt.cdpipeline.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 
 import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
 import org.mockito.Mockito;
 
+import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
-import com.atlassian.plugin.webresource.WebResourceManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
@@ -28,12 +29,7 @@ import static org.mockito.Mockito.*;
 
 public class MainPageTest {
 
-	@Test
-	public void dummy() {
-		
-	}
-	
-    /*HttpServletRequest mockRequest;
+	HttpServletRequest mockRequest;
     HttpServletResponse mockResponse;
     MainPage main;
 
@@ -106,11 +102,23 @@ public class MainPageTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	// Set up UserManager used in MainPage
     	UserManager userMgr = mock(UserManager.class);
     	when(userMgr.getRemoteUsername(mockRequest)).thenReturn("admin");
     	when(userMgr.isSystemAdmin("admin")).thenReturn(true);
+    	
+    	// Set up JiraApplinksService used in ContributorBuilder
+    	JiraApplinksService jiraApplinks = mock(JiraApplinksService.class);
+    	@SuppressWarnings("unchecked")
+		Iterable<ApplicationLink> applinks = (Iterable<ApplicationLink>) mock(Iterable.class);
+    	when(jiraApplinks.getJiraApplicationLinks()).thenReturn(applinks);
+    	@SuppressWarnings("unchecked")
+		Iterator<ApplicationLink> applinksIter = (Iterator<ApplicationLink>) mock(Iterator.class);
+    	when(applinks.iterator()).thenReturn(applinksIter);
+    	when(applinksIter.hasNext()).thenReturn(false);
+    	
     	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
     			mock(ProjectManager.class), mock(PlanManager.class), mock(ResultsSummaryManager.class), 
-    			mock(JiraApplinksService.class), mock(JiraRestService.class));
-    }*/
+    			jiraApplinks, mock(JiraRestService.class));
+    }
 }
