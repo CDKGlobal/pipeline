@@ -4,26 +4,40 @@ import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.atlassian.applinks.api.ApplicationLink;
+import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.commit.Commit;
+import com.atlassian.bamboo.jira.rest.JiraRestService;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class AddAllAuthorsInCommitsTest {
-
+	
 	private static final int COMMIT_LIST_SIZE = 10; // >= 3
 	CDResult cdresult; 
-	ContributorBuilder cb = new ContributorBuilder(null, null);
+	ContributorBuilder cb;
 
 	@Before
 	public void setup() {
+		// mockup JiraApplinksService
+		JiraApplinksService jiraApplinksService = mock(JiraApplinksService.class);		
+		Iterator<ApplicationLink> itr = (Iterator<ApplicationLink>) mock(Iterator.class);
+		when(itr.hasNext()).thenReturn(false);	
+		Iterable<ApplicationLink> iterable = (Iterable<ApplicationLink>) mock(Iterable.class);
+		when(iterable.iterator()).thenReturn(itr);	
+		when(jiraApplinksService.getJiraApplicationLinks()).thenReturn(iterable);
+		// mockup JiraRestService	
+		JiraRestService jiraRestService = mock(JiraRestService.class);	
+		
+		cb = new ContributorBuilder(jiraApplinksService, jiraRestService);	 
 		cdresult = new CDResult("project", "project - plan", "project", "plan");		
 	}
 	
