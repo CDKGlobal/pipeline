@@ -20,17 +20,16 @@ public class ContributorBuilder {
 	public ContributorBuilder(JiraApplinksService jiraApplinksService, JiraRestService jiraRestService){
 		// User need to make sure they put the JIRA applink as the primary application link
 		if(jiraApplinksService == null || jiraRestService == null){
-			appLink = null;
-		}else{
-		
-			Iterator<ApplicationLink> appLinks = jiraApplinksService.getJiraApplicationLinks().iterator();
-			if (!appLinks.hasNext()) {
-				appLink = null;
-			} else {
-				appLink = appLinks.next();
-			}
-			this.jiraRestService = jiraRestService;
+			throw new IllegalArgumentException("Arguments can't be null.");
 		}
+		
+		Iterator<ApplicationLink> appLinks = jiraApplinksService.getJiraApplicationLinks().iterator();
+		if (!appLinks.hasNext()) {
+			appLink = null;
+		} else {
+			appLink = appLinks.next();
+		}
+		this.jiraRestService = jiraRestService;
 	}
 	
 	public Contributor createContributor(String username, Date lastCommitDate){	
