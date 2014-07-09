@@ -1,0 +1,30 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+body {
+	background-color: #ebf2f9;
+}
+
+.panel {
+	margin: 1px;
+}
+
+project {
+	font-size: 10pt;
+}
+
+plan {
+	font-size: 14pt;
+}
+
+days, changes {
+	font-size: 30pt;
+	font-style: italic;
+}
+
+#leftContainer { 
+	
+}
+
+#buildNumber {
+	font-size: 30pt;
+	margin: 10px;
+}
