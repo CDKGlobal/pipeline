@@ -14,8 +14,8 @@ import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.sal.api.net.Request.MethodType;
 
 public class ContributorBuilder {
-	ApplicationLink appLink;
-	JiraRestService jiraRestService;
+	//ApplicationLink appLink;
+	//JiraRestService jiraRestService;
 	
 	/**
 	 * Constructs a ContributorBuilder object.
@@ -28,7 +28,7 @@ public class ContributorBuilder {
 		if(jiraApplinksService == null || jiraRestService == null){
 			throw new IllegalArgumentException("Arguments can't be null.");
 		}
-		
+		/*
 		Iterator<ApplicationLink> appLinks = jiraApplinksService.getJiraApplicationLinks().iterator();
 		if (!appLinks.hasNext()) {
 			appLink = null;
@@ -36,6 +36,7 @@ public class ContributorBuilder {
 			appLink = appLinks.next();
 		}
 		this.jiraRestService = jiraRestService;
+		*/
 	}
 	
 	/**
@@ -50,7 +51,7 @@ public class ContributorBuilder {
 	 *         otherwise, those fields will be null.
 	 */
 	public Contributor createContributor(String username, Date lastCommitDate){	
-		
+		/*
   		if(appLink != null){
 	  		try {
 		  		JiraRestResponse res = jiraRestService.doRestCallViaApplink(appLink, "rest/api/latest/user?username=" + username, 
@@ -72,7 +73,7 @@ public class ContributorBuilder {
 	  			return new Contributor(username, lastCommitDate, null, null, null);
 	  		}
   		}
-  		
+  		*/
   		return new Contributor(username, lastCommitDate, null, null, null);
 	}
 }
