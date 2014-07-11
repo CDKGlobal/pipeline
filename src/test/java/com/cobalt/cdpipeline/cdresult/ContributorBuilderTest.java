@@ -54,12 +54,14 @@ public class ContributorBuilderTest {
 		testCreateContributor(null, null, null);
 	}
 	
+	
 	@Test
 	public void testCreateContributorWithNormalCompleteJsonResponse() {
 		setUpApplinksWithNormalCompleteResponse();
 		testCreateContributor("User", "https://jira.com/secure/useravatar?size=medium&avatarId=1", 
 								"https://jira.com/secure/ViewProfile.jspa?name=username");
 	}
+	
 	
 	// ========== Private Helper Methods ==========
 	
