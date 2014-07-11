@@ -82,7 +82,11 @@
 										<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" popover="{{ contributor.fullname }}" popover-trigger="mouseenter">
 											<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
 												<a href="{{ contributor.profilePageUrl }}">
-													<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
+													<span class="aui-avatar aui-avatar-project aui-avatar-large">
+														<span class="aui-avatar-inner">
+															<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}"/>
+														</span>
+													</span>
 												</a>
 											</contributor>
 										</span>
