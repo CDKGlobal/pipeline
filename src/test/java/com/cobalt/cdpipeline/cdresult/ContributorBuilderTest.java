@@ -57,7 +57,7 @@ public class ContributorBuilderTest {
 	@Test
 	public void testCreateContributorWithNormalCompleteJsonResponse() {
 		setUpApplinksWithNormalCompleteResponse();
-		testCreateContributor("User", "https://jira.com/secure/useravatar?size=medium&avatarId=1", 
+		testCreateContributor("User", "https://jira.com/secure/useravatar?avatarId=1", 
 								"https://jira.com/secure/ViewProfile.jspa?name=username");
 	}
 	
@@ -167,7 +167,7 @@ public class ContributorBuilderTest {
 	private void setUpApplinksWithNormalCompleteResponse() {
 		ApplicationLink applink = setUpBasicJiraApplinksService();
 		try {
-			when(applink.getDisplayUrl()).thenReturn(new URI("https://jira.com"));
+			when(applink.getRpcUrl()).thenReturn(new URI("https://jira.com"));
 		} catch (URISyntaxException e1) { }
 		
 		jiraRest = mock(JiraRestService.class);

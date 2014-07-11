@@ -15,7 +15,7 @@ import com.atlassian.sal.api.net.Request.MethodType;
 
 public class ContributorBuilder {
 	private static final String JIRA_REST_USER_INFO_URL = "rest/api/latest/user?username=";
-	private static final String IMAGE_SIZE = "32x32";
+	private static final String IMAGE_SIZE = "48x48";
 	private static final String JIRA_PROFILE_PATH = "/secure/ViewProfile.jspa?name=";
 	
 	ApplicationLink appLink;
@@ -67,7 +67,7 @@ public class ContributorBuilder {
 					String fullname = userJsonObj.getString("displayName"); 
 					JSONObject picsAllSizesJsonObj = new JSONObject(userJsonObj.getString("avatarUrls")); // same pic w/ various sizes
 					String pictureUrl = picsAllSizesJsonObj.getString(IMAGE_SIZE);			
-					String profilePageUrl = appLink.getDisplayUrl() + JIRA_PROFILE_PATH + username; // page on Jira
+					String profilePageUrl = appLink.getRpcUrl() + JIRA_PROFILE_PATH + username; // page on Jira
 					
 					return new Contributor(username, lastCommitDate, fullname, pictureUrl, profilePageUrl);
 		  		}
