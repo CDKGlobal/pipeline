@@ -14,6 +14,10 @@ import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.sal.api.net.Request.MethodType;
 
 public class ContributorBuilder {
+	private static final String JIRA_REST_USER_INFO_URL = "rest/api/latest/user?username=";
+	private static final String IMAGE_SIZE = "32x32";
+	private static final String JIRA_PROFILE_PATH = "/secure/ViewProfile.jspa?name=";
+	
 	ApplicationLink appLink;
 	JiraRestService jiraRestService;
 	
@@ -54,7 +58,7 @@ public class ContributorBuilder {
 		
   		if(appLink != null){
 	  		try {
-		  		JiraRestResponse res = jiraRestService.doRestCallViaApplink(appLink, "rest/api/latest/user?username=" + username, 
+		  		JiraRestResponse res = jiraRestService.doRestCallViaApplink(appLink, JIRA_REST_USER_INFO_URL + username, 
 		  															MethodType.GET, null, BasicAuthenticationProvider.class);
 		  		String userJsonStr = res.body;
 		  		if (userJsonStr != null) {
@@ -62,8 +66,8 @@ public class ContributorBuilder {
 					JSONObject userJsonObj = new JSONObject(userJsonStr);
 					String fullname = userJsonObj.getString("displayName"); 
 					JSONObject picsAllSizesJsonObj = new JSONObject(userJsonObj.getString("avatarUrls")); // same pic w/ various sizes
-					String pictureUrl = picsAllSizesJsonObj.getString("32x32");			
-					String profilePageUrl = appLink.getDisplayUrl() + "/secure/ViewProfile.jspa?name=" + username; // page on Jira
+					String pictureUrl = picsAllSizesJsonObj.getString(IMAGE_SIZE);			
+					String profilePageUrl = appLink.getDisplayUrl() + JIRA_PROFILE_PATH + username; // page on Jira
 					
 					return new Contributor(username, lastCommitDate, fullname, pictureUrl, profilePageUrl);
 		  		}

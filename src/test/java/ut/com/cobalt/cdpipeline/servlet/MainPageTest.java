@@ -109,10 +109,8 @@ public class MainPageTest {
     	
     	// Set up JiraApplinksService used in ContributorBuilder
     	JiraApplinksService jiraApplinks = mock(JiraApplinksService.class);
-    	@SuppressWarnings("unchecked")
 		Iterable<ApplicationLink> applinks = (Iterable<ApplicationLink>) mock(Iterable.class);
     	when(jiraApplinks.getJiraApplicationLinks()).thenReturn(applinks);
-    	@SuppressWarnings("unchecked")
 		Iterator<ApplicationLink> applinksIter = (Iterator<ApplicationLink>) mock(Iterator.class);
     	when(applinks.iterator()).thenReturn(applinksIter);
     	when(applinksIter.hasNext()).thenReturn(false);

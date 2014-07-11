@@ -35,8 +35,6 @@ public class MainManagerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testGetCDResultsWithNullArguments() {
         main = new MainManager(null, null, null, null, null);
-        @SuppressWarnings("unused")
-		List<CDResult> results = main.getCDResults();
     }
     
     // The following tests only test the project-and-plan logic in
@@ -142,13 +140,14 @@ public class MainManagerTest {
     // Mock up JiraApplinksService that is mainly used in ContributorBuilder
     private JiraApplinksService setUpJiraApplinksService() {
     	JiraApplinksService jiraApplinks = mock(JiraApplinksService.class);
-    	@SuppressWarnings("unchecked")
+
 		Iterable<ApplicationLink> applinks = (Iterable<ApplicationLink>) mock(Iterable.class);
     	when(jiraApplinks.getJiraApplicationLinks()).thenReturn(applinks);
-    	@SuppressWarnings("unchecked")
+
 		Iterator<ApplicationLink> applinksIter = (Iterator<ApplicationLink>) mock(Iterator.class);
     	when(applinks.iterator()).thenReturn(applinksIter);
     	when(applinksIter.hasNext()).thenReturn(false);
+    	
     	return jiraApplinks;
     }
     
