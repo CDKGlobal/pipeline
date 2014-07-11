@@ -1,5 +1,5 @@
 plugin.controller("BoardController", function ($scope, autoRefresh) {
-
+	$scope.projectName = "CDPipeline";
 	$scope.results = autoRefresh.data;
 
 });
