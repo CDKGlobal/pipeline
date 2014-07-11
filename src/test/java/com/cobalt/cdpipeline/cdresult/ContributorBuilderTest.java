@@ -26,7 +26,6 @@ public class ContributorBuilderTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorWithNullArguments() {
-		@SuppressWarnings("unused")
 		ContributorBuilder builder = new ContributorBuilder(null, null);
 	}
 	
@@ -87,11 +86,9 @@ public class ContributorBuilderTest {
 	private void setUpNoApplinksJiraApplinksService() {
 		jiraApplinks = mock(JiraApplinksService.class);
     	
-		@SuppressWarnings("unchecked")
 		Iterable<ApplicationLink> applinks = (Iterable<ApplicationLink>) mock(Iterable.class);
     	when(jiraApplinks.getJiraApplicationLinks()).thenReturn(applinks);
     	
-    	@SuppressWarnings("unchecked")
 		Iterator<ApplicationLink> applinksIter = (Iterator<ApplicationLink>) mock(Iterator.class);
     	when(applinks.iterator()).thenReturn(applinksIter);
     	when(applinksIter.hasNext()).thenReturn(false);
@@ -104,11 +101,9 @@ public class ContributorBuilderTest {
 	private ApplicationLink setUpBasicJiraApplinksService() {
 		jiraApplinks = mock(JiraApplinksService.class);
     	
-		@SuppressWarnings("unchecked")
 		Iterable<ApplicationLink> applinks = (Iterable<ApplicationLink>) mock(Iterable.class);
     	when(jiraApplinks.getJiraApplicationLinks()).thenReturn(applinks);
     	
-    	@SuppressWarnings("unchecked")
 		Iterator<ApplicationLink> applinksIter = (Iterator<ApplicationLink>) mock(Iterator.class);
     	when(applinks.iterator()).thenReturn(applinksIter);
     	when(applinksIter.hasNext()).thenReturn(true);

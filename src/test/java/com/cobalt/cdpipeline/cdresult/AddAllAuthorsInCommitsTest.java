@@ -28,11 +28,9 @@ public class AddAllAuthorsInCommitsTest {
 	@Before
 	public void setup() {
 		// mockup JiraApplinksService
-		JiraApplinksService jiraApplinksService = mock(JiraApplinksService.class);		
-		@SuppressWarnings("unchecked")
+		JiraApplinksService jiraApplinksService = mock(JiraApplinksService.class);
 		Iterator<ApplicationLink> itr = (Iterator<ApplicationLink>) mock(Iterator.class);
-		when(itr.hasNext()).thenReturn(false);	
-		@SuppressWarnings("unchecked")
+		when(itr.hasNext()).thenReturn(false);
 		Iterable<ApplicationLink> iterable = (Iterable<ApplicationLink>) mock(Iterable.class);
 		when(iterable.iterator()).thenReturn(itr);	
 		when(jiraApplinksService.getJiraApplicationLinks()).thenReturn(iterable);
