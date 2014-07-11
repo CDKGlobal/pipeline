@@ -36,6 +36,7 @@ public class ContributorBuilder {
 			appLink = appLinks.next();
 		}
 		this.jiraRestService = jiraRestService;
+		
 	}
 	
 	/**
