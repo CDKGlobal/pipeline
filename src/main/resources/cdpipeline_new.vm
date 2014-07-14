@@ -1,19 +1,14 @@
+<!-- main page of the CDPipeline plugin which displays relevant information on builds-->
 <!DOCTYPE html>
 
 	<head>
 		<title>CDPipeline Wallboard</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-
-		
-
 		${webResourceManager.requireResource("com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources")}
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-progress-tracker")}
-		
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-
 	</head>
 
 
@@ -22,7 +17,6 @@
 	
 		<!-- main page shell -->
 		<div ng-controller="MainController">
-
 			<div class="alert alert-info alert-dismissible" role="alert">
  				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
  				<strong>Hey!</strong> This is CDPipeline v2 but with AngularJS now cool
@@ -70,15 +64,16 @@
 								
 									<div>
 										<ol class="aui-progress-tracker" >
-																	
+
+											<!-- show all stages of pipeline -->		
 									    	<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: 'aui-progress-tracker-step', false: 'aui-progress-tracker-step aui-progress-tracker-step-current'}[{{pipe.state == 'SUCCESS'}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%" >
 										  		<span><stageBuild>{{ pipe.stageName }}</stageBuild><state>{{pipe.state}}</state></span>
 										  	</li>
-
 										</ol>
 									</div>
 
 									<div>
+										<!-- show all contributors pictures -->
 										<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" popover="{{ contributor.fullname }}" popover-trigger="mouseenter">
 											<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
 												<a href="{{ contributor.profilePageUrl }}">
