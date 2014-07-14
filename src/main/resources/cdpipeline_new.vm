@@ -1,19 +1,16 @@
+<!-- main page of the CDPipeline plugin which displays relevant information on builds-->
 <!DOCTYPE html>
 
 	<head>
 		<title>CDPipeline Wallboard</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-
+				<link rel="stylesheet" type="text/css" href="css/cdpipeline.css">
 		
-
 		${webResourceManager.requireResource("com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources")}
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-progress-tracker")}
-		
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-
 	</head>
 
 
@@ -22,7 +19,6 @@
 	
 		<!-- main page shell -->
 		<div ng-controller="MainController">
-
 			<div class="alert alert-info alert-dismissible" role="alert">
  				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
  				<strong>Hey!</strong> This is CDPipeline v2 but with AngularJS now cool
@@ -47,53 +43,53 @@
 							<div>
 								<project>{{ result.projectName }}</project>
 							</div>
-
 							<div>
-								<strong><plan>{{ result.planName }}</plan></strong>
+								<plan>{{ result.planName }}</plan>
 							</div>
-
+						</div>
+						
+						<div class="col-md-4">
+							<div class="since"> since last deployment </div>
 							<div>
-								<strong><days>{{ result.daysSinceDeploymentFromCurrent }}</days></strong> DAYS 
-								<strong><changes>{{ result.numChanges }}</changes></strong> CHANGES
+								<days>{{ result.daysSinceDeploymentFromCurrent }}</days> days 
+								<changes>{{ result.numChanges }}</changes> changes
 							</div>
 						</div>
 
 						<!-- right column -->
-						<div class="col-md-8" id="leftContainer">
-							<div class="row">
-								<!--place AUI icon here, get logic in directive -->
-								<div id="buildNumber" class="col-md-1">
-									<strong><build>#{{ result.currentBuild.buildNumber }}</build></strong>
-								</div>
-
-								<div id="pipelineContributor" class="col-md-10">
-								
-									<div>
-										<ol class="aui-progress-tracker" >
-																	
-									    	<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: 'aui-progress-tracker-step', false: 'aui-progress-tracker-step aui-progress-tracker-step-current'}[{{pipe.state == 'SUCCESS'}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%" >
-										  		<span><stageBuild>{{ pipe.stageName }}</stageBuild><state>{{pipe.state}}</state></span>
-										  	</li>
-
-										</ol>
-									</div>
-
-									<div>
-										<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" popover="{{ contributor.fullname }}" popover-trigger="mouseenter">
-											<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
-												<a href="{{ contributor.profilePageUrl }}">
-													<span class="aui-avatar aui-avatar-project aui-avatar-large">
-														<span class="aui-avatar-inner">
-															<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}"/>
-														</span>
-													</span>
-												</a>
-											</contributor>
-										</span>
-									</div>
-								</div>
+						<div class="col-md-1">		
+							<!--place AUI icon here, get logic in directive -->
+							<div id="buildNumber" class="col-md-1">
+								<a href="../../browse/{{result.currentBuild.buildKey}}/latest">
+									#{{ result.currentBuild.buildNumber }}
+								</a>
 							</div>
 						</div>
+							
+
+						<div class="col-md-10">	
+							<!-- contributors -->
+							<div>
+								<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" popover="{{ contributor.fullname }}" popover-trigger="mouseenter">
+									<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
+										<a href="{{ contributor.profilePageUrl }}">
+											<img class="contributorPic" alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
+										</a>
+									</contributor>
+								</span>
+							</div>
+					
+							<div>
+								<ol class="aui-progress-tracker" >
+	
+									<!-- show all stages of pipeline -->		
+									<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: 'aui-progress-tracker-step', false: 'aui-progress-tracker-step aui-progress-tracker-step-current'}[{{pipe.state == 'SUCCESS'}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%" >
+										<span><stageBuild>{{ pipe.stageName }}</stageBuild><state>{{pipe.state}}</state></span>
+									</li>
+								</ol>
+							</div>
+						</div>	
+
 
 					<!-- END TEMPLATE -->
 
