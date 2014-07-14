@@ -5,6 +5,8 @@
 		<title>CDPipeline Wallboard</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+				<link rel="stylesheet" type="text/css" href="css/cdpipeline.css">
+		
 		${webResourceManager.requireResource("com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources")}
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-progress-tracker")}
@@ -42,15 +44,15 @@
 								<project>{{ result.projectName }}</project>
 							</div>
 							<div>
-								<strong><plan>{{ result.planName }}</plan></strong>
+								<plan>{{ result.planName }}</plan>
 							</div>
 						</div>
 						
 						<div class="col-md-4">
 							<div class="since"> since last deployment </div>
 							<div>
-								<strong><days>{{ result.daysSinceDeploymentFromCurrent }}</days></strong> days 
-								<strong><changes>{{ result.numChanges }}</changes></strong> changes
+								<days>{{ result.daysSinceDeploymentFromCurrent }}</days> days 
+								<changes>{{ result.numChanges }}</changes> changes
 							</div>
 						</div>
 

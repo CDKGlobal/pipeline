@@ -15,12 +15,17 @@ body {
 	margin: 1px;
 }
 
+/*-------------------------
+	plan, projects
+--------------------------*/
+
 project {
 	font-size: 10pt;
 }
 
 plan {
 	font-size: 14pt;
+	font-weight: bold;
 }
 
 /*-------------------------
@@ -29,6 +34,7 @@ plan {
 days, changes {
 	font-size: 30pt;
 	font-style: italic;
+	font-weight: bold;
 }
 
 changes {
@@ -42,7 +48,7 @@ days {
 }
 
 .since {
-	font-size: 11px;
+	font-size: 12px;
 }
 
 /*-------------------------
