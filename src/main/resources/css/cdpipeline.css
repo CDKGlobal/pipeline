@@ -1,11 +1,23 @@
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .carousel, .panel-title a { 
+	cursor: pointer; 
+}
+
 body {
 	background-color: #ebf2f9;
+	margin-left: 5px;
+}
+
+.col-md-4 {
+	max-width: 230px;	
 }
 
 .panel {
 	margin: 1px;
 }
+
+/*-------------------------
+	plan, projects
+--------------------------*/
 
 project {
 	font-size: 10pt;
@@ -13,18 +25,59 @@ project {
 
 plan {
 	font-size: 14pt;
+	font-weight: bold;
 }
 
+/*-------------------------
+	days, changes
+--------------------------*/
 days, changes {
 	font-size: 30pt;
 	font-style: italic;
+	font-weight: bold;
 }
 
-#leftContainer { 
-	
+changes {
+	margin-left: 10px;
 }
 
+days {
+	background-size: 75px 90px;
+	padding: 10px;
+	background-position:center;
+}
+
+.since {
+	font-size: 12px;
+}
+
+/*-------------------------
+	buildnumber
+--------------------------*/
 #buildNumber {
 	font-size: 30pt;
-	margin: 10px;
 }
+
+.col-md-1 {
+	width: 100px;	
+}
+
+/*-------------------------
+	pipelinestage stage
+--------------------------*/
+
+
+
+.col-md-10 {
+	max-width: 700px;	
+}
+
+/*-------------------------
+	contributors
+--------------------------*/
+.contributorPic {
+	width: 40px;
+	margin-bottom: 20px;
+}
+
+
