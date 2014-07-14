@@ -1,24 +1,24 @@
 package com.cobalt.cdpipeline.cdresult;
 
 import com.atlassian.bamboo.builder.BuildState;
+import com.atlassian.bamboo.builder.LifeCycleState;
+import com.atlassian.bamboo.chains.ChainStageResult;
 
 /**
  * Represents a single stage in the pipeline.
  */
 public class PipelineStage {
 	
-	private String stageName;
-	private BuildState state;
+	private ChainStageResult stageResult;
 	
 	/**
 	 * Constructs a PipelineStage object.
 	 * 
 	 * @param stageName name of this pipeline stage
-	 * @param state state of this pipeline stage in the build
+	 * @param buildState state of this pipeline stage in the build
 	 */
-	public PipelineStage(String stageName, BuildState state) {
-		this.stageName = stageName;
-		this.state = state;
+	public PipelineStage(ChainStageResult stageResult) {
+		this.stageResult = stageResult;
 	}
 	
 	/**
@@ -27,18 +27,40 @@ public class PipelineStage {
 	 * @return the stageName
 	 */
 	public String getStageName() {
-		return stageName;
+		return stageResult.getName();
 	}
 	
 	/**
-	 * Gets the state of this pipeline stage.
-	 * To get String representation of the state, use toString().
-	 * To determine the state, compare state to STATE_FAILED, STATE_UNKNOWN,
-	 * or STATE_SUCCESSFUL.
+	 * Gets the life cycle state of this pipeline stage.
+	 * String representation of the state, via toString(), are
+	 * 'FINISHED', 'IN_PROGRESS', 'NOT_BUILT', 'PENDING', and 'QUEUED'.
 	 * 
-	 * @return the state, which can be STATE_FAILED, STATE_UNKNOWN, or STATE_SUCCESSFUL.
+	 * @return the life cycle state, which can be FINISHED, IN_PROGRESS, 
+	 *         NOT_BUILT, PENDING, or QUEUED.
 	 */
-	public BuildState getState() {
-		return state;
+	public LifeCycleState getLifeCycleState() {
+		return stageResult.getLifeCycleState();
+	}
+	
+	/**
+	 * Gets the build state of this pipeline stage.
+	 * String representation of the state, via toString(), are
+	 * 'FAILED', 'UNKNOWN', and 'SUCCESSFUL'.
+	 * 
+	 * @return the build state, which can be FAILED, UNKNOWN, or SUCCESSFUL.
+	 */
+	public BuildState getBuildState() {
+		return stageResult.getState();
+	}
+	
+	
+	/**
+	 * Return true if this pipeline stage was set to be manual upon creation.
+	 * 
+	 * @return true if this pipeline stage was set to be manual upon creation,
+	 *         false otherwise.
+	 */
+	public boolean isManual() {
+		return stageResult.isManual();
 	}
 }

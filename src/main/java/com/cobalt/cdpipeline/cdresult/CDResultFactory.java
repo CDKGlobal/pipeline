@@ -133,7 +133,7 @@ public class CDResultFactory {
 		List<ChainStageResult> stages = buildResult.getStageResults();
 
 		for (ChainStageResult stageResult : stages) {
-			PipelineStage stage = new PipelineStage(stageResult.getName(), stageResult.getState());
+			PipelineStage stage = new PipelineStage(stageResult);
 			cdresult.addPipelineStageToList(stage);
 		}
 	}
