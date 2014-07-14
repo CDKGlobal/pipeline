@@ -83,8 +83,8 @@
 								<ol class="aui-progress-tracker" >
 	
 									<!-- show all stages of pipeline -->		
-									<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: 'aui-progress-tracker-step', false: 'aui-progress-tracker-step aui-progress-tracker-step-current'}[{{pipe.state == 'SUCCESS'}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%" >
-										<span><stageBuild>{{ pipe.stageName }}</stageBuild><state>{{pipe.state}}</state></span>
+									<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: 'aui-progress-tracker-step', false: 'aui-progress-tracker-step aui-progress-tracker-step-current'}[{{pipe.buildState == 'SUCCESS'}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%" >
+										<span><stageBuild>{{ pipe.stageName }}</stageBuild><state>{{pipe.buildState}}</state></span>
 									</li>
 								</ol>
 							</div>
