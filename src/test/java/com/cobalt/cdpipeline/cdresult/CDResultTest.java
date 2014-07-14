@@ -2,6 +2,8 @@ package com.cobalt.cdpipeline.cdresult;
 
 import static org.junit.Assert.*;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.atlassian.bamboo.builder.BuildState;
+import com.atlassian.bamboo.chains.ChainStageResult;
 
 
 public class CDResultTest {
@@ -122,10 +125,10 @@ public class CDResultTest {
 	@Test (expected = UnsupportedOperationException.class)
 	public void immutableTestOfGetPipelineStages(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");
-		PipelineStage p = new PipelineStage("test1", BuildState.FAILED);
+		PipelineStage p = new PipelineStage(mock(ChainStageResult.class));
 		cdr.addPipelineStageToList(p);
 		List<PipelineStage> ps = cdr.getPipelineStages();
-		ps.add(new PipelineStage("test2", BuildState.FAILED));
+		ps.add(new PipelineStage(mock(ChainStageResult.class)));
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
