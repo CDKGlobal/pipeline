@@ -53,9 +53,8 @@
 							<div>
 								<days ng-switch="result.daysSinceDeploymentFromCurrent">
 									<span ng-switch-when="-1">--</span>
-									<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span>
-								</days>days ago 
-								<changes>{{ result.numChanges }}</changes> changes
+									<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
+								<changes>{{ result.numChanges }}</changes><small> changes</small>
 							</div>
 						</div>
 

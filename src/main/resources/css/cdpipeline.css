@@ -27,24 +27,15 @@ plan {
 /*-------------------------
 	days, changes
 --------------------------*/
+
 days, changes {
-	font-size: 30pt;
+	font-size: 28pt;
 	font-style: italic;
 	font-weight: bold;
 }
 
 changes {
 	margin-left: 10px;
-}
-
-days {
-	background-size: 75px 90px;
-	padding: 10px;
-	background-position:center;
-}
-
-.since {
-	font-size: 12px;
 }
 
 /*-------------------------
@@ -185,7 +176,7 @@ ol.pipelineTracker li.CD_IN_PROGRESS:before {
 
 #board {
 	position: relative;
-	width: 85%;
+	width: 86%;
 	margin-left: auto;
 	margin-right: auto;
 }
