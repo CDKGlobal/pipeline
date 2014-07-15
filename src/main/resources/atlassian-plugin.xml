@@ -17,6 +17,7 @@
   	<dependency>com.atlassian.auiplugin:aui-experimental-progress-tracker</dependency>
   	
   	<resource type="download" name="angular.js" location="/js/angular.js"/>
+  	<resource type="download" name="angular-animate.js" location="/js/angular-animate.js"/>
   	
   	<resource type="download" name="angular.ui.min.js" location="/js/angular.ui.min.js"/>
   	
