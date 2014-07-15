@@ -1,1 +1,1 @@
-var plugin = angular.module("CDPipeline", ['ui.bootstrap']);
+var plugin = angular.module("CDPipeline", ['ui.bootstrap', 'ngAnimate']);
