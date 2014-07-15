@@ -7,10 +7,6 @@ body {
 	margin-left: 5px;
 }
 
-.col-md-4 {
-	max-width: 230px;	
-}
-
 .panel {
 	margin: 1px;
 }
@@ -55,29 +51,125 @@ days {
 	buildnumber
 --------------------------*/
 #buildNumber {
-	font-size: 30pt;
-}
-
-.col-md-1 {
-	width: 100px;	
+	font-size: 25pt;
 }
 
 /*-------------------------
 	pipelinestage stage
 --------------------------*/
-
-
-
-.col-md-10 {
-	max-width: 700px;	
+ol.pipelineTracker {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
 }
 
+ol.pipelineTracker li {
+	display: inline-block;
+	line-height: 3em;
+	margin-top: 2em;
+}
+
+.CD_SUCCESS {
+	color: #14892c;
+	/*border-top: 4px solid #14892c;*/
+}
+
+.CD_FAILED {
+	color: #d04437;
+	/*border-top: 4px solid #d04437;*/
+}
+
+.CD_NOT_BUILT, .CD_MANUALLY_PAUSED {
+	color: #707070;
+	/*border-top: 4px solid #707070;*/
+}
+
+.CD_IN_PROGRESS {
+	color: #3b73af;
+	/*border-top: 4px solid #3b73af;*/
+}
+
+.stageLine {
+	border-top: 4px solid #ebf2f9;
+}
+
+.stageCircle {
+	margin: ;
+	position: relative;
+	top: -1em;
+	content: "";
+	background-color: #14892c;
+	height: 1.5em;
+	width: 1.5em;
+	border: none;
+	border-radius: 100%;
+}
+
+li div.CD_SUCCESS {
+    background-color: #14892c;
+}
+
+li div.CD_FAILED {
+    background-color: #d04437;
+}
+
+li div.CD_NOT_BUILT {
+    background-color: #707070;
+}
+
+li div.CD_MANUALLY_PAUSED {
+    content: "||";
+    color: white;
+    background-color: #707070;
+}
+
+li div.CD_IN_PROGRESS {
+    background-color: #3b73af;
+}
+
+/*
+ol.pipelineTracker li:before {
+    position: relative;
+    top: -1em;
+    left: -1em;
+    float: left;
+    content: "";
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
+    border: none;
+    border-radius: 1.5em;
+}
+
+
+ol.pipelineTracker li.CD_SUCCESS:before {
+    background-color: #14892c;
+}
+
+ol.pipelineTracker li.CD_FAILED:before {
+    background-color: #d04437;
+}
+
+ol.pipelineTracker li.CD_NOT_BUILT:before {
+    background-color: #707070;
+}
+
+ol.pipelineTracker li.CD_MANUALLY_PAUSED:before {
+    content: "||";
+    color: white;
+    background-color: #707070;
+}
+
+ol.pipelineTracker li.CD_IN_PROGRESS:before {
+    background-color: #3b73af;
+}
+*/
 /*-------------------------
 	contributors
 --------------------------*/
-.contributorPic {
-	width: 40px;
-	margin-bottom: 20px;
-}
 
+.CDcontributor {
+	margin-left: 3px;
+	margin-right: 3px;
+}
 

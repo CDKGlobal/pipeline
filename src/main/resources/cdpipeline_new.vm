@@ -5,7 +5,6 @@
 		<title>CDPipeline Wallboard</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-				<link rel="stylesheet" type="text/css" href="css/cdpipeline.css">
 		
 		${webResourceManager.requireResource("com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources")}
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -39,7 +38,7 @@
 					<!-- TEMPORARY PLACEMENT OF "strips.html" template for testing purposes -->
 
 						<!-- left column -->
-						<div class="col-md-4">
+						<div class="col-md-2">
 							<div>
 								<project>{{ result.projectName }}</project>
 							</div>
@@ -48,10 +47,13 @@
 							</div>
 						</div>
 						
-						<div class="col-md-4">
-							<div class="since"> since last deployment </div>
+						<div class="col-md-2">
+							<span class="aui-lozenge aui-lozenge-complete">Last Deployment</span><br>
 							<div>
-								<days>{{ result.daysSinceDeploymentFromCurrent }}</days> days 
+								<days ng-switch="result.daysSinceDeploymentFromCurrent">
+									<span ng-switch-when="-1">--</span>
+									<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span>
+								</days>days ago 
 								<changes>{{ result.numChanges }}</changes> changes
 							</div>
 						</div>
@@ -67,24 +69,29 @@
 						</div>
 							
 
-						<div class="col-md-10">	
+						<div class="col-md-7">	
 							<!-- contributors -->
 							<div>
-								<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" popover="{{ contributor.fullname }}" popover-trigger="mouseenter">
+								<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
 									<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
 										<a href="{{ contributor.profilePageUrl }}">
-											<img class="contributorPic" alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
+											<span class="aui-avatar-inner">
+												<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
+											</span>
 										</a>
 									</contributor>
 								</span>
 							</div>
 					
 							<div>
-								<ol class="aui-progress-tracker" >
+								<ol class="pipelineTracker" data-pipelineTracker-steps="{{ result.pipelineStages.size }}">
 	
 									<!-- show all stages of pipeline -->		
-									<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: 'aui-progress-tracker-step', false: 'aui-progress-tracker-step aui-progress-tracker-step-current'}[{{pipe.state == 'SUCCESS'}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%" >
-										<span><stageBuild>{{ pipe.stageName }}</stageBuild><state>{{pipe.state}}</state></span>
+									<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: '{{pipe.cdpipelineState}}', false: '{{pipe.cdpipelineState}} stageLine' } [{{$last}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%">
+										<div>
+											<div class="stageCircle {{pipe.cdpipelineState}}"></div>
+											<strong>{{ pipe.stageName }}</strong>
+										</div>
 									</li>
 								</ol>
 							</div>
