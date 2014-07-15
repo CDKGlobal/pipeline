@@ -9,6 +9,11 @@ import com.atlassian.bamboo.chains.ChainStageResult;
  */
 public class PipelineStage {
 	
+	// customized build states
+	public enum CDPipelineState {
+		CD_SUCCESS, CD_FAILED, CD_IN_PROGRESS, CD_NOT_BUILT, CD_MANUALLY_PAUSED
+	}
+	
 	private ChainStageResult stageResult;
 	
 	/**
@@ -62,5 +67,28 @@ public class PipelineStage {
 	 */
 	public boolean isManual() {
 		return stageResult.isManual();
+	}
+	
+	/**
+	 * Get the CDPipelineState, which is based on buildState and lifeCycleState but 
+	 * only includes the states that are to the interest of our users, of this pipeline stage.
+	 * @return the CDPipelineState, which can be SUCCESS, FAILED, IN_PROGRESS (default), 
+	 * 			NOT_BUILT, MANUALLY_PAUSED
+	 */
+	public CDPipelineState getCDPipelineState() {
+		// Check the buildState. Only check lifeCycleState if buildState is UNKNOWN
+		if (getBuildState() == BuildState.SUCCESS) {
+			return CDPipelineState.CD_SUCCESS;
+		} else if  (getBuildState() == BuildState.FAILED) {
+			return CDPipelineState.CD_FAILED;
+		} else { 	// BuildState == UNKNOWN) {
+			if (getLifeCycleState() == LifeCycleState.NOT_BUILT && !isManual()) {
+				return CDPipelineState.CD_NOT_BUILT;
+			} else if (getLifeCycleState() == LifeCycleState.NOT_BUILT && isManual()) {
+				return CDPipelineState.CD_MANUALLY_PAUSED;
+			} else { // lifeCycleState == IN_PROGRESS
+				return CDPipelineState.CD_IN_PROGRESS;
+			}
+		}
 	}
 }
