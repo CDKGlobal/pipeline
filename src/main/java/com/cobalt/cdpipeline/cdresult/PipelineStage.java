@@ -72,6 +72,7 @@ public class PipelineStage {
 	/**
 	 * Get the CDPipelineState, which is based on buildState and lifeCycleState but 
 	 * only includes the states that are to the interest of our users, of this pipeline stage.
+	 * 
 	 * @return the CDPipelineState, which can be SUCCESS, FAILED, IN_PROGRESS (default), 
 	 * 			NOT_BUILT, MANUALLY_PAUSED
 	 */
@@ -81,13 +82,13 @@ public class PipelineStage {
 			return CDPipelineState.CD_SUCCESS;
 		} else if  (getBuildState() == BuildState.FAILED) {
 			return CDPipelineState.CD_FAILED;
-		} else { 	// BuildState == UNKNOWN) {
-			if (getLifeCycleState() == LifeCycleState.NOT_BUILT && !isManual()) {
-				return CDPipelineState.CD_NOT_BUILT;
+		} else { 	// BuildState == UNKNOWN) 
+			if (getLifeCycleState() == LifeCycleState.IN_PROGRESS) {
+				return CDPipelineState.CD_IN_PROGRESS;
 			} else if (getLifeCycleState() == LifeCycleState.NOT_BUILT && isManual()) {
 				return CDPipelineState.CD_MANUALLY_PAUSED;
-			} else { // lifeCycleState == IN_PROGRESS
-				return CDPipelineState.CD_IN_PROGRESS;
+			} else { 
+				return CDPipelineState.CD_NOT_BUILT;
 			}
 		}
 	}
