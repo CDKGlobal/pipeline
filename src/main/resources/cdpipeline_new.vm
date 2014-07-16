@@ -30,9 +30,9 @@
 		</div> -->
 
 		<!-- board section to display all plan's initial info -->
-         <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 180) + 'px')}">
+         <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 150) + 'px')}">
             <div class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true track by result.planKey"
-                                        ng-style="{top: (($index * 180) + 'px')}">
+                                        ng-style="{top: (($index * 150) + 'px')}">
 				<div class="panel panel-default">
 					<div class="panel-body">
 
@@ -40,32 +40,32 @@
 
 						<!-- left column -->
 						<div class="col-md-2">
-							<div>
-								<project>{{ result.projectName }}</project>
-							</div>
-							<div>
+							<projectPlan>
+								<project>{{ result.projectName }}</project> <br />
 								<plan>{{ result.planName }}</plan>
-							</div>
+							</projectPlan>
 						</div>
 						
 						<div class="col-md-2">
-							<span class="aui-lozenge aui-lozenge-complete">Last Deployment</span><br>
-							<div>
-								<days ng-switch="result.daysSinceDeploymentFromCurrent">
-									<span ng-switch-when="-1">--</span>
-									<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
-								<changes>{{ result.numChanges }}</changes><small> changes</small>
-							</div>
+							<lastDeploy>
+								<span class="aui-lozenge aui-lozenge-complete deploy-label">Last Deployment</span><br>
+								<dayChange>
+									<days ng-switch="result.daysSinceDeploymentFromCurrent">
+										<span ng-switch-when="-1">--</span>
+										<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
+									<changes>{{ result.numChanges }}</changes><small> changes</small>
+								</dayChange>
+							</lastDeploy>
 						</div>
 
 						<!-- right column -->
 						<div class="col-md-1">		
 							<!--place AUI icon here, get logic in directive -->
-							<div id="buildNumber" class="col-md-1">
+							<buildNumber>
 								<a href="../../browse/{{result.currentBuild.buildKey}}/latest">
 									#{{ result.currentBuild.buildNumber }}
 								</a>
-							</div>
+							</buildNumber>
 						</div>
 							
 
