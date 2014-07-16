@@ -69,6 +69,7 @@ public class SetCurrentBuildInfoTest {
 			when(build.getBuildKey()).thenReturn("Build " + i);
 			when(build.getBuildNumber()).thenReturn(i);
 			when(build.getStageResults()).thenReturn(new ArrayList<ChainStageResult>());
+			when(build.getOrderedJobResultSummaries()).thenReturn(new ArrayList<ResultsSummary>());
 			
 			buildList.add(build);
 		}

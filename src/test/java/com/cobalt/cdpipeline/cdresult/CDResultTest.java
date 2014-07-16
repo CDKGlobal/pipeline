@@ -77,7 +77,7 @@ public class CDResultTest {
 	public void immutableTestOfgetLastUpdateTime() {
 		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
-		cdr.setLastUpdateTime(current);
+		cdr.updateLastUpdateTime(current);
 		Date update = cdr.getLastUpdateTime();
 		update.setDate(update.getDate() - 1);
 		assertEquals("The update time should not be modified", current, cdr.getLastUpdateTime());
@@ -87,7 +87,7 @@ public class CDResultTest {
 	public void immutableTestOfsetLastUpdateTime() {
 		CDResult cdr = new CDResult("test", "test", "test", "test");
 		Date current = new Date();
-		cdr.setLastUpdateTime(current);
+		cdr.updateLastUpdateTime(current);
 		current.setDate(current.getDate() - 1);
 		Date update = cdr.getLastUpdateTime();
 		assertFalse(current.equals(update));
