@@ -7,10 +7,6 @@ body {
 	margin-left: 5px;
 }
 
-.panel {
-	margin: 1px;
-}
-
 /*-------------------------
 	plan, projects
 --------------------------*/
@@ -41,8 +37,9 @@ changes {
 /*-------------------------
 	buildnumber
 --------------------------*/
-#buildNumber {
+buildNumber {
 	font-size: 25pt;
+	height : 50px;
 }
 
 /*-------------------------
@@ -168,10 +165,51 @@ ol.pipelineTracker li.CD_IN_PROGRESS:before {
 	arrangement of one result panel
 --------------------------------------*/
 
-.panel-body {
-	height : 150px;
-	margin-top: 5px;
-	margin-bottom: 0px;
+.panel-default, .panel-body {
+	height: 130px;
+}
+
+.col-md-0, .col-md-1, .col-md-2, .col-md-3, .col-md-4{
+	height: 100%;
+	vertical-align: middle;
+}
+
+.col-md-1:before, .col-md-2:before, .col-md-3:before, .col-md-4:before{
+  content: '';
+  display: inline-block;
+  height: 100%; 
+  vertical-align: middle;
+  margin-right: -0.5em; /* Adjusts for spacing */
+    
+  /* For visualization 
+  background: #808080; width: 5px;
+  */
+ }
+
+.deploy-label {
+	max-height: 17px;
+	white-space: nowrap;
+}
+
+dayChange {
+	white-space: nowrap;
+}
+
+project, plan, .deploy-label, dayChange{
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float: left;
+}
+
+buildNumber, lastDeploy, projectPlan{
+	display: inline-block;
+  	vertical-align: middle;
+  	width: 100%;
+}
+
+buildNumber a {
+	vertical-align: middle;
 }
 
 #board {
