@@ -129,7 +129,7 @@ div.stage {
 }
 
 .stage div.CD_IN_PROGRESS {
-    background-color: #3b73af;
+    //background-color: #3b73af;
 }
 
 /*-------------------------
@@ -245,3 +245,71 @@ buildNumber a {
     height: 0px;
 }
 
+
+/*-------------------------
+	stage in progress
+--------------------------*/
+
+div.stage div.CD_IN_PROGRESS {
+	width:1.5em;
+	height:1.5em;
+	position:relative;
+
+	-webkit-animation: rotate 2.5s linear 0 infinite forwards;
+	-moz-animation: rotate 2.5s linear 0 infinite forwards;
+	-o-animation: rotate 2.5s linear 0 infinite forwards;
+	-ms-animation: rotate 2.5s linear 0 infinite forwards;
+	animation: rotate 2.5s linear 0 infinite forwards;	  
+}
+
+div.stage div.CD_IN_PROGRESS div.full {
+	width:1.5em; 
+	height:1.5em; 
+	position: absolute; 
+	border-radius: 50%; 
+	background:#4472fb;
+	z-index:100;
+}
+		
+div.stage div.CD_IN_PROGRESS div.quarter {
+	width:0.75em;
+	height:0.75em; 
+	position:absolute; 
+	z-index: 200;
+}
+
+/* Set the 4 parts of the stage circle */
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(1) {
+	border-top-left-radius:100%;
+	background: #cccccc;
+}
+
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(2) {
+	border-top-right-radius:100%;
+	top:0px;
+	left:50%;
+	background: #cccccc;		
+}
+
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(3) {
+	border-bottom-left-radius:100%;
+	top:50%;
+	left:0;
+	background: #3b73af;		
+}
+		
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
+	border-bottom-right-radius:100%;
+	top:50%;
+	left:50%;
+	background: #3b73af;		
+}
+		
+/* Rotating the stage circles */		
+@keyframes rotate {
+	25% { transform: rotate(0deg); }
+	26%,49%{ transform: rotate(-90deg); }
+	50%, 76% { transform: rotate(180deg); }
+	77% { transform: rotate(90deg): }
+	100% { transform: rotate(0deg); }
+}
