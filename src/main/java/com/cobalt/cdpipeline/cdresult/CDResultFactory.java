@@ -83,20 +83,15 @@ public class CDResultFactory {
 	 * Set the current build information (build number, build key...), last build
 	 * updated time and all pipeline stages.
 	 * Current build may be null if there's no builds in build list.
-	 * Last build updated time may be null if it hasn't started yet.
-	 * Last build updated time will be started time if it's not completed.
+	 * Last build updated time will be most recent time from build queued, started, completed
+	 * and jobs completed time.
+	 * Last build updated time may be null if it hasn't queued yet.
 	 */
 	protected static void setCurrentBuildInfo(CDResult cdresult, List<ResultsSummary> buildList) {
 		if(buildList != null && buildList.size() > 0){
 			
 			// get the last build and set current build info.
 			ResultsSummary currentResult = buildList.get(0);
-			Date lastUpdate = currentResult.getBuildCompletedDate();
-			if(lastUpdate == null){
-				cdresult.setLastUpdateTime(currentResult.getBuildDate());
-			}else{
-				cdresult.setLastUpdateTime(lastUpdate);
-			}
 			String buildKey = currentResult.getBuildKey();
 			int buildNum = currentResult.getBuildNumber();
 			Build currentBuild = new Build(buildKey, buildNum);
@@ -105,6 +100,9 @@ public class CDResultFactory {
 			// set the pipeline stages.
 			ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
 			setPipelineStages(cdresult, pipeline);
+			
+			// set last update time.
+			setLastUpdateTime(cdresult, pipeline);
 		}
 	}
 	
@@ -131,10 +129,39 @@ public class CDResultFactory {
 	protected static void setPipelineStages(CDResult cdresult, ChainResultsSummary buildResult) {
 		cdresult.resetPipelineStagesList();
 		List<ChainStageResult> stages = buildResult.getStageResults();
-
 		for (ChainStageResult stageResult : stages) {
 			PipelineStage stage = new PipelineStage(stageResult);
 			cdresult.addPipelineStageToList(stage);
+		}
+	}
+	
+	/*
+	 * Set the last update time to be:
+	 * - last build complete time
+	 * - If not completed, then complete time of last completed job 
+	 * - If no job complted, then build start time
+	 * - If not started, then build queued time
+	 */
+	protected static void setLastUpdateTime(CDResult cdresult, ChainResultsSummary buildResult){
+		Date lastUpdate = buildResult.getBuildCompletedDate();
+		if(lastUpdate == null){
+			Date startTime = buildResult.getBuildDate();
+			if (startTime == null){
+				// update last update time to be build started time
+				cdresult.updateLastUpdateTime(buildResult.getQueueTime());
+			} else {
+				// update last update time to be build queued time
+				cdresult.updateLastUpdateTime(startTime);
+			}
+		}else{
+			// update last update time to be build completed time
+			cdresult.updateLastUpdateTime(lastUpdate);
+		}
+		
+		// update last update time with all jobs completed time (if any)
+		List<ResultsSummary> jobResults = buildResult.getOrderedJobResultSummaries();
+		for(ResultsSummary jobResult : jobResults){
+			cdresult.updateLastUpdateTime(jobResult.getBuildCompletedDate());
 		}
 	}
 }

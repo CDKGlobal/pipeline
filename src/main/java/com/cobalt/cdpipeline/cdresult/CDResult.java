@@ -57,15 +57,17 @@ public class CDResult {
 	}
 	
 	/**
-	 * Set lastUpdate time to the given date.
+	 * Update last update time with the given date.
 	 * By default, the lastUpdateTime will be null.
+	 * If current lastUpdateTime is null, set last update time to the given date;
+	 * otherwise, update last update time if the given date is more recent.
 	 * Access modifier left out intentionally for package protection.
 	 * 
 	 * @param lastUpdate
 	 */
-	void setLastUpdateTime(Date lastUpdate) {
-		if(lastUpdate != null){
-			this.lastUpdate = new Date(lastUpdate.getTime());
+	void updateLastUpdateTime(Date lastUpdate) {
+		if(lastUpdate != null && (this.lastUpdate == null || this.lastUpdate.before(lastUpdate))) {
+				this.lastUpdate = new Date(lastUpdate.getTime());
 		}
 	}
 	
