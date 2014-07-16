@@ -93,7 +93,14 @@
 
 									<!-- show stage circle and name-->
 									<div class="stage {{pipe.cdpipelineState}}" style="left:{{$index * (1/(result.pipelineStages.length - 1) * 90) | number: 0}}%">
-										<div class="stageCircle {{pipe.cdpipelineState}}"></div><strong>{{ pipe.stageName }}</strong>
+										<div class="stageCircle {{pipe.cdpipelineState}}">
+											<div class="quarter top-anim"></div>
+											<div class="quarter top-anim"></div>
+											<div class="quarter bottom-anim"></div>
+											<div class="quarter bottom-anim"></div>
+											<div class="full"></div>
+										</div>
+										<strong>{{ pipe.stageName }}</strong>
 									</div>
 								</span>
 							</div>
