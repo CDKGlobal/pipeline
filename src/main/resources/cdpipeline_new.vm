@@ -71,7 +71,7 @@
 
 						<div class="col-md-7">	
 							<!-- contributors -->
-							<div>
+							<div class="contributorList">
 								<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
 									<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
 										<a href="{{ contributor.profilePageUrl }}">
@@ -83,19 +83,21 @@
 								</span>
 							</div>
 					
-							<div>
-								<ol class="pipelineTracker" data-pipelineTracker-steps="{{ result.pipelineStages.size }}">
-	
-									<!-- show all stages of pipeline -->		
-									<li ng-repeat="pipe in result.pipelineStages" ng-class="{true: '{{pipe.cdpipelineState}}', false: '{{pipe.cdpipelineState}} stageLine' } [{{$last}}]" style="width:{{1/result.pipelineStages.length * 100 | number: 0}}%">
-										<div>
-											<div class="stageCircle {{pipe.cdpipelineState}}"></div>
-											<strong>{{ pipe.stageName }}</strong>
-										</div>
-									</li>
-								</ol>
+							<!-- pipeline stages -->
+							<div class="pipelineContainer">
+								<span ng-repeat="pipe in result.pipelineStages">
+									<!-- show the lines between stages-->
+									<div ng-if="!$first" class="stageLine {{pipe.cdpipelineState}}" style="width:{{1/(result.pipelineStages.length - 1) * 90 | number: 0}}%; left:{{5 + ($index - 1) * (1/(result.pipelineStages.length - 1) * 90) | number: 0}}%">
+										<div class="innerStageLine {{pipe.cdpipelineState}}"></div>
+									</div>
+
+									<!-- show stage circle and name-->
+									<div class="stage {{pipe.cdpipelineState}}" style="left:{{$index * (1/(result.pipelineStages.length - 1) * 90) | number: 0}}%">
+										<div class="stageCircle {{pipe.cdpipelineState}}"></div><strong>{{ pipe.stageName }}</strong>
+									</div>
+								</span>
 							</div>
-						</div>	
+						</div>
 
 
 					<!-- END TEMPLATE -->
