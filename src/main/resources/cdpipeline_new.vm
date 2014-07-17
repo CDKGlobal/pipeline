@@ -80,7 +80,7 @@
 						<div class="col-md-7">	
 							<!-- contributors -->
 							<div class="contributorList">
-								<span ng-repeat="contributor in result.contributorsSortedByLatestCommit" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
+								<span ng-repeat="contributor in result.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
 									<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
 										<a href="{{ contributor.profilePageUrl }}">
 											<span class="aui-avatar-inner">
@@ -93,7 +93,7 @@
 					
 							<!-- pipeline stages -->
 							<div class="pipelineContainer">
-								<span ng-repeat="pipe in result.pipelineStages">
+								<span ng-repeat="pipe in result.pipelineStages track by pipe.stageName">
 									<!-- show the lines between stages-->
 									<div ng-if="!$first" class="stageLine {{pipe.cdpipelineState}}" style="width:{{1/(result.pipelineStages.length - 1) * 90 | number: 0}}%; left:{{5 + ($index - 1) * (1/(result.pipelineStages.length - 1) * 90) | number: 0}}%">
 										<div class="innerStageLine {{pipe.cdpipelineState}}"></div>
@@ -109,7 +109,11 @@
 											<div class="full"></div>
 											<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manually Paused"></span>
 										</div>
-										<strong>{{ pipe.stageName }}</strong>
+										<div class="stageNameContainer">
+											<stageName>
+												<strong>{{ pipe.stageName }}</strong>
+											</stageName>
+										</div>
 									</div>
 								</span>
 							</div>
