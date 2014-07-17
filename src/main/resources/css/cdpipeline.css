@@ -54,7 +54,7 @@ buildNumber {
 	pipelinestage stage
 --------------------------*/
 .pipelineContainer {
-	height: 65%;
+	height: 50px;
 	margin-top: 25px;
 }
 
@@ -86,16 +86,17 @@ div.stage {
 	padding: 0;
 	text-align: center;
 	z-index: 1;
+	height: 50px;
 }
 
 .stageCircle {
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
-	top: -0.75em;
+	top: -10.5px;
 	content: "";
-	height: 1.5em;
-	width: 1.5em;
+	height: 21px;
+	width: 21px;
 	border: none;
 	border-radius: 100%;
 }
@@ -131,8 +132,7 @@ div.stage {
 }
 
 .stage div.CD_MANUALLY_PAUSED {
-    content: "||";
-    color: white;
+    color: #ea632b;
     background-color: #cccccc;
 }
 
@@ -150,7 +150,9 @@ div.stage {
 	contributors
 --------------------------*/
 .contributorList {
-	height: 35%;
+	height: 32px;
+	overflow: hidden;
+	margin-top: 3px;
 }
 
 .CDcontributor {
@@ -166,7 +168,9 @@ div.stage {
 	height: 130px;
 }
 
-.col-md-0, .col-md-1, .col-md-2, .col-md-3, .col-md-4{
+.col-md-0, .col-md-1, .col-md-2, .col-md-3, .col-md-4, 
+.col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, 
+.col-md-10, .col-md-11, .col-md-12 {
 	height: 100%;
 	vertical-align: middle;
 }
@@ -176,7 +180,7 @@ div.stage {
   display: inline-block;
   height: 100%; 
   vertical-align: middle;
-  margin-right: -0.5em; /* Adjusts for spacing */
+  margin-right: -4.5px; /* Adjusts for spacing */
     
   /* For visualization 
   background: #808080; width: 5px;
@@ -199,7 +203,7 @@ project, plan, .deploy-label, dayChange{
 	float: left;
 }
 
-buildNumber, lastDeploy, projectPlan{
+buildNumber, lastDeploy, projectPlan, stageName{
 	display: inline-block;
   	vertical-align: middle;
   	width: 100%;
@@ -209,11 +213,15 @@ buildNumber a {
 	vertical-align: middle;
 }
 
+#content {
+	min-width: 1200px;
+}
+
 #board {
 	position: relative;
 	width: 86%;
-	margin-left: auto;
-	margin-right: auto;
+	padding: 0px;
+	min-width: 1160px;
 }
 
 .animate-repeat {
@@ -222,6 +230,28 @@ buildNumber a {
 	height: 150px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+ .stageNameContainer {
+	width: 100%;
+	height: 40px;
+	overflow: hidden;
+	top: -10.5px;
+	position: relative;
+	text-overflow: ellipsis;
+}
+
+.stageNameContainer:before {
+	content: '';
+  	display: inline-block;
+  	height: 100%; 
+  	vertical-align: middle;
+  	margin-right: -4.5px; /* Adjusts for spacing */
+}
+
+stageName {
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 /*------------------------------------
@@ -265,8 +295,8 @@ buildNumber a {
 --------------------------*/
 
 div.stage div.CD_IN_PROGRESS {
-	width:1.5em;
-	height:1.5em;
+	width:21px;
+	height:21px;
 	position:relative;
 	
 	-webkit-animation: rotate 2.5s linear 0 infinite forwards;
@@ -277,8 +307,8 @@ div.stage div.CD_IN_PROGRESS {
 }
 
 div.stage div.CD_IN_PROGRESS div.full {
-	width:1.5em; 
-	height:1.5em; 
+	width:21px; 
+	height:21px; 
 	position: absolute; 
 	border-radius: 50%; 
 	background:#4472fb;
@@ -286,8 +316,8 @@ div.stage div.CD_IN_PROGRESS div.full {
 }
 		
 div.stage div.CD_IN_PROGRESS div.quarter {
-	width:0.75em;
-	height:0.75em; 
+	width:10.5px;
+	height:10.5px; 
 	position:absolute; 
 	z-index: 200;
 }
