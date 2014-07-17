@@ -9,11 +9,6 @@ import com.atlassian.bamboo.chains.ChainStageResult;
  */
 public class PipelineStage {
 	
-	// customized build states
-	public enum CDPipelineState {
-		CD_SUCCESS, CD_FAILED, CD_IN_PROGRESS, CD_NOT_BUILT, CD_MANUALLY_PAUSED
-	}
-	
 	private ChainStageResult stageResult;
 	
 	/**

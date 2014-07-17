@@ -87,24 +87,27 @@ public class CDResultFactory {
 	 * Last build updated time will be started time if it's not completed.
 	 */
 	protected static void setCurrentBuildInfo(CDResult cdresult, List<ResultsSummary> buildList) {
-		if(buildList != null && buildList.size() > 0){
+		if (buildList != null && buildList.size() > 0) {
 			
 			// get the last build and set current build info.
 			ResultsSummary currentResult = buildList.get(0);
 			Date lastUpdate = currentResult.getBuildCompletedDate();
-			if(lastUpdate == null){
+			if (lastUpdate == null) {
 				cdresult.setLastUpdateTime(currentResult.getBuildDate());
-			}else{
+			} else {
 				cdresult.setLastUpdateTime(lastUpdate);
 			}
-			String buildKey = currentResult.getBuildKey();
-			int buildNum = currentResult.getBuildNumber();
-			Build currentBuild = new Build(buildKey, buildNum);
+			
+			// set the current build and pipeline stages.
+			ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
+			
+			Build currentBuild = new Build(pipeline);
 			cdresult.setCurrentBuild(currentBuild);
 			
-			// set the pipeline stages.
-			ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
 			setPipelineStages(cdresult, pipeline);
+		} else {
+			Build currentBuild = new Build(null);
+			cdresult.setCurrentBuild(currentBuild);
 		}
 	}
 	
