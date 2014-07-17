@@ -168,11 +168,24 @@ div.stage {
 	height: 130px;
 }
 
+.col-md-1 {
+	width: 8.33333333%;
+}
+
+.col-md-2 {
+	width: 16.66666667%;
+}
+
+.col-md-7 {
+	width: 58.33333333%;
+}
+
 .col-md-0, .col-md-1, .col-md-2, .col-md-3, .col-md-4, 
 .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, 
 .col-md-10, .col-md-11, .col-md-12 {
 	height: 100%;
 	vertical-align: middle;
+	float: left;
 }
 
 .col-md-1:before, .col-md-2:before, .col-md-3:before, .col-md-4:before{
