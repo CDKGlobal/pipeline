@@ -15,7 +15,7 @@
 
 	<body>
 	<div ng-app="CDPipeline">
-	
+
 		<!-- main page shell -->
 		<div ng-controller="MainController">
 			<div class="alert alert-info alert-dismissible" role="alert">
@@ -23,6 +23,13 @@
  				<strong>Hey!</strong> This is CDPipeline v2 but with AngularJS now cool
 			</div>
 		</div>
+
+		<!-- a floating navigation bar on the left -->
+		<ul class="nav-bar">
+			<li><a href="#" class="icon-fullscreen">Full screen</a></li>
+			<li><a href="#" class="icon-search">Search</a></li>
+			<li><a href="#" class="icon-other">Other</a></li>
+		</ul>
 
 		<!-- sidebar section for expanded info -->
 		<!-- <div id="side" ng-controller="SideController">
