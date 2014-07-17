@@ -1,19 +1,17 @@
 package com.cobalt.cdpipeline.cdresult;
 
-import java.util.Date;
+import com.atlassian.bamboo.chains.ChainResultsSummary;
 
 public class Build {
-	private String buildKey;
-	private int buildNumber;
+	private ChainResultsSummary buildResult;
 	
 	/**
 	 * Constructs a Build with given params
 	 * @param buildKey
 	 * @param buildNumber
 	 */
-	public Build(String buildKey, int buildNumber){
-		this.buildKey = buildKey;
-		this.buildNumber = buildNumber;
+	public Build(ChainResultsSummary buildResult){
+		this.buildResult = buildResult;
 	}
 
 	/**
@@ -21,7 +19,11 @@ public class Build {
 	 * @return build key
 	 */
 	public String getBuildKey() {
-		return buildKey;
+		if (buildResult == null) {
+			return null;
+		} else {
+			return buildResult.getBuildKey();
+		}
 	}
 
 	/**
@@ -29,7 +31,37 @@ public class Build {
 	 * @return build number
 	 */
 	public int getBuildNumber() {
-		return buildNumber;
+		if (buildResult == null) {
+			return -1;
+		} else {
+			return buildResult.getBuildNumber();
+		}
 	}
 
+	/**
+	 * Get the CDPipelineState based on the state of buildResult, but only
+	 * includes the states that are to the interest of our users, of this pipeline stage.
+	 * 
+	 * @return the CDPipelineState, which can be SUCCESS, FAILED, IN_PROGRESS, 
+	 * 			NOT_BUILT, MANUALLY_PAUSED
+	 */
+	public CDPipelineState getCDPipelineState() {
+		if (buildResult == null) {
+			return CDPipelineState.CD_NOT_BUILT;
+		} else {
+			if (buildResult.isSuccessful()) {
+				if (buildResult.isContinuable()) {
+					return CDPipelineState.CD_MANUALLY_PAUSED;
+				} else {
+					return CDPipelineState.CD_SUCCESS;
+				}
+			} else if (buildResult.isFailed()) {
+				return CDPipelineState.CD_FAILED;
+			} else if (buildResult.isInProgress()) {
+				return CDPipelineState.CD_IN_PROGRESS;
+			} else {
+				return CDPipelineState.CD_NOT_BUILT;
+			}
+		}
+	}
 }

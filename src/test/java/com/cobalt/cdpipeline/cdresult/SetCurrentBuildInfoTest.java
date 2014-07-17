@@ -23,8 +23,10 @@ public class SetCurrentBuildInfoTest {
 		CDResultFactory.setCurrentBuildInfo(cdr, createNBuildResults(0));
 		assertEquals("Date of cdresult's lastUpdateTime should be null (default) when there are no builds.", 
 						null, cdr.getLastUpdateTime());
-		assertEquals("cdresult's currentBuild should be null (default) when there are no builds.",
-						null, cdr.getCurrentBuild());
+		assertEquals("cdresult's currentBuild's buildNumber should be -1 (default) when there are no builds.",
+						-1, cdr.getCurrentBuild().getBuildNumber());
+		assertEquals("cdresult's currentBuild's buildKey should be null (default) when there are no builds.",
+				null, cdr.getCurrentBuild().getBuildKey());
 	}
 	
 	@Test
