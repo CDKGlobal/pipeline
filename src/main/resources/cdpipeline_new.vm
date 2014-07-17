@@ -41,8 +41,16 @@
 						<!-- left column -->
 						<div class="col-md-2">
 							<projectPlan>
-								<project>{{ result.projectName }}</project> <br />
-								<plan>{{ result.planName }}</plan>
+								<project>
+									<a href="../../browse/{{result.projectKey}}">
+										{{ result.projectName }}
+									</a>
+								</project><br>
+								<plan>
+									<a href="../../browse/{{result.planKey}}">
+										{{ result.planName }}
+									</a>
+								</plan>
 							</projectPlan>
 						</div>
 						
@@ -93,12 +101,13 @@
 
 									<!-- show stage circle and name-->
 									<div class="stage {{pipe.cdpipelineState}}" style="left:{{$index * (1/(result.pipelineStages.length - 1) * 90) | number: 0}}%">
-										<div class="stageCircle {{pipe.cdpipelineState}}">
+										<div class="stageCircle {{pipe.cdpipelineState}}" ng-switch="pipe.cdpipelineState">
 											<div class="quarter top-anim"></div>
 											<div class="quarter top-anim"></div>
 											<div class="quarter bottom-anim"></div>
 											<div class="quarter bottom-anim"></div>
 											<div class="full"></div>
+											<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manually Paused"></span>
 										</div>
 										<strong>{{ pipe.stageName }}</strong>
 									</div>

@@ -20,6 +20,14 @@ plan {
 	font-weight: bold;
 }
 
+projectPlan a:link, projectPlan a:visited{
+	color: #333333;
+}
+
+projectPlan a:hover {
+	color: #205081;
+}
+
 /*-------------------------
 	days, changes
 --------------------------*/
@@ -128,8 +136,14 @@ div.stage {
     background-color: #cccccc;
 }
 
-.stage div.CD_IN_PROGRESS {
+/*.stage div.CD_IN_PROGRESS {
     //background-color: #3b73af;
+}*/
+
+.pausedIcon {
+	font-size: medium;
+	margin-top: 2px;
+	margin-left: 1px;
 }
 
 /*-------------------------
@@ -254,12 +268,12 @@ div.stage div.CD_IN_PROGRESS {
 	width:1.5em;
 	height:1.5em;
 	position:relative;
-
+	
 	-webkit-animation: rotate 2.5s linear 0 infinite forwards;
 	-moz-animation: rotate 2.5s linear 0 infinite forwards;
 	-o-animation: rotate 2.5s linear 0 infinite forwards;
-	-ms-animation: rotate 2.5s linear 0 infinite forwards;
-	animation: rotate 2.5s linear 0 infinite forwards;	  
+	-ms-animation: rotate 2.5s linear 0 infinite forwards;	
+	animation: rotate 2.5s linear 0 infinite forwards;	
 }
 
 div.stage div.CD_IN_PROGRESS div.full {
@@ -304,12 +318,30 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	left:50%;
 	background: #3b73af;		
 }
-		
-/* Rotating the stage circles */		
+
+/* Rotating the stage circles */	
 @keyframes rotate {
-	25% { transform: rotate(0deg); }
-	26%,49%{ transform: rotate(-90deg); }
-	50%, 76% { transform: rotate(180deg); }
-	77% { transform: rotate(90deg): }
-	100% { transform: rotate(0deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
+	
+@-webkit-keyframes rotate {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); } 
+}
+
+@-moz-animation rotate {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+
+@-o-animation rotate {
+  from { -o-transform: rotate(0deg); }
+  to { -o-transform: rotate(360deg); }
+}
+
+@-ms-animation rotate {
+  from { -ms-transform: rotate(0deg); }
+  to { -ms-transform: rotate(360deg); }
+}
+
