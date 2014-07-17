@@ -68,9 +68,17 @@
 
 						<!-- right column -->
 						<div class="col-md-1">		
-							<!--place AUI icon here, get logic in directive -->
-							<buildNumber>
-								<a href="../../browse/{{result.currentBuild.buildKey}}/latest">
+							<div class="build-state-icon" ng-switch="result.currentBuild.cdpipelineState">
+								<span ng-switch-when="CD_SUCCESS" class="icon icon-successful" title="Current build is successful"></span>
+								<span ng-switch-when="CD_FAILED" class="icon icon-failed" title="Current build failed"></span>
+								<span ng-switch-when="CD_IN_PROGRESS" class="icon icon-building" title="Current build is building"></span>
+								<span ng-switch-when="CD_MANUALLY_PAUSED" class="icon icon-successfulPartial" title="Current build stopped at manual stage"></span>
+								<span ng-switch-when="CD_NOT_BUILT" class="icon icon-disabled" title="Current build is not built"></span>
+							</div>
+							
+							<buildNumber ng-switch="result.currentBuild.buildNumber">
+								<a ng-switch-when="-1" href="../../browse/{{result.planKey}}/latest">--</a>
+								<a ng-switch-default href="../../browse/{{result.currentBuild.buildKey}}/latest">
 									#{{ result.currentBuild.buildNumber }}
 								</a>
 							</buildNumber>
