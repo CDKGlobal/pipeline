@@ -254,12 +254,12 @@ div.stage div.CD_IN_PROGRESS {
 	width:1.5em;
 	height:1.5em;
 	position:relative;
-
+	
 	-webkit-animation: rotate 2.5s linear 0 infinite forwards;
 	-moz-animation: rotate 2.5s linear 0 infinite forwards;
 	-o-animation: rotate 2.5s linear 0 infinite forwards;
-	-ms-animation: rotate 2.5s linear 0 infinite forwards;
-	animation: rotate 2.5s linear 0 infinite forwards;	  
+	-ms-animation: rotate 2.5s linear 0 infinite forwards;	
+	animation: rotate 2.5s linear 0 infinite forwards;	
 }
 
 div.stage div.CD_IN_PROGRESS div.full {
@@ -312,4 +312,36 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	50%, 76% { transform: rotate(180deg); }
 	77% { transform: rotate(90deg): }
 	100% { transform: rotate(0deg); }
+}
+
+@-webkit-keyframes rotate {
+	25% { -webkit-transform: rotate(0deg); }
+	26%,49%{ -webkit-transform: rotate(-90deg); }
+	50%, 76% { -webkit-transform: rotate(180deg); }
+	77% { -webkit-transform: rotate(90deg): }
+	100% { -webkit-transform: rotate(0deg); }
+}
+
+@-moz-animation rotate {
+	25% { -moz-transform: rotate(0deg); }
+	26%,49%{ -moz-transform: rotate(-90deg); }
+	50%, 76% { -moz-transform: rotate(180deg); }
+	77% { -moz-transform: rotate(90deg): }
+	100% { -moz-transform: rotate(0deg); }
+}
+
+@-o-animation rotate {
+	25% { -o-transform: rotate(0deg); }
+	26%,49%{ -o-transform: rotate(-90deg); }
+	50%, 76% { -o-transform: rotate(180deg); }
+	77% { -o-transform: rotate(90deg): }
+	100% { -o-transform: rotate(0deg); }
+}
+
+@-ms-animation rotate {
+	25% { -ms-transform: rotate(0deg); }
+	26%,49%{ -ms-transform: rotate(-90deg); }
+	50%, 76% { -ms-transform: rotate(180deg); }
+	77% { -ms-transform: rotate(90deg): }
+	100% { -ms-transform: rotate(0deg); }
 }
