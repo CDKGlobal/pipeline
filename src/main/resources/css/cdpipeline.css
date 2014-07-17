@@ -20,6 +20,14 @@ plan {
 	font-weight: bold;
 }
 
+projectPlan a:link, projectPlan a:visited{
+	color: #333333;
+}
+
+projectPlan a:hover {
+	color: #205081;
+}
+
 /*-------------------------
 	days, changes
 --------------------------*/
@@ -128,8 +136,14 @@ div.stage {
     background-color: #cccccc;
 }
 
-.stage div.CD_IN_PROGRESS {
+/*.stage div.CD_IN_PROGRESS {
     //background-color: #3b73af;
+}*/
+
+.pausedIcon {
+	font-size: medium;
+	margin-top: 2px;
+	margin-left: 1px;
 }
 
 /*-------------------------
