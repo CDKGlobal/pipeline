@@ -20,12 +20,12 @@ plan {
 	font-weight: bold;
 }
 
-projectPlan a:link, projectPlan a:visited{
-	color: #333333;
+projectPlan a {
+	color: #333333 !important;
 }
 
 projectPlan a:hover {
-	color: #205081;
+	color: #205081 !important;
 }
 
 /*-------------------------
@@ -56,12 +56,12 @@ buildNumber {
 	height : 50px;
 }
 
-buildNumber a:link, buildNumber a:visited {
-	color: #205081;
+buildNumber a {
+	color: #205081 !important;
 }
 
 buildNumber a:hover {
-	color: #428bca;
+	color: #428bca !important;
 }
 
 
@@ -159,6 +159,7 @@ div.stage {
 	font-size: medium;
 	margin-top: 2px;
 	margin-left: 1px;
+	font-weight: bold !important;
 }
 
 /*-------------------------
@@ -495,3 +496,21 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	content: "??";
 }
 
+/*-------------------------
+	modal window
+--------------------------*/
+
+.modal {
+	overflow-x: auto !important;
+}
+
+.modal-dialog {
+	width: 80%;
+	min-width: 1250px;
+	overflow: scroll;
+	height: 90%;
+}
+
+.modal-content {
+	min-height: 100%;
+}

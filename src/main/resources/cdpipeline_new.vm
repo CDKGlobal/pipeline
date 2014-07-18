@@ -34,6 +34,19 @@
 			</ul>
 		</div>
 
+		<div id="popUp" ng-controller="ModalController">
+		    <script type="text/ng-template" id="ModalContent.html">
+		        <div class="modal-header">
+		            <h3 class="modal-title">{{ result.projectName }} - {{ result.planName }}</h3>
+		        </div>
+		        <div class="modal-body">
+		            <div ng-include="url">
+		            </div>
+		        </div>
+		        <div class="modal-footer">
+		        </div>
+		    </script>
+
 		<!-- board section to display all plan's initial info -->
          <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
             <div class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true | emptyToEnd:'lastUpdateTime' track by result.planKey"
@@ -47,12 +60,12 @@
 						<div class="col-md-2">
 							<projectPlan>
 								<project>
-									<a href="../../browse/{{result.projectKey}}">
+									<a ng-click="modalOpen(result, '../../browse/' + result.projectKey)">
 										{{ result.projectName }}
 									</a>
 								</project><br>
 								<plan>
-									<a href="../../browse/{{result.planKey}}">
+									<a ng-click="modalOpen(result, '../../browse/' + result.planKey)">
 										{{ result.planName }}
 									</a>
 								</plan>
@@ -82,8 +95,8 @@
 							</div>
 							
 							<buildNumber ng-switch="result.currentBuild.buildNumber">
-								<a ng-switch-when="-1" href="../../browse/{{result.planKey}}/latest">--</a>
-								<a ng-switch-default href="../../browse/{{result.currentBuild.buildKey}}/latest">
+								<a ng-switch-when="-1" ng-click="modalOpen(result, '../../browse/' + result.planKey + '/latest')">--</a>
+								<a ng-switch-default ng-click="modalOpen(result, '../../browse/' + result.currentBuild.buildKey + '/latest')">
 									#{{ result.currentBuild.buildNumber }}
 								</a>
 							</buildNumber>
@@ -120,7 +133,7 @@
 											<div class="quarter bottom-anim"></div>
 											<div class="quarter bottom-anim"></div>
 											<div class="full"></div>
-											<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manually Paused" style="font-weight: bold"></span>
+											<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manually Paused"></span>
 										</div>
 										<div class="stageNameContainer">
 											<stageName ng-attr-title="{{ pipe.stageName }}">
