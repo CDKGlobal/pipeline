@@ -118,11 +118,11 @@ div.stage {
 
 /* Set text color of the stage names*/
 .CD_SUCCESS strong {
-	color: #0e631f;
+	color: #14892c;
 }
 
 .CD_FAILED strong {
-	color: #993228;
+	color: #d04437;
 }
 
 .CD_NOT_BUILT strong, .CD_MANUALLY_PAUSED strong {
@@ -130,7 +130,7 @@ div.stage {
 }
 
 .CD_IN_PROGRESS strong {
-	color: #2d5785;
+	color: #3b73af;
 }
 
 /* Set circle color*/
@@ -150,6 +150,10 @@ div.stage {
     color: #ea632b;
     background-color: #cccccc;
 }
+
+/*.stage div.CD_IN_PROGRESS {
+    //background-color: #3b73af;
+}*/
 
 .pausedIcon {
 	font-size: medium;
@@ -431,11 +435,12 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	padding: 0;
 	//background: #f7f7f7;
 	background: #ebf2f9;
+	border: 2px #e9e9e9 solid;
+	border-left: 0px;
 }
 
 .nav-bar li a {
 	display: block;
-	text-indent: -500em;
 	top: 50%;
 	height: 4em;
 	width: 4em;

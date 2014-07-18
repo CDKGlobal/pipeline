@@ -14,11 +14,9 @@
   <web-resource key="cdpipeline-resources" name="cdpipeline Web Resources">
   	
   	<dependency>com.atlassian.auiplugin:ajs</dependency>
-  	<dependency>com.atlassian.auiplugin:aui-experimental-progress-tracker</dependency>
   	
   	<resource type="download" name="angular.js" location="/js/angular.js"/>
   	<resource type="download" name="angular-animate.js" location="/js/angular-animate.js"/>
-  	
   	<resource type="download" name="angular.ui.min.js" location="/js/angular.ui.min.js"/>
   	
   	<resource type="download" name="plugin.js" location="/js/plugin.js"/>
@@ -27,8 +25,6 @@
   	
     <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
-    <resource type="download" name="directives.js" location="/js/directives.js"/>
-    <resource type="download" name="mockjson2.json" location="/js/mockjson2.json"/>
       
    <resource type="velocity" name="strips.vm" location="/js/strips.vm"/>
    

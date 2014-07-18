@@ -4,11 +4,14 @@
 	<head>
 		<title>CDPipeline Wallboard</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 		
+		<!-- css -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		
+		<!-- scripts -->
 		${webResourceManager.requireResource("com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources")}
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		${webResourceManager.requireResource("com.atlassian.auiplugin:aui-experimental-progress-tracker")}
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
 	</head>
 
@@ -22,19 +25,14 @@
  				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
  				<strong>Hey!</strong> This is CDPipeline v2 but with AngularJS now cool
 			</div>
-		</div>
 
 		<!-- a floating navigation bar on the left -->
-		<ul class="nav-bar">
-			<li><a href="#" class="icon-fullscreen">Full screen</a></li>
-			<li><a href="#" class="icon-search">Search</a></li>
-			<li><a href="#" class="icon-other">Other</a></li>
-		</ul>
-
-		<!-- sidebar section for expanded info -->
-		<!-- <div id="side" ng-controller="SideController">
-
-		</div> -->
+			<ul class="nav-bar">
+				<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
+				<li><a href="#"><i id="fullscreenIcon" class="fa fa-search fa-2x"></i></a></li>
+				<li><a href="#"></a></li>
+			</ul>
+		</div>
 
 		<!-- board section to display all plan's initial info -->
          <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
