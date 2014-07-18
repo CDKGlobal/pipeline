@@ -122,7 +122,7 @@
 											<div class="quarter bottom-anim"></div>
 											<div class="quarter bottom-anim"></div>
 											<div class="full"></div>
-											<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manually Paused"></span>
+											<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manually Paused" style="font-weight: bold"></span>
 										</div>
 										<div class="stageNameContainer">
 											<stageName ng-attr-title="{{ pipe.stageName }}">
