@@ -36,7 +36,7 @@
 
 		<!-- board section to display all plan's initial info -->
          <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
-            <div class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true track by result.planKey"
+            <div class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true | emptyToEnd:'lastUpdateTime' track by result.planKey"
                                         ng-style="{top: (($index * 131) + 'px')}">
 				<div class="panel panel-default">
 					<div class="panel-body">
