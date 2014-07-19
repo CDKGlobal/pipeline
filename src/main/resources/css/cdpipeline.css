@@ -434,10 +434,11 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	//background: #f7f7f7;
 	background: #ebf2f9;
 	border: 2px #e9e9e9 solid;
 	border-left: 0px;
+	z-index: 2;
+	box-shadow: 0 0 5px #6a5d4f;
 }
 
 .nav-bar li a {
@@ -513,4 +514,103 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 
 .modal-content {
 	min-height: 100%;
+}
+
+
+
+
+/*-------------------------
+	search bar
+--------------------------*/
+
+
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-family: "Cabin";
+}
+
+.search-container {
+  overflow: hidden;
+  float: left;
+  height: 4em;
+  width: 4em;
+  //border-radius: 2em;
+  box-shadow: 0 0 5px #6a5d4f;
+  -moz-transition: all 0.35s;
+  -webkit-transition: all 0.35s;
+  
+  	position: fixed;
+	overflow: hidden;
+	left: 0;	
+	top: 27%;
+	background: #ebf2f9;		
+	height: 4em;
+	width: 4em;
+	line-height: 4em;
+	z-index: 3;
+	padding: 2px;
+	text-align: center;
+	//border: 2px #e9e9e9 solid;
+}
+
+.search-container:hover {
+  width: 25em;
+  border-radius: 5px 2em 2em 5px;
+}
+.search-container:hover input {
+  display: inline-block;
+  width: 20em;
+  height: 3em;
+  //adding: 1em;
+  
+}
+
+input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  float: right;
+  width: 0em;
+  height: 2em;
+  margin: 1em;
+  margin-right: -4.5em;
+  background: white;
+  color: #6a5d4f;
+  font-size: 1em;
+  font-weight: 600;
+  padding: 0px;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.button {
+  float: right;
+  //width: 1.75em;
+  //height: 1.75em;
+  margin: 0.125em;
+  //background: #6a5d4f;
+  text-align: center;
+  font-size: 2em;
+  //color: #fdf6e3;
+  //border-radius: 50%;
+  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 1px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.3);
+}
+.button i {
+  margin-top: 0.3em;
+}
+.button:active {
+  border: 0 !important;
+  text-shadow: 0 0 0;
 }

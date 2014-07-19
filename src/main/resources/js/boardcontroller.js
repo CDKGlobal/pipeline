@@ -66,3 +66,40 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, result, url) {
   $scope.url = url;
 
 };
+
+
+// The search button on the menu bar
+plugin.filter('searchFor', keywordSearch);
+
+
+function keywordSearch(){
+    
+	// All filters must return a function. The first parameter
+	// is the data that is to be filtered, and the second is an
+	// argument that may be passed with a colon (searchFor:searchString)
+    
+	return function(arr, searchString){
+        
+		if(!searchString){
+			return arr;
+		}
+		var result = [];
+		searchString = searchString.toLowerCase();
+		// Using the forEach helper method to loop through the array
+		angular.forEach(arr, function(item){
+            if(item.projectName.toLowerCase().indexOf(searchString) !== -1 |
+                item.planName.toLowerCase().indexOf(searchString) !== -1) {
+                    result.push(item);
+            }
+            for (i = 0; i < item.contributors.length; i++) {
+                if (item.contributors[i].username.toLowerCase().indexOf(searchString) !== -1 |
+                     item.contributors[i].fullname.toLowerCase().indexOf(searchString) !== -1) {
+                    result.push(item)
+                }
+            }
+        });
+        
+		return result;
+	};
+}
+
