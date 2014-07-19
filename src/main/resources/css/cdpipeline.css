@@ -151,10 +151,6 @@ div.stage {
     background-color: #cccccc;
 }
 
-/*.stage div.CD_IN_PROGRESS {
-    //background-color: #3b73af;
-}*/
-
 .pausedIcon {
 	font-size: medium;
 	margin-top: 2px;
@@ -430,7 +426,7 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	overflow: hidden;
 	top: 20%;
 	left: 0;
-	//height: 100%;
+	/*height: 100%;*/
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -524,11 +520,10 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 --------------------------*/
 
 
-* {
+.search-container {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  font-family: "Cabin";
 }
 
 .search-container {
@@ -536,7 +531,6 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
   float: left;
   height: 4em;
   width: 4em;
-  //border-radius: 2em;
   box-shadow: 0 0 5px #6a5d4f;
   -moz-transition: all 0.35s;
   -webkit-transition: all 0.35s;
@@ -552,7 +546,6 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	z-index: 3;
 	padding: 2px;
 	text-align: center;
-	//border: 2px #e9e9e9 solid;
 }
 
 .search-container:hover {
@@ -563,7 +556,6 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
   display: inline-block;
   width: 20em;
   height: 3em;
-  //adding: 1em;
   
 }
 
@@ -596,14 +588,9 @@ input:focus {
 
 .button {
   float: right;
-  //width: 1.75em;
-  //height: 1.75em;
   margin: 0.125em;
-  //background: #6a5d4f;
   text-align: center;
   font-size: 2em;
-  //color: #fdf6e3;
-  //border-radius: 50%;
   box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 1px rgba(0, 0, 0, 0.25);
   text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.3);
 }
