@@ -103,3 +103,13 @@ function keywordSearch(){
 	};
 }
 
+plugin.filter('pipelineWidth', function(){
+  return function(input){
+    if(input > 1) {
+      return (1 / (input - 1));
+    } else {
+      return 0;
+    }
+  }
+});
+

@@ -35,7 +35,7 @@
 		</div>
 
 		<!-- Hide the 2nd button in the side menu -->
-		<div class="s search-container">		
+		<div class="search-container">		
 			<input id="search_bar" ng-model="searchString" placeholder="Enter a project/plan/person" type='text'>
         	<!-- <a class='button'> -->
 			<i class="fa fa-search fa-2x"></i>
@@ -134,7 +134,7 @@
 									</div>
 
 									<!-- show stage circle and name-->
-									<div class="stage {{pipe.cdpipelineState}}" style="left:{{$index * (1/(result.pipelineStages.length - 1) * 90) | number: 0}}%">
+									<div class="stage {{pipe.cdpipelineState}}" style="left:{{$index * ((result.pipelineStages.length | pipelineWidth) * 90) | number: 0}}%">
 										<div class="stageCircle {{pipe.cdpipelineState}}" ng-switch="pipe.cdpipelineState">
 											<div class="quarter top-anim"></div>
 											<div class="quarter top-anim"></div>
