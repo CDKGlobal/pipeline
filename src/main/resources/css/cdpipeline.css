@@ -530,7 +530,7 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
   width: 260px;
 }
 
-.search-container:hover input {
+.search-container:hover #search_bar {
 	display: inline-block;
 	width: 200px;
 	height: 36px;
@@ -545,31 +545,30 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	left: 40%;
 }
 
-input {
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -o-appearance: none;
-  -ms-appearance: none;
+#search_bar {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-o-appearance: none;
+	-ms-appearance: none;
   
-  background: white;
-  color: #6a5d4f;
-  font-size: 1em;
-  font-weight: 600;
-  padding: 0px;
-  border: 0;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  transition: all 0.25s; 
-  -moz-transition: all 0.25s;
-  -webkit-transition: all 0.25s;
-  -o-transition: all 0.25s;
-  -ms-transition: all 0.25s;
-   display: none; /* Only displayed on hover*/   
+	background: white;
+	color: #999;
+	font-size: 1em;
+	border: 0;
+	border-radius: 5px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+	transition: all 0.25s; 
+	-moz-transition: all 0.25s;
+	-webkit-transition: all 0.25s;
+	-o-transition: all 0.25s;
+	-ms-transition: all 0.25s;
+    display: none; /* Only displayed on hover*/ 
+ 	padding-left: 10px;
 }
 
-input:focus {
-  outline: none;
+#search_bar:focus {
+	outline: none;
 }
 
