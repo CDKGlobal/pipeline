@@ -21,10 +21,6 @@
 
 		<!-- main page shell -->
 		<div ng-controller="MainController">
-			<div class="alert alert-info alert-dismissible" role="alert">
- 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
- 				<strong>Hey!</strong> This is CDPipeline v2 but with AngularJS now cool
-			</div>
 
 		<!-- a floating navigation bar on the left -->
 			<ul class="nav-bar">
@@ -55,9 +51,13 @@
 		    </script>
 
 		<!-- board section to display all plan's initial info -->
-         <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
-            <div class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true | searchFor:searchString | emptyToEnd:'lastUpdateTime' track by result.planKey"
-                                        ng-style="{top: (($index * 131) + 'px')}">
+        <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
+
+     	 	<div id="unloadedBoard" ng-hide="dataLoaded">
+     			<div class="loader">Loading...</div>
+       		</div>
+
+            <div ng-show="dataLoaded" id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true | searchFor:searchString | emptyToEnd:'lastUpdateTime' track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
 				<div class="panel panel-default">
 					<div class="panel-body">
 
