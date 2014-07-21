@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 
 import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
-import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
@@ -117,6 +116,6 @@ public class MainPageTest {
     	
     	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
     			mock(ProjectManager.class), mock(PlanManager.class), mock(ResultsSummaryManager.class), 
-    			jiraApplinks, mock(JiraRestService.class));
+    			jiraApplinks);
     }
 }

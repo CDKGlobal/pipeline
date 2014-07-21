@@ -37,14 +37,14 @@ public class MainManager {
 	 */
 	public MainManager(ProjectManager projectManager, PlanManager planManager, 
 			           ResultsSummaryManager resultsSummaryManager,
-			           JiraApplinksService jiraApplinksService, JiraRestService jiraRestService) {
+			           JiraApplinksService jiraApplinksService) {
         if (projectManager == null || planManager == null || resultsSummaryManager == null) {
             throw new IllegalArgumentException("Null arguments not allowed");
         }
 		this.projectManager = projectManager;
 		this.planManager = planManager;
 		this.resultsSummaryManager = resultsSummaryManager;
-		this.contributorBuilder = new ContributorBuilder(jiraApplinksService, jiraRestService);
+		this.contributorBuilder = new ContributorBuilder(jiraApplinksService);
 	}
 	
 	/**

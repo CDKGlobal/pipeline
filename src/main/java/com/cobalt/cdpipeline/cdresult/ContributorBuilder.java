@@ -14,33 +14,28 @@ import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.sal.api.net.Request.MethodType;
 
 public class ContributorBuilder {
-	private static final String JIRA_REST_USER_INFO_URL = "rest/api/latest/user?username=";
-	private static final String IMAGE_SIZE = "48x48";
+	private static final String JIRA_USER_AVATAR_PATH = "/secure/useravatar?ownerId=";
 	private static final String JIRA_PROFILE_PATH = "/secure/ViewProfile.jspa?name=";
 	
-	ApplicationLink appLink;
-	JiraRestService jiraRestService;
+	private String baseUrl;
 	
 	/**
 	 * Constructs a ContributorBuilder object.
 	 * 
 	 * @param jiraApplinksService to connect to Jira via Application Link.
-	 * @param jiraRestService to request info from Jira"s Rest
 	 */
-	public ContributorBuilder(JiraApplinksService jiraApplinksService, JiraRestService jiraRestService){
+	public ContributorBuilder(JiraApplinksService jiraApplinksService){
 		// User need to make sure they put the JIRA applink as the primary application link
-		if(jiraApplinksService == null || jiraRestService == null){
+		if(jiraApplinksService == null){
 			throw new IllegalArgumentException("Arguments can't be null.");
 		}
 		
 		Iterator<ApplicationLink> appLinks = jiraApplinksService.getJiraApplicationLinks().iterator();
-		if (!appLinks.hasNext()) {
-			appLink = null;
+		if (appLinks.hasNext()) {
+			baseUrl = appLinks.next().getRpcUrl().toString();
 		} else {
-			appLink = appLinks.next();
+			baseUrl = null;
 		}
-		this.jiraRestService = jiraRestService;
-		
 	}
 	
 	/**
@@ -50,34 +45,18 @@ public class ContributorBuilder {
 	 * 
 	 * @param username of the contributor
 	 * @param lastCommitDate of the contributor
-	 * @return the Contributor created. If user information was successfully gathered from Jira,
-	 *         Contributor's full name, picture url, and profile page url will be set accordingly, 
+	 * @param fullName of the contributor from Bamboo
+	 * @return the Contributor created. If there are application link to Jira,
+	 *         Contributor's picture url and profile page url will be set accordingly, 
 	 *         otherwise, those fields will be null.
 	 */
-	public Contributor createContributor(String username, Date lastCommitDate){	
-		
-  		if(appLink != null){
-	  		try {
-		  		JiraRestResponse res = jiraRestService.doRestCallViaApplink(appLink, JIRA_REST_USER_INFO_URL + username, 
-		  															MethodType.GET, null, BasicAuthenticationProvider.class);
-		  		String userJsonStr = res.body;
-		  		if (userJsonStr != null) {
-			  		// get all info needed to construct a Contributor obj (fullname, picurl, pageurl)
-					JSONObject userJsonObj = new JSONObject(userJsonStr);
-					String fullname = userJsonObj.getString("displayName"); 
-					JSONObject picsAllSizesJsonObj = new JSONObject(userJsonObj.getString("avatarUrls")); // same pic w/ various sizes
-					String pictureUrl = picsAllSizesJsonObj.getString(IMAGE_SIZE);			
-					String profilePageUrl = appLink.getRpcUrl() + JIRA_PROFILE_PATH + username; // page on Jira
-					
-					return new Contributor(username, lastCommitDate, fullname, pictureUrl, profilePageUrl);
-		  		}
-	  		} catch (CredentialsRequiredContextException e) {
-	  			return new Contributor(username, lastCommitDate, null, null, null);
-	  		} catch(JSONException e) {
-	  			return new Contributor(username, lastCommitDate, null, null, null);
-	  		}
-  		}
-  		
-  		return new Contributor(username, lastCommitDate, null, null, null);
+	public Contributor createContributor(String username, Date lastCommitDate, String fullName){
+		if (baseUrl != null) {
+			String pictureUrl = baseUrl + JIRA_USER_AVATAR_PATH + username;
+			String profilePageUrl = baseUrl + JIRA_PROFILE_PATH + username;
+			return new Contributor(username, lastCommitDate, fullName, pictureUrl, profilePageUrl);
+		} else {
+			return new Contributor(username, lastCommitDate, fullName, null, null);
+		}
 	}
 }

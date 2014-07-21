@@ -11,7 +11,6 @@ import org.junit.*;
 
 import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
-import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactoryTest {
@@ -28,10 +27,8 @@ public class CDResultFactoryTest {
 		Iterable<ApplicationLink> iterable = (Iterable<ApplicationLink>) mock(Iterable.class);
 		when(iterable.iterator()).thenReturn(itr);	
 		when(jiraApplinksService.getJiraApplicationLinks()).thenReturn(iterable);
-		// mockup JiraRestService	
-		JiraRestService jiraRestService = mock(JiraRestService.class);	
 		
-		cb = new ContributorBuilder(jiraApplinksService, jiraRestService);	 
+		cb = new ContributorBuilder(jiraApplinksService);	 
 	}
 	
 	@Test(expected = IllegalArgumentException.class)

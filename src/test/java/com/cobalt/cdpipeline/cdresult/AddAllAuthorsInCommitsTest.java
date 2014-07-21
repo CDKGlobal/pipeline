@@ -14,7 +14,6 @@ import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.commit.Commit;
-import com.atlassian.bamboo.jira.rest.JiraRestService;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -34,10 +33,8 @@ public class AddAllAuthorsInCommitsTest {
 		Iterable<ApplicationLink> iterable = (Iterable<ApplicationLink>) mock(Iterable.class);
 		when(iterable.iterator()).thenReturn(itr);	
 		when(jiraApplinksService.getJiraApplicationLinks()).thenReturn(iterable);
-		// mockup JiraRestService	
-		JiraRestService jiraRestService = mock(JiraRestService.class);	
 		
-		cb = new ContributorBuilder(jiraApplinksService, jiraRestService);	 
+		cb = new ContributorBuilder(jiraApplinksService);	 
 		cdresult = new CDResult("project", "project - plan", "project", "plan");		
 	}
 	

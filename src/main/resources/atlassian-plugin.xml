@@ -51,7 +51,6 @@
   <component-import key="projectManager" interface="com.atlassian.bamboo.project.ProjectManager" />
   <component-import key="planManager" interface="com.atlassian.bamboo.plan.PlanManager" />
   <component-import key="resultsSummaryManager" interface="com.atlassian.bamboo.resultsummary.ResultsSummaryManager" />
-  <component-import key="jiraRestService" interface="com.atlassian.bamboo.jira.rest.JiraRestService" />
   <component-import key="jiraApplinksService" interface="com.atlassian.bamboo.applinks.JiraApplinksService" />
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.cdpipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>

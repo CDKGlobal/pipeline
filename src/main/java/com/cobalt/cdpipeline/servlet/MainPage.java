@@ -16,9 +16,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.common.collect.Maps;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
-import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
@@ -37,12 +35,12 @@ public class MainPage extends HttpServlet{
    
     public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
     				ProjectManager projectManager, PlanManager planManager, ResultsSummaryManager resultsSummaryManager,
-    				JiraApplinksService jiraApplinksService, JiraRestService jiraRestService)
+    				JiraApplinksService jiraApplinksService)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
-      this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager, jiraApplinksService, jiraRestService);
+      this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager, jiraApplinksService);
     }
    
     @Override
