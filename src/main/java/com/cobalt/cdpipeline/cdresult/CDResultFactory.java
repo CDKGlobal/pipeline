@@ -118,7 +118,7 @@ public class CDResultFactory {
 			Author author = c.getAuthor();
 			String username = author.getName();
 			if (!cdresult.containsContributor(username)) {
-				Contributor contributor = contributorBuilder.createContributor(username, c.getDate());
+				Contributor contributor = contributorBuilder.createContributor(username, c.getDate(), author.getFullName());
 				cdresult.addContributor(contributor);
 			} else {
 				cdresult.updateContributor(username, c.getDate());

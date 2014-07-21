@@ -2,14 +2,12 @@ package com.cobalt.cdpipeline.Controllers;
 
 import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
-import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
 import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
-import com.cobalt.cdpipeline.cdresult.CDResult;
 
 import org.junit.Test;
 
@@ -34,7 +32,7 @@ public class MainManagerTest {
 	
     @Test(expected = IllegalArgumentException.class)
     public void testGetCDResultsWithNullArguments() {
-        main = new MainManager(null, null, null, null, null);
+        main = new MainManager(null, null, null, null);
     }
     
     // The following tests only test the project-and-plan logic in
@@ -133,7 +131,7 @@ public class MainManagerTest {
     	}
     	createPlanManager(projects, map);
     	createEmptyResultsSummaryManager(map);
-    	main = new MainManager(projectMgr, planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(JiraRestService.class));
+    	main = new MainManager(projectMgr, planMgr, resultsSumMgr, setUpJiraApplinksService());
     	assertEquals("The count of CDResult list does not match", expected, main.getCDResults().size());
     }
     

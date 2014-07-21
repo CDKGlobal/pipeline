@@ -14,7 +14,6 @@ import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.commit.Commit;
-import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.google.common.collect.ImmutableList;
 
@@ -49,10 +48,8 @@ public class SetLastDeploymentInfoTest {
 		Iterable<ApplicationLink> iterable = (Iterable<ApplicationLink>) mock(Iterable.class);
 		when(iterable.iterator()).thenReturn(itr);	
 		when(jiraApplinksService.getJiraApplicationLinks()).thenReturn(iterable);
-		// mockup JiraRestService	
-		JiraRestService jiraRestService = mock(JiraRestService.class);	
 		
-		cb = new ContributorBuilder(jiraApplinksService, jiraRestService);	 
+		cb = new ContributorBuilder(jiraApplinksService);	 
 		day1 = new Date();
 		day2 = new Date();
 		day1.setDate(day1.getDate() - 1);
