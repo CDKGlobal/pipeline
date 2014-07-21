@@ -410,17 +410,6 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	floating menu
 --------------------------*/
 
-@font-face {
-	font-family: 'ecoico';
-	src:url('../fonts/ecoico.eot');
-	src:url('../fonts/ecoico.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/ecoico.woff') format('woff'),
-		url('../fonts/ecoico.ttf') format('truetype'),
-		url('../fonts/ecoico.svg#ecoico') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
 .nav-bar {
 	position: fixed;
 	overflow: hidden;
@@ -434,7 +423,6 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	border: 2px #e9e9e9 solid;
 	border-left: 0px;
 	z-index: 2;
-	box-shadow: 0 0 5px #6a5d4f;
 }
 
 .nav-bar li a {
@@ -447,22 +435,16 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	color: #999;
 	position: relative;
 	border-bottom: 1px solid rgba(0,0,0,0.05);
+	transition: background 0.1s ease-in-out;
 	-webkit-transition: background 0.1s ease-in-out;
 	-moz-transition: background 0.1s ease-in-out;
 	-o-transition: background 0.1s ease-in-out;
 	-ms-transition: background 0.1s ease-in-out;
-	transition: background 0.1s ease-in-out;
 }
 
 .nav-bar li a:hover{
 	background: #47a3da;
 	color: #fff;
-}
-
-/* class for current item */
-.nav-bar li.cbp-vicurrent a {
-	background: #fff;
-	color: #47a3da;
 }
 
 .nav-bar li a:before {
@@ -477,21 +459,14 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	width: 100%;
 	height: 100%;
 	font-size: 1.4em;
+	font-smoothing: antialiased;	
 	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	
 }
 
-/* set menu icons */
-.icon-fullscreen:before {
-	content: "full";
-}
-
-.icon-search:before {
-	content: "search";
-}
-
-.icon-other:before {
-	content: "??";
-}
 
 /*-------------------------
 	modal window
@@ -519,26 +494,26 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	search bar
 --------------------------*/
 
-
 .search-container {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-
-.search-container {
-  overflow: hidden;
-  float: left;
-  height: 4em;
-  width: 4em;
-  box-shadow: 0 0 5px #6a5d4f;
-  -moz-transition: all 0.35s;
-  -webkit-transition: all 0.35s;
-  
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	overflow: hidden;
+	float: left;
+	height: 4em;
+	width: 4em;
+	transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-webkit-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;
+ 	color: #999;
   	position: fixed;
 	overflow: hidden;
 	left: 0;	
-	top: 27%;
+	top: 41%;
 	background: #ebf2f9;		
 	height: 4em;
 	width: 4em;
@@ -546,28 +521,37 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	z-index: 3;
 	padding: 2px;
 	text-align: center;
+	border: 2px #e9e9e9 solid;
+	border-left: 0px;
+	z-index: 2;	
 }
 
 .search-container:hover {
-  width: 25em;
-  border-radius: 5px 2em 2em 5px;
+  width: 260px;
 }
+
 .search-container:hover input {
-  display: inline-block;
-  width: 20em;
-  height: 3em;
-  
+	display: inline-block;
+	width: 200px;
+	height: 36px;
+	position: fixed;
+	left: 1%;	
+	margin-top: 7px;
+	margin-left: -4px;
+ }
+
+.search-container:hover i.fa-search {
+	position: relative;
+	left: 40%;
 }
 
 input {
+  appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  appearance: none;
-  float: right;
-  width: 0em;
-  height: 2em;
-  margin: 1em;
-  margin-right: -4.5em;
+  -o-appearance: none;
+  -ms-appearance: none;
+  
   background: white;
   color: #6a5d4f;
   font-size: 1em;
@@ -577,27 +561,15 @@ input {
   border-radius: 5px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s; 
   -moz-transition: all 0.25s;
   -webkit-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  -ms-transition: all 0.25s;
+   display: none; /* Only displayed on hover*/   
 }
 
 input:focus {
   outline: none;
-  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
-.button {
-  float: right;
-  margin: 0.125em;
-  text-align: center;
-  font-size: 2em;
-  box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 1px rgba(0, 0, 0, 0.25);
-  text-shadow: 0 -2px 1px rgba(0, 0, 0, 0.3);
-}
-.button i {
-  margin-top: 0.3em;
-}
-.button:active {
-  border: 0 !important;
-  text-shadow: 0 0 0;
-}

@@ -29,15 +29,14 @@
 		<!-- a floating navigation bar on the left -->
 			<ul class="nav-bar">
 				<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
-				<li><a href="#"></a></li>
+				<li><a href="#"><i class="fa fa-taxi fa-2x"></i></a></li>
 				<li><a href="#"><i class="fa fa-info fa-2x"></i></a></li>
 			</ul>
 		</div>
 
-		<!-- Hide the 2nd button in the side menu -->
+		<!-- search button -->
 		<div class="search-container">		
 			<input id="search_bar" ng-model="searchString" placeholder="Enter a project/plan/person" type='text'>
-        	<!-- <a class='button'> -->
 			<i class="fa fa-search fa-2x"></i>
        		</a>
 		</div>
