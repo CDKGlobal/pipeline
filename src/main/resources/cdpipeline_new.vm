@@ -29,8 +29,8 @@
 		<!-- a floating navigation bar on the left -->
 			<ul class="nav-bar">
 				<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
-				<li><a href="#"><i class="fa fa-taxi fa-2x"></i></a></li>
-				<li><a href="#"><i class="fa fa-info fa-2x"></i></a></li>
+				<li><a href="#"><i id="return-to-top" class="fa fa-arrow-up fa-2x"></i></a></li>
+				<li><a href="#"><i class="fa fa-info fa-2x"></i></a></li>				
 			</ul>
 		</div>
 
