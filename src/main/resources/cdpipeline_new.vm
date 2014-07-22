@@ -94,7 +94,7 @@
 							</projectPlan>
 						</div>
 						
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<lastDeploy>
 								<span class="aui-lozenge aui-lozenge-complete deploy-label">Last Deployment</span><br>
 								<dayChange>
@@ -125,7 +125,7 @@
 						</div>
 							
 
-						<div class="col-md-7">	
+						<div class="col-md-6">	
 							<!-- contributors -->
 							<div class="contributorList">
 								<span ng-repeat="contributor in result.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
