@@ -275,7 +275,6 @@ buildNumber a {
 	overflow: hidden;
 	top: -10.5px;
 	position: relative;
-	text-overflow: ellipsis;
 }
 
 .stageNameContainer:before {
