@@ -52,7 +52,7 @@ changes {
 }
 
 buildNumber {
-	font-size: 25pt;
+	font-size: 20pt;
 	height : 50px;
 }
 
@@ -186,15 +186,19 @@ div.stage {
 }
 
 .col-md-1 {
-	width: 8.33333333%;
+	width: 8% !important;
 }
 
 .col-md-2 {
-	width: 16.66666667%;
+	width: 17% !important;
 }
 
-.col-md-7 {
-	width: 58.33333333%;
+.col-md-3 {
+	width: 19% !important;
+}
+
+.col-md-6 {
+	width: 56% !important;
 }
 
 .col-md-0, .col-md-1, .col-md-2, .col-md-3, .col-md-4, 
