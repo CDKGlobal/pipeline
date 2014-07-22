@@ -118,11 +118,11 @@ div.stage {
 
 /* Set text color of the stage names*/
 .CD_SUCCESS strong {
-	color: #14892c;
+	color: #0e631f;
 }
 
 .CD_FAILED strong {
-	color: #d04437;
+	color: #993228;
 }
 
 .CD_NOT_BUILT strong, .CD_MANUALLY_PAUSED strong {
@@ -130,7 +130,7 @@ div.stage {
 }
 
 .CD_IN_PROGRESS strong {
-	color: #3b73af;
+	color: #2d5785;
 }
 
 /* Set circle color*/
