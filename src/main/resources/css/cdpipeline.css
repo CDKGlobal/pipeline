@@ -507,7 +507,7 @@ a#closeIcon:hover {
 
 
 /*-------------------------
-	search bar
+	search button
 --------------------------*/
 
 .search-container {
@@ -520,7 +520,7 @@ a#closeIcon:hover {
 	-ms-transition: all 0.35s;   
     position: fixed;
   	left: 1px;	
-	top: 318px;
+	top: 262px;
 	background: #ebf2f9;		
 	height: 55px;
 	width: 55px;
@@ -574,12 +574,23 @@ input {
 	-webkit-transition: all 0.25s;
 	-o-transition: all 0.25s;
 	-ms-transition: all 0.25s;
-	//display: none;
 }
 
 input:focus {
 	outline: none;
 	box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+/*-------------------------
+   scroll-to-top button
+--------------------------*/
+.back-to-top {
+	position: fixed;
+	bottom: 100px;
+	left: 20px;
+	display:none;
+	color: #999;
+	font-size: 30px;
 }
 
 /*-------------------------
