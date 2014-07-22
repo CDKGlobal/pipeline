@@ -54,8 +54,7 @@
 		<!-- a floating navigation bar on the left -->
 			<ul class="nav-bar">
 				<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
-				<li><a href="#"><i id="return-to-top" class="fa fa-arrow-up fa-2x"></i></a></li>
-				<li ng-click="modalOpen('sm', '', '', 'Info.html')"><a><i class="fa fa-info fa-2x"></i></a></li>				
+				<li ng-click="modalOpen('sm', '', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
 			</ul>
 		</div>
 
@@ -64,6 +63,9 @@
         	<input ng-model="searchString" placeholder='Enter a plan/project/person' type='text'>
           	<i class='fa fa-search fa-2x'></i>
      	</div>
+     	
+		<!-- scroll-to-top button --> 
+		<a href="#" class="back-to-top"><i class="fa fa-angle-up fa-2x"></i></a>
 
 		<!-- board section to display all plan's initial info -->
         <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
