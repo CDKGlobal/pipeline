@@ -59,12 +59,11 @@
 			</ul>
 		</div>
 
-		<!-- search button -->
-		<div class="search-container">		
-			<input id="search_bar" ng-model="searchString" placeholder="Enter a project/plan/person" type='text'>
-			<i class="fa fa-search fa-2x"></i>
-       		</a>
-		</div>
+		<!-- search button --> 
+       	<div class='search-container'>
+        	<input placeholder='Enter a plan/project/person' type='text'>
+          	<i class='fa fa-search fa-2x'></i>
+     	</div>
 
 		<!-- board section to display all plan's initial info -->
         <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
