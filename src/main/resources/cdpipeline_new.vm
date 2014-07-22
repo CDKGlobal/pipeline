@@ -61,7 +61,7 @@
 
 		<!-- search button --> 
        	<div class='search-container'>
-        	<input placeholder='Enter a plan/project/person' type='text'>
+        	<input ng-model="searchString" placeholder='Enter a plan/project/person' type='text'>
           	<i class='fa fa-search fa-2x'></i>
      	</div>
 
