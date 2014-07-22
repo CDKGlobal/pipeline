@@ -19,6 +19,35 @@
 	<body>
 	<div ng-app="CDPipeline">
 
+		<!-- the pop up window -->
+		<div id="popUp" ng-controller="ModalController">
+		    <script type="text/ng-template" id="Details.html">
+		        <div class="modal-header">
+		        	<a id="closeIcon" ng-click="modalCancel()" class="aui-icon aui-icon-small aui-iconfont-close-dialog"></a>
+		            <h3 class="modal-title">{{ result.projectName }} - {{ result.planName }}</h3>
+		            
+		        </div>
+		        <div class="modal-body">
+		            <div ng-include="url">
+		            </div>
+		        </div>
+		        <div class="modal-footer">
+		        </div>
+		    </script>
+
+		    <script type="text/ng-template" id="Info.html">
+		        <div class="modal-header">
+		        	<a id="closeIcon" ng-click="modalCancel()" class="aui-icon aui-icon-small aui-iconfont-close-dialog"></a>
+		        	<h3 class="modal-title"> Information </h3>        
+		        </div>
+		        <div class="modal-body">
+		        	CD Pipeline is cool!
+		        </div>
+		        <div class="modal-footer">
+		        	CD Pipeline - Cobalt
+		        </div>
+		    </script>
+
 		<!-- main page shell -->
 		<div ng-controller="MainController">
 
@@ -26,7 +55,7 @@
 			<ul class="nav-bar">
 				<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
 				<li><a href="#"><i id="return-to-top" class="fa fa-arrow-up fa-2x"></i></a></li>
-				<li><a href="#"><i class="fa fa-info fa-2x"></i></a></li>				
+				<li ng-click="modalOpen('sm', '', '', 'Info.html')"><a><i class="fa fa-info fa-2x"></i></a></li>				
 			</ul>
 		</div>
 
@@ -36,19 +65,6 @@
 			<i class="fa fa-search fa-2x"></i>
        		</a>
 		</div>
-
-		<div id="popUp" ng-controller="ModalController">
-		    <script type="text/ng-template" id="ModalContent.html">
-		        <div class="modal-header">
-		            <h3 class="modal-title">{{ result.projectName }} - {{ result.planName }}</h3>
-		        </div>
-		        <div class="modal-body">
-		            <div ng-include="url">
-		            </div>
-		        </div>
-		        <div class="modal-footer">
-		        </div>
-		    </script>
 
 		<!-- board section to display all plan's initial info -->
         <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
@@ -67,12 +83,12 @@
 						<div class="col-md-2">
 							<projectPlan>
 								<project>
-									<a ng-click="modalOpen(result, '../../browse/' + result.projectKey)">
+									<a ng-click="modalOpen('lg', result, '../../browse/' + result.projectKey, 'Details.html')">
 										{{ result.projectName }}
 									</a>
 								</project><br>
 								<plan>
-									<a ng-click="modalOpen(result, '../../browse/' + result.planKey)">
+									<a ng-click="modalOpen('lg', result, '../../browse/' + result.planKey, 'Details.html')">
 										{{ result.planName }}
 									</a>
 								</plan>
@@ -102,8 +118,8 @@
 							</div>
 							
 							<buildNumber ng-switch="result.currentBuild.buildNumber">
-								<a ng-switch-when="-1" ng-click="modalOpen(result, '../../browse/' + result.planKey + '/latest')">--</a>
-								<a ng-switch-default ng-click="modalOpen(result, '../../browse/' + result.currentBuild.buildKey + '/latest')">
+								<a ng-switch-when="-1" ng-click="modalOpen('lg', result, '../../browse/' + result.planKey + '/latest', 'Details.html')">--</a>
+								<a ng-switch-default ng-click="modalOpen('lg', result, '../../browse/' + result.currentBuild.buildKey + '/latest', 'Details.html')">
 									#{{ result.currentBuild.buildNumber }}
 								</a>
 							</buildNumber>

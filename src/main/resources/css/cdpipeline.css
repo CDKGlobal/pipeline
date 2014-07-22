@@ -476,18 +476,28 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	overflow-x: auto !important;
 }
 
-.modal-dialog {
-	width: 80%;
+.modal-lg {
+	width: 80% !important;
 	min-width: 1250px;
 	overflow: scroll;
 	height: 90%;
+}
+.modal-sm {
+	
 }
 
 .modal-content {
 	min-height: 100%;
 }
 
+a#closeIcon {
+	float: right;
+	color: #333333 !important;
+}
 
+a#closeIcon:hover {
+	color: #205081 !important;
+}
 
 
 /*-------------------------

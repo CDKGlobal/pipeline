@@ -38,13 +38,14 @@ plugin.filter("emptyToEnd", function () {
 
 var ModalController = function ($scope, $modal) {
 
-  $scope.modalOpen = function (result, url) {
+  $scope.modalOpen = function (size, result, url, modalContent) {
 
   	$scope.url = url;
   	$scope.result = result;
     var modalInstance = $modal.open({
-      templateUrl: 'ModalContent.html',
+      templateUrl: modalContent,
       controller: ModalInstanceCtrl,
+      size: size,
       resolve: {
         url: function () {
           return $scope.url;
@@ -66,6 +67,9 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, result, url) {
   $scope.result = result;
   $scope.url = url;
 
+  $scope.modalCancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 };
 
 
