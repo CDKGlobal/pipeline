@@ -8,7 +8,7 @@ body {
 }
 
 /*-------------------------
-	plan, projects
+	plan, project
 --------------------------*/
 
 project {
@@ -29,7 +29,7 @@ projectPlan a:hover {
 }
 
 /*-------------------------
-	days, changes
+	day, change
 --------------------------*/
 
 days, changes {
@@ -161,7 +161,7 @@ div.stage {
 }
 
 /*-------------------------
-	contributors
+	contributor
 --------------------------*/
 .contributorList {
 	height: 32px;
@@ -211,7 +211,7 @@ div.stage {
 	float: left;
 }
 
-.col-md-1:before, .col-md-2:before, .col-md-3:before, .col-md-4:before{
+.col-md-1:before, .col-md-2:before, .col-md-3:before, .col-md-4:before {
   content: '';
   display: inline-block;
   height: 100%; 
@@ -232,14 +232,14 @@ dayChange {
 	white-space: nowrap;
 }
 
-project, plan, .deploy-label, dayChange{
+project, plan, .deploy-label, dayChange {
 	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	float: left;
 }
 
-buildNumber, lastDeploy, projectPlan, stageName{
+buildNumber, lastDeploy, projectPlan, stageName {
 	display: inline-block;
 	margin-right: -4.5px;
   	vertical-align: middle;
@@ -269,7 +269,7 @@ buildNumber a {
 	margin-right: auto;
 }
 
- .stageNameContainer {
+.stageNameContainer {
 	width: 100%;
 	height: 40px;
 	overflow: hidden;
@@ -331,10 +331,9 @@ stageName {
 --------------------------*/
 
 div.stage div.CD_IN_PROGRESS {
-	width:21px;
-	height:21px;
-	position:relative;
-	
+	width: 21px;
+	height: 21px;
+	position: relative;
 	-webkit-animation: rotate 2.5s linear 0 infinite forwards;
 	-moz-animation: rotate 2.5s linear 0 infinite forwards;
 	-o-animation: rotate 2.5s linear 0 infinite forwards;
@@ -343,45 +342,44 @@ div.stage div.CD_IN_PROGRESS {
 }
 
 div.stage div.CD_IN_PROGRESS div.full {
-	width:21px; 
-	height:21px; 
+	width: 21px; 
+	height: 21px; 
 	position: absolute; 
 	border-radius: 50%; 
-	background:#4472fb;
-	z-index:100;
+	z-index: 2;
 }
 		
 div.stage div.CD_IN_PROGRESS div.quarter {
-	width:10.5px;
-	height:10.5px; 
-	position:absolute; 
-	z-index: 200;
+	width: 10.5px;
+	height: 10.5px; 
+	position: absolute; 
+	z-index: 2;
 }
 
 /* Set the 4 parts of the stage circle */
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(1) {
-	border-top-left-radius:100%;
+	border-top-left-radius: 100%;
 	background: #cccccc;
 }
 
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(2) {
-	border-top-right-radius:100%;
+	border-top-right-radius: 100%;
 	top:0px;
 	left:50%;
 	background: #cccccc;		
 }
 
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(3) {
-	border-bottom-left-radius:100%;
-	top:50%;
-	left:0;
+	border-bottom-left-radius: 100%;
+	top: 50%;
+	left: 0;
 	background: #3b73af;		
 }
 		
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
-	border-bottom-right-radius:100%;
-	top:50%;
-	left:50%;
+	border-bottom-right-radius: 100%;
+	top: 50%;
+	left: 50%;
 	background: #3b73af;		
 }
 
@@ -416,22 +414,17 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	floating menu
 --------------------------*/
 
-.nav-bar {
+#menu {
 	position: fixed;
-	overflow: hidden;
 	top: 150px;
 	left: 0;
-	/*height: 100%;*/
 	list-style-type: none;
-	margin: 0;
 	padding: 0;
 	background: #ebf2f9;
-	border: 2px #e9e9e9 solid;
-	border-left: 0px;
 	z-index: 2;	
 }
 
-.nav-bar li a {
+#menu li a {
 	display: block;
 	top: 50%;
 	height: 55px;
@@ -440,37 +433,19 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	text-align: center;
 	color: #999;
 	position: relative;
-	border-bottom: 1px solid rgba(0,0,0,0.05);
+	border: 1px #e9e9e9 solid;
+	border-bottom: 0px;
 	transition: background 0.1s ease-in-out;
 	-webkit-transition: background 0.1s ease-in-out;
 	-moz-transition: background 0.1s ease-in-out;
 	-o-transition: background 0.1s ease-in-out;
 	-ms-transition: background 0.1s ease-in-out;
+	padding: 5px;
 }
 
-.nav-bar li a:hover{
+#menu li a:hover{
 	background: #47a3da;
 	color: #fff;
-}
-
-.nav-bar li a:before {
-	font-family: 'ecoico';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	text-indent: 0em;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	font-size: 1.4em;
-	font-smoothing: antialiased;	
-	-webkit-font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	-o-font-smoothing: antialiased;
-	-ms-font-smoothing: antialiased;
-	
 }
 
 
@@ -510,60 +485,50 @@ a#closeIcon:hover {
 	search button
 --------------------------*/
 
-.search-container {
+#search {
   	overflow: hidden;
-  	float: right;
 	transition: all 0.35s;
 	-moz-transition: all 0.35s;
 	-webkit-transition: all 0.35s;
 	-o-transition: all 0.35s;
 	-ms-transition: all 0.35s;   
     position: fixed;
-  	left: 1px;	
-	top: 262px;
+  	left: 0px;	
+	top: 260px;
 	background: #ebf2f9;		
 	height: 55px;
 	width: 55px;
-  	z-index: 3;
-  	border: 2px #e9e9e9 solid;
-  	border-top: 0;
+  	z-index: 2;
+  	border: 1px #e9e9e9 solid;
   	text-align: center;
     color: #999;
   	padding: 10px;	
 }
 
-.search-container:hover {
+#search:hover {
   	width: 260px;
 }
 
-.search-container:hover input {
+#search:hover input {
   	display: inline-block;
   	width: 200px;
   	padding: 10px;
-  		position: fixed;
+  	position: fixed;
 	left: 10px;
 }
 
-.search-container:hover i.fa-search {
+#search:hover i.fa-search {
 	padding-left: 7px;
 	position: relative;
 	left: 100px;
 }
 
 input {
-	appearance: none;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	-o-appearance: none;
-	-ms-appearance: none;
-	float: left;
-	width: 0em;
+	width: 0;
 	height: 35px;
-	margin: 1em;
-	margin-right: -4.5em;
-	background: white;
+	margin: 10px;
 	color: #999;
-	font-size: 1em;
+	font-size: 30px;
 	padding: 0px;
 	border: 0;
 	border-radius: 5px;
@@ -581,16 +546,18 @@ input:focus {
 	box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
+
 /*-------------------------
    scroll-to-top button
 --------------------------*/
-.back-to-top {
+#scroll-to-top {
 	position: fixed;
-	bottom: 100px;
-	left: 20px;
+	bottom: 50px;
+	left: 10px;
 	display:none;
 	color: #999;
 	font-size: 30px;
+	z-index: 2;
 }
 
 /*-------------------------
@@ -602,11 +569,13 @@ input:focus {
 .loader:after {
   border-radius: 50%;
 }
+
 .loader:before,
 .loader:after {
   position: absolute;
   content: '';
 }
+
 .loader:before {
   width: 5.2em;
   height: 10.2em;
@@ -619,6 +588,7 @@ input:focus {
   -webkit-animation: load2 2s infinite ease 1.5s;
   animation: load2 2s infinite ease 1.5s;
 }
+
 .loader {
   font-size: 11px;
   text-indent: -99999em;
@@ -628,6 +598,7 @@ input:focus {
   height: 10em;
   box-shadow: inset 0 0 0 .75em #3b73af;
 }
+
 .loader:after {
   width: 5.2em;
   height: 10.2em;
@@ -651,6 +622,7 @@ input:focus {
     transform: rotate(360deg);
   }
 }
+
 @keyframes load2 {
   0% {
     -webkit-transform: rotate(0deg);
