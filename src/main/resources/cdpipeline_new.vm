@@ -21,6 +21,8 @@
 
 		<!-- the pop up window -->
 		<div id="popUp" ng-controller="ModalController">
+		
+			<!-- pop up window for project, plan and current build -->
 		    <script type="text/ng-template" id="Details.html">
 		        <div class="modal-header">
 		        	<a id="closeIcon" ng-click="modalCancel()" class="aui-icon aui-icon-small aui-iconfont-close-dialog"></a>
@@ -35,6 +37,7 @@
 		        </div>
 		    </script>
 
+			<!-- pop up window for information icon -->
 		    <script type="text/ng-template" id="Info.html">
 		        <div class="modal-header">
 		        	<a id="closeIcon" ng-click="modalCancel()" class="aui-icon aui-icon-small aui-iconfont-close-dialog"></a>
@@ -51,7 +54,7 @@
 			<!-- main page shell -->
 			<div ng-controller="MainController">
 
-			<!-- a floating menu on the left -->
+				<!-- a floating menu on the left -->
 				<ul id="menu">
 					<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
 					<li ng-click="modalOpen('sm', '', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
@@ -78,9 +81,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 
-						<!-- TEMPORARY PLACEMENT OF "strips.html" template for testing purposes -->
-
-							<!-- left column -->
+							<!-- project/plan column -->
 							<div class="col-md-2">
 								<projectPlan>
 									<project>
@@ -96,6 +97,7 @@
 								</projectPlan>
 							</div>
 							
+							<!-- last deployment column -->
 							<div class="col-md-3">
 								<lastDeploy>
 									<span class="aui-lozenge aui-lozenge-complete deploy-label">Last Completion</span><br>
@@ -108,7 +110,7 @@
 								</lastDeploy>
 							</div>
 
-							<!-- right column -->
+							<!-- current build column -->
 							<div class="col-md-1">		
 								<div class="build-state-icon" ng-switch="result.currentBuild.cdpipelineState">
 									<span ng-switch-when="CD_SUCCESS" class="icon icon-successful" title="Current build is successful"></span>
@@ -126,7 +128,7 @@
 								</buildNumber>
 							</div>
 								
-
+							<!-- contributor/pipeline column -->
 							<div class="col-md-6">	
 								<!-- contributors -->
 								<div class="contributorList">
@@ -168,10 +170,7 @@
 									</span>
 								</div>
 							</div>
-
-
-						<!-- END TEMPLATE -->
-
+							
 						</div>
 					</div>
 				</div>
