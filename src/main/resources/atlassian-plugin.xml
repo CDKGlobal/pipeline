@@ -38,7 +38,7 @@
   </component>
   <!-- import from the product container -->
   <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
-  <web-item name="CD Pipeline" i18n-name-key="cd-pipeline.name" key="cd-pipeline" section="header.global.primary" weight="1000">
+  <web-item name="Pipeline" i18n-name-key="cd-pipeline.name" key="cd-pipeline" section="header.global.primary" weight="1000">
     <description key="cd-pipeline.description">The CD Pipeline Plugin</description>
     <label key="cd-pipeline.label"/>
     <link linkId="cd-pipeline-link">/plugins/servlet/cdpipeline</link>
