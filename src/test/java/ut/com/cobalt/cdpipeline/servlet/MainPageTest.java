@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.plan.PlanManager;
-import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
@@ -115,7 +114,7 @@ public class MainPageTest {
     	when(applinksIter.hasNext()).thenReturn(false);
     	
     	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
-    			mock(ProjectManager.class), mock(PlanManager.class), mock(ResultsSummaryManager.class), 
+    			mock(PlanManager.class), mock(ResultsSummaryManager.class), 
     			jiraApplinks);
     }
 }
