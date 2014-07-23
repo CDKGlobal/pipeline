@@ -149,7 +149,6 @@ div.stage {
 }
 
 .stage div.CD_MANUALLY_PAUSED {
-    color: #ea632b;
     background-color: #cccccc;
 }
 
@@ -158,6 +157,7 @@ div.stage {
 	margin-top: 2px;
 	margin-left: 1px;
 	font-weight: bold !important;
+	color: #606060;
 }
 
 /*-------------------------

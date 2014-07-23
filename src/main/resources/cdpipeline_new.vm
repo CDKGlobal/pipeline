@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 	<head>
-		<title>CDPipeline Wallboard</title> <!-- update once we have an agreed name -->
+		<title>Pipeline</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
 		
 		<!-- css -->
@@ -157,7 +157,7 @@
 												<div class="quarter bottom-anim"></div>
 												<div class="quarter bottom-anim"></div>
 												<div class="full"></div>
-												<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manually Paused"></span>
+												<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manual Stage"></span>
 											</div>
 											<div class="stageNameContainer">
 												<stageName ng-attr-title="{{ pipe.stageName }}">
