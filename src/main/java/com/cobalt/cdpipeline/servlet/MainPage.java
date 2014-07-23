@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.plan.PlanManager;
-import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
@@ -34,13 +33,13 @@ public class MainPage extends HttpServlet{
     private final MainManager mainManager;
    
     public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
-    				ProjectManager projectManager, PlanManager planManager, ResultsSummaryManager resultsSummaryManager,
+    				PlanManager planManager, ResultsSummaryManager resultsSummaryManager,
     				JiraApplinksService jiraApplinksService)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
-      this.mainManager = new MainManager(projectManager, planManager, resultsSummaryManager, jiraApplinksService);
+      this.mainManager = new MainManager(planManager, resultsSummaryManager, jiraApplinksService);
     }
    
     @Override
@@ -49,7 +48,7 @@ public class MainPage extends HttpServlet{
 
       // Redirect the user if user is not admin
 	  String username = userManager.getRemoteUsername(request);
-	  if (username == null || !userManager.isSystemAdmin(username))
+	  if (username == null)
 	  {
 	    redirectToLogin(request, response);
 	    return;

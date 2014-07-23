@@ -21,7 +21,6 @@ import com.cobalt.cdpipeline.cdresult.ContributorBuilder;
  * results needed for displaying.
  */
 public class MainManager {
-	private ProjectManager projectManager;
 	private PlanManager planManager;
 	private ResultsSummaryManager resultsSummaryManager;
 	private ContributorBuilder contributorBuilder;
@@ -29,20 +28,19 @@ public class MainManager {
 	/**
 	 * Constructs a MainManager object.
 	 * 
-	 * @param projectManager The ProjectManager (within Bamboo) to get information about projects.
 	 * @param planManager The PlanMananger (within Bamboo) to get information about plans.
 	 * @param resultsSummaryManager The ResultsSummaryManager (within Bamboo) to get information
 	 *                              about builds.
 	 * @param jiraApplinksService The JiraApplinksService (within Bamboo) to get information
 	 *                            about the application link to Jira.
 	 */
-	public MainManager(ProjectManager projectManager, PlanManager planManager, 
+	public MainManager(PlanManager planManager, 
 			           ResultsSummaryManager resultsSummaryManager,
 			           JiraApplinksService jiraApplinksService) {
-        if (projectManager == null || planManager == null || resultsSummaryManager == null) {
+        if (planManager == null || resultsSummaryManager == null) {
             throw new IllegalArgumentException("Null arguments not allowed");
         }
-		this.projectManager = projectManager;
+        
 		this.planManager = planManager;
 		this.resultsSummaryManager = resultsSummaryManager;
 		this.contributorBuilder = new ContributorBuilder(jiraApplinksService);
@@ -57,21 +55,20 @@ public class MainManager {
 	public List<CDResult> getCDResults() {
 		List<CDResult> resultList = new ArrayList<CDResult>();
 		
-		Set<Project> projects = projectManager.getAllProjects();
-		for (Project project : projects) {
-			String projectName = project.getName();
-			String projectKey = project.getKey();
-			
-			List<TopLevelPlan> plans = planManager.getAllPlansByProject(project, TopLevelPlan.class);
+		List<TopLevelPlan> plans = planManager.getAllPlans(TopLevelPlan.class);
 			for (Plan plan : plans) {
 				String planName = plan.getName();
 				String planKey = plan.getKey();
+				
+				Project project = plan.getProject();
+				String projectName = project.getName();
+				String projectKey = project.getKey();
+				
 				List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 				
 				CDResult result = CDResultFactory.createCDResult(projectName, planName, projectKey, planKey, buildList, contributorBuilder);
 				resultList.add(result);
 			}
-		}
 		
 		return resultList;
 	}
