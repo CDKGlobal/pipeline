@@ -1,3 +1,5 @@
+
+// For the scrolling-to-top button
 jQuery(document).ready(function() {
 	var duration = 500;
 	jQuery(window).scroll(function() {

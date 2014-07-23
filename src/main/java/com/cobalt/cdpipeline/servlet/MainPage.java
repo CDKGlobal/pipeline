@@ -63,7 +63,7 @@ public class MainPage extends HttpServlet{
 		  Map<String, Object> context =  new HashMap<String, Object>();
 		  context.put("results", resultList);
 		  response.setContentType("text/html;charset=utf-8");
-		  renderer.render("cdpipeline_new.vm", context, response.getWriter());
+		  renderer.render("cdpipeline.vm", context, response.getWriter());
 	  } else {
 		  // Special Case: JSON request
 		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
