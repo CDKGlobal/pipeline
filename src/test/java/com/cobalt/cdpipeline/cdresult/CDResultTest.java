@@ -11,7 +11,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.atlassian.bamboo.builder.BuildState;
 import com.atlassian.bamboo.chains.ChainStageResult;
 
 

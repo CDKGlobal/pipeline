@@ -16,7 +16,7 @@ public class CDResultFactory {
 	 * last deployment and current build information (name, last update time, pipeline stages
 	 * with status) based on the given projectName, planName and all builds when construct.
 	 * 
-	 * @return
+	 * @return a fully constructed CDResult object
 	 */
 	public static CDResult createCDResult(String projectName, String planName, String projectKey,
 			   String planKey, List<ResultsSummary> buildList, ContributorBuilder contributorBuilder) {

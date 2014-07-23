@@ -26,48 +26,6 @@ public class PipelineStagesTest {
 		setUpChain1();
 	}
 	
-	private ChainStageResult getStageWithGivenNameAndState(String name, LifeCycleState lifeState, BuildState buildState){
-		ChainStageResult stageResult = mock(ChainStageResult.class);
-		when(stageResult.getName()).thenReturn(name);
-		when(stageResult.getLifeCycleState()).thenReturn(lifeState);
-		when(stageResult.getState()).thenReturn(buildState);
-		return stageResult;
-	}
-	
-	private ChainResultsSummary getStageChainWithGivenStages(List<ChainStageResult> stages){
-		ChainResultsSummary chain = mock(ChainResultsSummary.class);
-		when(chain.getStageResults()).thenReturn(stages);
-		return chain;
-	}
-	
-	private ChainResultsSummary getIdenticalStageChainWithGivenSize(int n){
-		ChainResultsSummary chain = mock(ChainResultsSummary.class);
-		List<ChainStageResult> stages = new ArrayList<ChainStageResult>();
-		for(int i = 0; i < n; i++){
-			stages.add(this.getStageWithGivenNameAndState("a", LifeCycleState.FINISHED, BuildState.SUCCESS));
-		}
-		when(chain.getStageResults()).thenReturn(stages);
-		return chain;
-	}
-	
-	private void setUpNoStageChain(){
-		noStage = getStageChainWithGivenStages(new ArrayList<ChainStageResult>());
-	}
-	
-	private void setUpOneStageChain(){
-		List<ChainStageResult> stages = new ArrayList<ChainStageResult>();
-		stages.add(this.getStageWithGivenNameAndState("test", LifeCycleState.FINISHED, BuildState.SUCCESS));
-		oneStage = this.getStageChainWithGivenStages(stages);
-	}
-	
-	private void setUpChain1(){
-		List<ChainStageResult> stages = new ArrayList<ChainStageResult>();
-		stages.add(this.getStageWithGivenNameAndState("a", LifeCycleState.FINISHED, BuildState.SUCCESS));
-		stages.add(this.getStageWithGivenNameAndState("b", LifeCycleState.FINISHED, BuildState.FAILED));
-		stages.add(this.getStageWithGivenNameAndState("c", LifeCycleState.NOT_BUILT, BuildState.UNKNOWN));
-		chain1 = this.getStageChainWithGivenStages(stages);
-	}
-	
 	@Test
 	public void testEmptyStageChain() {
 		CDResult cdr = new CDResult("test", "test", "test", "test");
@@ -131,4 +89,48 @@ public class PipelineStagesTest {
 		assertEquals("The third stage state should match", BuildState.UNKNOWN, pipes.get(2).getBuildState());
 	}
 	
+	
+	// ========== Private Helper Methods ==========
+	
+	private ChainStageResult getStageWithGivenNameAndState(String name, LifeCycleState lifeState, BuildState buildState){
+		ChainStageResult stageResult = mock(ChainStageResult.class);
+		when(stageResult.getName()).thenReturn(name);
+		when(stageResult.getLifeCycleState()).thenReturn(lifeState);
+		when(stageResult.getState()).thenReturn(buildState);
+		return stageResult;
+	}
+	
+	private ChainResultsSummary getStageChainWithGivenStages(List<ChainStageResult> stages){
+		ChainResultsSummary chain = mock(ChainResultsSummary.class);
+		when(chain.getStageResults()).thenReturn(stages);
+		return chain;
+	}
+	
+	private ChainResultsSummary getIdenticalStageChainWithGivenSize(int n){
+		ChainResultsSummary chain = mock(ChainResultsSummary.class);
+		List<ChainStageResult> stages = new ArrayList<ChainStageResult>();
+		for(int i = 0; i < n; i++){
+			stages.add(this.getStageWithGivenNameAndState("a", LifeCycleState.FINISHED, BuildState.SUCCESS));
+		}
+		when(chain.getStageResults()).thenReturn(stages);
+		return chain;
+	}
+	
+	private void setUpNoStageChain(){
+		noStage = getStageChainWithGivenStages(new ArrayList<ChainStageResult>());
+	}
+	
+	private void setUpOneStageChain(){
+		List<ChainStageResult> stages = new ArrayList<ChainStageResult>();
+		stages.add(this.getStageWithGivenNameAndState("test", LifeCycleState.FINISHED, BuildState.SUCCESS));
+		oneStage = this.getStageChainWithGivenStages(stages);
+	}
+	
+	private void setUpChain1(){
+		List<ChainStageResult> stages = new ArrayList<ChainStageResult>();
+		stages.add(this.getStageWithGivenNameAndState("a", LifeCycleState.FINISHED, BuildState.SUCCESS));
+		stages.add(this.getStageWithGivenNameAndState("b", LifeCycleState.FINISHED, BuildState.FAILED));
+		stages.add(this.getStageWithGivenNameAndState("c", LifeCycleState.NOT_BUILT, BuildState.UNKNOWN));
+		chain1 = this.getStageChainWithGivenStages(stages);
+	}
 }

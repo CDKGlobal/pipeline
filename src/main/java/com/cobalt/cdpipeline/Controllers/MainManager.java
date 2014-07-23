@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.atlassian.bamboo.applinks.JiraApplinksService;
-import com.atlassian.bamboo.jira.rest.JiraRestService;
 import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
@@ -19,7 +18,7 @@ import com.cobalt.cdpipeline.cdresult.ContributorBuilder;
 
 /**
  * The main controller of CDPipeline Plugin Project that handles getting the
- * results needed for displaying the table.
+ * results needed for displaying.
  */
 public class MainManager {
 	private ProjectManager projectManager;
@@ -34,6 +33,8 @@ public class MainManager {
 	 * @param planManager The PlanMananger (within Bamboo) to get information about plans.
 	 * @param resultsSummaryManager The ResultsSummaryManager (within Bamboo) to get information
 	 *                              about builds.
+	 * @param jiraApplinksService The JiraApplinksService (within Bamboo) to get information
+	 *                            about the application link to Jira.
 	 */
 	public MainManager(ProjectManager projectManager, PlanManager planManager, 
 			           ResultsSummaryManager resultsSummaryManager,
@@ -54,8 +55,6 @@ public class MainManager {
 	 *         See CDResults for more details.
 	 */
 	public List<CDResult> getCDResults() {
-		// should get the params from the current user
-		
 		List<CDResult> resultList = new ArrayList<CDResult>();
 		
 		Set<Project> projects = projectManager.getAllProjects();
