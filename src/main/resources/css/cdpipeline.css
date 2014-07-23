@@ -211,7 +211,7 @@ div.stage {
 	float: left;
 }
 
-.col-md-1:before, .col-md-2:before, .col-md-3:before, .col-md-4:before{
+.col-md-1:before, .col-md-2:before, .col-md-3:before, .col-md-4:before {
   content: '';
   display: inline-block;
   height: 100%; 
@@ -232,14 +232,14 @@ dayChange {
 	white-space: nowrap;
 }
 
-project, plan, .deploy-label, dayChange{
+project, plan, .deploy-label, dayChange {
 	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	float: left;
 }
 
-buildNumber, lastDeploy, projectPlan, stageName{
+buildNumber, lastDeploy, projectPlan, stageName {
 	display: inline-block;
 	margin-right: -4.5px;
   	vertical-align: middle;
@@ -269,7 +269,7 @@ buildNumber a {
 	margin-right: auto;
 }
 
- .stageNameContainer {
+.stageNameContainer {
 	width: 100%;
 	height: 40px;
 	overflow: hidden;
@@ -331,10 +331,9 @@ stageName {
 --------------------------*/
 
 div.stage div.CD_IN_PROGRESS {
-	width:21px;
-	height:21px;
-	position:relative;
-	
+	width: 21px;
+	height: 21px;
+	position: relative;
 	-webkit-animation: rotate 2.5s linear 0 infinite forwards;
 	-moz-animation: rotate 2.5s linear 0 infinite forwards;
 	-o-animation: rotate 2.5s linear 0 infinite forwards;
@@ -343,45 +342,44 @@ div.stage div.CD_IN_PROGRESS {
 }
 
 div.stage div.CD_IN_PROGRESS div.full {
-	width:21px; 
-	height:21px; 
+	width: 21px; 
+	height: 21px; 
 	position: absolute; 
 	border-radius: 50%; 
-	background:#4472fb;
-	z-index:100;
+	z-index: 2;
 }
 		
 div.stage div.CD_IN_PROGRESS div.quarter {
-	width:10.5px;
-	height:10.5px; 
-	position:absolute; 
-	z-index: 200;
+	width: 10.5px;
+	height: 10.5px; 
+	position: absolute; 
+	z-index: 2;
 }
 
 /* Set the 4 parts of the stage circle */
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(1) {
-	border-top-left-radius:100%;
+	border-top-left-radius: 100%;
 	background: #cccccc;
 }
 
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(2) {
-	border-top-right-radius:100%;
+	border-top-right-radius: 100%;
 	top:0px;
 	left:50%;
 	background: #cccccc;		
 }
 
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(3) {
-	border-bottom-left-radius:100%;
-	top:50%;
-	left:0;
+	border-bottom-left-radius: 100%;
+	top: 50%;
+	left: 0;
 	background: #3b73af;		
 }
 		
 div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
-	border-bottom-right-radius:100%;
-	top:50%;
-	left:50%;
+	border-bottom-right-radius: 100%;
+	top: 50%;
+	left: 50%;
 	background: #3b73af;		
 }
 
@@ -416,21 +414,17 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	floating menu
 --------------------------*/
 
-.nav-bar {
+#menu {
 	position: fixed;
-	overflow: hidden;
 	top: 150px;
 	left: 0;
 	list-style-type: none;
-	margin: 0;
 	padding: 0;
 	background: #ebf2f9;
-	border: 2px #e9e9e9 solid;
-	border-left: 0px;	
 	z-index: 2;	
 }
 
-.nav-bar li a {
+#menu li a {
 	display: block;
 	top: 50%;
 	height: 55px;
@@ -439,7 +433,8 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	text-align: center;
 	color: #999;
 	position: relative;
-	border-bottom: 1px solid rgba(0,0,0,0.05);
+	border: 1px #e9e9e9 solid;
+	border-bottom: 0px;
 	transition: background 0.1s ease-in-out;
 	-webkit-transition: background 0.1s ease-in-out;
 	-moz-transition: background 0.1s ease-in-out;
@@ -448,7 +443,7 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	padding: 5px;
 }
 
-.nav-bar li a:hover{
+#menu li a:hover{
 	background: #47a3da;
 	color: #fff;
 }
@@ -486,12 +481,11 @@ a#closeIcon:hover {
 }
 
 
-
 /*-------------------------
 	search button
 --------------------------*/
 
-.search-container {
+#search {
   	overflow: hidden;
 	transition: all 0.35s;
 	-moz-transition: all 0.35s;
@@ -499,24 +493,23 @@ a#closeIcon:hover {
 	-o-transition: all 0.35s;
 	-ms-transition: all 0.35s;   
     position: fixed;
-  	left: 1px;	
-	top: 262px;
+  	left: 0px;	
+	top: 260px;
 	background: #ebf2f9;		
 	height: 55px;
-	width: 56px;
-  	z-index: 3;
-  	border: 2px #e9e9e9 solid;
-  	border-top: 0;
+	width: 55px;
+  	z-index: 2;
+  	border: 1px #e9e9e9 solid;
   	text-align: center;
     color: #999;
   	padding: 10px;	
 }
 
-.search-container:hover {
+#search:hover {
   	width: 260px;
 }
 
-.search-container:hover input {
+#search:hover input {
   	display: inline-block;
   	width: 200px;
   	padding: 10px;
@@ -524,7 +517,7 @@ a#closeIcon:hover {
 	left: 10px;
 }
 
-.search-container:hover i.fa-search {
+#search:hover i.fa-search {
 	padding-left: 7px;
 	position: relative;
 	left: 100px;
@@ -557,13 +550,14 @@ input:focus {
 /*-------------------------
    scroll-to-top button
 --------------------------*/
-.back-to-top {
+#scroll-to-top {
 	position: fixed;
-	bottom: 100px;
+	bottom: 50px;
 	left: 10px;
 	display:none;
 	color: #999;
 	font-size: 30px;
+	z-index: 2;
 }
 
 /*-------------------------
