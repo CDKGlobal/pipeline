@@ -1,5 +1,4 @@
 //controller and any services relating to the main boaard
-
 plugin.controller("BoardController", function ($scope, autoRefresh, $rootScope) {
 	$scope.projectName = "CDPipeline";
 	$scope.results = autoRefresh.data;
@@ -23,6 +22,7 @@ plugin.factory('autoRefresh', function ($http, $timeout, $rootScope) {
 	};
 });
 
+// filter that puts element with key == null to the end of the list
 plugin.filter("emptyToEnd", function () {
 	return function (array, key) {
 		if(!angular.isArray(array)) return;
@@ -36,47 +36,11 @@ plugin.filter("emptyToEnd", function () {
 	};
 });
 
-var ModalController = function ($scope, $modal) {
-
-  $scope.modalOpen = function (size, result, url, modalContent) {
-
-  	$scope.url = url;
-  	$scope.result = result;
-    var modalInstance = $modal.open({
-      templateUrl: modalContent,
-      controller: ModalInstanceCtrl,
-      size: size,
-      resolve: {
-        url: function () {
-          return $scope.url;
-        },
-        result: function () {
-        	return $scope.result;
-        }
-      }
-    });
-
-  };
-};
-
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.
-
-var ModalInstanceCtrl = function ($scope, $modalInstance, result, url) {
-
-  $scope.result = result;
-  $scope.url = url;
-
-  $scope.modalCancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-};
-
 
 // The search button on the menu bar
 plugin.filter('searchFor', keywordSearch);
 
-
+// Helper method for the search button on the menu bar
 function keywordSearch(){
     
 	// All filters must return a function. The first parameter
@@ -108,6 +72,8 @@ function keywordSearch(){
 	};
 }
 
+// Filter that deals with edge case of the pipeline
+// (when there's only one stage)
 plugin.filter('pipelineWidth', function(){
   return function(input){
     if(input > 1) {

@@ -7,6 +7,21 @@ body {
 	margin-left: 5px;
 }
 
+.aui-header-logo-device {
+	margin-top: 8px;
+}
+
+#content {
+	min-width: 1200px;
+}
+
+#board {
+	position: relative;
+	width: 86%;
+	padding: 0px;
+	min-width: 1160px;
+}
+
 /*-------------------------
 	plan, project
 --------------------------*/
@@ -248,17 +263,6 @@ buildNumber, lastDeploy, projectPlan, stageName {
 
 buildNumber a {
 	vertical-align: middle;
-}
-
-#content {
-	min-width: 1200px;
-}
-
-#board {
-	position: relative;
-	width: 86%;
-	padding: 0px;
-	min-width: 1160px;
 }
 
 .animate-repeat {
