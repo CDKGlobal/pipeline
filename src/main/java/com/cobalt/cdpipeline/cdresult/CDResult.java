@@ -101,7 +101,9 @@ public class CDResult {
 	/**
 	 * Update the contributor with the given username with the new commit time
 	 * and increment its number of commits.
+	 * Access modifier left out intentionally for package protection.
 	 * Throws IllegalArgumentException if contributor doesn't exist in Contributors List.
+	 * 
 	 * @param username
 	 * @param lastCommitTime
 	 */
@@ -136,7 +138,6 @@ public class CDResult {
 	
 	/**
 	 * Set current build information to the given Build.
-	 * By default, currentBuild will be null.
 	 * 
 	 * @param current
 	 */
@@ -194,12 +195,11 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return days since last deployment until given date
+	 * Return days since last deployment until from current date/time.
 	 * Return -1 if given date is before last deployment date or 
 	 * no last deployment is found.
 	 * 
-	 * @param currentDate The date to compare to
-	 * @return the number of days from last deployment date to given date
+	 * @return the number of days from last deployment date to current
 	 */
 	public int getDaysSinceDeploymentFromCurrent(){
 		Date currentDate = new Date();
@@ -226,7 +226,7 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return changes(commits) since last deployment.
+	 * Return number of changes(commits) since last deployment.
 	 * 
 	 * @return number of changes since last deployment
 	 */
@@ -235,8 +235,8 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return current build information.
-	 * Return null if there's no build yet.
+	 * Return current build information. If there are no build, the
+	 * build number of current build returned will be -1 and build key will be null.
 	 * 
 	 * @return a Build object that contains information about the most
 	 *         current build.
@@ -272,7 +272,7 @@ public class CDResult {
 	/**
 	 * Return all pipeline stages of the current build.
 	 * 
-	 * @return a List of PipelineStates with the list starting with the first stage.
+	 * @return an ordered list of PipelineStates starting with the first stage.
 	 */
 	public List<PipelineStage> getPipelineStages(){
 		return Collections.unmodifiableList(pipelineStages);
@@ -281,7 +281,8 @@ public class CDResult {
 	/**
 	 * Return all contributors sorted by number of commits in descending order.
 	 * Tie breaks by the time of their last commit (more recent comes first)
-	 * @return a List of Contributors
+	 * 
+	 * @return a sorted list of Contributors by number of commits
 	 */
 	public List<Contributor> getContributorsSortedByNumCommits(){
 		return this.getContributorsSortedBy(new CommitCountComparator());
@@ -291,7 +292,8 @@ public class CDResult {
 	 * Return all contributors sorted by the time of their last commit, contributor
 	 * who commits most recently comes first.
 	 * Tie breaks by number of commits (one with more commits comes first)
-	 * @return a List of Contributors
+	 * 
+	 * @return a sorted list of Contributors by most recent contribute
 	 */
 	public List<Contributor> getContributorsSortedByLatestCommit(){
 		return this.getContributorsSortedBy(new RecentCommitComparator());

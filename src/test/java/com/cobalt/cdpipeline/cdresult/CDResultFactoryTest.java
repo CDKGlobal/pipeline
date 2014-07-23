@@ -14,13 +14,10 @@ import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactoryTest {
-	
-	//ContributorBuilder cb = new ContributorBuilder(null, null);
 	ContributorBuilder cb;
 
 	@Before
 	public void setup() {
-		// mockup JiraApplinksService
 		JiraApplinksService jiraApplinksService = mock(JiraApplinksService.class);
 		Iterator<ApplicationLink> itr = (Iterator<ApplicationLink>) mock(Iterator.class);
 		when(itr.hasNext()).thenReturn(false);

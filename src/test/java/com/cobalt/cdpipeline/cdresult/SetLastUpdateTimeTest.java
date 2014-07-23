@@ -86,6 +86,9 @@ public class SetLastUpdateTimeTest {
 		assertEquals("Last update time shouldn't be set", null, cdr.getLastUpdateTime());
 	}
 	
+	
+	// ========== Private Helper Methods ==========
+	
 	/*
 	 * Mock Date returned as given.
 	 */

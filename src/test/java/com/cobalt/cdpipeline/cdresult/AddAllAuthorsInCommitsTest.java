@@ -86,7 +86,7 @@ public class AddAllAuthorsInCommitsTest {
 	}
 	
 	
-	// private helper methods
+	// ========== Private Helper Methods ==========
 	
 	/*
 	 * Create a list of commits w/o assigning them the authors

@@ -34,6 +34,7 @@ public class Contributor {
 	
 	/**
 	 * Gets the username of this contributor.
+	 * 
 	 * @return the username
 	 */
 	public String getUsername() {
@@ -42,6 +43,7 @@ public class Contributor {
 	
 	/**
 	 * Gets the number of commits of this contributor after the last deployment.
+	 * 
 	 * @return the number of commits
 	 */
 	public int getCommitCount(){
@@ -50,6 +52,7 @@ public class Contributor {
 	
 	/**
 	 * Gets the most recent commit time of this contributor.
+	 * 
 	 * @return the date and time of last commit
 	 */
 	public Date getLastCommitTime(){
@@ -57,27 +60,29 @@ public class Contributor {
 	}
 	
 	/**
-	 * Gets the user's first name and last name from Jira.
-	 * @return the user's first and last name from Jira user information.
-	 *         Null if the username of the contributor is not found on Jira.
+	 * Gets the contributor's first name and last name from Bamboo if 
+	 * contributor (author) is linked to a Bamboo user.
+	 * 
+	 * @return the user's first and last name from Bamboo. If contributor is
+	 *         not linked to a Bamboo user, username is returned.
 	 */
 	public String getFullname() {
 		return fullname;
 	}
 	
 	/**
-	 * Gets a link to the user's profile picture on Jira
-	 * @return the url of the user's picture from Jira user information.
-	 *         Null if the username of the contributor is not found on Jira.
+	 * Gets a link to the user's profile picture on Jira.
+	 * 
+	 * @return the url of the user's profile picture from Jira.
 	 */
 	public String getPictureUrl() {
 		return pictureUrl;
 	}
 	
 	/**
-	 * Gets a link to the user's profile page on Jira
+	 * Gets a link to the user's profile page on Jira.
+	 * 
 	 * @return the url of the user's profile page on Jira.
-	 *         Null if the username of the contributor is not found on Jira.
 	 */
 	public String getProfilePageUrl() {
 		return profilePageUrl;
@@ -85,6 +90,7 @@ public class Contributor {
 	
 	/**
 	 * Updates the last commit time if the given time is more recent.
+	 * 
 	 * @param commitTime a commit time of this contributor
 	 */
 	void updateLastCommitTime(Date commitTime){
