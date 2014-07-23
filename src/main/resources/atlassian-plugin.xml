@@ -25,8 +25,6 @@
   	
     <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
-      
-   <resource type="velocity" name="strips.vm" location="/js/strips.vm"/>
    
     <resource type="download" name="images/" location="/images"/>
     
