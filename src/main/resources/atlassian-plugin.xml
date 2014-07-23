@@ -48,7 +48,6 @@
   <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
   <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
   
-  <component-import key="projectManager" interface="com.atlassian.bamboo.project.ProjectManager" />
   <component-import key="planManager" interface="com.atlassian.bamboo.plan.PlanManager" />
   <component-import key="resultsSummaryManager" interface="com.atlassian.bamboo.resultsummary.ResultsSummaryManager" />
   <component-import key="jiraApplinksService" interface="com.atlassian.bamboo.applinks.JiraApplinksService" />
