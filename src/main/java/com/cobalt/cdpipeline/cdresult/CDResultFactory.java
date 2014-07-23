@@ -116,7 +116,10 @@ public class CDResultFactory {
 													ContributorBuilder contributorBuilder) {
 		for(Commit c : commits){
 			Author author = c.getAuthor();
-			String username = author.getName();
+			String username = author.getLinkedUserName();
+			if (username == null) {
+				username = author.getName();
+			}
 			if (!cdresult.containsContributor(username)) {
 				Contributor contributor = contributorBuilder.createContributor(username, c.getDate(), author.getFullName());
 				cdresult.addContributor(contributor);
