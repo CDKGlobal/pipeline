@@ -8,7 +8,7 @@ body {
 }
 
 /*-------------------------
-	plan, projects
+	plan, project
 --------------------------*/
 
 project {
@@ -29,7 +29,7 @@ projectPlan a:hover {
 }
 
 /*-------------------------
-	days, changes
+	day, change
 --------------------------*/
 
 days, changes {
@@ -161,7 +161,7 @@ div.stage {
 }
 
 /*-------------------------
-	contributors
+	contributor
 --------------------------*/
 .contributorList {
 	height: 32px;
@@ -421,13 +421,12 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	overflow: hidden;
 	top: 150px;
 	left: 0;
-	/*height: 100%;*/
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	background: #ebf2f9;
 	border: 2px #e9e9e9 solid;
-	border-left: 0px;
+	border-left: 0px;	
 	z-index: 2;	
 }
 
@@ -446,31 +445,12 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	-moz-transition: background 0.1s ease-in-out;
 	-o-transition: background 0.1s ease-in-out;
 	-ms-transition: background 0.1s ease-in-out;
+	padding: 5px;
 }
 
 .nav-bar li a:hover{
 	background: #47a3da;
 	color: #fff;
-}
-
-.nav-bar li a:before {
-	font-family: 'ecoico';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	text-indent: 0em;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	font-size: 1.4em;
-	font-smoothing: antialiased;	
-	-webkit-font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	-o-font-smoothing: antialiased;
-	-ms-font-smoothing: antialiased;
-	
 }
 
 
@@ -506,13 +486,13 @@ a#closeIcon:hover {
 }
 
 
+
 /*-------------------------
 	search button
 --------------------------*/
 
 .search-container {
   	overflow: hidden;
-  	float: right;
 	transition: all 0.35s;
 	-moz-transition: all 0.35s;
 	-webkit-transition: all 0.35s;
@@ -523,7 +503,7 @@ a#closeIcon:hover {
 	top: 262px;
 	background: #ebf2f9;		
 	height: 55px;
-	width: 55px;
+	width: 56px;
   	z-index: 3;
   	border: 2px #e9e9e9 solid;
   	border-top: 0;
@@ -540,7 +520,7 @@ a#closeIcon:hover {
   	display: inline-block;
   	width: 200px;
   	padding: 10px;
-  		position: fixed;
+  	position: fixed;
 	left: 10px;
 }
 
@@ -551,19 +531,11 @@ a#closeIcon:hover {
 }
 
 input {
-	appearance: none;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	-o-appearance: none;
-	-ms-appearance: none;
-	float: left;
-	width: 0em;
+	width: 0;
 	height: 35px;
-	margin: 1em;
-	margin-right: -4.5em;
-	background: white;
+	margin: 10px;
 	color: #999;
-	font-size: 1em;
+	font-size: 30px;
 	padding: 0px;
 	border: 0;
 	border-radius: 5px;
@@ -581,13 +553,14 @@ input:focus {
 	box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 
+
 /*-------------------------
    scroll-to-top button
 --------------------------*/
 .back-to-top {
 	position: fixed;
 	bottom: 100px;
-	left: 20px;
+	left: 10px;
 	display:none;
 	color: #999;
 	font-size: 30px;
@@ -602,11 +575,13 @@ input:focus {
 .loader:after {
   border-radius: 50%;
 }
+
 .loader:before,
 .loader:after {
   position: absolute;
   content: '';
 }
+
 .loader:before {
   width: 5.2em;
   height: 10.2em;
@@ -619,6 +594,7 @@ input:focus {
   -webkit-animation: load2 2s infinite ease 1.5s;
   animation: load2 2s infinite ease 1.5s;
 }
+
 .loader {
   font-size: 11px;
   text-indent: -99999em;
@@ -628,6 +604,7 @@ input:focus {
   height: 10em;
   box-shadow: inset 0 0 0 .75em #3b73af;
 }
+
 .loader:after {
   width: 5.2em;
   height: 10.2em;
@@ -651,6 +628,7 @@ input:focus {
     transform: rotate(360deg);
   }
 }
+
 @keyframes load2 {
   0% {
     -webkit-transform: rotate(0deg);
