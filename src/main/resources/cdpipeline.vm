@@ -117,6 +117,7 @@
 									<span ng-switch-when="CD_FAILED" class="icon icon-failed" title="Current build failed"></span>
 									<span ng-switch-when="CD_IN_PROGRESS" class="icon icon-building" title="Current build is building"></span>
 									<span ng-switch-when="CD_MANUALLY_PAUSED" class="icon icon-successfulPartial" title="Current build stopped at manual stage"></span>
+									<span ng-switch-when="CD_QUEUED" class="icon icon-queued" title="Current build is queued"></span>
 									<span ng-switch-when="CD_NOT_BUILT" class="icon icon-disabled" title="Current build is not built"></span>
 								</div>
 								

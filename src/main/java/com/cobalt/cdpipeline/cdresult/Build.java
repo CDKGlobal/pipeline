@@ -64,6 +64,8 @@ public class Build {
 				return CDPipelineState.CD_FAILED;
 			} else if (buildResult.isInProgress()) {
 				return CDPipelineState.CD_IN_PROGRESS;
+			} else if (buildResult.isQueued()) {
+				return CDPipelineState.CD_QUEUED;
 			} else {
 				return CDPipelineState.CD_NOT_BUILT;
 			}
