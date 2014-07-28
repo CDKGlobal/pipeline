@@ -1,6 +1,5 @@
-<!-- main page of the CDPipeline plugin which displays relevant information on builds-->
 <!DOCTYPE html>
-
+	<!-- main page of the CDPipeline plugin which displays relevant information on builds-->
 	<head>
 		<title>Pipeline</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
