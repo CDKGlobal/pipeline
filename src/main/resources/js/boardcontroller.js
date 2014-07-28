@@ -36,6 +36,19 @@ plugin.filter("emptyToEnd", function () {
 	};
 });
 
+// filter that puts in progress projects to the top
+plugin.filter("progressToFront", function () {
+	return function (array, key) {
+		if(!angular.isArray(array)) return;
+        var inProgress = array.filter(function (item) {
+            return item[key]["cdpipelineState"] == "CD_IN_PROGRESS";
+        });
+        var finished = array.filter(function (item) {
+            return item[key]["cdpipelineState"] != "CD_IN_PROGRESS";
+        });
+		return inProgress.concat(finished);
+	};
+});
 
 // The search button on the menu bar
 plugin.filter('searchFor', keywordSearch);
