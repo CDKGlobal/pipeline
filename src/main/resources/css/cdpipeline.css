@@ -668,3 +668,15 @@ input:focus {
     transform: rotate(360deg);
   }
 }
+
+#loadingText {
+	width: 100px;
+	margin: 0px;
+	padding: 0px;
+	margin-top: -40px;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: bold;
+	font-size: 14pt;
+	color: #205081;
+}

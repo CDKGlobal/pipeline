@@ -65,6 +65,7 @@
 
 	     	 	<div id="unloadedBoard" ng-hide="dataLoaded">
 	     			<div class="loader">Loading...</div>
+					<div id="loadingText">loading...</div>
 	       		</div>
 
 	            <div ng-show="dataLoaded" id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true | searchFor:searchString | progressToFront:'currentBuild' | emptyToEnd:'lastUpdateTime' track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
