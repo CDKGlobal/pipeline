@@ -79,7 +79,7 @@ function keywordSearch(){
             for (i = 0; i < item.contributors.length; i++) {
                 if (item.contributors[i].username.toLowerCase().indexOf(searchString) !== -1 |
                      item.contributors[i].fullname.toLowerCase().indexOf(searchString) !== -1) {
-                    result.push(item)
+                    result.push(item);
                 }
             }
         });
@@ -97,6 +97,6 @@ plugin.filter('pipelineWidth', function(){
     } else {
       return 0;
     }
-  }
+  };
 });
 
