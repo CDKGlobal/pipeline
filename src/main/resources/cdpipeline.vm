@@ -138,12 +138,12 @@
 								<div class="pipelineContainer">
 									<span ng-repeat="pipe in result.pipelineStages track by pipe.stageName">
 										<!-- show the lines between stages-->
-										<div ng-if="!$first" class="stageLine {{pipe.cdpipelineState}}" style="width:{{1/(result.pipelineStages.length - 1) * 90 | number: 0}}%; left:{{5 + ($index - 1) * (1/(result.pipelineStages.length - 1) * 90) | number: 0}}%">
+										<div ng-if="!$first" class="stageLine {{pipe.cdpipelineState}}" ng-style="{'width' : (1/(result.pipelineStages.length - 1) * 90 | number: 0) + '%', 'left' : (5 + ($index - 1) * (1/(result.pipelineStages.length - 1) * 90) | number: 0 )+ '%'}">
 											<div class="innerStageLine {{pipe.cdpipelineState}}"></div>
 										</div>
 
 										<!-- show stage circle and name-->
-										<div class="stage {{pipe.cdpipelineState}}" style="left:{{$index * ((result.pipelineStages.length | pipelineWidth) * 90) | number: 0}}%">
+										<div class="stage {{pipe.cdpipelineState}}" ng-style="{'left' : $index * ((result.pipelineStages.length | pipelineWidth) * 90) + '%'}">
 											<div class="stageCircle {{pipe.cdpipelineState}}" ng-switch="pipe.cdpipelineState">
 												<div class="quarter top-anim"></div>
 												<div class="quarter top-anim"></div>
