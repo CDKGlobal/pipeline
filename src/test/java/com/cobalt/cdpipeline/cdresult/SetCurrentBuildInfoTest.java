@@ -58,7 +58,7 @@ public class SetCurrentBuildInfoTest {
 		assertEquals("Date of cdresult's lastUpdateTime doesn't match.", 
 					expectedBuild.getBuildCompletedDate().getTime(), cdr.getLastUpdateTime().getTime());
 		assertEquals("Build-key of cdresult's currentBuild doesn't match.", 
-					expectedBuild.getBuildKey(), cdr.getCurrentBuild().getBuildKey());
+					expectedBuild.getBuildResultKey(), cdr.getCurrentBuild().getBuildKey());
 		assertEquals("Build-number of cdresult's currentBuild doesn't match.", 
 					expectedBuild.getBuildNumber(), cdr.getCurrentBuild().getBuildNumber());
 	}
@@ -68,7 +68,7 @@ public class SetCurrentBuildInfoTest {
 		for (int i = N; i >= 1; i--) {
 			ChainResultsSummary build = mock(ChainResultsSummary.class);
 			when(build.getBuildCompletedDate()).thenReturn(new Date(i));
-			when(build.getBuildKey()).thenReturn("Build " + i);
+			when(build.getBuildResultKey()).thenReturn("Build " + i);
 			when(build.getBuildNumber()).thenReturn(i);
 			when(build.getStageResults()).thenReturn(new ArrayList<ChainStageResult>());
 			when(build.getOrderedJobResultSummaries()).thenReturn(new ArrayList<ResultsSummary>());
