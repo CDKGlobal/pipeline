@@ -25,7 +25,7 @@ public class Build {
 		if (buildResult == null) {
 			return null;
 		} else {
-			return buildResult.getBuildKey();
+			return buildResult.getBuildResultKey();
 		}
 	}
 

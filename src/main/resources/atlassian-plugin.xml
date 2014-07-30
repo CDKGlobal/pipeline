@@ -21,7 +21,7 @@
   	
   	<resource type="download" name="plugin.js" location="/js/plugin.js"/>
   	<resource type="download" name="boardcontroller.js" location="/js/boardcontroller.js"/>
-  	<resource type="download" name="maincontroller.js" location="/js/maincontroller.js"/>
+  	<resource type="download" name="maincontroller.js" location="/js/modalcontroller.js"/>
   	
     <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
