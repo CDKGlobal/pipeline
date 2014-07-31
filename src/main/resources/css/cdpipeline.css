@@ -68,15 +68,51 @@ changes {
 
 buildNumber {
 	font-size: 20pt;
-	height : 50px;
 }
 
 buildNumber a {
 	color: #205081 !important;
+	position: absolute;
+	top: 35px;
 }
 
 buildNumber a:hover {
 	color: #428bca !important;
+}
+
+.build-progress-bar {
+	position: absolute;
+	top: 75px;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	border-radius: 3px;
+	background-color: #e0e0e0;
+}
+
+.background-progress {
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #b3d8ff;
+	border-radius: 3px;
+	z-index: 0;
+}
+
+.timeRemaining {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin: 2px;
+	text-align: center;
+	font-size: 8pt;
+	color: #707070;
+	z-index: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 
