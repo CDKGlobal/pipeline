@@ -243,6 +243,11 @@ div.stage {
 	white-space: nowrap;
 }
 
+.deploy-success {
+	background-color: #8eb021;
+	border-color: #8eb021;
+}
+
 dayChange {
 	white-space: nowrap;
 }
