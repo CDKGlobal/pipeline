@@ -49,6 +49,9 @@
   <component-import key="planManager" interface="com.atlassian.bamboo.plan.PlanManager" />
   <component-import key="resultsSummaryManager" interface="com.atlassian.bamboo.resultsummary.ResultsSummaryManager" />
   <component-import key="jiraApplinksService" interface="com.atlassian.bamboo.applinks.JiraApplinksService" />
+  
+  <component-import key="planExecutionManager" interface="com.atlassian.bamboo.plan.PlanExecutionManager" />
+  
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.cdpipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>
     <url-pattern>/cdpipeline</url-pattern>

@@ -2,6 +2,7 @@ package com.cobalt.cdpipeline.Controllers;
 
 import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
+import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
@@ -36,7 +37,7 @@ public class MainManagerTest {
 	
     @Test(expected = IllegalArgumentException.class)
     public void testGetCDResultsWithNullArguments() {
-        main = new MainManager(null, null, null);
+        main = new MainManager(null, null, null, null);
     }
     
     @Test
@@ -59,7 +60,7 @@ public class MainManagerTest {
     	List<TopLevelPlan> plans = createNPlans(1);
     	when(planMgr.getAllPlans(TopLevelPlan.class)).thenReturn(plans);
     	createEmptyResultsSummaryManager(plans);
-    	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService());
+    	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(PlanExecutionManager.class));
     	
     	assertEquals("Project name of the cdresult doesn't match.", "Project", 
     					main.getCDResults().get(0).getProjectName());
@@ -77,7 +78,7 @@ public class MainManagerTest {
     	List<TopLevelPlan> plans = createNPlans(numPlans);
     	when(planMgr.getAllPlans(TopLevelPlan.class)).thenReturn(plans);
     	createEmptyResultsSummaryManager(plans);
-    	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService());
+    	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(PlanExecutionManager.class));
     	assertEquals("The count of CDResult list does not match", expected, main.getCDResults().size());
     }
     

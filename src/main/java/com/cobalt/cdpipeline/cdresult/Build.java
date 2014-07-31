@@ -1,18 +1,21 @@
 package com.cobalt.cdpipeline.cdresult;
 
 import com.atlassian.bamboo.chains.ChainResultsSummary;
+import com.atlassian.bamboo.progressbar.ProgressBar;
 
 public class Build {
 	private ChainResultsSummary buildResult;
-	
+	private ProgressBar progressBar;
+
 	/**
-	 * Constructs a Build with given parameters
+	 * Constructs a Build object
 	 * 
-	 * @param buildKey
-	 * @param buildNumber
+	 * @param buildResult from Bamboo to construct off of
+	 * @param progressBar for builds that are currently building
 	 */
-	public Build(ChainResultsSummary buildResult){
+	public Build(ChainResultsSummary buildResult, ProgressBar progressBar){
 		this.buildResult = buildResult;
+		this.progressBar = progressBar;
 	}
 
 	/**
@@ -70,5 +73,31 @@ public class Build {
 				return CDPipelineState.CD_NOT_BUILT;
 			}
 		}
+	}
+	
+	/**
+	 * Get the percentage completed if this Build is currently building.
+	 * 
+	 * @return percentage completed in double format if this Build is currently building,
+	 *         -1 otherwise.
+	 */
+	public double getPercentageCompleted() {
+		if (progressBar != null) {
+			return progressBar.getPercentageCompleted();
+		}
+		return -1;
+	}
+	
+	/**
+	 * Get the time remaining if this Build is currently building.
+	 * 
+	 * @return time remaining in pretty string format if this Build is currently building,
+	 *         null otherwise.
+	 */
+	public String getTimeRemaining() {
+		if (progressBar != null) {
+			return progressBar.getPrettyTimeRemaining(false);
+		}
+		return null;
 	}
 }
