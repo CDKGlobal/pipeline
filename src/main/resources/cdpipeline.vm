@@ -65,6 +65,7 @@
 
 	     	 	<div id="unloadedBoard" ng-hide="dataLoaded">
 	     			<div class="loader">Loading...</div>
+					<div id="loadingText">loading...</div>
 	       		</div>
 
 	            <div ng-show="dataLoaded" id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true | searchFor:searchString | progressToFront:'currentBuild' | emptyToEnd:'lastUpdateTime' track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
@@ -89,14 +90,25 @@
 							
 							<!-- last deployment column -->
 							<div class="col-md-3">
-								<lastDeploy>
-									<span class="aui-lozenge aui-lozenge-complete deploy-label">Last Completion</span><br>
-									<dayChange>
-										<days ng-switch="result.daysSinceDeploymentFromCurrent">
-											<span ng-switch-when="-1">--</span>
-											<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
-										<changes>{{ result.numChanges }}</changes><small> changes</small>
-									</dayChange>
+								<lastDeploy ng-switch="result.currentBuild.cdpipelineState">
+									<span ng-switch-default>
+										<span class="aui-lozenge aui-lozenge-complete deploy-label">Since Last Completion</span><br>
+										<dayChange>
+											<days ng-switch="result.daysSinceDeploymentFromCurrent">
+												<span ng-switch-when="-1">--</span>
+												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
+											<changes>{{ result.numChanges }}</changes><small> changes</small>
+										</dayChange>
+									</span>
+									<span ng-switch-when="CD_SUCCESS">
+										<span class="aui-lozenge aui-lozenge-complete deploy-label deploy-success">Current Completion</span><br>
+										<dayChange>
+											<days ng-switch="result.daysSinceLastUpdateFromCurrent">
+												<span ng-switch-when="-1">--</span>
+												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span></days><small> days ago</small>
+											<changes>{{ result.numChanges }}</changes><small> changes</small>
+										</dayChange>
+									</span>
 								</lastDeploy>
 							</div>
 
