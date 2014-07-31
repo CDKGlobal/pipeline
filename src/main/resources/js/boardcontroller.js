@@ -100,3 +100,13 @@ plugin.filter('pipelineWidth', function(){
   };
 });
 
+plugin.filter('percentageLimit', function(){
+	return function(input){
+		if(input <= 100) {
+			return input;
+		} else {
+			return 100;
+		}
+	}
+})
+
