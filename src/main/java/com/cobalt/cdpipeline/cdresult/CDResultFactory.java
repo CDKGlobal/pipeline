@@ -7,6 +7,10 @@ import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.ChainStageResult;
 import com.atlassian.bamboo.commit.Commit;
+import com.atlassian.bamboo.plan.ExecutionStatus;
+import com.atlassian.bamboo.plan.PlanExecutionManager;
+import com.atlassian.bamboo.progressbar.ProgressBar;
+import com.atlassian.bamboo.progressbar.ProgressBarImpl;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class CDResultFactory {
@@ -19,7 +23,8 @@ public class CDResultFactory {
 	 * @return a fully constructed CDResult object
 	 */
 	public static CDResult createCDResult(String projectName, String planName, String projectKey,
-			   String planKey, List<ResultsSummary> buildList, ContributorBuilder contributorBuilder) {
+			   String planKey, List<ResultsSummary> buildList, ContributorBuilder contributorBuilder, 
+			   PlanExecutionManager planExecutionManager) {
 		if (projectName == null || planName == null || buildList == null
 				|| !planName.startsWith(projectName + " - ")) {
 			throw new IllegalArgumentException("Passed in null arguments or invalid plan name."
@@ -33,7 +38,7 @@ public class CDResultFactory {
 		CDResult cdresult = new CDResult(projectName, strippedPlanName, projectKey, planKey);
 		
 		setLastDeploymentInfo(cdresult, buildList, contributorBuilder);
-		setCurrentBuildInfo(cdresult, buildList);
+		setCurrentBuildInfo(cdresult, buildList, planExecutionManager);
 		
 		return cdresult;
 	}
@@ -87,16 +92,24 @@ public class CDResultFactory {
 	 * and jobs completed time.
 	 * Last build updated time may be null if it hasn't queued yet.
 	 */
-	protected static void setCurrentBuildInfo(CDResult cdresult, List<ResultsSummary> buildList) {
+	protected static void setCurrentBuildInfo(CDResult cdresult, List<ResultsSummary> buildList, 
+												PlanExecutionManager planExecutionManager) {
 		if (buildList != null && buildList.size() > 0) {
 			
 			// get the last build and set current build info.
 			ResultsSummary currentResult = buildList.get(0);
 			
+			// get build progress info if currentResult is building
+			ExecutionStatus status = planExecutionManager.getExecutionStatus(currentResult.getPlanResultKey());
+			ProgressBar progressBar = null;
+			if (status != null) {  // currentResult currently building
+				progressBar = new ProgressBarImpl(status);
+			}
+			
 			// set the current build and pipeline stages.
 			ChainResultsSummary pipeline = (ChainResultsSummary) currentResult;
 			
-			Build currentBuild = new Build(pipeline);
+			Build currentBuild = new Build(pipeline, progressBar);
 			cdresult.setCurrentBuild(currentBuild);
 			
 			setPipelineStages(cdresult, pipeline);
@@ -104,7 +117,8 @@ public class CDResultFactory {
 			// set last update time.
 			setLastUpdateTime(cdresult, pipeline);
 		} else {
-			Build currentBuild = new Build(null);
+			// set special current build when there are no builds
+			Build currentBuild = new Build(null, null);
 			cdresult.setCurrentBuild(currentBuild);
 		}
 	}

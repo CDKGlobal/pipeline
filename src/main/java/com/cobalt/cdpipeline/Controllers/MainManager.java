@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.plan.Plan;
+import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
@@ -23,6 +24,7 @@ import com.cobalt.cdpipeline.cdresult.ContributorBuilder;
 public class MainManager {
 	private PlanManager planManager;
 	private ResultsSummaryManager resultsSummaryManager;
+	private PlanExecutionManager planExecutionManager;
 	private ContributorBuilder contributorBuilder;
 	
 	/**
@@ -33,16 +35,20 @@ public class MainManager {
 	 *                              about builds.
 	 * @param jiraApplinksService The JiraApplinksService (within Bamboo) to get information
 	 *                            about the application link to Jira.
+	 * @param planExecutionManager The PlanExecutionManager to get information about a currently
+	 *                             building build.
 	 */
 	public MainManager(PlanManager planManager, 
 			           ResultsSummaryManager resultsSummaryManager,
-			           JiraApplinksService jiraApplinksService) {
-        if (planManager == null || resultsSummaryManager == null) {
+			           JiraApplinksService jiraApplinksService, 
+			           PlanExecutionManager planExecutionManager) {
+        if (planManager == null || resultsSummaryManager == null || planExecutionManager == null) {
             throw new IllegalArgumentException("Null arguments not allowed");
         }
         
 		this.planManager = planManager;
 		this.resultsSummaryManager = resultsSummaryManager;
+		this.planExecutionManager = planExecutionManager;
 		this.contributorBuilder = new ContributorBuilder(jiraApplinksService);
 	}
 	
@@ -66,7 +72,8 @@ public class MainManager {
 				
 				List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 				
-				CDResult result = CDResultFactory.createCDResult(projectName, planName, projectKey, planKey, buildList, contributorBuilder);
+				CDResult result = CDResultFactory.createCDResult(projectName, planName, projectKey, planKey, 
+																buildList, contributorBuilder, planExecutionManager);
 				resultList.add(result);
 			}
 		

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.ChainStageResult;
+import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class SetCurrentBuildInfoTest {
 	@Test
 	public void testWithNoBuilds() {
 		CDResult cdr = new CDResult("Project", "Project - Plan", "project", "plan");
-		CDResultFactory.setCurrentBuildInfo(cdr, createNBuildResults(0));
+		CDResultFactory.setCurrentBuildInfo(cdr, createNBuildResults(0), mock(PlanExecutionManager.class));
 		assertEquals("Date of cdresult's lastUpdateTime should be null (default) when there are no builds.", 
 						null, cdr.getLastUpdateTime());
 		assertEquals("cdresult's currentBuild's buildNumber should be -1 (default) when there are no builds.",
@@ -51,7 +52,7 @@ public class SetCurrentBuildInfoTest {
 	private void testForNBuilds(int N) {
 		List<ResultsSummary> buildList = createNBuildResults(N);
 		CDResult cdr = new CDResult("Project", "Project - Plan", "project", "plan");
-		CDResultFactory.setCurrentBuildInfo(cdr, buildList);
+		CDResultFactory.setCurrentBuildInfo(cdr, buildList, mock(PlanExecutionManager.class));
 
 		ChainResultsSummary expectedBuild = (ChainResultsSummary) buildList.get(0);
 		

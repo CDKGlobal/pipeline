@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 
 import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
+import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
@@ -38,7 +39,7 @@ public class MainPageTest {
         mockResponse = mock(HttpServletResponse.class);
         setUpMainPage();
     }
-
+    
     // this test is auto-generated upon creation of the plugin
     @After
     public void tearDown() {
@@ -115,6 +116,6 @@ public class MainPageTest {
     	
     	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
     			mock(PlanManager.class), mock(ResultsSummaryManager.class), 
-    			jiraApplinks);
+    			jiraApplinks, mock(PlanExecutionManager.class));
     }
 }
