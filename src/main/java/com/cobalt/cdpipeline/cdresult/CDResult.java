@@ -195,8 +195,8 @@ public class CDResult {
 	}
 	
 	/**
-	 * Return days since last deployment until from current date/time.
-	 * Return -1 if given date is before last deployment date or 
+	 * Return days since last deployment until current date/time.
+	 * Return -1 if current date is before last deployment date or 
 	 * no last deployment is found.
 	 * 
 	 * @return the number of days from last deployment date to current
@@ -208,6 +208,39 @@ public class CDResult {
 		}
 		long deploymentTime = this.lastDeploymentTime.getTime();
 		long currentTime = currentDate.getTime();
+		return (int) ((currentTime - deploymentTime) / (1000 * 60 * 60 * 24));
+	}
+	
+	/**
+	 * Return days since last update until current date/time.
+	 * Return -1 if current date is before last update date or 
+	 * no last update is found.
+	 * 
+	 * @return the number of days from last update date to current
+	 */
+	public int getDaysSinceLastUpdateFromCurrent(){
+		Date currentDate = new Date();
+		if(this.lastUpdate == null || this.lastUpdate.compareTo(currentDate) > 0){
+			return -1;
+		}
+		long updateTime = this.lastUpdate.getTime();
+		long currentTime = currentDate.getTime();
+		return (int) ((currentTime - updateTime) / (1000 * 60 * 60 * 24));
+	}
+	
+	/**
+	 * Return days since last deployment until last update date/time.
+	 * Return -1 if last update date is before last deployment date or 
+	 * no last deployment or last update is found.
+	 * 
+	 * @return the number of days from last deployment date to last update date
+	 */
+	public int getDaysSinceDeploymentFromLastUpdate(){
+		if(this.lastUpdate == null || this.lastDeploymentTime == null || this.lastDeploymentTime.compareTo(this.lastUpdate) > 0){
+			return -1;
+		}
+		long deploymentTime = this.lastDeploymentTime.getTime();
+		long currentTime = this.lastUpdate.getTime();
 		return (int) ((currentTime - deploymentTime) / (1000 * 60 * 60 * 24));
 	}
 	
