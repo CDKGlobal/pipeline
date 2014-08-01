@@ -23,31 +23,26 @@
 
 			<!-- pop up window for information icon -->
 		    <script type="text/ng-template" id="Info.html">
-		        <div class="modal-header">
-		        	<a id="closeIcon" ng-click="modalCancel()" class="aui-icon aui-icon-small aui-iconfont-close-dialog"></a>
-		        	<h3 class="modal-title"> Information </h3>        
-		        </div>
 		        <div class="modal-body">
-		        	CD Pipeline is cool!
-		        </div>
-		        <div class="modal-footer">
-		        	CD Pipeline - Cobalt
+		        	<div class="about-page">
+			        	<h3>About Pipeline</h3>
+			        	Team Superpipe
+			        </div>
 		        </div>
 		    </script>
 
 		    <!-- pop up window for project, plan and build -->
-		    <div ng-show="getShowWindow()" ng-click="setShowWindow(false)">
-	    		<div class="windowView" id="windowBackground"></div>
-				<div class="windowView">
-					<iframe src="{{url}}"></iframe>
-	  			</div>
-	  		</div>
+		    <script type="text/ng-template" id="Details.html">
+		        <div class="modal-body">
+		        	<iframe src="{{url}}"></iframe>
+		        </div>
+		    </script>
 
 			<!-- a floating menu on the left -->
 			<div>
 				<ul id="menu">
 					<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
-					<li ng-click="modalOpen('sm', '', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
+					<li ng-click="modalOpenContent('sm', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
 				</ul>
 			</div>
 
@@ -76,12 +71,12 @@
 							<div class="col-md-2">
 								<projectPlan>
 									<project>
-										<a ng-click="setupModal('../../browse/' + result.projectKey)">
+										<a ng-click="modalOpenUrl('../../browse/' + result.projectKey)">
 											{{ result.projectName }}
 										</a>
 									</project><br>
 									<plan>
-										<a ng-click="setupModal('../../browse/' + result.planKey)">
+										<a ng-click="modalOpenUrl('../../browse/' + result.planKey)">
 											{{ result.planName }}
 										</a>
 									</plan>
@@ -124,8 +119,8 @@
 								</div>
 								
 								<buildNumber ng-switch="result.currentBuild.buildNumber">
-									<a ng-switch-when="-1" ng-click="setupModal('../../browse/' + result.planKey + '/latest')">--</a>
-									<a ng-switch-default ng-click="setupModal('../../browse/' + result.currentBuild.buildKey)">#{{ result.currentBuild.buildNumber }}</a>
+									<a ng-switch-when="-1" ng-click="modalOpenUrl('../../browse/' + result.planKey + '/latest')">--</a>
+									<a ng-switch-default ng-click="modalOpenUrl('../../browse/' + result.currentBuild.buildKey)">#{{ result.currentBuild.buildNumber }}</a>
 								</buildNumber>
 
 								<div ng-if="result.currentBuild.timeRemaining" class="build-progress-bar" ng-switch="result.currentBuild.cdpipelineState">
