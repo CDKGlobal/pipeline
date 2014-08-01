@@ -16,8 +16,8 @@ plugin.controller("ModalController", function ($scope, $modal, $window) {
           url: function () {
             return $scope.url;
           },
-          result: function () {
-            return "";
+          data: function () {
+            return null;
           }
         }
       });
@@ -30,8 +30,8 @@ plugin.controller("ModalController", function ($scope, $modal, $window) {
   /* --------------------------------------------------------------------------------------- */
   /* -------------------------- Modal Window with pipeline content ------------------------- */
   /* --------------------------------------------------------------------------------------- */
-  $scope.modalOpenContent = function (size, result, modalContent) {
-    $scope.result = result;
+  $scope.modalOpenContent = function (size, contentData, modalContent) {
+    $scope.contentData = contentData;
     var modalInstance = $modal.open({
       templateUrl: modalContent,
       controller: ModalInstanceCtrl,
@@ -40,8 +40,8 @@ plugin.controller("ModalController", function ($scope, $modal, $window) {
         url: function () {
           return null;
         },
-        result: function () {
-          return $scope.result;
+        contentData: function () {
+          return $scope.contentData;
         }
       }
     });
@@ -51,7 +51,7 @@ plugin.controller("ModalController", function ($scope, $modal, $window) {
   /* ----------------------------------- Hide/Show Header ---------------------------------- */
   /* --------------------------------------------------------------------------------------- */
     $scope.isFullScreen = false;
-  
+
   //toggles the button icon from expand to minify,
   //fades the header
   $scope.toggleHeader = function() {
@@ -67,9 +67,9 @@ plugin.controller("ModalController", function ($scope, $modal, $window) {
 
 
 // Helper method for pop up window with pipeline content
-var ModalInstanceCtrl = function ($scope, $modalInstance, result, url) {
+var ModalInstanceCtrl = function ($scope, $modalInstance, contentData, url) {
 
-  $scope.result = result;
+  $scope.contentData = contentData;
   $scope.url = url;
 
   $scope.modalCancel = function () {
