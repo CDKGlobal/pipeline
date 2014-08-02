@@ -705,3 +705,68 @@ input:focus {
 	font-size: 14pt;
 	color: #205081;
 }
+
+
+/*-------------------------
+   list of changes
+--------------------------*/
+
+table {
+
+  text-align: left;
+  margin: 0 auto;
+  max-width: 85%;
+  left: 10%;
+  right: 5%;
+  top: 200px;
+}
+
+td, th {
+  padding: 16px;
+  width: 200px;
+  line-height: 18px;
+}
+
+thead {
+  display: block;
+}
+
+th {
+  border-bottom: 0;
+  color: white;
+  color: #444;
+  font-weight: 700;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+th:last-child {
+  width: 219px;
+}
+
+tbody {
+  width: 100%;
+  overflow: auto;
+  height: 400px;
+  display: block;
+}
+
+.changeList .author {
+	width: 15%;
+}
+
+.changeList .buildNumber {
+	width: 10%;
+}
+
+.changeList .comment {
+	width: 55%;
+}
+
+.changeList .date {
+	width: 20%;
+}
+
+.changeList .author, .changeList .buildNumber, .changeList .comment, .changeList .date{
+	margin: 5px;
+	padding: 5px;
+}

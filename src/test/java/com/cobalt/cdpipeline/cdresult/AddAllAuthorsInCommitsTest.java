@@ -41,7 +41,7 @@ public class AddAllAuthorsInCommitsTest {
 	@Test
 	public void testNoCommit() {
 		List<Commit> commits = createCommitListWithoutAuthors(0);
-    	CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
+    	CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
     	assertEquals("0 commit should have 0 contributor", 0, cdresult.getContributors().size());   
 	}
 		
@@ -51,8 +51,9 @@ public class AddAllAuthorsInCommitsTest {
 		List<Author> authors = createAuthorListWithNames(1);
 		for (int i = 0; i < 1; i++) {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
+	    	when(commits.get(i).getComment()).thenReturn("comment");
 		}
-		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
     	assertEquals("1 commit and 1 contributor", 1, cdresult.getContributors().size());  
 	}
 		
@@ -64,9 +65,10 @@ public class AddAllAuthorsInCommitsTest {
 		// assign unique authors to each commit
 		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
+	    	when(commits.get(i).getComment()).thenReturn("comment");
 		}
 
-		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
     	// check that all unique authors are counted
     	assertEquals("10 commits, each w/ unique contributor", COMMIT_LIST_SIZE, cdresult.getContributors().size());    	
 	}
@@ -78,9 +80,10 @@ public class AddAllAuthorsInCommitsTest {
 		for (int i = 0; i < COMMIT_LIST_SIZE; i++) {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i % 3));
 	    	when(commits.get(i).getDate()).thenReturn(new Date());
+	    	when(commits.get(i).getComment()).thenReturn("comment");
 		}
 		
-		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
     	// check the duplicate authors are only counted once
     	assertEquals("10 commits w/ duplicate contributors", 3, cdresult.getContributors().size()); 	
 	}
