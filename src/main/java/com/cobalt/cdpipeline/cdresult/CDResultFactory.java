@@ -1,5 +1,6 @@
 package com.cobalt.cdpipeline.cdresult;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.ChainStageResult;
 import com.atlassian.bamboo.commit.Commit;
+import com.atlassian.bamboo.commit.CommitFile;
 import com.atlassian.bamboo.plan.ExecutionStatus;
 import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.progressbar.ProgressBar;
@@ -64,7 +66,7 @@ public class CDResultFactory {
 		// add changes and contributors of the first build
 		// into cdresult
 		totalChanges += buildList.get(0).getCommits().size();
-		addAllAuthorsInCommits(cdresult, buildList.get(0).getCommits(), contributorBuilder);
+		addAllAuthorsInCommits(cdresult, buildList.get(0).getCommits(), contributorBuilder, buildList.get(0).getBuildNumber());
 		
 		for (int i = 1; i < buildList.size(); i++) { 
 			ChainResultsSummary currentBuild = (ChainResultsSummary) buildList.get(i);	
@@ -77,7 +79,7 @@ public class CDResultFactory {
 			
 			List<Commit> commits = currentBuild.getCommits();
 			totalChanges += commits.size();
-			addAllAuthorsInCommits(cdresult, commits, contributorBuilder);
+			addAllAuthorsInCommits(cdresult, commits, contributorBuilder, currentBuild.getBuildNumber());
 		}
 		
 		// set #changes (contributors and date are set in the progress)
@@ -123,23 +125,42 @@ public class CDResultFactory {
 		}
 	}
 	
+	
 	/*
 	 * Add all contributors of the given commits to the contributors list.
 	 */
 	protected static void addAllAuthorsInCommits(CDResult cdresult, List<Commit> commits, 
-													ContributorBuilder contributorBuilder) {
-		for(Commit c : commits){
+													ContributorBuilder contributorBuilder, int buildNumber) {
+		for(Commit c : commits) {
 			Author author = c.getAuthor();
 			String username = author.getLinkedUserName();
 			if (username == null) {
 				username = author.getName();
 			}
+			Contributor contributor = contributorBuilder.createContributor(username, c.getDate(), author.getFullName());
+
 			if (!cdresult.containsContributor(username)) {
-				Contributor contributor = contributorBuilder.createContributor(username, c.getDate(), author.getFullName());
+				//Contributor contributor = contributorBuilder.createContributor(username, c.getDate(), author.getFullName());
 				cdresult.addContributor(contributor);
 			} else {
 				cdresult.updateContributor(username, c.getDate());
 			}
+		
+			// a list of changes
+			String comment = c.getComment();
+			int importInfo = comment.indexOf("Imported from Git");
+			if (importInfo != -1) {
+				comment = comment.substring(0, importInfo);
+			}
+			
+			List<String> files = new ArrayList<String>();
+			List<CommitFile> commitFiles = c.getFiles();
+			for (CommitFile commitFile : commitFiles) {
+				files.add(commitFile.getRevision());
+			}
+			
+			Change change = new Change(username, contributor.getPictureUrl(), buildNumber, comment, c.getDate(), files);
+			cdresult.addChange(change);
 		}
 	}
 	

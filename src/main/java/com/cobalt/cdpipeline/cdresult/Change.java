@@ -1,22 +1,33 @@
 package com.cobalt.cdpipeline.cdresult;
 
 import java.util.Date;
+import java.util.List;
 
 public class Change {
-	private String author;
+	private String authorName;
+	private String authorPictureUrl;
 	private int buildNumber;
 	private String comment;
 	private Date date;
+	private List<String> files;
 	
-	public Change(String author, int buildNumber, String comment, Date date) {
-		this.author = author;
+	
+	public Change(String author, String authorPictureUrl, int buildNumber, String comment, Date date, List<String> files) {
+		this.authorName = author;
+		this.authorPictureUrl = authorPictureUrl;
 		this.comment = comment;
 		this.date = date;
+		this.files = files;
 	}
 	
-	public String getAuthor() {
-		return author;
+	public String getAuthorName() {
+		return authorName;
 	}
+	
+	public String getAuthorPictureUrl() {
+		return authorPictureUrl;
+	}
+	
 	
 	public int getBuildNumber() {
 		return buildNumber;
@@ -26,8 +37,13 @@ public class Change {
 		return comment;
 	}
 	
-	public Date getDateFormatted() {
-		return new Date(date.getTime());
+	public String getDateFormatted() {
+		return date.toString();
 	}
 	
+	public List<String> getFiles() {
+		return files;
+	}
+
+
 }

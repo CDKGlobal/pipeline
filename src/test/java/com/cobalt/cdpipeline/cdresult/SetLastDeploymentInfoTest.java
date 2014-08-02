@@ -322,6 +322,7 @@ public class SetLastDeploymentInfoTest {
 			ImmutableList.Builder<Commit> builder = new ImmutableList.Builder<Commit>();
 			for (int j = 1; j <= i; j++) {
 				Commit c = mock(Commit.class);
+				when(c.getComment()).thenReturn("comment");
 				Author a = mock(Author.class);
 				when(a.getLinkedUserName()).thenReturn("Author" + j);
 				when(a.getName()).thenReturn("Author" + j);
@@ -360,6 +361,7 @@ public class SetLastDeploymentInfoTest {
 		when(result.isContinuable()).thenReturn(cont);
 		when(result.isSuccessful()).thenReturn(succ);
 		Commit c = mock(Commit.class);
+		when(c.getComment()).thenReturn("comment");
 		Author a = mock(Author.class);
 		when(a.getLinkedUserName()).thenReturn(name);
 		when(a.getName()).thenReturn(name);
@@ -368,6 +370,7 @@ public class SetLastDeploymentInfoTest {
 		ImmutableList<Commit> commits = ImmutableList.of(c);
 		when(result.getCommits()).thenReturn(commits);
 		when(result.getBuildCompletedDate()).thenReturn(date);
+		when(result.getBuildNumber()).thenReturn(0); // TODO
 		return result;
 	}
 	
@@ -390,6 +393,7 @@ public class SetLastDeploymentInfoTest {
 			Commit commit = mock(Commit.class);
 		    when(commit.getAuthor()).thenReturn(author);
 		    when(commit.getDate()).thenReturn(new Date());
+		    when(commit.getComment()).thenReturn("comment");
 		    commits.add(commit);
 		}
 		return commits.build();

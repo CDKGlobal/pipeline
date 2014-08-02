@@ -16,8 +16,8 @@ plugin.controller("ModalController", function ($scope, $modal, $window) {
           url: function () {
             return $scope.url;
           },
-          data: function () {
-            return null;
+          contentData: function () {
+            return "";
           }
         }
       });
