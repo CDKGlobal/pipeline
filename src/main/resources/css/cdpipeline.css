@@ -80,6 +80,11 @@ buildNumber a:hover {
 	color: #428bca !important;
 }
 
+
+/*-------------------------
+	build progress bar
+--------------------------*/
+
 .build-progress-bar {
 	position: absolute;
 	top: 75px;
@@ -98,6 +103,11 @@ buildNumber a:hover {
 	background-color: #b3d8ff;
 	border-radius: 3px;
 	z-index: 0;
+	-webkit-animation: fadeInAndOut 2.5s infinite;
+	-moz-animation: fadeInAndOut 2.5s infinite;
+	-o-animation: fadeInAndOut 2.5s infinite;
+	-ms-animation: fadeInAndOut 2.5s infinite;
+	animation: fadeInAndOut 2.5s infinite;
 }
 
 .timeRemaining {
@@ -115,6 +125,35 @@ buildNumber a:hover {
 	text-overflow: ellipsis;
 }
 
+@keyframes fadeInAndOut {
+	0% {background-color: #9ECDFF;}
+	50% {background-color: #CCE4FF;}
+	100% {background-color: #9ECDFF;}
+}
+
+@-webkit-keyframes fadeInAndOut {
+	0% {background-color: #9ECDFF;}
+	50% {background-color: #CCE4FF;}
+	100% {background-color: #9ECDFF;}
+}
+
+@-moz-animation fadeInAndOut {
+	0% {background-color: #8FC5FF;}
+	50% {background-color: #BFDEFF;}
+	100% {background-color: #8FC5FF;}
+}
+
+@-o-animation fadeInAndOut {
+	0% {background-color: #8FC5FF;}
+	50% {background-color: #BFDEFF;}
+	100% {background-color: #8FC5FF;}
+}
+
+@-ms-animation fadeInAndOut {
+	0% {background-color: #8FC5FF;}
+	50% {background-color: #BFDEFF;}
+	100% {background-color: #8FC5FF;}
+}
 
 /*-------------------------
 	pipelinestage stage
