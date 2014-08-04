@@ -25,8 +25,34 @@
 		    <script type="text/ng-template" id="Info.html">
 		        <div class="modal-body">
 		        	<div class="about-page">
-			        	<h3>About Pipeline</h3>
-			        	Team Superpipe
+			        	<header>
+			        	<h3>
+			        		About Pipeline</br>
+			        		<version>Version 1.0</version>
+			        	</h3>
+			        	</header>
+			        	<content>
+			        		<p> <strong>Pipeline</strong> is a real-time wallbaord that displays build progress in an intuitive pipeline view and encourages developers to contribute to their projects frequently and incrementally by visualizing their continuous delivery practices.
+			        		</p>
+			        		<p>
+			        			Need Help?
+			        			<a href="https://github.com/cobaltdev/pipeline/wiki">documentation page</a></br>
+			        			<small>You can find description in details, installation instruction and user guide here.</small>
+			        		</p>
+			        		<p>
+			        			Developers?
+			        			<a href="https://github.com/cobaltdev/pipeline">github source page</a></br>
+			        			<small>Pipeline is a open source Bamboo plugin, feel free to change and improve it!</small>
+			        		</p>
+			        		<p>
+			        			Contact us?
+			        			<a href="mailto:pipelineplugin@cobalt.com">email us</a></br>
+			        			<small>Please contact us if you have any questions or concerns.</small>
+			        		</p>
+			        	</content>
+			        	<footer>
+			        		Team Superpipe
+			        	</footer>
 			        </div>
 		        </div>
 		    </script>
