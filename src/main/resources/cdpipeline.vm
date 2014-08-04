@@ -101,9 +101,7 @@
 											<days ng-switch="result.daysSinceDeploymentFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
-											<a ng-click="modalOpenContent('sm', result, 'Changes.html')">
 												<changes>{{ result.numChanges }}</changes><small> changes</small>
-											</a>
 										</dayChange>
 									</span>
 									<span ng-switch-when="CD_SUCCESS">
@@ -112,9 +110,7 @@
 											<days ng-switch="result.daysSinceLastUpdateFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span></days><small> days ago</small>
-											<a ng-click="modalOpenContent('lg', result, 'Changes.html')">
 												<changes>{{ result.numChanges }}</changes><small> changes</small>
-											</a>
 										</dayChange>
 									</span>
 								</lastDeploy>

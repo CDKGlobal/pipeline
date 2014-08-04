@@ -396,9 +396,9 @@
       <attribute value="jar:file:/Users/songy/.m2/repository/com/atlassian/ip/atlassian-ip/2.0/atlassian-ip-2.0-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/com/atlassian/applinks/applinks-api/3.2/applinks-api-3.2.jar" sourcepath="M2_REPO/com/atlassian/applinks/applinks-api/3.2/applinks-api-3.2-sources.jar">
+  <classpathentry kind="var" path="M2_REPO/com/atlassian/applinks/applinks-api/4.0.5/applinks-api-4.0.5.jar" sourcepath="M2_REPO/com/atlassian/applinks/applinks-api/4.0.5/applinks-api-4.0.5-sources.jar">
     <attributes>
-      <attribute value="jar:file:/Users/songy/.m2/repository/com/atlassian/applinks/applinks-api/3.2/applinks-api-3.2-javadoc.jar!/" name="javadoc_location"/>
+      <attribute value="jar:file:/Users/songy/.m2/repository/com/atlassian/applinks/applinks-api/4.0.5/applinks-api-4.0.5-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/com/atlassian/applinks/applinks-host/4.0.5/applinks-host-4.0.5.jar" sourcepath="M2_REPO/com/atlassian/applinks/applinks-host/4.0.5/applinks-host-4.0.5-sources.jar">
