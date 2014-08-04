@@ -133,7 +133,7 @@
 								</buildNumber>
 
 								<div ng-if="result.currentBuild.timeRemaining" class="build-progress-bar" ng-switch="result.currentBuild.cdpipelineState">
-									<div ng-if="result.currentBuild.timeRemaining" ng-switch-when="CD_IN_PROGRESS" class="background-progress" ng-style="'width' : (result.currentBuild.percentageCompleted * 100 | percentageLimit) + '%'">
+									<div ng-if="result.currentBuild.timeRemaining" ng-switch-when="CD_IN_PROGRESS" class="background-progress" ng-style="{'width' : (result.currentBuild.percentageCompleted * 100 | percentageLimit) + '%'}">
 									</div>
 									<div ng-switch-when="CD_IN_PROGRESS" class="timeRemaining" title="{{ result.currentBuild.timeRemaining }}">{{ result.currentBuild.timeRemaining }}</div>
 									<div ng-switch-when="CD_QUEUED" class="timeRemaining" title="{{ result.currentBuild.timeRemaining }}">Queued...</div>
