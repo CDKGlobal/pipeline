@@ -131,35 +131,35 @@ public class CDResultFactory {
 	 */
 	protected static void addAllAuthorsInCommits(CDResult cdresult, List<Commit> commits, 
 													ContributorBuilder contributorBuilder, int buildNumber) {
-		for(Commit c : commits) {
-			Author author = c.getAuthor();
+		for(Commit commit : commits) {
+			Author author = commit.getAuthor();
 			String username = author.getLinkedUserName();
 			if (username == null) {
 				username = author.getName();
 			}
-			Contributor contributor = contributorBuilder.createContributor(username, c.getDate(), author.getFullName());
+			Contributor contributor = contributorBuilder.createContributor(username, commit.getDate(), author.getFullName());
 
 			if (!cdresult.containsContributor(username)) {
 				//Contributor contributor = contributorBuilder.createContributor(username, c.getDate(), author.getFullName());
 				cdresult.addContributor(contributor);
 			} else {
-				cdresult.updateContributor(username, c.getDate());
+				cdresult.updateContributor(username, commit.getDate());
 			}
 		
 			// a list of changes
-			String comment = c.getComment();
+			String comment = commit.getComment();
 			int importInfo = comment.indexOf("Imported from Git");
 			if (importInfo != -1) {
 				comment = comment.substring(0, importInfo);
 			}
 			
 			List<String> files = new ArrayList<String>();
-			List<CommitFile> commitFiles = c.getFiles();
+			List<CommitFile> commitFiles = commit.getFiles();
 			for (CommitFile commitFile : commitFiles) {
-				files.add(commitFile.getRevision());
+				files.add(commitFile.getRevision() + " " + commitFile.getCleanName());
 			}
 			
-			Change change = new Change(username, contributor.getPictureUrl(), buildNumber, comment, c.getDate(), files);
+			Change change = new Change(username, contributor.getPictureUrl(), buildNumber, comment, commit.getDate(), files);
 			cdresult.addChange(change);
 		}
 	}
