@@ -547,7 +547,7 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	height: 90%;
 }
 .modal-sm {
-	
+	width: 500px !important;
 }
 
 .modal-content, .modal-body {
@@ -576,8 +576,30 @@ iframe {
 }
 
 .about-page {
+	margin: 20px;
+}
+
+.about-page h3, .about-page footer {
 	text-align: center;
-	margin: 10px;
+}
+
+.about-page content {
+	text-indent: 35px;
+	font-size: 11pt;
+	text-align: justify;
+}
+
+.about-page content small {
+	margin-left: 35px;
+}
+
+.about-page version {
+	font-size: 8pt;
+	color: #707070;
+}
+
+.about-page a {
+	margin-left: 10px;
 }
 
 /*-------------------------
