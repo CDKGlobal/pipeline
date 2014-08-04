@@ -100,7 +100,7 @@
 										<dayChange>
 											<days ng-switch="result.daysSinceDeploymentFromCurrent">
 												<span ng-switch-when="-1">--</span>
-												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
+												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days</small>
 												<changes>{{ result.numChanges }}</changes><small> changes</small>
 										</dayChange>
 									</span>
