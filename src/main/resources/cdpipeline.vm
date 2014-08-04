@@ -16,7 +16,7 @@
 
 
 	<body>
-	<div ng-app="CDPipeline">
+	<div ng-app="CDPipeline" id="ng-app">
 
 		<!-- the pop up window -->
 		<div id="popUp" ng-controller="ModalController">
@@ -101,9 +101,7 @@
 											<days ng-switch="result.daysSinceDeploymentFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days ago</small>
-											<a ng-click="modalOpenContent('sm', result, 'Changes.html')">
 												<changes>{{ result.numChanges }}</changes><small> changes</small>
-											</a>
 										</dayChange>
 									</span>
 									<span ng-switch-when="CD_SUCCESS">
@@ -112,9 +110,7 @@
 											<days ng-switch="result.daysSinceLastUpdateFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span></days><small> days ago</small>
-											<a ng-click="modalOpenContent('lg', result, 'Changes.html')">
 												<changes>{{ result.numChanges }}</changes><small> changes</small>
-											</a>
 										</dayChange>
 									</span>
 								</lastDeploy>
@@ -137,7 +133,7 @@
 								</buildNumber>
 
 								<div ng-if="result.currentBuild.timeRemaining" class="build-progress-bar" ng-switch="result.currentBuild.cdpipelineState">
-									<div ng-if="result.currentBuild.timeRemaining" ng-switch-when="CD_IN_PROGRESS" class="background-progress" style="width: {{ result.currentBuild.percentageCompleted * 100 | percentageLimit}}%;">
+									<div ng-if="result.currentBuild.timeRemaining" ng-switch-when="CD_IN_PROGRESS" class="background-progress" ng-style="{'width' : (result.currentBuild.percentageCompleted * 100 | percentageLimit) + '%'}">
 									</div>
 									<div ng-switch-when="CD_IN_PROGRESS" class="timeRemaining" title="{{ result.currentBuild.timeRemaining }}">{{ result.currentBuild.timeRemaining }}</div>
 									<div ng-switch-when="CD_QUEUED" class="timeRemaining" title="{{ result.currentBuild.timeRemaining }}">Queued...</div>
