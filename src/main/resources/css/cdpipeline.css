@@ -55,6 +55,8 @@ days, changes {
 
 changes {
 	margin-left: 10px;
+	color: black !important;
+	
 }
 
 /*-------------------------
@@ -787,63 +789,244 @@ input:focus {
 /*-------------------------
    list of changes
 --------------------------*/
-
-table {
-
-  text-align: left;
-  margin: 0 auto;
-  max-width: 85%;
-  left: 10%;
-  right: 5%;
-  top: 200px;
-}
-
-td, th {
-  padding: 16px;
-  width: 200px;
-  line-height: 18px;
-}
-
-thead {
-  display: block;
-}
-
-th {
-  border-bottom: 0;
-  color: white;
-  color: #444;
-  font-weight: 700;
-  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7);
-}
-
-th:last-child {
-  width: 219px;
-}
-
-tbody {
-  width: 100%;
-  overflow: auto;
-  height: 400px;
-  display: block;
-}
-
-.changeList .author {
-	width: 15%;
-}
-
-.changeList .buildNumber {
-	width: 10%;
-}
-
-.changeList .comment {
-	width: 55%;
-}
-
-.changeList .date {
-	width: 20%;
-}
-
-.changeList .author, .changeList .buildNumber, .changeList .comment, .changeList .date{
-	margin: 5px;
+.changes-page {
+	position: relative;
+	top: 10%;
+	left: 5%;
+	height: 90%;
+	width: 90%;
+	overflow: scroll;
 	padding: 5px;
+}
+
+.left {
+	display:block;
+    float:left;
+}
+
+.right {
+	display:block;
+    float:left;
+    position: relative;
+    width: 85%;
+}
+
+.change-header {
+	position: fixed;
+	top: 5%;
+	left: 5%;
+	width:90%;	
+}
+
+
+.change-header plan {
+	font-size: 25px;
+	display: block;
+	float: left;
+}
+
+.change-header changes {
+	font-size: 25px;
+}
+
+.change-header .changes {
+	display: block;
+	float: right;
+	color: #707070;
+	
+}
+
+li.change-line {
+	clear: both;
+	padding: 10px;
+	list-style-type: none;
+	overflow: auto;
+	width: 90%;
+}
+
+/*
+li.change-line { background: #f5f5f5; }
+li.change-line:nth-child(even) { background: #ebf2f9; }
+*/
+/*
+li.change-line:nth-child(even) { background: #f5f5f5; }
+*/
+
+li.change-line:nth-child(even) { background: #ebf2f9; }
+
+/*
+li.change-line:hover{
+	background: #ebf2f9;
+}
+*/
+
+.change-author {
+	display:block;
+    float:left;
+}
+
+.change-date {
+	display:block;
+    float:right;
+    color: #707070;
+}
+
+.change-comment {
+	position: relative;
+	width: 80%;
+	clear: both;
+}
+
+.change-picture, .change-author, .change-comment, .change-date {
+	margin-left: 10px;
+}
+
+.change-files {
+	visibility: hidden;
+	list-style-type: none;
+	padding: 0; 
+	color: #707070;
+	font-size: 12px;
+}
+
+ul {
+	display: inline-block;
+}
+
+li.change-file {
+	height: 0;
+}
+
+.file:hover .change-files {
+	visibility: visible;
+	vertical-align: top;
+}
+
+.file:hover .change-file {
+	height: 10px;
+	margin: 8px;	
+}
+
+.file:hover file {
+	visibility: hidden;
+}
+
+.change-comment {
+	display:block;
+    float:left;
+}
+
+.change-revision {
+	margin-right: 10px;
+	color: #3b73af;
+}
+
+
+#changes-window {
+
+    background: #f5f5f5;
+    /* background: #ebf2f9 */
+
+}
+
+p {
+    margin: 0 0 1em;
+}
+.comment {
+    overflow: hidden;
+    /* padding: 0 0 1em; */
+    /* border-bottom: 1px solid #ddd; */
+    margin: 0 0 1em;
+    *zoom: 1;
+}
+
+.comment-img {
+    float: left;
+    margin-right: 33px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.comment-img img {
+    display: block;
+}
+
+.comment-body {
+    overflow: hidden;
+}
+
+.comment .text {
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.comment .text p:last-child {
+    margin: 0;
+}
+
+.comment .attribution {
+    margin: 0.5em 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.comments,
+.comment {
+    position: relative;
+}
+
+.comments:before,
+.comment:before,
+.comment .text:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 65px;
+}
+/*draw the vertical line between icon and comments */
+.comments:before {
+    width: 3px;
+    top: -20px;
+    bottom: -20px;
+    background: rgba(0,0,0,0.1);
+}
+
+.comment:before {
+    width: 9px;
+    height: 9px;
+    border: 3px solid #fff;
+    border-radius: 100px;
+    margin: 16px 0 0 -6px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1);
+    background: #ccc;
+}
+
+.comment:hover:before {
+    background: #7791d6;
+}
+
+.comment .text:before {
+    top: 18px;
+    left: 78px;
+    width: 9px;
+    height: 9px;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: #e5e5e5;
+    background: #fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+}â€‹
+
+.file {
+	display: block;
+	float: left;
+}
+.attribution {
+	display: block;
+	float: right;
 }
