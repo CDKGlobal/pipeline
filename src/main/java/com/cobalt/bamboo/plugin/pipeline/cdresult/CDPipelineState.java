@@ -1,4 +1,4 @@
-package com.cobalt.cdpipeline.cdresult;
+package com.cobalt.bamboo.plugin.pipeline.cdresult;
 
 /**
  * Customized states that only represent states concerned by the pipeline view.

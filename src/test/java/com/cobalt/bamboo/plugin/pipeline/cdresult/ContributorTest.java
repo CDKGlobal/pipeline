@@ -1,4 +1,4 @@
-package com.cobalt.cdpipeline.cdresult;
+package com.cobalt.bamboo.plugin.pipeline.cdresult;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,8 +8,6 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.cobalt.cdpipeline.cdresult.Contributor;
 
 public class ContributorTest {
 	Contributor super1, super2, super3;

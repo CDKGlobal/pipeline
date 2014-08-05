@@ -1,4 +1,4 @@
-package com.cobalt.cdpipeline.servlet;
+package com.cobalt.bamboo.plugin.pipeline.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +23,8 @@ import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import com.cobalt.cdpipeline.Controllers.MainManager;
-import com.cobalt.cdpipeline.cdresult.CDResult;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
+import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 
 public class MainPage extends HttpServlet{
 	private static final Logger log = LoggerFactory.getLogger(MainPage.class);

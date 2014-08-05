@@ -1,4 +1,4 @@
-package com.cobalt.cdpipeline;
+package com.cobalt.bamboo.plugin.pipeline;
 
 public interface MyPluginComponent
 {

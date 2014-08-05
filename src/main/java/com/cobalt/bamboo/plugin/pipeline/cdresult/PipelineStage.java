@@ -1,4 +1,4 @@
-package com.cobalt.cdpipeline.cdresult;
+package com.cobalt.bamboo.plugin.pipeline.cdresult;
 
 import com.atlassian.bamboo.builder.BuildState;
 import com.atlassian.bamboo.builder.LifeCycleState;
