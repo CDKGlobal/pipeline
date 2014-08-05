@@ -1,8 +1,7 @@
-package com.cobalt.cdpipeline.Controllers;
+package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.plan.Plan;
@@ -10,12 +9,11 @@ import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
-import com.atlassian.bamboo.project.ProjectManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
-import com.cobalt.cdpipeline.cdresult.CDResult;
-import com.cobalt.cdpipeline.cdresult.CDResultFactory;
-import com.cobalt.cdpipeline.cdresult.ContributorBuilder;
+import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
+import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResultFactory;
+import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
 
 /**
  * The main controller of CDPipeline Plugin Project that handles getting the

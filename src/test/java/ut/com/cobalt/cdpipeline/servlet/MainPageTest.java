@@ -17,7 +17,7 @@ import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import com.cobalt.cdpipeline.servlet.MainPage;
+import com.cobalt.bamboo.plugin.pipeline.servlet.MainPage;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.cobalt.cdpipeline.cdresult;
+package com.cobalt.bamboo.plugin.pipeline.cdresult;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
