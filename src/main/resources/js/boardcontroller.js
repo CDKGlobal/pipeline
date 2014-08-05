@@ -9,7 +9,7 @@ plugin.controller("BoardController", function ($scope, autoRefresh, $rootScope) 
 plugin.factory('autoRefresh', function ($http, $timeout, $rootScope) {
 	var data = { resp: {}};
 	var poller = function() {
-		$http.get('?type=json').then( function(r) {
+		$http.get('?data=all').then( function(r) {
 			data.resp = r.data;
 			$rootScope.dataLoaded = true;
 			$timeout(poller, 5000);
