@@ -67,23 +67,23 @@ public class MainPageTest {
     
     @Test
     public void testDoGetWithURLParamJsonAllLowerCase() {
-    	testDoGetWithDifferentURLParam("json", "application/json;charset=utf-8");
+    	testDoGetWithDifferentURLParam("all", "application/json;charset=utf-8");
     }
     
     @Test
     public void testDoGetWithURLParamJsonAllUpperCase() {
-    	testDoGetWithDifferentURLParam("JSON", "application/json;charset=utf-8");
+    	testDoGetWithDifferentURLParam("ALL", "application/json;charset=utf-8");
     }
     
     @Test
     public void testDoGetWithURLParamJsonRandomCase() {
-    	testDoGetWithDifferentURLParam("jSoN", "application/json;charset=utf-8");
+    	testDoGetWithDifferentURLParam("aLl", "application/json;charset=utf-8");
     }
     
     // ========== Private Helper Methods ==========
     
     private void testDoGetWithDifferentURLParam(String returnParam, String expected) {
-    	when(mockRequest.getParameter("type")).thenReturn(returnParam);
+    	when(mockRequest.getParameter("data")).thenReturn(returnParam);
     	try {
 			main.doGet(mockRequest, mockResponse);
 		} catch (IOException e) {
