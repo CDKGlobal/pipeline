@@ -60,12 +60,36 @@
 
 		    <!-- pop up window for changes -->
 		    <script type="text/ng-template" id="Changes.html">
-		        <div class="modal-body">
+		        <div class="modal-body" id="changes-window">
 		        	<div class="changes-page">
-	        			{{ contentData.planKey }}
+						<div class="change-header">
+							<div><plan>{{contentData.planName}}</plan></div>
+							<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
+						</div>
+
+  						<section class="comments">
+     						<article class="comment" ng-repeat="change in contentData.changes">
+      							<div class="comment-img">
+        							<img src="{{ change.authorPictureUrl }}" alt="{{ change.authorName }}" width="50" height="50">
+     							 </div>
+      							<div class="comment-body">
+        							<div class="text">
+          								<p>{{ change.comment }}</p>
+          								<span class="change-revision"> #{{ change.revisionNumber }} </span>        				    			
+	      								<i class="fa fa-file-text-o file">
+	     									<ul class="change-files">
+	        									<li ng-repeat="file in change.files" class="change-file"> {{ file }} </li>
+	     	 								</ul>
+	      								</i>
+	              						<p class="attribution">by <a href="#non">{{ change.authorName }}</a> {{ change.timeElapsed}} </p>      
+        							</div>
+      							</div>
+    						</article>   
+  						</section>​	        				
 			        </div>
 		        </div>
 		    </script>
+
 
 		    <!-- pop up window for project, plan and build -->
 		    <script type="text/ng-template" id="Details.html">
@@ -128,7 +152,9 @@
 											<days ng-switch="result.daysSinceDeploymentFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days</small>
-												<changes>{{ result.numChanges }}</changes><small> changes</small>
+												<a ng-click="modalOpenContent('lg', result, 'Changes.html')">
+													<changes>{{ result.numChanges }}</changes><small> changes</small>
+												</a>											
 										</dayChange>
 									</span>
 									<span ng-switch-when="CD_SUCCESS">
@@ -137,8 +163,10 @@
 											<days ng-switch="result.daysSinceLastUpdateFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span></days><small> days ago</small>
-												<changes>{{ result.numChanges }}</changes><small> changes</small>
-										</dayChange>
+												<a ng-click="modalOpenContent('lg', result, 'Changes.html')">
+													<changes>{{ result.numChanges }}</changes><small> changes</small>
+												</a>											
+											</dayChange>
 									</span>
 								</lastDeploy>
 							</div>

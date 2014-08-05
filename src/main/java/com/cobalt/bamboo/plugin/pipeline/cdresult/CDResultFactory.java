@@ -45,6 +45,7 @@ public class CDResultFactory {
 		return cdresult;
 	}
 	
+	
 	/*
 	 * Set the lastDeploymentTime, numChanges, and contributors info since last
 	 * deployment in the cdresult. 
@@ -128,6 +129,7 @@ public class CDResultFactory {
 	
 	/*
 	 * Add all contributors of the given commits to the contributors list.
+	 * Construct of list of changes since last completion
 	 */
 	protected static void addAllAuthorsInCommits(CDResult cdresult, List<Commit> commits, 
 													ContributorBuilder contributorBuilder, int buildNumber) {
@@ -148,21 +150,25 @@ public class CDResultFactory {
 		
 			// a list of changes
 			String comment = commit.getComment();
-			int importInfo = comment.indexOf("Imported from Git");
+			int importInfo = comment.indexOf("Imported from Git"); // TODO too specific
 			if (importInfo != -1) {
 				comment = comment.substring(0, importInfo);
 			}
 			
 			List<String> files = new ArrayList<String>();
 			List<CommitFile> commitFiles = commit.getFiles();
+			String revisionNum = "";
 			for (CommitFile commitFile : commitFiles) {
-				files.add(commitFile.getRevision() + " " + commitFile.getCleanName());
+				String filename = commitFile.getCleanName();
+				files.add(filename.substring(filename.lastIndexOf("/") + 1)); // remove the path
+				revisionNum = commitFile.getRevision();			
 			}
 			
-			Change change = new Change(username, contributor.getPictureUrl(), buildNumber, comment, commit.getDate(), files);
+			Change change = new Change(author.getFullName(), contributor.getPictureUrl(), buildNumber, comment, commit.getDate(), files, revisionNum);
 			cdresult.addChange(change);
 		}
 	}
+
 	
 	/*
 	 * Set the list of PipelineStage in cdresult with the given build result.
