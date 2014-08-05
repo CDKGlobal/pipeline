@@ -55,22 +55,26 @@ public class MainPage extends HttpServlet{
 	    return;
 	  }
 	  
-	  List<CDResult> resultList = mainManager.getCDResults();
-	  String query = request.getParameter("type");
+	  String query = request.getParameter("data");
 	  
-	  if (query == null || !query.equalsIgnoreCase("json")) {
+	  if (query == null) {
 		  // Normal case: normal table page
-		  
-		  Map<String, Object> context =  new HashMap<String, Object>();
-		  context.put("results", resultList);
 		  response.setContentType("text/html;charset=utf-8");
-		  renderer.render("cdpipeline.vm", context, response.getWriter());
-	  } else {
+		  renderer.render("cdpipeline.vm", response.getWriter());
+	  } else if (query.equalsIgnoreCase("all")) {
 		  // Special Case: JSON request
 		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
+		  List<CDResult> resultList = mainManager.getCDResults();
 		  String json = writer.writeValueAsString(resultList);
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
+	  } else if (query.equalsIgnoreCase("changes") && request.getParameter("plankey") != null){
+		  
+	  } else if (query.equalsIgnoreCase("completions") && request.getParameter("plankey") != null){
+		  
+	  } else{
+		  response.setContentType("text/html;charset=utf-8");
+		  renderer.render("cdpipeline.vm", response.getWriter());
 	  }
     }
     
