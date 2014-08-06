@@ -56,7 +56,12 @@ days, changes {
 changes {
 	margin-left: 10px;
 	color: black !important;
-	
+}
+
+
+changes a {
+	color: black !important;
+
 }
 
 /*-------------------------
@@ -799,25 +804,12 @@ input:focus {
 	padding: 5px;
 }
 
-.left {
-	display:block;
-    float:left;
-}
-
-.right {
-	display:block;
-    float:left;
-    position: relative;
-    width: 85%;
-}
-
 .change-header {
 	position: fixed;
 	top: 5%;
 	left: 5%;
 	width:90%;	
 }
-
 
 .change-header plan {
 	font-size: 25px;
@@ -832,53 +824,13 @@ input:focus {
 .change-header .changes {
 	display: block;
 	float: right;
-	color: #707070;
-	
-}
-
-li.change-line {
-	clear: both;
-	padding: 10px;
-	list-style-type: none;
-	overflow: auto;
-	width: 90%;
-}
-
-/*
-li.change-line { background: #f5f5f5; }
-li.change-line:nth-child(even) { background: #ebf2f9; }
-*/
-/*
-li.change-line:nth-child(even) { background: #f5f5f5; }
-*/
-
-li.change-line:nth-child(even) { background: #ebf2f9; }
-
-/*
-li.change-line:hover{
-	background: #ebf2f9;
-}
-*/
-
-.change-author {
-	display:block;
-    float:left;
-}
-
-.change-date {
-	display:block;
-    float:right;
-    color: #707070;
+	color: #707070;	
 }
 
 .change-comment {
 	position: relative;
 	width: 80%;
 	clear: both;
-}
-
-.change-picture, .change-author, .change-comment, .change-date {
-	margin-left: 10px;
 }
 
 .change-files {
@@ -911,31 +863,21 @@ li.change-file {
 	visibility: hidden;
 }
 
-.change-comment {
-	display:block;
-    float:left;
-}
-
 .change-revision {
 	margin-right: 10px;
 	color: #3b73af;
 }
 
-
 #changes-window {
-
     background: #f5f5f5;
-    /* background: #ebf2f9 */
-
 }
 
 p {
     margin: 0 0 1em;
 }
+
 .comment {
     overflow: hidden;
-    /* padding: 0 0 1em; */
-    /* border-bottom: 1px solid #ddd; */
     margin: 0 0 1em;
     *zoom: 1;
 }
@@ -953,6 +895,16 @@ p {
 
 .comment-body {
     overflow: hidden;
+}
+
+
+.comment-body:hover .text {
+    background: #ebf2f9;
+}
+
+
+.comment-body:hover .text:before {
+    background: #ebf2f9;
 }
 
 .comment .text {
@@ -985,6 +937,7 @@ p {
     top: 0;
     left: 65px;
 }
+
 /*draw the vertical line between icon and comments */
 .comments:before {
     width: 3px;
@@ -1020,13 +973,13 @@ p {
     -moz-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
-}â€‹
-
-.file {
-	display: block;
-	float: left;
 }
+
 .attribution {
 	display: block;
 	float: right;
+}
+
+.change-author {
+	color: #3b73af;
 }
