@@ -9,19 +9,28 @@ public class CDPerformance {
 	private int totalBuild;
 	private int totalSuccess;
 	private int numChanges;
-	private Date startDate;
-	private Date lastCompletionDate;
 	private List<CompletionStats> completions;
 	private int totalDays;
 	
+	/**
+	 * Construct a CDPerformance with given information
+	 * @param totalBuild total number of builds of this plan
+	 * @param totalSuccess total number of successes of this plan
+	 * @param numChanges total number of changes before the most recent completion
+	 * @param startDate completed date of the first build
+	 * @param lastCompletionDate completed date of the most recent completion
+	 * @param completions all completions within this plan
+	 */
 	public CDPerformance(int totalBuild, int totalSuccess, int numChanges, Date startDate, Date lastCompletionDate, List<CompletionStats> completions){
 		this.totalBuild = totalBuild;
 		this.totalSuccess = totalSuccess;
 		this.numChanges = numChanges;
-		this.startDate = new Date(startDate.getTime());
-		this.lastCompletionDate = new Date(lastCompletionDate.getTime());
 		this.completions = new ArrayList<CompletionStats>(completions);
-		this.totalDays = Math.round((lastCompletionDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+		if(startDate != null && lastCompletionDate != null){
+			this.totalDays = Math.round((lastCompletionDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+		}else{
+			totalDays = -1;
+		}
 	}
 	
 	/**
@@ -35,19 +44,29 @@ public class CDPerformance {
 	/**
 	 * Return average changes from the creation of this plan to the recent completion,
 	 * calculated by total changes / total completions
+	 * If there's no completions, return -1
 	 * @return average changes between completions
 	 */
 	public double getAverageChanges() {
-		return numChanges * 1.0 / completions.size();
+		if(completions.size() > 0){
+			return numChanges * 1.0 / completions.size();
+		}else{
+			return -1;
+		}
 	}
 	
 	/**
 	 * Return average frequency of completion from the creation of this plan to the
 	 * recent completion in days, calculated by total days / total completions
+	 * If there's no completions, return -1
 	 * @return average days between completions
 	 */
 	public double getAverageFrequency() {
-		return totalDays * 1.0 / completions.size();
+		if(completions.size() > 0){
+			return totalDays * 1.0 / completions.size();
+		}else{
+			return -1;
+		}
 	}
 	
 	/**

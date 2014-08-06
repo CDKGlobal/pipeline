@@ -17,6 +17,12 @@ public class CompletionStats {
 	private Date completedDate;
 	private Map<String, Contributor> contributors;
 	
+	/**
+	 * Construct a CompletionStats with given build number and completed date
+	 * and set number of changes to be 0 with no contributors
+	 * @param buildNumber build number of the successful completed build
+	 * @param completed completed data of the completed build
+	 */
 	public CompletionStats(int buildNumber, Date completed){
 		this.buildNumber = buildNumber;
 		this.completedDate = new Date(completed.getTime());
