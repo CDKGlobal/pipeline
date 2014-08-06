@@ -2,12 +2,16 @@ package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
 import com.atlassian.applinks.api.ApplicationLink;
 import com.atlassian.bamboo.applinks.JiraApplinksService;
+import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.PlanExecutionManager;
+import com.atlassian.bamboo.plan.PlanKey;
+import com.atlassian.bamboo.plan.PlanKeys;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
+import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,15 +61,37 @@ public class MainManagerTest {
     	when(planMgr.getAllPlans(TopLevelPlan.class)).thenReturn(plans);
     	createEmptyResultsSummaryManager(plans);
     	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(PlanExecutionManager.class));
+    	List<CDResult> results = main.getCDResults();
     	
     	assertEquals("Project name of the cdresult doesn't match.", "Project", 
-    					main.getCDResults().get(0).getProjectName());
+    				results.get(0).getProjectName());
     	assertEquals("Project key of the cdresult doesn't match.", "projectkey", 
-					main.getCDResults().get(0).getProjectKey());
+					results.get(0).getProjectKey());
     	assertEquals("Plan name of the cdresult doesn't match.", "Plan 0", 
-					main.getCDResults().get(0).getPlanName());
+					results.get(0).getPlanName());
     	assertEquals("Plan key of the cdresult doesn't match.", "plankey0", 
-					main.getCDResults().get(0).getPlanKey());
+					results.get(0).getPlanKey());
+    }
+    
+    @Test
+    public void testGetChangeListForPlanWithPlanNotFound() {
+    	PlanKey planKey = PlanKeys.getPlanKey("A - B");
+    	when(planMgr.getPlanByKey(planKey)).thenReturn(null);
+    	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(PlanExecutionManager.class));
+    	
+    	assertEquals("Change list should be null if plan is not found.", null, main.getChangeListForPlan("A - B"));
+    }
+    
+    @Test
+    public void testGetChangeListForPlanWithPlanFoundAndNoBuilds() {
+    	PlanKey planKey = PlanKeys.getPlanKey("A - B");
+    	Plan plan = mock(Plan.class);
+    	when(planMgr.getPlanByKey(planKey)).thenReturn(plan);
+    	when(resultsSumMgr.getResultSummariesForPlan(plan, 0, 0)).thenReturn(new ArrayList<ResultsSummary>());
+    	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(PlanExecutionManager.class));
+    	
+    	assertEquals("Change list should be an empty list if plan is found but there are no builds.", 
+    			0, main.getChangeListForPlan("A - B").size());
     }
     
     // ========== Private Helper Methods =========
