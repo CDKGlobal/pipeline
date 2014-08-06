@@ -102,7 +102,7 @@
 			<div>
 				<ul id="menu">
 					<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
-					<li ng-click="modalOpenContent('sm', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
+					<li ng-click="modalOpenContent('sm', '', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
 				</ul>
 			</div>
 
@@ -152,7 +152,7 @@
 											<days ng-switch="result.daysSinceDeploymentFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days</small>
-												<a ng-click="modalOpenContent('lg', result, 'Changes.html')">
+												<a ng-click="modalOpenContent('lg', 'changes', result,'Changes.html')">
 													<changes>{{ result.numChanges }}</changes><small> changes</small>
 												</a>											
 										</dayChange>
@@ -163,7 +163,7 @@
 											<days ng-switch="result.daysSinceLastUpdateFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span></days><small> days ago</small>
-												<a ng-click="modalOpenContent('lg', result, 'Changes.html')">
+												<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
 													<changes>{{ result.numChanges }}</changes><small> changes</small>
 												</a>											
 											</dayChange>

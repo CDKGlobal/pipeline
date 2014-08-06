@@ -70,9 +70,9 @@ public class MainPage extends HttpServlet{
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
 	  } else if (query.equalsIgnoreCase("changes") && request.getParameter("plankey") != null){
-		  List<Change> resultList = mainManager.getChangeListForPlan(request.getParameter("plankey"));
+		  List<Change> changeList = mainManager.getChangeListForPlan(request.getParameter("plankey"));
 		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
-		  String json = writer.writeValueAsString(resultList);
+		  String json = writer.writeValueAsString(changeList);
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
 	  } else if (query.equalsIgnoreCase("completions") && request.getParameter("plankey") != null){

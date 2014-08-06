@@ -1,5 +1,5 @@
 // Controller for the popup window
-plugin.controller("ModalController", function ($scope, $modal, $window) {
+plugin.controller("ModalController", function ($scope, $modal, $window, $http, $rootScope) {
   
   /* --------------------------------------------------------------------------------------- */
   /* -------------------------- Modal Window with bamboo content --------------------------- */
@@ -30,8 +30,15 @@ plugin.controller("ModalController", function ($scope, $modal, $window) {
   /* --------------------------------------------------------------------------------------- */
   /* -------------------------- Modal Window with pipeline content ------------------------- */
   /* --------------------------------------------------------------------------------------- */
-  $scope.modalOpenContent = function (size, contentData, modalContent) {
-    $scope.contentData = contentData;
+  $scope.modalOpenContent = function (size, dataType, result, modalContent) {
+    $scope.contentData = {};
+    if(dataType != ''){
+      $scope.contentData = { planName: result.planName, numChanges: result.numChanges, changes: {}};
+      $http.get('?data=' + dataType + '&plankey=' + result.planKey).then( function(r) {
+        $scope.contentData.changes = r.data;
+        $rootScope.dataLoaded = true;
+      });
+    }
     var modalInstance = $modal.open({
       templateUrl: modalContent,
       controller: ModalInstanceCtrl,
