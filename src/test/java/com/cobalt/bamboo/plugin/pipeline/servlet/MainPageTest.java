@@ -1,4 +1,4 @@
-package ut.com.cobalt.cdpipeline.servlet;
+package com.cobalt.bamboo.plugin.pipeline.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
