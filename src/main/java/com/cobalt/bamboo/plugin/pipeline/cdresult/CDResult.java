@@ -24,8 +24,7 @@ public class CDResult {
 	
 	private Map<String, Contributor> contributors;
 	private Build currentBuild;
-	private List<PipelineStage> pipelineStages; 
-	private List<Change> changes;
+	private List<PipelineStage> pipelineStages;
 
 	/**
 	 * Construct a CDResult Object.
@@ -42,7 +41,6 @@ public class CDResult {
 		
 		contributors = new HashMap<String, Contributor>();
 		pipelineStages = new ArrayList<PipelineStage>();
-		changes = new ArrayList<Change>();
 	}
 	
 	/**
@@ -145,10 +143,6 @@ public class CDResult {
 	 */
 	void setCurrentBuild(Build current){
 		this.currentBuild = current;
-	}
-	
-	void addChange(Change change) {
-		changes.add(change);
 	}
 	
 	/**
@@ -348,10 +342,6 @@ public class CDResult {
 			list.add(it.next());
 		}
 		return list;
-	}
-
-	public List<Change> getChanges() {
-		return Collections.unmodifiableList(changes);
 	}
 	
 	// A Comparator which compares the contributor by number of commits.
