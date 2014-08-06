@@ -13,6 +13,8 @@ import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.project.Project;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
+import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
+import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformanceFactory;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResultFactory;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
@@ -102,5 +104,26 @@ public class MainManager {
 		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 		
 		return ChangeListFactory.buildChangeList(buildList, contributorBuilder);
+	}
+	
+	/**
+	 * Get a CDPerformance for the plan specified by the given plankey.
+	 * If no plan found or no build in the plan, return null.
+	 * @param planKey planKey of the plan to look for
+	 * @return the continuous delivery performance statistics for the given plan.
+	 *         Return null if no plan can be found for the given plankey or no build
+	 *         in the plan.
+	 */
+	public CDPerformance getPerformanceStatsForPlan(String planKey) {
+		PlanKey planKeyObj = PlanKeys.getPlanKey(planKey);
+		Plan plan = planManager.getPlanByKey(planKeyObj);
+		
+		if(plan == null){
+			return null;
+		}
+		
+		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
+		
+		return CDPerformanceFactory.createCDPerformance(buildList, contributorBuilder);
 	}
 }
