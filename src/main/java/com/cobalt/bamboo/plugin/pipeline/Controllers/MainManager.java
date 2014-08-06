@@ -1,7 +1,9 @@
 package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.author.Author;
@@ -19,9 +21,10 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResultFactory;
-import com.cobalt.bamboo.plugin.pipeline.cdresult.Change;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.Contributor;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
+import com.cobalt.bamboo.plugin.pipeline.changelist.Change;
+import com.cobalt.bamboo.plugin.pipeline.changelist.ChangeListFactory;
 
 /**
  * The main controller of CDPipeline Plugin Project that handles getting the
@@ -86,61 +89,25 @@ public class MainManager {
 		return resultList;
 	}
 	
+	/**
+	 * Get a list of Changes since the last pipeline completion for the plan 
+	 * specified by the given plankey.
+	 * 
+	 * @param planKey of the plan to look for
+	 * @return the list of changes since last pipeline completion for the given plan.
+	 *         List may be empty if there are no changes. Return null if no plan can
+	 *         be found from the given plankey.
+	 */
 	public List<Change> getChangeListForPlan(String planKey) {
-		List<Change> changeList = new ArrayList<Change>();
-		
 		PlanKey planKeyObj = PlanKeys.getPlanKey(planKey); 
 		Plan plan = planManager.getPlanByKey(planKeyObj);
+		
 		if (plan == null) {
 			return null;
 		}
-		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
-		if (buildList != null && buildList.size() > 0) {
-			addChangesToList(changeList, buildList.get(0).getCommits(), buildList.get(0).getBuildNumber());
-			
-			for (int i = 1; i < buildList.size(); i++) {
-				ChainResultsSummary currentBuild = (ChainResultsSummary) buildList.get(i);
-				
-				if (!currentBuild.isContinuable() && currentBuild.isSuccessful()) {
-					break;
-				}
-				
-				addChangesToList(changeList, buildList.get(i).getCommits(), currentBuild.getBuildNumber());
-			}
-		}
 		
-		return changeList;
-	}
-	
-	private void addChangesToList(List<Change> changeList, List<Commit> commits, int buildNumber) {
-		for (Commit commit : commits) {
-			Author author = commit.getAuthor();
-			String username = author.getLinkedUserName();
-			if (username == null) {
-				username = author.getName();
-			}
-			
-			Contributor contributor = contributorBuilder.createContributor(username, commit.getDate(), author.getFullName());
-			
-			// a list of changes
-			String comment = commit.getComment();
-			int importInfo = comment.indexOf("Imported from Git"); // TODO too specific
-			if (importInfo != -1) {
-				comment = comment.substring(0, importInfo);
-			}
-			
-			List<String> files = new ArrayList<String>();
-			List<CommitFile> commitFiles = commit.getFiles();
-			String revisionNum = "";
-			for (CommitFile commitFile : commitFiles) {
-				String filename = commitFile.getCleanName();
-				files.add(filename.substring(filename.lastIndexOf("/") + 1)); // remove the path
-				revisionNum = commitFile.getRevision();			
-			}
-			
-			Change change = new Change(author.getFullName(), contributor.getPictureUrl(), buildNumber, comment, commit.getDate(), files, revisionNum);
-			
-			changeList.add(change);
-		}
+		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
+		
+		return ChangeListFactory.createChangeList(buildList, contributorBuilder);
 	}
 }
