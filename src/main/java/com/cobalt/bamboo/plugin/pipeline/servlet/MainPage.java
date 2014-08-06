@@ -25,6 +25,7 @@ import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
+import com.cobalt.bamboo.plugin.pipeline.cdresult.Change;
 
 public class MainPage extends HttpServlet{
 	private static final Logger log = LoggerFactory.getLogger(MainPage.class);
@@ -57,7 +58,7 @@ public class MainPage extends HttpServlet{
 	  
 	  String query = request.getParameter("data");
 	  
-	  if (query == null) {
+	  if (query == null) {  // TODO
 		  // Normal case: normal table page
 		  response.setContentType("text/html;charset=utf-8");
 		  renderer.render("cdpipeline.vm", response.getWriter());
@@ -69,7 +70,11 @@ public class MainPage extends HttpServlet{
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
 	  } else if (query.equalsIgnoreCase("changes") && request.getParameter("plankey") != null){
-		  
+		  List<Change> resultList = mainManager.getChangeListForPlan(request.getParameter("plankey"));
+		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
+		  String json = writer.writeValueAsString(resultList);
+		  response.setContentType("application/json;charset=utf-8");
+		  response.getWriter().write(json);
 	  } else if (query.equalsIgnoreCase("completions") && request.getParameter("plankey") != null){
 		  
 	  } else{
