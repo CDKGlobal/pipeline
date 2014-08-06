@@ -76,11 +76,17 @@
         							<div class="text">
           								<p>{{ change.comment }}</p>
           								<span class="change-revision"> #{{ change.revisionNumber }} </span>        				    			
-	      								<i class="fa fa-file-text-o file">
-	     									<ul class="change-files">
-	        									<li ng-repeat="file in change.files" class="change-file"> {{ file }} </li>
-	     	 								</ul>
-	      								</i>
+          								<span ng-switch="change.files.length">
+											<span ng-switch-when="0">No file</span>
+											<span ng-switch-default>
+	      										<i class="fa fa-file-text-o file">
+	      											<span class="num-files">({{ change.files.length }})</span>
+	     											<ul class="change-files">
+	        											<li ng-repeat="file in change.files" class="change-file"> {{ file }} </li>
+	     	 										</ul>
+	      										</i>
+	      									</span>
+										</span> 
 	              						<p class="attribution"><span class="change-author">{{ change.authorFullName }}</span></a> {{ change.timeElapsed}} </p>      
         							</div>
       							</div>
@@ -151,7 +157,9 @@
 										<dayChange>
 											<days ng-switch="result.daysSinceDeploymentFromCurrent">
 												<span ng-switch-when="-1">--</span>
-												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days</small>
+												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span>
+											</days>
+											<small> days</small>
 											<changes ng-switch="result.changes.length">
 												<span ng-switch-when="0">{{ result.numChanges }}</span>
 												<span ng-switch-default>
@@ -166,7 +174,9 @@
 										<dayChange>
 											<days ng-switch="result.daysSinceLastUpdateFromCurrent">
 												<span ng-switch-when="-1">--</span>
-												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span></days><small> days ago</small>											
+												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span>
+											</days>
+											<small> days ago</small>											
 											<changes ng-switch="result.changes.length">
 												<span ng-switch-when="0">{{ result.numChanges }}</span>
 												<span ng-switch-default>
