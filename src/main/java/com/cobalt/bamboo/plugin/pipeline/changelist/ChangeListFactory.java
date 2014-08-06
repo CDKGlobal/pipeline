@@ -15,7 +15,7 @@ import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
 
 public class ChangeListFactory {
 
-	public static List<Change> createChangeList(List<ResultsSummary> buildList, 
+	public static List<Change> buildChangeList(List<ResultsSummary> buildList, 
 												ContributorBuilder contributorBuilder) {
 		List<Change> changeList = new ArrayList<Change>();
 		
@@ -40,7 +40,7 @@ public class ChangeListFactory {
 		return changeList;
 	}
 	
-	private static void addChangesToList(List<Change> changeList, List<Commit> commits, 
+	protected static void addChangesToList(List<Change> changeList, List<Commit> commits, 
 										int buildNumber, ContributorBuilder contributorBuilder) {
 		for (Commit commit : commits) {
 			Author author = commit.getAuthor();
