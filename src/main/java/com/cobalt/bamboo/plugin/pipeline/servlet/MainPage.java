@@ -24,6 +24,7 @@ import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
+import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 import com.cobalt.bamboo.plugin.pipeline.changelist.Change;
 
@@ -76,7 +77,11 @@ public class MainPage extends HttpServlet{
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
 	  } else if (query.equalsIgnoreCase("completions") && request.getParameter("plankey") != null){
-		  
+		  CDPerformance performance = mainManager.getPerformanceStatsForPlan(request.getParameter("plankey"));
+		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
+		  String json = writer.writeValueAsString(performance);
+		  response.setContentType("application/json;charset=utf-8");
+		  response.getWriter().write(json);
 	  } else{
 		  response.setContentType("text/html;charset=utf-8");
 		  renderer.render("cdpipeline.vm", response.getWriter());
