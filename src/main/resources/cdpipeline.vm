@@ -81,7 +81,7 @@
 	        									<li ng-repeat="file in change.files" class="change-file"> {{ file }} </li>
 	     	 								</ul>
 	      								</i>
-	              						<p class="attribution">by <a href="#non">{{ change.authorName }}</a> {{ change.timeElapsed}} </p>      
+	              						<p class="attribution">by <a href="#non">{{ change.authorFullName }}</a> {{ change.timeElapsed}} </p>      
         							</div>
       							</div>
     						</article>   
