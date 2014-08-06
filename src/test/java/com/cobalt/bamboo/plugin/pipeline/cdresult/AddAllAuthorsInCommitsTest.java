@@ -41,7 +41,7 @@ public class AddAllAuthorsInCommitsTest {
 	@Test
 	public void testNoCommit() {
 		List<Commit> commits = createCommitListWithoutAuthors(0);
-    	CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
+    	CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
     	assertEquals("0 commit should have 0 contributor", 0, cdresult.getContributors().size());   
 	}
 		
@@ -53,7 +53,7 @@ public class AddAllAuthorsInCommitsTest {
 	    	when(commits.get(i).getAuthor()).thenReturn(authors.get(i));
 	    	when(commits.get(i).getComment()).thenReturn("comment");
 		}
-		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
     	assertEquals("1 commit and 1 contributor", 1, cdresult.getContributors().size());  
 	}
 		
@@ -68,7 +68,7 @@ public class AddAllAuthorsInCommitsTest {
 	    	when(commits.get(i).getComment()).thenReturn("comment");
 		}
 
-		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
     	// check that all unique authors are counted
     	assertEquals("10 commits, each w/ unique contributor", COMMIT_LIST_SIZE, cdresult.getContributors().size());    	
 	}
@@ -83,7 +83,7 @@ public class AddAllAuthorsInCommitsTest {
 	    	when(commits.get(i).getComment()).thenReturn("comment");
 		}
 		
-		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb, 0);
+		CDResultFactory.addAllAuthorsInCommits(cdresult, commits, cb);
     	// check the duplicate authors are only counted once
     	assertEquals("10 commits w/ duplicate contributors", 3, cdresult.getContributors().size()); 	
 	}
