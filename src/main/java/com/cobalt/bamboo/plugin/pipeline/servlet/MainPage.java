@@ -25,7 +25,7 @@ import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
-import com.cobalt.bamboo.plugin.pipeline.cdresult.Change;
+import com.cobalt.bamboo.plugin.pipeline.changelist.Change;
 
 public class MainPage extends HttpServlet{
 	private static final Logger log = LoggerFactory.getLogger(MainPage.class);

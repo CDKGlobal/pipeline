@@ -1,7 +1,8 @@
-package com.cobalt.bamboo.plugin.pipeline.cdresult;
+package com.cobalt.bamboo.plugin.pipeline.changelist;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class Change {
 	private String authorFullName;
@@ -10,7 +11,7 @@ public class Change {
 	private String comment;
 	private Date date;
 	private String timeElapsed;
-	private List<String> files;
+	private Set<String> files;
 	private String revisionNumber;
 	
 	
@@ -25,7 +26,7 @@ public class Change {
 	 * @param revisionNumber	the revision number of the change
 	 */
 	public Change(String authorFullName, String authorPictureUrl, int buildNumber, String comment,
-					Date date, List<String> files, String revisionNumber) {
+					Date date, Set<String> files, String revisionNumber) {
         this.authorFullName = authorFullName;
 		this.authorPictureUrl = authorPictureUrl;
 		this.buildNumber = buildNumber;
@@ -109,7 +110,7 @@ public class Change {
 	 * Get the files associated with the change
 	 * @return 	the files associated with the change
 	 */
-	public List<String> getFiles() {
+	public Set<String> getFiles() {
 		return files;
 	}
 	
