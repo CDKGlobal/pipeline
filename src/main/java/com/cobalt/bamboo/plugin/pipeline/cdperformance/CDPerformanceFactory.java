@@ -81,7 +81,7 @@ public class CDPerformanceFactory {
 	/*
 	 * Add all contributors of the given commits to the contributors list.
 	 */
-	private static void addAllAuthorsInCommits(CompletionStats completion, List<Commit> commits, ContributorBuilder contributorBuilder){
+	protected static void addAllAuthorsInCommits(CompletionStats completion, List<Commit> commits, ContributorBuilder contributorBuilder){
 		for(Commit commit : commits) {
 			Author author = commit.getAuthor();
 			// Get the linked username first to get proper username that the
