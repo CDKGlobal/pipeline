@@ -61,13 +61,43 @@
 		    <!-- pop up window for changes -->
 		    <script type="text/ng-template" id="Changes.html">
 		        <div class="modal-body" id="changes-window">
-		        	<div class="changes-page">
+
+		        	<div class="changes-page">			        	
+					
+						<button type="button" value="return" onclick="showListView();" id="list-view-button" disabled="disabled">
+							<i class="fa fa-list-ul fa-2x"></i>
+						</button>
+						<button type="button" value="return" onclick="showTableView();" id="table-view-button">
+							<i class="fa fa-table fa-2x"></i>
+						</button>
+						<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" id="select-table-button">
+							<i class="fa fa-files-o fa-2x"></i>
+						</button>	
+						
+						<!-- the change list in table format-->					
+						<table id="change-table">
+							<tr>
+							    <th> Author </th>
+							    <th> Comment </th>
+							    <th> Revision ID </th>
+							    <th> Files </th>
+							    <th> Time </th>
+							</tr>
+							<tr ng-repeat="change in contentData.changes" class="change-table-row">
+							    <td> {{ change.authorFullName }} </td>
+							    <td class="change-table-comment"> {{ change.comment }} </td>
+							    <td> {{ change.revisionNumber }} </td>
+							    <td> <ul><li ng-repeat="file in change.files"> {{ file }} </li></ul> </td>
+							    <td class="change-table-time"> {{ change.dateFormatted }} </td>
+							</tr>        
+						</table>
+												
 						<div class="change-header">
 							<div><plan>{{contentData.planName}}</plan></div>
 							<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
 						</div>
 
-  						<section class="comments">
+  						<section class="comments" id="change-list">
      						<article class="comment" ng-repeat="change in contentData.changes">
       							<div class="comment-img">
         							<img src="{{ change.authorPictureUrl }}" alt="{{ change.authorName }}" width="50" height="50">
@@ -75,9 +105,9 @@
       							<div class="comment-body">
         							<div class="text">
           								<p>{{ change.comment }}</p>
-          								<span class="change-revision"> #{{ change.revisionNumber }} </span>        				    			
+          								<span class="change-revision" tooltip="Revision ID"> #{{ change.revisionNumber }} </span>        				    			
           								<span ng-switch="change.files.length">
-											<span ng-switch-when="0">No file</span>
+											<span ng-switch-when="0">No file committed</span>
 											<span ng-switch-default>
 	      										<i class="fa fa-file-text-o file">
 	      											<span class="num-files">({{ change.files.length }})</span>
@@ -87,15 +117,14 @@
 	      										</i>
 	      									</span>
 										</span> 
-	              						<p class="attribution"><span class="change-author">{{ change.authorFullName }}</span></a> {{ change.timeElapsed}} </p>      
+	              						<p class="attribution"><span class="change-author">{{ change.authorFullName }}</span></a> <span tooltip="{{change.dateFormatted}}">{{ change.timeElapsed}}</span> </p>      
         							</div>
       							</div>
     						</article>   
-  						</section>​	        				
+  						</section>​	 				       				
 			        </div>
 		        </div>
 		    </script>
-
 
 		    <!-- pop up window for project, plan and build -->
 		    <script type="text/ng-template" id="Details.html">

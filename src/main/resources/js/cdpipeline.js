@@ -16,3 +16,45 @@ jQuery(document).ready(function() {
 		return false;
 	})
 });
+
+// Show the 'changes since last completion' in list view
+function showListView() {
+	document.getElementById("change-table").style.display = "none";
+	document.getElementById("change-list").style.display = "block";
+	document.getElementById("list-view-button").disabled = true;
+	document.getElementById("table-view-button").disabled = false;
+	document.getElementById("select-table-button").style.display = "none";
+	document.getElementById("select-table-button").disabled = true;
+}
+
+// Show the 'changes since last completion' in table view
+function showTableView() {
+	document.getElementById("change-table").style.display = "block";
+	document.getElementById("change-list").style.display = "none";
+	document.getElementById("list-view-button").disabled = false;
+	document.getElementById("table-view-button").disabled = true;
+	document.getElementById("select-table-button").style.display = "block";
+		document.getElementById("select-table-button").disabled = false;
+
+}
+
+// Show the 'changes since last completion' from the table
+function selectTable(el) {
+    var body = document.body, range, sel;
+    if (document.createRange && window.getSelection) {
+       	range = document.createRange();
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        try {
+            range.selectNodeContents(el);
+            sel.addRange(range);
+        } catch (e) {
+           	 range.selectNode(el);
+            sel.addRange(range);
+        }
+    } else if (body.createTextRange) {
+        range = body.createTextRange();
+        range.moveToElementText(el);
+        range.select();
+    }
+}
