@@ -10,7 +10,7 @@ public class CDPerformance {
 	private int totalSuccess;
 	private int numChanges;
 	private List<CompletionStats> completions;
-	public double totalDays;
+	private double totalDays;
 	
 	/**
 	 * Construct a CDPerformance with given information
