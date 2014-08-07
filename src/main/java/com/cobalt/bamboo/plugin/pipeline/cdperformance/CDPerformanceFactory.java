@@ -75,6 +75,11 @@ public class CDPerformanceFactory {
 				addAllAuthorsInCommits(currentCompletion, currentBuild.getCommits(), contributorBuilder);
 			}
 		}
+		
+		// Add the oldest completion to the completion list
+		if(currentCompletion != null){
+			completions.add(currentCompletion);
+		}
 		return new CDPerformance(totalBuild, totalSuccess, totalChanges, startDate, lastCompletionDate, completions);
 	}
 	
