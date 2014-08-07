@@ -14,8 +14,19 @@ import com.cobalt.bamboo.plugin.pipeline.cdresult.Contributor;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
 
 public class ChangeListFactory {
+	private static final String MESSAGE_INFO_SEPARATOR = "Imported from Git";
 
-	public static List<Change> createChangeList(List<ResultsSummary> buildList, 
+	/**
+	 * Builds the list of changes since the last pipeline completion based on the 
+	 * given build list.
+	 * 
+	 * @param buildList The build list to get changes from
+	 * @param contributorBuilder The contributor builder to construct picture url for 
+	 *                           the authors
+	 * @return the list of changes since last pipeline completion based on the given build
+	 *         list. List may be empty if build list is null or empty, or there are no changes.
+	 */
+	public static List<Change> buildChangeList(List<ResultsSummary> buildList, 
 												ContributorBuilder contributorBuilder) {
 		List<Change> changeList = new ArrayList<Change>();
 		
@@ -40,7 +51,9 @@ public class ChangeListFactory {
 		return changeList;
 	}
 	
-	private static void addChangesToList(List<Change> changeList, List<Commit> commits, 
+	// Construct Changes based on the Commits in given commit list and add the Changes to the
+	// given change list.
+	protected static void addChangesToList(List<Change> changeList, List<Commit> commits, 
 										int buildNumber, ContributorBuilder contributorBuilder) {
 		for (Commit commit : commits) {
 			Author author = commit.getAuthor();
@@ -53,7 +66,7 @@ public class ChangeListFactory {
 			
 			// a list of changes
 			String comment = commit.getComment();
-			int importInfo = comment.indexOf("Imported from Git"); // TODO too specific
+			int importInfo = comment.indexOf(MESSAGE_INFO_SEPARATOR);
 			if (importInfo != -1) {
 				comment = comment.substring(0, importInfo);
 			}

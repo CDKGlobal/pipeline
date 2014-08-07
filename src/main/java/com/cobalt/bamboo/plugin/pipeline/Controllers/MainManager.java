@@ -1,15 +1,9 @@
 package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.atlassian.bamboo.applinks.JiraApplinksService;
-import com.atlassian.bamboo.author.Author;
-import com.atlassian.bamboo.chains.ChainResultsSummary;
-import com.atlassian.bamboo.commit.Commit;
-import com.atlassian.bamboo.commit.CommitFile;
 import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.plan.PlanKey;
@@ -23,7 +17,6 @@ import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformanceFactory;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResultFactory;
-import com.cobalt.bamboo.plugin.pipeline.cdresult.Contributor;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
 import com.cobalt.bamboo.plugin.pipeline.changelist.Change;
 import com.cobalt.bamboo.plugin.pipeline.changelist.ChangeListFactory;
@@ -110,7 +103,7 @@ public class MainManager {
 		
 		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 		
-		return ChangeListFactory.createChangeList(buildList, contributorBuilder);
+		return ChangeListFactory.buildChangeList(buildList, contributorBuilder);
 	}
 	
 	/**
