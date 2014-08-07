@@ -10,10 +10,12 @@ public class CDPerformance {
 	private int totalSuccess;
 	private int numChanges;
 	private List<CompletionStats> completions;
-	private int totalDays;
+	public double totalDays;
 	
 	/**
 	 * Construct a CDPerformance with given information
+	 * Throw IllegalArgumentException if totalBuild < totalSuccess or startDate
+	 * after lastCompletionDate
 	 * @param totalBuild total number of builds of this plan
 	 * @param totalSuccess total number of successes of this plan
 	 * @param numChanges total number of changes before the most recent completion
@@ -22,12 +24,18 @@ public class CDPerformance {
 	 * @param completions all completions within this plan
 	 */
 	public CDPerformance(int totalBuild, int totalSuccess, int numChanges, Date startDate, Date lastCompletionDate, List<CompletionStats> completions){
+		if(totalBuild < totalSuccess){
+			throw new IllegalArgumentException("Total successes should not be greater than total builds");
+		}
 		this.totalBuild = totalBuild;
 		this.totalSuccess = totalSuccess;
 		this.numChanges = numChanges;
 		this.completions = new ArrayList<CompletionStats>(completions);
 		if(startDate != null && lastCompletionDate != null){
-			this.totalDays = Math.round((lastCompletionDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+			if(lastCompletionDate.compareTo(startDate) < 0){
+				throw new IllegalArgumentException("Last completion date should not be before start date");
+			}
+			this.totalDays = (lastCompletionDate.getTime() - startDate.getTime()) * 1.0 / (1000 * 60 * 60 * 24);
 		}else{
 			totalDays = -1;
 		}
@@ -35,9 +43,14 @@ public class CDPerformance {
 	
 	/**
 	 * Return success percentage calculated by total successes / total builds
-	 * @return success percentage of this performance statistics
+	 * If no build, return 0.
+	 * @return success percentage of this performance statistics, return 0 when
+	 *         there's no build
 	 */
 	public double getSuccessPercentage(){
+		if(totalBuild <= 0){
+			return 0;
+		}
 		return totalSuccess * 1.0 / totalBuild;
 	}
 	
