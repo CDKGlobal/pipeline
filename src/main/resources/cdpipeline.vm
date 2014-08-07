@@ -84,10 +84,10 @@
 							    <th> Time </th>
 							</tr>
 							<tr ng-repeat="change in contentData.changes" class="change-table-row">
-							    <td> {{ change.authorFullName }} </td>
+							    <td class="change-table-author"> {{ change.authorFullName }} </td>
 							    <td class="change-table-comment"> {{ change.comment }} </td>
-							    <td> {{ change.revisionNumber }} </td>
-							    <td> <ul><li ng-repeat="file in change.files"> {{ file }} </li></ul> </td>
+							    <td class="change-table-revision"> {{ change.revisionNumber }} </td>
+							    <td class="change-table-files"> <ul><li ng-repeat="file in change.files"> {{ file }} </li></ul> </td>
 							    <td class="change-table-time"> {{ change.dateFormatted }} </td>
 							</tr>        
 						</table>
