@@ -3,6 +3,7 @@
 	<head>
 		<title>Pipeline</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
+		    <meta charset="UTF-8">
 		
 		<!-- css -->
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -60,14 +61,48 @@
 
 		    <!-- pop up window for changes -->
 		    <script type="text/ng-template" id="Changes.html">
-		        <div class="modal-body" id="changes-window">
-		        	<div class="changes-page">
-						<div class="change-header">
-							<div><plan>{{contentData.planName}}</plan></div>
-							<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
-						</div>
+		        <div class="modal-body" id="changes-window">							
+					<div class="change-header">
+						<div><plan>{{contentData.planName}}</plan></div>
+						<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
+					</div>
+					<!-- buttons for switching between 2 views of the change list -->
+					<button type="button" value="return" onclick="showListView();" id="list-view-button" disabled="disabled"  title="List view">
+						<i class="fa fa-list-ul fa-2x"></i>
+					</button>
+					<button type="button" value="return" onclick="showTableView();" id="table-view-button" title="Table view">
+						<i class="fa fa-table fa-2x"></i>
+					</button>
+					<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" id="select-table-button" title="Select the table">
+						<i class="fa fa-files-o fa-2x"></i>
+					</button>
+											
+		        	<div class="changes-page">			        	
+						<!-- the change list in table view-->	
 
-  						<section class="comments">
+						<table id="change-table">
+    						<thead>
+								<tr>
+							    	<th> Contributor </th>
+							    	<th> Comment </th>
+							    	<th> Revision ID </th>
+							    	<th> Files </th>
+							    	<th> Time </th>
+								</tr>
+							</thead>
+    						<tbody>
+			        			<tr ng-repeat="change in contentData.changes">
+							    	<td class="change-table-author"> {{ change.authorFullName }} </td>
+							    	<td class="change-table-comment"> {{ change.comment }} </td>
+							    	<td class="change-table-revision"> {{ change.revisionNumber }} </td>
+							    	<td class="change-table-files"> <ul><li ng-repeat="file in change.files"> {{ file }} </li></ul> </td>
+							    	<td class="change-table-time"> {{ change.dateFormatted }} </td>
+								</tr> 
+    						</tbody>
+						</table>
+
+						<!-- the change list in list view -->					
+  						<section class="comments" id="change-list">
      						<article class="comment" ng-repeat="change in contentData.changes">
       							<div class="comment-img">
         							<img src="{{ change.authorPictureUrl }}" alt="{{ change.authorName }}" width="50" height="50">
@@ -75,9 +110,9 @@
       							<div class="comment-body">
         							<div class="text">
           								<p>{{ change.comment }}</p>
-          								<span class="change-revision"> #{{ change.revisionNumber }} </span>        				    			
+          								<span class="change-revision" tooltip="Revision ID"> #{{ change.revisionNumber }} </span>        				    			
           								<span ng-switch="change.files.length">
-											<span ng-switch-when="0">No file</span>
+											<span ng-switch-when="0">No file committed</span>
 											<span ng-switch-default>
 	      										<i class="fa fa-file-text-o file">
 	      											<span class="num-files">({{ change.files.length }})</span>
@@ -87,15 +122,14 @@
 	      										</i>
 	      									</span>
 										</span> 
-	              						<p class="attribution"><span class="change-author">{{ change.authorFullName }}</span></a> {{ change.timeElapsed}} </p>      
+	              						<p class="attribution"><span class="change-author">{{ change.authorFullName }}</span></a> <span tooltip="{{change.dateFormatted}}">{{ change.timeElapsed}}</span> </p>      
         							</div>
       							</div>
     						</article>   
-  						</section>​	        				
+  						</section>​	 				       				
 			        </div>
 		        </div>
 		    </script>
-
 
 		    <!-- pop up window for project, plan and build -->
 		    <script type="text/ng-template" id="Details.html">

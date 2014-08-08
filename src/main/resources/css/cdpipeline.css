@@ -55,7 +55,6 @@ days, changes {
 
 changes {
 	margin-left: 10px;
-	color: black !important;
 }
 
 
@@ -653,7 +652,7 @@ iframe {
   	width: 260px;
 }
 
-#search:hover input {
+#search:hover input[type="text"] {
   	display: inline-block;
   	width: 200px;
   	padding: 10px;
@@ -667,12 +666,11 @@ iframe {
 	left: 100px;
 }
 
-input {
+input[type="text"] {
 	width: 0;
 	height: 35px;
-	margin: 10px;
 	color: #999;
-	font-size: 30px;
+	font-size: 14px;
 	padding: 0px;
 	border: 0;
 	border-radius: 5px;
@@ -685,7 +683,7 @@ input {
 	-ms-transition: all 0.25s;
 }
 
-input:focus {
+input[type="text"]:focus {
 	outline: none;
 	box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
 }
@@ -796,20 +794,22 @@ input:focus {
 --------------------------*/
 .changes-page {
 	position: relative;
-	top: 10%;
+	top: 60px;
 	left: 5%;
 	height: 90%;
 	width: 90%;
 	overflow: scroll;
-	padding: 10px;
+	padding: 20px;
 }
 
 .change-header {
 	position: fixed;
-	top: 30px;
+	top: 1px;
+	padding-top: 30px;
 	left: 5%;
 	width:90%;	
-	z-index: 3;
+	z-index: 3;	
+	background: #f5f5f5;
 }
 
 .change-header plan {
@@ -979,3 +979,85 @@ p {
 	color: #3b73af;
 }
 
+#change-table ul {
+	list-style-type: none;
+	padding: 0px;
+}
+
+#change-table {
+	display: none;
+    position: relative;
+    max-height: 0px;
+    padding-bottom: 10px;
+}
+
+#change-table td, #change-table th {
+	padding: 10px;
+	border: #999999 solid 2px;
+}
+
+.change-table-author, .change-table-revision {
+	width: 7%;
+}
+
+.change-table-comment {
+	width: 45%;
+}
+
+.change-table-files {
+	width: 25%;
+}
+
+.change-table-time {
+	width: 10%;
+}
+
+.change-table-row:hover {
+	background: #ebf2f9
+}
+
+#list-view-button, #table-view-button, #select-table-button {
+	width: 40px;
+	height: 40px;
+	position: fixed;
+	left: 2px;
+}
+
+#list-view-button {
+	top: 80px;
+}
+
+#table-view-button {
+	top: 121px;
+}
+
+#select-table-button {
+	top: 162px;
+}
+
+#changes-window button:disabled {
+	opacity: 0.65; 	
+	color: #cccccc;
+}
+
+#changes-window button:active {
+	background-color: #d0d3d6;
+	background-image: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0));
+	box-shadow: inset 0 0 2px rgba(0,0,0,.2), inset 0 2px 5px rgba(0,0,0,.2), 0 1px rgba(255,255,255,.2);
+}
+
+#changes-window button {
+	border: 0px;
+	background: white;
+	vertical-align: center;
+	text-decoration: none;
+	background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.1));
+	border-radius: 3px;
+	color: black;
+	text-shadow: 0 1px 1px rgba(255,255,255,.7);
+	box-shadow: 0 0 0 1px rgba(0,0,0,.2), 0 1px 2px rgba(0,0,0,.2), inset 0 1px 2px rgba(255,255,255,.7);
+}
+
+#select-table-button {
+	display: none;
+}
