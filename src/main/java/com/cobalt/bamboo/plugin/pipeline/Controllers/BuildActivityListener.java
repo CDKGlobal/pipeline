@@ -54,6 +54,10 @@ import com.atlassian.bamboo.v2.events.ChangeDetectionRequiredEvent;
 import com.atlassian.event.Event;
 import com.cobalt.bamboo.plugin.pipeline.customevent.BuildStartedEvent;
 
+/**
+ * A custom event listener that listens to build activities: triggered, queued, 
+ * started, finished, stage completed, and plan completed.
+ */
 public class BuildActivityListener implements HibernateEventListener {
 
 	@Override
