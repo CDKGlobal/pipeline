@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
 // Show the 'changes since last completion' in list view
 function showListView() {
 	document.getElementById("change-table").style.display = "none";
-	document.getElementById("change-list").style.display = "block";
+	document.getElementById("change-list").style.display = "table";
 	document.getElementById("list-view-button").disabled = true;
 	document.getElementById("table-view-button").disabled = false;
 	document.getElementById("select-table-button").style.display = "none";
@@ -29,12 +29,12 @@ function showListView() {
 
 // Show the 'changes since last completion' in table view
 function showTableView() {
-	document.getElementById("change-table").style.display = "block";
+	document.getElementById("change-table").style.display = "table";
 	document.getElementById("change-list").style.display = "none";
 	document.getElementById("list-view-button").disabled = false;
 	document.getElementById("table-view-button").disabled = true;
 	document.getElementById("select-table-button").style.display = "block";
-		document.getElementById("select-table-button").disabled = false;
+	document.getElementById("select-table-button").disabled = false;
 
 }
 
@@ -58,3 +58,4 @@ function selectTable(el) {
         range.select();
     }
 }
+
