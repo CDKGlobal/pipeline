@@ -3,6 +3,7 @@
 	<head>
 		<title>Pipeline</title> <!-- update once we have an agreed name -->
 		<meta name="decorator" content="atl.general">
+		    <meta charset="UTF-8">
 		
 		<!-- css -->
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -75,24 +76,29 @@
 					<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" id="select-table-button" title="Select the table">
 						<i class="fa fa-files-o fa-2x"></i>
 					</button>
-						
+											
 		        	<div class="changes-page">			        	
-						<!-- the change list in table view-->					
-						<table id="change-table" >
-							<tr>
-							    <th> Contributor </th>
-							    <th> Comment </th>
-							    <th> Revision ID </th>
-							    <th> Files </th>
-							    <th> Time </th>
-							</tr>
-							<tr ng-repeat="change in contentData.changes" class="change-table-row">
-							    <td class="change-table-author"> {{ change.authorFullName }} </td>
-							    <td class="change-table-comment"> {{ change.comment }} </td>
-							    <td class="change-table-revision"> {{ change.revisionNumber }} </td>
-							    <td class="change-table-files"> <ul><li ng-repeat="file in change.files"> {{ file }} </li></ul> </td>
-							    <td class="change-table-time"> {{ change.dateFormatted }} </td>
-							</tr>        
+						<!-- the change list in table view-->	
+
+						<table id="change-table">
+    						<thead>
+								<tr>
+							    	<th> Contributor </th>
+							    	<th> Comment </th>
+							    	<th> Revision ID </th>
+							    	<th> Files </th>
+							    	<th> Time </th>
+								</tr>
+							</thead>
+    						<tbody>
+			        			<tr ng-repeat="change in contentData.changes">
+							    	<td class="change-table-author"> {{ change.authorFullName }} </td>
+							    	<td class="change-table-comment"> {{ change.comment }} </td>
+							    	<td class="change-table-revision"> {{ change.revisionNumber }} </td>
+							    	<td class="change-table-files"> <ul><li ng-repeat="file in change.files"> {{ file }} </li></ul> </td>
+							    	<td class="change-table-time"> {{ change.dateFormatted }} </td>
+								</tr> 
+    						</tbody>
 						</table>
 
 						<!-- the change list in list view -->					
