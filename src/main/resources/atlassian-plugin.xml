@@ -51,9 +51,20 @@
   <component-import key="jiraApplinksService" interface="com.atlassian.bamboo.applinks.JiraApplinksService" />
   
   <component-import key="planExecutionManager" interface="com.atlassian.bamboo.plan.PlanExecutionManager" />
-  
+  <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
+   
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.bamboo.plugin.pipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>
     <url-pattern>/cdpipeline</url-pattern>
   </servlet>
+  
+  <bambooEventListener key="buildActivityListener" name="Build Activity Listener"
+               class="com.cobalt.bamboo.plugin.pipeline.Controllers.BuildActivityListener">
+    <description>Listens for if a build has any activity.</description>
+  </bambooEventListener>
+  
+  <preBuildAction key="buildStartedEvenKicker" name="BuildStartedEvent Kicker"
+                  class="com.cobalt.bamboo.plugin.pipeline.Controllers.BuildStartedEventKicker">
+    <description>A custom action that fires a build start event before a job executes.</description>
+  </preBuildAction>
 </atlassian-plugin>
