@@ -1033,18 +1033,18 @@ p {
 	top: 160px;
 }
 
-.changes-page button:disabled {
+#changes-window button:disabled {
 	opacity: 0.65; 	
 	color: #cccccc;
 }
 
-.changes-page button:active {
+#changes-window button:active {
 	background-color: #d0d3d6;
 	background-image: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0));
 	box-shadow: inset 0 0 2px rgba(0,0,0,.2), inset 0 2px 5px rgba(0,0,0,.2), 0 1px rgba(255,255,255,.2);
 }
 
-.changes-page button {
+#changes-window button {
 	border: 0px;
 	background: white;
 	vertical-align: center;

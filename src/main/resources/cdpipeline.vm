@@ -60,24 +60,27 @@
 
 		    <!-- pop up window for changes -->
 		    <script type="text/ng-template" id="Changes.html">
-		        <div class="modal-body" id="changes-window">
-
-		        	<div class="changes-page">			        	
-					
-						<button type="button" value="return" onclick="showListView();" id="list-view-button" disabled="disabled">
-							<i class="fa fa-list-ul fa-2x"></i>
-						</button>
-						<button type="button" value="return" onclick="showTableView();" id="table-view-button">
-							<i class="fa fa-table fa-2x"></i>
-						</button>
-						<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" id="select-table-button">
-							<i class="fa fa-files-o fa-2x"></i>
-						</button>	
+		        <div class="modal-body" id="changes-window">							
+					<div class="change-header">
+						<div><plan>{{contentData.planName}}</plan></div>
+						<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
+					</div>
+					<!-- buttons for switching between 2 views of the change list -->
+					<button type="button" value="return" onclick="showListView();" id="list-view-button" disabled="disabled"  title="List view">
+						<i class="fa fa-list-ul fa-2x"></i>
+					</button>
+					<button type="button" value="return" onclick="showTableView();" id="table-view-button" title="Table view">
+						<i class="fa fa-table fa-2x"></i>
+					</button>
+					<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" id="select-table-button" title="Select the table">
+						<i class="fa fa-files-o fa-2x"></i>
+					</button>
 						
-						<!-- the change list in table format-->					
-						<table id="change-table">
+		        	<div class="changes-page">			        	
+						<!-- the change list in table view-->					
+						<table id="change-table" >
 							<tr>
-							    <th> Author </th>
+							    <th> Contributor </th>
 							    <th> Comment </th>
 							    <th> Revision ID </th>
 							    <th> Files </th>
@@ -91,12 +94,8 @@
 							    <td class="change-table-time"> {{ change.dateFormatted }} </td>
 							</tr>        
 						</table>
-												
-						<div class="change-header">
-							<div><plan>{{contentData.planName}}</plan></div>
-							<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
-						</div>
 
+						<!-- the change list in list view -->					
   						<section class="comments" id="change-list">
      						<article class="comment" ng-repeat="change in contentData.changes">
       							<div class="comment-img">
