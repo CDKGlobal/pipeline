@@ -75,13 +75,18 @@ public class CDPerformanceFactory {
 				addAllAuthorsInCommits(currentCompletion, currentBuild.getCommits(), contributorBuilder);
 			}
 		}
+		
+		// Add the oldest completion to the completion list
+		if(currentCompletion != null){
+			completions.add(currentCompletion);
+		}
 		return new CDPerformance(totalBuild, totalSuccess, totalChanges, startDate, lastCompletionDate, completions);
 	}
 	
 	/*
 	 * Add all contributors of the given commits to the contributors list.
 	 */
-	private static void addAllAuthorsInCommits(CompletionStats completion, List<Commit> commits, ContributorBuilder contributorBuilder){
+	protected static void addAllAuthorsInCommits(CompletionStats completion, List<Commit> commits, ContributorBuilder contributorBuilder){
 		for(Commit commit : commits) {
 			Author author = commit.getAuthor();
 			// Get the linked username first to get proper username that the

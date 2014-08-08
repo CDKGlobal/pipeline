@@ -94,6 +94,15 @@ public class MainManagerTest {
     			0, main.getChangeListForPlan("A - B").size());
     }
     
+    @Test
+    public void testGetPerfomanceStatsForPlanWithPlanNotFound() {
+    	PlanKey planKey = PlanKeys.getPlanKey("A - B");
+    	when(planMgr.getPlanByKey(planKey)).thenReturn(null);
+    	main = new MainManager(planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(PlanExecutionManager.class));
+    	
+    	assertEquals("Performance should be null if plan is not found.", null, main.getPerformanceStatsForPlan("A - B"));
+    }
+    
     // ========== Private Helper Methods =========
     
     private void testWithEmptyBuildListBySize(int numPlans, int expected) {
