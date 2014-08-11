@@ -67,17 +67,8 @@ public class MainManager {
 		
 		List<TopLevelPlan> plans = planManager.getAllPlans(TopLevelPlan.class);
 		for (Plan plan : plans) {
-			String planName = plan.getName();
-			String planKey = plan.getKey();
 			
-			Project project = plan.getProject();
-			String projectName = project.getName();
-			String projectKey = project.getKey();
-			
-			List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
-			
-			CDResult result = CDResultFactory.createCDResult(projectName, planName, projectKey, planKey, 
-															buildList, contributorBuilder, planExecutionManager);
+			CDResult result = CDResultFactory.createCDResult(plan, contributorBuilder, planExecutionManager, resultsSummaryManager);
 			resultList.add(result);
 		}
 		
