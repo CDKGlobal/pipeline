@@ -14,7 +14,6 @@ import com.cobalt.bamboo.plugin.pipeline.cdresult.Contributor;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
 
 public class ChangeListFactory {
-	private static final String MESSAGE_INFO_SEPARATOR = "Imported from Git";
 
 	/**
 	 * Builds the list of changes since the last pipeline completion based on the 
@@ -65,12 +64,7 @@ public class ChangeListFactory {
 			Contributor contributor = contributorBuilder.createContributor(username, commit.getDate(), author.getFullName());
 			
 			// a list of changes
-			String comment = commit.getComment();
-			int importInfo = comment.indexOf(MESSAGE_INFO_SEPARATOR);
-			if (importInfo != -1) {
-				comment = comment.substring(0, importInfo);
-			}
-			
+			String comment = CommentModifier.removeVersionControlInfo(commit.getComment());
 			Set<String> files = new HashSet<String>();
 			List<CommitFile> commitFiles = commit.getFiles();
 			String revisionNum = "";
