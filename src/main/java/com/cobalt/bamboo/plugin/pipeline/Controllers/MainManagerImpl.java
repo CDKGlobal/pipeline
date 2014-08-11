@@ -96,4 +96,16 @@ public class MainManagerImpl implements MainManager {
 		
 		return CDPerformanceFactory.createCDPerformance(buildList, contributorBuilder);
 	}
+
+	@Override
+	public CDResult getCDResultForPlan(String planKey) {
+		PlanKey planKeyObj = PlanKeys.getPlanKey(planKey);
+		Plan plan = planManager.getPlanByKey(planKeyObj);
+		
+		if (plan == null) {
+			return null;
+		}
+		
+		return CDResultFactory.createCDResult(plan, contributorBuilder, planExecutionManager, resultsSummaryManager);
+	}
 }
