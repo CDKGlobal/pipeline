@@ -103,6 +103,15 @@ public class MainManagerImplTest {
     	assertEquals("Performance should be null if plan is not found.", null, main.getPerformanceStatsForPlan("A - B"));
     }
     
+    @Test
+    public void testGetCDResultForPlanWithPlanNotFound() {
+    	PlanKey planKey = PlanKeys.getPlanKey("A - B");
+    	when(planMgr.getPlanByKey(planKey)).thenReturn(null);
+    	main = new MainManagerImpl(planMgr, resultsSumMgr, setUpJiraApplinksService(), mock(PlanExecutionManager.class));
+    	
+    	assertEquals("Performance should be null if plan is not found.", null, main.getCDResultForPlan("A - B"));
+    }
+    
     // ========== Private Helper Methods =========
     
     private void testWithEmptyBuildListBySize(int numPlans, int expected) {
