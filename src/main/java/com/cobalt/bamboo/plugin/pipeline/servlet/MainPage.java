@@ -10,19 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.atlassian.bamboo.applinks.JiraApplinksService;
-import com.atlassian.bamboo.plan.PlanExecutionManager;
-import com.atlassian.bamboo.plan.PlanManager;
-import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManager;
 import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
@@ -33,16 +28,17 @@ public class MainPage extends HttpServlet{
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer renderer;
+    private final CacheManager cacheManager;
     private final MainManager mainManager;
    
     public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
-    				PlanManager planManager, ResultsSummaryManager resultsSummaryManager,
-    				JiraApplinksService jiraApplinksService, PlanExecutionManager planExecutionManager)
+    				CacheManager cacheManager, MainManager mainManager)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
-      this.mainManager = new MainManager(planManager, resultsSummaryManager, jiraApplinksService, planExecutionManager);
+      this.cacheManager = cacheManager;
+      this.mainManager = mainManager;
     }
    
     @Override
@@ -66,7 +62,7 @@ public class MainPage extends HttpServlet{
 	  } else if (query.equalsIgnoreCase("all")) {
 		  // Special Case: JSON request
 		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
-		  List<CDResult> resultList = mainManager.getCDResults();
+		  List<CDResult> resultList = cacheManager.getCDResults();
 		  String json = writer.writeValueAsString(resultList);
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
