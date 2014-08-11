@@ -17,6 +17,15 @@ public interface MainManager {
 	public List<CDResult> getCDResults();
 	
 	/**
+	 * Get the result needed for displaying the CDPipeline table for the plan
+	 * specified by the given playkey.
+	 * @param planKey of the plan to look for
+	 * @return the CDResult of the given plan. Return null if no plan can be
+	 *         found for the given plankey.
+	 */
+	public CDResult getCDResultForPlan(String planKey);
+	
+	/**
 	 * Get a list of Changes since the last pipeline completion for the plan 
 	 * specified by the given plankey.
 	 * 
