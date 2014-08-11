@@ -429,7 +429,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(2);
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.6, 5.0 / 3, 4.0 / 3, changes, buildNums);
+		checkExpected(buildList, 0.6, 1.67, 1.33, changes, buildNums); // 5.0 / 3 = 1.67, 4.0 / 3 = 1.33
 	}
 	
 	@Test
@@ -448,7 +448,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(3);
 		changes.add(2);
 		buildNums.add(2);
-		checkExpected(buildList, 0.6, 4.0/3, 1, changes, buildNums);
+		checkExpected(buildList, 0.6, 1.33, 1, changes, buildNums); // 4.0/3 = 1.33
 	}
 	
 	@Test

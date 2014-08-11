@@ -52,7 +52,7 @@ public class CompletionStats {
 	void addContributor(Contributor contributor) {
 		if(contributors.containsKey(contributor.getUsername())){
 			throw new IllegalArgumentException(contributor.getUsername() + " already exists in the Contributors List.");
-		}else{
+		} else {
 			contributors.put(contributor.getUsername(), contributor);
 		}
 	}
