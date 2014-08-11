@@ -42,46 +42,52 @@ public class CDPerformance {
 	}
 	
 	/**
-	 * Return success percentage calculated by total successes / total builds
+	 * Return success percentage calculated by total successes / total builds, 
+	 * rounded to 2 decimal places
 	 * If no build, return 0.
 	 * @return success percentage of this performance statistics, return 0 when
 	 *         there's no build
 	 */
 	public double getSuccessPercentage(){
-		if(totalBuild <= 0){
+		if (totalBuild <= 0) {
 			return 0;
 		}
-		return totalSuccess * 1.0 / totalBuild;
+		double percent = totalSuccess * 1.0 / totalBuild;
+		return Math.round(percent * 100.0) / 100.0;	
 	}
 	
 	/**
 	 * Return average changes from the creation of this plan to the recent completion,
-	 * calculated by total changes / total completions
+	 * calculated by total changes / total completions,
+	 * rounded to 2 decimal places
 	 * If there's no completions, return -1
 	 * @return average changes between completions
 	 */
 	public double getAverageChanges() {
-		if(completions.size() > 0){
-			return numChanges * 1.0 / completions.size();
-		}else{
+		if (completions.size() > 0) {
+			double changes = numChanges * 1.0 / completions.size();
+			return Math.round(changes * 100.0) / 100.0;	
+		} else {
 			return -1;
 		}
 	}
 	
 	/**
 	 * Return average frequency of completion from the creation of this plan to the
-	 * recent completion in days, calculated by total days / total completions
+	 * recent completion in days, calculated by total days / total completions,
+	 * rounded to 2 decimal places
 	 * If there's no completions, return -1
 	 * @return average days between completions
 	 */
 	public double getAverageFrequency() {
-		if(completions.size() > 0){
-			return totalDays * 1.0 / completions.size();
-		}else{
+		if (completions.size() > 0) {
+			double frequency = totalDays * 1.0 / completions.size();
+			return Math.round(frequency * 100.0) / 100.0;
+		} else {
 			return -1;
 		}
 	}
-	
+
 	/**
 	 * Return all completions of this performance statistics
 	 * @return list of completions of this performance statistics

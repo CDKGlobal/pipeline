@@ -109,7 +109,7 @@ public class CDPerformanceTest {
 		CDPerformance p = new CDPerformance(10, 1, 8, new Date(current.getTime() - 10000), current, completions);
 		assertEquals("The success percentage is not expected", 0.1, p.getSuccessPercentage(), 0.0);
 		assertEquals("The average changes is not expected", 8, p.getAverageChanges(), 0.0);
-		assertEquals("The average frequency is not expected", 10000.0 / (1000 * 60 * 60 * 24), p.getAverageFrequency(), 0.0);
+		assertEquals("The average frequency is not expected", 0.0, p.getAverageFrequency(), 0.0); // 10000.0 / (1000 * 60 * 60 * 24) =? 0.0 
 		assertEquals("The length of completion stats is not expected", 1, p.getCompletions().size());
 	}
 	
@@ -123,7 +123,7 @@ public class CDPerformanceTest {
 		CDPerformance p = new CDPerformance(10, 5, 30, new Date(current.getTime() - 30000), current, completions);
 		assertEquals("The success percentage is not expected", 0.5, p.getSuccessPercentage(), 0.0);
 		assertEquals("The average changes is not expected", 10, p.getAverageChanges(), 0.0);
-		assertEquals("The average frequency is not expected", 10000.0 / (1000 * 60 * 60 * 24), p.getAverageFrequency(), 0.0);
+		assertEquals("The average frequency is not expected", 0.0, p.getAverageFrequency(), 0.0); // 10000.0 / (1000 * 60 * 60 * 24) =? 0.0
 		assertEquals("The length of completion stats is not expected", 3, p.getCompletions().size());
 	}
 	
@@ -136,8 +136,8 @@ public class CDPerformanceTest {
 		completions.add(new CompletionStats(1, new Date(current.getTime() - 30000)));
 		CDPerformance p = new CDPerformance(10, 5, 30, new Date(current.getTime() - 30000), current, completions);
 		assertEquals("The success percentage is not expected", 0.5, p.getSuccessPercentage(), 0.0);
-		assertEquals("The average changes is not expected", 10, p.getAverageChanges(), 0.0);
-		assertEquals("The average frequency is not expected", 10000.0 / (1000 * 60 * 60 * 24), p.getAverageFrequency(), 0.0);
+		assertEquals("The average changes is not expected", 10, p.getAverageChanges(), 0.0); 
+		assertEquals("The average frequency is not expected", 0.0, p.getAverageFrequency(), 0.0); // 10000.0 / (1000 * 60 * 60 * 24) =? 0.0
 		assertEquals("The length of completion stats is not expected", 3, p.getCompletions().size());
 	}
 	
@@ -151,7 +151,7 @@ public class CDPerformanceTest {
 		CDPerformance p = new CDPerformance(10, 10, 100, new Date(current.getTime() - 100000), current, completions);
 		assertEquals("The success percentage is not expected", 1, p.getSuccessPercentage(), 0.0);
 		assertEquals("The average changes is not expected", 10, p.getAverageChanges(), 0.0);
-		assertEquals("The average frequency is not expected", 10000.0 / (1000 * 60 * 60 * 24), p.getAverageFrequency(), 0.0001);
+		assertEquals("The average frequency is not expected", 0.0, p.getAverageFrequency(), 0.0001); // 10000.0 / (1000 * 60 * 60 * 24) =? 0.0
 		assertEquals("The length of completion stats is not expected", 10, p.getCompletions().size());
 	}
 }
