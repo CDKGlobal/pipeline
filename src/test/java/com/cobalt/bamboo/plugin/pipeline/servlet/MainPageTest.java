@@ -18,6 +18,10 @@ import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.bamboo.plugin.pipeline.servlet.MainPage;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManager;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManagerImpl;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManagerImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -114,8 +118,12 @@ public class MainPageTest {
     	when(applinks.iterator()).thenReturn(applinksIter);
     	when(applinksIter.hasNext()).thenReturn(false);
     	
-    	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
-    			mock(PlanManager.class), mock(ResultsSummaryManager.class), 
-    			jiraApplinks, mock(PlanExecutionManager.class));
+    	MainManager mainManager = new MainManagerImpl(mock(PlanManager.class), mock(ResultsSummaryManager.class), 
+				jiraApplinks, mock(PlanExecutionManager.class));
+    	
+    	CacheManager cacheManager = new CacheManagerImpl(mainManager);
+    	
+    	
+    	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), cacheManager, mainManager);
     }
 }
