@@ -8,26 +8,42 @@ import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.ChainStageResult;
 import com.atlassian.bamboo.commit.Commit;
 import com.atlassian.bamboo.plan.ExecutionStatus;
+import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.progressbar.ProgressBar;
 import com.atlassian.bamboo.progressbar.ProgressBarImpl;
+import com.atlassian.bamboo.project.Project;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
+import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 
 public class CDResultFactory {
+	
+	private static final int MAX_BUILD_TO_GET = 10;
 	
 	/**
 	 * Return a CDResult with project name, plan name, days, changes, contributors info since
 	 * last deployment and current build information (name, last update time, pipeline stages
-	 * with status) based on the given projectName, planName and all builds when construct.
+	 * with status) based on the given plan and will get all builds from the given 
+	 * ResultsSummaryManager.
 	 * 
 	 * @return a fully constructed CDResult object
 	 */
-	public static CDResult createCDResult(String projectName, String planName, String projectKey,
-			   String planKey, List<ResultsSummary> buildList, ContributorBuilder contributorBuilder, 
-			   PlanExecutionManager planExecutionManager) {
-		if (projectName == null || planName == null || buildList == null
-				|| !planName.startsWith(projectName + " - ")) {
-			throw new IllegalArgumentException("Passed in null arguments or invalid plan name."
+	public static CDResult createCDResult(Plan plan, ContributorBuilder contributorBuilder, 
+			   PlanExecutionManager planExecutionManager, ResultsSummaryManager resultsSummaryManager) {
+		
+		if (plan == null) {
+			throw new IllegalArgumentException("Passed in null arguments.");
+		}
+		
+		String planName = plan.getName();
+		String planKey = plan.getKey();
+		
+		Project project = plan.getProject();
+		String projectName = project.getName();
+		String projectKey = project.getKey();
+		
+		if (projectName == null || planName == null || !planName.startsWith(projectName + " - ")) {
+			throw new IllegalArgumentException("Invalid plan name."
 					+ "(plan name should be in the format of \"[project] - [plan]\"");
 		}
 		
@@ -37,7 +53,15 @@ public class CDResultFactory {
 		
 		CDResult cdresult = new CDResult(projectName, strippedPlanName, projectKey, planKey);
 		
-		setLastDeploymentInfo(cdresult, buildList, contributorBuilder);
+		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 1);
+		if(buildList == null || buildList.size() <= 0){
+			// set special current build when there are no builds
+			Build currentBuild = new Build(null, null);
+			cdresult.setCurrentBuild(currentBuild);
+			return cdresult;
+		}
+		
+		setLastDeploymentInfo(cdresult, plan, resultsSummaryManager, contributorBuilder);
 		setCurrentBuildInfo(cdresult, buildList, planExecutionManager);
 		
 		return cdresult;
@@ -51,34 +75,49 @@ public class CDResultFactory {
 	 * If there are no last deployment, lastDeploymentTime will be default, and 
 	 * changes and contributors will be since the first build.
 	 */
-	protected static void setLastDeploymentInfo(CDResult cdresult, List<ResultsSummary> buildList, 
+	protected static void setLastDeploymentInfo(CDResult cdresult, Plan plan, ResultsSummaryManager resultsSummaryManager, 
 												ContributorBuilder contributorBuilder) {
-		// don't need to set anything if there are no builds at all
-		if(buildList == null || buildList.size() <= 0){
-			return;
-		}
-		
+
 		// At this point: at least one build in the build list
 		
 		int totalChanges = 0;
 		
+		List<ResultsSummary> partialList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 1);
+		// Do nothing if no builds in the build list
+		if(partialList == null || partialList.size() <= 0){
+			return;
+		}
+		
 		// add changes and contributors of the first build
 		// into cdresult
-		totalChanges += buildList.get(0).getCommits().size();
-		addAllAuthorsInCommits(cdresult, buildList.get(0).getCommits(), contributorBuilder);
+		totalChanges += partialList.get(0).getCommits().size();
+		addAllAuthorsInCommits(cdresult, partialList.get(0).getCommits(), contributorBuilder);
 		
-		for (int i = 1; i < buildList.size(); i++) { 
-			ChainResultsSummary currentBuild = (ChainResultsSummary) buildList.get(i);	
+		int startIndex = 1;
+		boolean found = false;
+		// get previous builds until reaching the end of builds
+		while(!found && (startIndex == 1 || partialList.size() >= MAX_BUILD_TO_GET)){
 			
-			// check if current build is the last deployment
-			if (!currentBuild.isContinuable() && currentBuild.isSuccessful()) {
-				cdresult.setLastDeploymentTime(currentBuild.getBuildCompletedDate()); 
-				break;
+			// get previous builds
+			partialList = resultsSummaryManager.getResultSummariesForPlan(plan, startIndex, MAX_BUILD_TO_GET);
+			
+			for (int i = 0; i < partialList.size(); i++) { 
+				ChainResultsSummary currentBuild = (ChainResultsSummary) partialList.get(i);	
+				
+				// check if current build is the last deployment
+				if (!currentBuild.isContinuable() && currentBuild.isSuccessful()) {
+					cdresult.setLastDeploymentTime(currentBuild.getBuildCompletedDate()); 
+					found = true;
+					break;
+				}
+				
+				List<Commit> commits = currentBuild.getCommits();
+				totalChanges += commits.size();
+				addAllAuthorsInCommits(cdresult, commits, contributorBuilder);
 			}
 			
-			List<Commit> commits = currentBuild.getCommits();
-			totalChanges += commits.size();
-			addAllAuthorsInCommits(cdresult, commits, contributorBuilder);
+			//update starting point
+			startIndex += MAX_BUILD_TO_GET;
 		}
 		
 		// set #changes (contributors and date are set in the progress)
