@@ -10,10 +10,8 @@ public class Change {
 	private int buildNumber;
 	private String comment;
 	private Date date;
-	private String timeElapsed;
 	private Set<String> files;
-	private String revisionNumber;
-	
+	private String revisionId;
 	
 	/**
 	 * Construct a Change object
@@ -26,14 +24,14 @@ public class Change {
 	 * @param revisionNumber	the revision number of the change
 	 */
 	public Change(String authorFullName, String authorPictureUrl, int buildNumber, String comment,
-					Date date, Set<String> files, String revisionNumber) {
+					Date date, Set<String> files, String revisionId) {
         this.authorFullName = authorFullName;
 		this.authorPictureUrl = authorPictureUrl;
 		this.buildNumber = buildNumber;
 		this.comment = comment;
 		this.date = date;
 		this.files = files;
-		this.revisionNumber = revisionNumber;
+		this.revisionId = revisionId;
 	}
 
 	/**
@@ -90,20 +88,18 @@ public class Change {
 		int yearDiff = today.getYear() - date.getYear();
 			
 		if (yearDiff == 0 && monthDiff == 0 && dayDiff == 0 && hourDiff == 0 && minuteDiff == 0) {
-			timeElapsed = "Just now";
+			return "Just now";
 		} else if (yearDiff == 0 && monthDiff == 0 && dayDiff == 0 && hourDiff == 0) {
-			timeElapsed = String.format("%d minute%s ago", minuteDiff, minuteDiff > 1 ? "s" : "");
+			return String.format("%d minute%s ago", minuteDiff, minuteDiff > 1 ? "s" : "");
 		} else if (yearDiff == 0 && monthDiff == 0 && dayDiff == 0) {
-			timeElapsed = String.format("%d hour%s ago", hourDiff, hourDiff > 1 ? "s" : "");
+			return String.format("%d hour%s ago", hourDiff, hourDiff > 1 ? "s" : "");
 		} else if (yearDiff == 0 && monthDiff == 0) {
-			timeElapsed = String.format("%d day%s ago", dayDiff, dayDiff > 1 ? "s" : "");
+			return String.format("%d day%s ago", dayDiff, dayDiff > 1 ? "s" : "");
 		} else if (yearDiff == 0) {
-			timeElapsed = String.format("%d month%s ago", monthDiff, monthDiff > 1 ? "s" : "");
+			return String.format("%d month%s ago", monthDiff, monthDiff > 1 ? "s" : "");
 		} else {
-			timeElapsed = String.format("%d year%s ago", yearDiff, yearDiff > 1 ? "s" : "");
+			return String.format("%d year%s ago", yearDiff, yearDiff > 1 ? "s" : "");
 		}
-		
-		return timeElapsed;
 	}
 	
 	/**
@@ -119,6 +115,6 @@ public class Change {
 	 * @return the revision number of the change
 	 */
 	public String getRevisionNumber() {
-		return revisionNumber;
+		return revisionId;
 	}
 }
