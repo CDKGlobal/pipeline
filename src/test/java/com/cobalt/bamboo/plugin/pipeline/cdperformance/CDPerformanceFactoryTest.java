@@ -477,6 +477,7 @@ public class CDPerformanceFactoryTest {
 	private void checkExpected(List<ResultsSummary> list, double percentage, double changes, double frequency, 
 								List<Integer> completionsChanges, List<Integer> buildNumbers){
 		CDPerformance cdp = CDPerformanceFactory.createCDPerformance(list, cb);
+		changes = Math.round(changes * 100.0) / 100.0;	
 		assertEquals("Success percentage isn't as expected", percentage, cdp.getSuccessPercentage(), 0.0001);
 		assertEquals("Average changes isn't as expected", changes, cdp.getAverageChanges(), 0.0001);
 		assertEquals("Average frequency isn't as expected", frequency, cdp.getAverageFrequency(), 0.0001);
