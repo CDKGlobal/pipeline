@@ -62,7 +62,7 @@ public class MainPage extends HttpServlet{
 	  } else if (query.equalsIgnoreCase("all")) {
 		  // Special Case: JSON request
 		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
-		  List<CDResult> resultList = cacheManager.getCDResults();
+		  List<CDResult> resultList = cacheManager.getAllCDResult();
 		  String json = writer.writeValueAsString(resultList);
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);

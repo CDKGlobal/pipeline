@@ -15,6 +15,7 @@ import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
+import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.bamboo.plugin.pipeline.servlet.MainPage;
@@ -121,7 +122,7 @@ public class MainPageTest {
     	MainManager mainManager = new MainManagerImpl(mock(PlanManager.class), mock(ResultsSummaryManager.class), 
 				jiraApplinks, mock(PlanExecutionManager.class));
     	
-    	CacheManager cacheManager = new CacheManagerImpl(mainManager);
+    	CacheManager cacheManager = new CacheManagerImpl(mainManager, mock(TransactionTemplate.class));
     	
     	
     	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), cacheManager, mainManager);
