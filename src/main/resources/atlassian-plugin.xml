@@ -58,6 +58,8 @@
   
   <component-import key="planExecutionManager" interface="com.atlassian.bamboo.plan.PlanExecutionManager" />
   <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
+  
+  <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
    
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.bamboo.plugin.pipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>
