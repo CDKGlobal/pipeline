@@ -71,6 +71,14 @@ public class CDPerformance {
 			return -1;
 		}
 	}
+
+	public double getSuccessPercentageFormatted(){
+		if (totalBuild <= 0) {
+			return 0;
+		}
+		double percent = totalSuccess * 1.0 / totalBuild;
+		return Math.round(percent * 100.0);	
+	}
 	
 	/**
 	 * Return average frequency of completion from the creation of this plan to the
