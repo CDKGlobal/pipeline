@@ -40,6 +40,11 @@
   <component key="mainManager" class="com.cobalt.bamboo.plugin.pipeline.Controllers.MainManagerImpl" public="true">
   	<interface>com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager</interface>
   </component>
+  <component key="schedulerComponent" class="com.cobalt.bamboo.plugin.pipeline.Controllers.CacheRefreshMonitorImpl"
+             system="true" public="true">
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+        <interface>com.cobalt.bamboo.plugin.pipeline.Controllers.CacheRefreshMonitor</interface>
+  </component>
   <!-- import from the product container -->
   <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
   <web-item name="Pipeline" i18n-name-key="cd-pipeline.name" key="cd-pipeline" section="header.global.primary" weight="1000">
@@ -60,6 +65,11 @@
   <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
   
   <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
+  
+  <component-import key="pluginScheduler">
+  	<description>SAL Scheduler</description>
+  	<interface>com.atlassian.sal.api.scheduling.PluginScheduler</interface>
+  </component-import>
    
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.bamboo.plugin.pipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>
