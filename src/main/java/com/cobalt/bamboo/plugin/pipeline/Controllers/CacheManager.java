@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 
+/**
+ * CacheManager manages all activities for cache.
+ */
 public interface CacheManager {
 	
 	/**
