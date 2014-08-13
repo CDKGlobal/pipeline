@@ -62,7 +62,6 @@
   <component-import key="jiraApplinksService" interface="com.atlassian.bamboo.applinks.JiraApplinksService" />
   
   <component-import key="planExecutionManager" interface="com.atlassian.bamboo.plan.PlanExecutionManager" />
-  <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
   
   <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
   
@@ -80,9 +79,4 @@
                class="com.cobalt.bamboo.plugin.pipeline.Controllers.BuildActivityListener">
     <description>Listens for if a build has any activity.</description>
   </bambooEventListener>
-  
-  <preBuildAction key="buildStartedEvenKicker" name="BuildStartedEvent Kicker"
-                  class="com.cobalt.bamboo.plugin.pipeline.Controllers.BuildStartedEventKicker">
-    <description>A custom action that fires a build start event before a job executes.</description>
-  </preBuildAction>
 </atlassian-plugin>
