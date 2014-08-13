@@ -65,7 +65,7 @@ public class Build {
 				}
 			} else if (buildResult.isFailed()) {
 				return CDPipelineState.CD_FAILED;
-			} else if (buildResult.isInProgress()) {
+			} else if (buildResult.isInProgress() || getPercentageCompleted() > 0) {
 				return CDPipelineState.CD_IN_PROGRESS;
 			} else if (buildResult.isQueued()) {
 				return CDPipelineState.CD_QUEUED;
