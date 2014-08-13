@@ -247,7 +247,7 @@
 			</script>
 
 			<!-- link to copy -->
-			<div id='copy_this_text' ng-hide="true">{{ fullURL }}{{ searchString }}</div>
+			<div id='copy_this_text' ng-hide="true" ng-cloak >{{ fullURL }}{{ searchString }}</div>
 
 			<!-- search button --> 
 	       	<div id="search" ng-hide="searchbar">
@@ -259,7 +259,7 @@
 			<a href="#" id="scroll-to-top"><i class="fa fa-angle-up fa-2x"></i></a>
 
 			<!-- board section to display all plan's initial info -->
-	        <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
+	        <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}"  ng-cloak>
 
 	     	 	<div id="unloadedBoard" ng-hide="dataLoaded">
 	     			<div class="loader">loading...</div>
