@@ -533,11 +533,37 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 	padding: 5px;
 }
 
-#menu li a:hover{
+#menu li a:hover, #copy-button.zeroclipboard-is-hover {
 	background: #47a3da;
 	color: #fff;
 }
 
+#copy-button.zeroclipboard-is-hover a {
+	color: #fff;
+}
+
+/*-------------------------
+	copy alert
+--------------------------*/
+
+.alert span {
+	border: 1px solid gray;
+	background-color: #f5f5f5;
+	padding: 3px;
+	font-size: 8pt;
+	border-radius: 3px;
+	color: #707070;
+}
+
+#copyAlertStyle {
+	position: fixed;
+	z-index: 5;
+	top: 15px;
+	right: 15px;
+	width: 450px;
+	text-align: center;
+	display: none;
+}
 
 /*-------------------------
 	modal window
@@ -637,7 +663,7 @@ iframe {
 	-ms-transition: all 0.35s;   
     position: fixed;
   	left: 0px;	
-	top: 260px;
+	top: 315px;
 	background: #ebf2f9;		
 	height: 55px;
 	width: 55px;
@@ -666,8 +692,7 @@ iframe {
 	left: 100px;
 }
 
-input[type="text"] {
-	width: 0;
+input {
 	height: 35px;
 	color: #999;
 	font-size: 14px;
@@ -681,6 +706,14 @@ input[type="text"] {
 	-webkit-transition: all 0.25s;
 	-o-transition: all 0.25s;
 	-ms-transition: all 0.25s;
+}
+
+#search input {
+	width: 0px;
+}
+
+#copyField {
+	width: 400px;
 }
 
 input[type="text"]:focus {

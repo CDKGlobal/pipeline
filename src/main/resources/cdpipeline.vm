@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 	<!-- main page of the CDPipeline plugin which displays relevant information on builds-->
 	<head>
-		<title>Pipeline</title> <!-- update once we have an agreed name -->
+		<title>Pipeline</title>
 		<meta name="decorator" content="atl.general">
-		    <meta charset="UTF-8">
+		<meta charset="UTF-8">
 		
 		<!-- css -->
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +12,7 @@
 		<!-- scripts -->
 		${webResourceManager.requireResource("com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources")}
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.min.js"></script>
 	</head>
 
 
@@ -221,13 +221,37 @@
 			<div>
 				<ul id="menu">
 					<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
-					<li ng-click="modalOpenContent('sm', '', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
+					<li ng-click="modalOpenContent('sm', '', '', 'Info.html','')"><a><i class="fa fa-question fa-2x"></i></a></li>
+					<li id="copy-button" ng-click="modalOpenContent('sm','','', 'Copy.html', searchString)"><a><i id="linkIcon" class="fa fa-link fa-2x"></i></a></li>		
+					<li ng-click="goHome()" ng-show="homeButton"><a><i class="fa fa-home fa-2x"></i></a></li>			
 				</ul>
 			</div>
 
+			<!-- FLASH copy alert -->
+			<div id='copyAlertStyle' class='alert alert-info' role='alert'><strong><i class='fa fa-link fa-spin'></i> Link saved to your clipboard (press <span>CTRL/CMD-V</span> to paste)</strong></div>
+
+			<!-- NO FLASH copy alert -->
+			<script type="text/ng-template" id="Copy.html">
+				<div class="modal-body">
+		        	<div class="about-page">
+			        	<header>
+				        	<h3>
+				        		<i class='fa fa-link'></i> Copyable Link
+				        	</h3>
+			        	</header>
+			        	<content>
+			    			<p><input id="copyField" type="text" value="{{ fullURL }}{{searchParam}}" onClick="selectText(this);"/></p>
+			        	</content>
+			        </div>
+		        </div>
+			</script>
+
+			<!-- link to copy -->
+			<div id='copy_this_text' ng-hide="true">{{ fullURL }}{{ searchString }}</div>
+
 			<!-- search button --> 
-	       	<div id="search">
-	        	<input ng-model="searchString" placeholder="Enter a plan/project/person" type="text">
+	       	<div id="search" ng-hide="searchbar">
+	        	<input id="searchbar" ng-model="searchString" placeholder="Enter a plan/project/person" type="text">
 	          	<i class='fa fa-search fa-2x'></i>
 	     	</div>
 	     	
@@ -238,7 +262,7 @@
 	        <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
 
 	     	 	<div id="unloadedBoard" ng-hide="dataLoaded">
-	     			<div class="loader">Loading...</div>
+	     			<div class="loader">loading...</div>
 					<div id="loadingText">loading...</div>
 	       		</div>
 
