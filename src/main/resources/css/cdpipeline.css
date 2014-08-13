@@ -559,6 +559,7 @@ div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
 .modal-content, .modal-body {
 	height: 100% !important;
 	padding: 0 !important;
+	min-height: 470px !important;
 }
 
 a#closeIcon {
@@ -796,7 +797,7 @@ input[type="text"]:focus {
 	position: relative;
 	top: 60px;
 	left: 5%;
-	height: 90%;
+	height: 87%;
 	width: 90%;
 	overflow: scroll;
 	padding: 20px;
@@ -900,7 +901,6 @@ p {
     background: #ebf2f9;
 }
 
-
 .comment-body:hover .text:before {
     background: #ebf2f9;
 }
@@ -989,6 +989,7 @@ p {
     position: relative;
     max-height: 0px;
     padding-bottom: 10px;
+    background: white;
 }
 
 #change-table td, #change-table th {
@@ -1035,18 +1036,21 @@ p {
 	top: 162px;
 }
 
-#changes-window button:disabled {
+#changes-window button:disabled, 
+#completions-window button:disabled {
 	opacity: 0.65; 	
 	color: #cccccc;
 }
 
-#changes-window button:active {
+#changes-window button:active,
+#completions-window button:active {
 	background-color: #d0d3d6;
 	background-image: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0));
 	box-shadow: inset 0 0 2px rgba(0,0,0,.2), inset 0 2px 5px rgba(0,0,0,.2), 0 1px rgba(255,255,255,.2);
 }
 
-#changes-window button {
+#changes-window button,
+#completions-window button {
 	border: 0px;
 	background: white;
 	vertical-align: center;
@@ -1060,4 +1064,312 @@ p {
 
 #select-table-button {
 	display: none;
+}
+
+
+/*------------------------------------
+	list of completions
+--------------------------------------*/
+.completions-page {
+	position: relative;
+	top: 60px;
+	left: 5%;
+	height: 90%;
+	width: 70%;
+	overflow: scroll;
+	padding: 20px;
+	padding-bottom: 50px;
+}
+
+.completions-page td, .completions-page th {
+	padding: 5px;	
+}
+
+.deploy-label a {
+	color: white !important;
+	text-decoration: none;
+}
+
+#completions-window #select-table-button {
+	display: block;
+	border: 0px;
+	background: white;
+	vertical-align: center;
+	text-decoration: none;
+	background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.1));
+	border-radius: 3px;
+	color: black;
+	text-shadow: 0 1px 1px rgba(255,255,255,.7);
+	box-shadow: 0 0 0 1px rgba(0,0,0,.2), 0 1px 2px rgba(0,0,0,.2), inset 0 1px 2px rgba(255,255,255,.7);
+}
+
+#completions-window {
+	background: #f5f5f5;	
+}
+
+#completions-table {
+	position: relative;
+	top: 5%;
+	overflow: scroll;
+	padding-bottom: 40px;
+}
+
+#completions-table thead {
+	position: fixed; 
+	top: 67px;
+	background: #f5f5f5;
+	padding-top: 7px;
+	width: 66%;	
+	border-bottom: 2px solid black;
+}
+
+#comp-table-header {
+	width: 700px;
+}
+
+#completions-table tbody {
+  	overflow: scroll;
+  	height: 550px;
+  	width: 100%;
+}
+
+th.comp-buildNumber {	
+	padding-right: 30px;
+}
+
+th.comp-numChanges {
+	padding-right: 15px;
+}
+
+.comp-buildNumber, .comp-numChanges {
+	width: 10%;
+}
+
+.comp-date {
+	width: 25%;
+}
+
+.comp-contributors {
+	width: 40%;
+}
+
+.comp-stat {
+	width: 250px;
+	position: fixed;
+	top: 110px;
+	right: 30px;
+	font-size: 13px;
+	padding: 5px;
+}	
+
+stat {
+	font-size: 30px;
+	color: #3b73af;
+	padding-bottom: 30px;
+}
+
+/* event view */
+
+.list-container {
+	left: 0;
+	width: 700px;
+	margin-top: 100px; /* todo */
+}
+
+#completions-list {
+	padding-left:.1em;
+	width: 95%;
+	list-style-type: none;
+}
+
+#completions-list li {
+	margin: 2px 0px;
+	padding: .75em;
+	border-right: .1em solid #eee;
+	border-bottom: .1em solid #eee;
+	border-top: .1em solid #eee;
+    border-left: .15em solid #ddd;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	-ms-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+	height: 70px;
+	background: white;
+}
+        
+#completions-list li::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#completions-list li:hover {
+	border-right: .15em solid #ddd;
+	border-bottom: .15em solid #d5d5d5;
+	border-left: .2em solid #3b73af;
+    -webkit-transform: translate3d(0,0,0,);
+	transform: translate3d(0,0,0,);
+	-webkit-transform: scale(1.025, 1.025);
+	-moz-transform: scale(1.025, 1.025);
+	-o-transform: scale(1.025, 1.025);
+	-ms-transform: scale(1.025, 1.025);
+	transform: scale(1.025, 1.025);
+}
+
+#completions-list li .date {
+	float: left;
+ 	max-width: 20%;
+	text-align: center;    
+	display: block;
+    margin: 10px;
+	color: #3b73af;
+	font-size: 30px;
+	line-height: .75em;
+	margin-left: 10px;
+	margin-right: 30px;
+}
+
+#completions-list li .item-info {
+	float: left;
+	max-width: 82%
+}
+        
+#completions-list li .comp-list-date {
+   	color: #555;
+	font-size: 12px;
+	-webkit-transition: all 0.2s ease;
+   	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	-ms-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+	display: block;
+	float: right;        
+}
+        
+#completions-list li .item-info p.description {
+	display: block;
+	width: 100%;
+	color: #555;
+	font-size: 12px;
+}
+        
+#completions-list img {
+ 	margin-right: 4px;
+ }
+
+#completions-table {
+	display: none;
+}
+
+#completions-window img {
+	border-radius: 3px;
+}
+
+/* notepad */
+/*
+ * Copyright (c) 2012-2013 Thibaut Courouble
+ * http://www.cssflow.com
+ * Licensed under the MIT License
+ *
+ * Sass/SCSS source: http://goo.gl/uNEZ0
+ * PSD by Mathieu Berenguer: http://goo.gl/WYgk5
+ */
+
+/* Note: I didn't use borders because WebKit extends shadows underneath them, creating inconsistencies with other browsers. When the border is semi-transparent, as this snippet requires, it appears darker because of the shadow underneath it. */
+
+.notepad, .notepad:before, .notepad:after {
+  	background-color: white;
+  	background-image: -webkit-linear-gradient(#f6abca 1px, transparent 1px), -webkit-linear-gradient(#f6abca 1px, transparent 1px), -webkit-linear-gradient(#e8e8e8 1px, transparent 1px);
+  	background-image: -moz-linear-gradient(#f6abca 1px, transparent 1px), -moz-linear-gradient(#f6abca 1px, transparent 1px), -moz-linear-gradient(#e8e8e8 1px, transparent 1px);
+  	background-image: -o-linear-gradient(#f6abca 1px, transparent 1px), -o-linear-gradient(#f6abca 1px, transparent 1px), -o-linear-gradient(#e8e8e8 1px, transparent 1px);
+ 	 background-image: linear-gradient(#f6abca 1px, transparent 1px), linear-gradient(#f6abca 1px, transparent 1px), linear-gradient(#e8e8e8 1px, transparent 1px);
+  	background-size: 1px 1px, 1px 1px, 23px 23px;
+  	background-repeat: repeat-y, repeat-y, repeat;
+  	background-position: 22px 0, 24px 0, 0 50px;
+  	border-radius: 2px;
+  	-webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 4px rgba(0, 0, 0, 0.5);
+  	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.notepad {
+  	position: relative;
+  	margin: 30px auto;
+  	padding: 0 23px 14px 35px;
+  	width: 250px;
+  	line-height: 23px;
+  	font-size: 12px;
+  	color: #666;
+}
+
+.notepad p, .notepad blockquote {
+  	margin-bottom: 23px;
+}
+
+.notepad :last-child {
+  	margin-bottom: 0;
+}
+
+.notepad:before, .notepad:after {
+  	content: '';
+  	position: absolute;
+  	z-index: -1;
+  	top: 100%;
+  	left: 3px;
+  	right: 3px;
+  	margin-top: -2px;
+  	height: 4px;
+  	background-size: 1px 1px, 1px 1px, 0 0;
+}
+
+.notepad:before {
+  	z-index: -2;
+  	left: 6px;
+  	right: 6px;
+ 	height: 6px;
+  	background-color: #eee;
+}
+
+.notepad-heading {
+  	position: relative;
+  	margin: 0 -23px 14px -35px;
+  	height: 38px;
+  	background: #14466a;
+  	border-radius: 2px 2px 0 0; 
+  	background-image: -webkit-linear-gradient(top, #226797, #0c3452);
+  	background-image: -moz-linear-gradient(top, #226797, #0c3452);
+  	background-image: -o-linear-gradient(top, #226797, #0c3452);
+  	background-image: linear-gradient(to bottom, #226797, #0c3452);
+  	-webkit-box-shadow: inset 0 1px #2f81ad, 0 2px 1px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.5), 0 1px black;
+  	box-shadow: inset 0 1px #2f81ad, 0 2px 1px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.5), 0 1px black;
+}
+
+.notepad-heading > h1 {
+  	line-height: 36px;
+  	font-size: 17px;
+  	color: white;
+  	text-align: center;
+  	text-shadow: 0 -1px rgba(0, 0, 0, 0.7);
+}
+
+.notepad-heading:before, .notepad-heading:after {
+  	content: '';
+  	position: absolute;
+  	bottom: 2px;
+  	left: 1px;
+  	right: 1px;
+  	height: 0;
+  	border-top: 1px dashed #617c90;
+  	border-color: rgba(255, 255, 255, 0.35);
+}
+
+.notepad-heading:after {
+  	bottom: 3px;
+  	border-color: #071c2c;
+ 	border-color: rgba(0, 0, 0, 0.5);
+}
+
+.statline {
+	padding: 0px;
+	padding-bottom: 12px;
 }

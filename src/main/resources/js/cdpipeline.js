@@ -18,9 +18,9 @@ jQuery(document).ready(function() {
 });
 
 // Show the 'changes since last completion' in list view
-function showListView() {
-	document.getElementById("change-table").style.display = "none";
-	document.getElementById("change-list").style.display = "table";
+function showListView(list, table) {
+	document.getElementById(table).style.display = "none";
+	document.getElementById(list).style.display = "table";
 	document.getElementById("list-view-button").disabled = true;
 	document.getElementById("table-view-button").disabled = false;
 	document.getElementById("select-table-button").style.display = "none";
@@ -28,14 +28,13 @@ function showListView() {
 }
 
 // Show the 'changes since last completion' in table view
-function showTableView() {
-	document.getElementById("change-table").style.display = "table";
-	document.getElementById("change-list").style.display = "none";
+function showTableView(table, list) {
+	document.getElementById(table).style.display = "table";
+	document.getElementById(list).style.display = "none";
 	document.getElementById("list-view-button").disabled = false;
 	document.getElementById("table-view-button").disabled = true;
 	document.getElementById("select-table-button").style.display = "block";
 	document.getElementById("select-table-button").disabled = false;
-
 }
 
 // Show the 'changes since last completion' from the table
@@ -58,4 +57,6 @@ function selectTable(el) {
         range.select();
     }
 }
-
+function cli() {
+document.getElementById("test").style.background = "red";
+};
