@@ -23,7 +23,9 @@ public class BuildActivityListener implements HibernateEventListener {
 
 	@Override
 	public void handleEvent(Event event) {
-		
+		// Only need to listen to BuildQueuedEvent and ChainCompletedEvent because
+		// we stored the ResultsSummary in Build and ChainStageResult in PipelineStage,
+		// so the build states and status are directly fetched on the fly
 		if (event instanceof BuildQueuedEvent) {
 			BuildQueuedEvent e = (BuildQueuedEvent) event;
 			
