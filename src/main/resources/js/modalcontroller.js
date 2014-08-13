@@ -33,9 +33,9 @@ plugin.controller("ModalController", function ($scope, $modal, $window, $http, $
   $scope.modalOpenContent = function (size, dataType, result, modalContent) {
     $scope.contentData = {};
     if(dataType != ''){
-      $scope.contentData = { planName: result.planName, numChanges: result.numChanges, changes: {}};
+      $scope.contentData = { planName: result.planName, numChanges: result.numChanges, resultData: {}};
       $http.get('?data=' + dataType + '&plankey=' + result.planKey).then( function(r) {
-        $scope.contentData.changes = r.data;
+        $scope.contentData.resultData = r.data;
         $rootScope.dataLoaded = true;
       });
     }

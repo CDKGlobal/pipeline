@@ -7,6 +7,7 @@ import java.util.List;
 
 public class CDPerformance {
 	private int totalBuild;
+	private double upPercentage;
 	private int totalSuccess;
 	private int numChanges;
 	private List<CompletionStats> completions;
@@ -23,7 +24,8 @@ public class CDPerformance {
 	 * @param lastCompletionDate completed date of the most recent completion
 	 * @param completions all completions within this plan
 	 */
-	public CDPerformance(int totalBuild, int totalSuccess, int numChanges, Date startDate, Date lastCompletionDate, List<CompletionStats> completions){
+	public CDPerformance(int totalBuild, int totalSuccess, int numChanges, Date startDate, Date lastCompletionDate,
+						Date currentDate, List<CompletionStats> completions, long successTime){
 		if(totalBuild < totalSuccess){
 			throw new IllegalArgumentException("Total successes should not be greater than total builds");
 		}
@@ -39,6 +41,14 @@ public class CDPerformance {
 		}else{
 			totalDays = -1;
 		}
+		
+		if(startDate != null && currentDate != null){
+			if(currentDate.compareTo(startDate) < 0){
+				throw new IllegalArgumentException("Current date should not be before start date");
+			}
+			this.upPercentage = successTime * 1.0 / (currentDate.getTime() - startDate.getTime());
+		}
+		
 	}
 	
 	/**
@@ -65,8 +75,7 @@ public class CDPerformance {
 	 */
 	public double getAverageChanges() {
 		if (completions.size() > 0) {
-			double changes = numChanges * 1.0 / completions.size();
-			return Math.round(changes * 100.0) / 100.0;	
+			return numChanges * 1.0 / completions.size();
 		} else {
 			return -1;
 		}
@@ -76,8 +85,7 @@ public class CDPerformance {
 		if (totalBuild <= 0) {
 			return 0;
 		}
-		double percent = totalSuccess * 1.0 / totalBuild;
-		return Math.round(percent * 100.0);	
+		return totalSuccess * 1.0 / totalBuild;
 	}
 	
 	/**
@@ -89,8 +97,7 @@ public class CDPerformance {
 	 */
 	public double getAverageFrequency() {
 		if (completions.size() > 0) {
-			double frequency = totalDays * 1.0 / completions.size();
-			return Math.round(frequency * 100.0) / 100.0;
+			return totalDays * 1.0 / completions.size();
 		} else {
 			return -1;
 		}
@@ -102,5 +109,13 @@ public class CDPerformance {
 	 */
 	public List<CompletionStats> getCompletions() {
 		return Collections.unmodifiableList(completions);
+	}
+	
+	/**
+	 * Return the up time percentage of the whole history
+	 * @return the success time period percentage of the whole history
+	 */
+	public double getUpPercentage() {
+		return upPercentage;
 	}
 }
