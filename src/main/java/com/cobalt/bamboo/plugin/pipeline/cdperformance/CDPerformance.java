@@ -75,8 +75,7 @@ public class CDPerformance {
 	 */
 	public double getAverageChanges() {
 		if (completions.size() > 0) {
-			double changes = numChanges * 1.0 / completions.size();
-			return Math.round(changes * 100.0) / 100.0;	
+			return numChanges * 1.0 / completions.size();
 		} else {
 			return -1;
 		}
@@ -86,8 +85,7 @@ public class CDPerformance {
 		if (totalBuild <= 0) {
 			return 0;
 		}
-		double percent = totalSuccess * 1.0 / totalBuild;
-		return Math.round(percent * 100.0);	
+		return totalSuccess * 1.0 / totalBuild;
 	}
 	
 	/**
@@ -99,8 +97,7 @@ public class CDPerformance {
 	 */
 	public double getAverageFrequency() {
 		if (completions.size() > 0) {
-			double frequency = totalDays * 1.0 / completions.size();
-			return Math.round(frequency * 100.0) / 100.0;
+			return totalDays * 1.0 / completions.size();
 		} else {
 			return -1;
 		}
