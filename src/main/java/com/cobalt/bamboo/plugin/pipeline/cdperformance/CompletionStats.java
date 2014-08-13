@@ -1,5 +1,6 @@
 package com.cobalt.bamboo.plugin.pipeline.cdperformance;
 
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -101,25 +102,8 @@ public class CompletionStats {
 	 * Return the completed date of this completion with format
 	 * @return completed data of this completion
 	 */
-	public String getCompletedDate(){
-		
-//		return completedDate.getHours() + " " + completedDate.getMinutes() + " " 
-//				+ completedDate.getMonth() + " " + completedDate.getDate() + " " + completedDate.getYear();
-		//return completedDate.toString();
-		Date today = new Date();
-		if (completedDate.getDate() != today.getDate()) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
-			String formattedDate = dateFormat.format(completedDate).toString();		
-			if (completedDate.getHours() < 10) {
-				formattedDate = formattedDate.substring(1);
-			} 
-			return formattedDate;
-		} else {	
-			DateFormatSymbols dfs = new DateFormatSymbols();
-			String[] months = dfs.getMonths();
-         	String month = months[completedDate.getMonth()];		
-			return month + " " + completedDate.getDate();
-		}
+	public Date getCompletedDate(){
+		return completedDate;
 	}
 	
 	/**
