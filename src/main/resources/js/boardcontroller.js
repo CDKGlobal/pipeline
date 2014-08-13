@@ -1,8 +1,28 @@
 //controller and any services relating to the main boaard
 plugin.controller("BoardController", function ($scope, autoRefresh, $rootScope) {
-	$scope.projectName = "CDPipeline";
+	$scope.projectName = "Pipeline";
 	$scope.results = autoRefresh.data;
 	$rootScope.dataLoaded = false;
+	$rootScope.searchbar = false;
+	$rootScope.homeButton = false;
+
+	//create copying link
+	var currentURL = window.location.href;
+	var urlTruncate = currentURL.indexOf("?");
+
+	if (urlTruncate != -1) {
+		$rootScope.searchbar = true;
+		$rootScope.homeButton = true;
+		var urlNum = currentURL.indexOf("=");
+		if (urlNum != -1) {
+			$scope.searchString = decodeURIComponent(currentURL.substring(urlNum + 1));
+		}
+		$rootScope.fullURL = currentURL;
+	}
+
+	else {
+		$rootScope.fullURL = currentURL + "?search=";
+	}
 });
 
 //polls a REST endpoint every five seconds and automatically refreshes
@@ -30,7 +50,7 @@ plugin.filter("emptyToEnd", function () {
             return item[key];
         });
         var empty = array.filter(function (item) {
-            return !item[key]
+            return !item[key];
         });
 		return present.concat(empty);
 	};
@@ -107,6 +127,6 @@ plugin.filter('percentageLimit', function(){
 		} else {
 			return 100;
 		}
-	}
-})
+	};
+});
 
