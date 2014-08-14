@@ -67,13 +67,13 @@
 						<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
 					</div>
 					<!-- buttons for switching between 2 views of the change list -->
-					<button type="button" value="return" onclick="showListView('change-list', 'change-table');" id="list-view-button" disabled="disabled"  title="List view">
+					<button type="button" value="return" onclick="showListView('change-list', 'change-table');" class="list-view-button" disabled="disabled"  title="List view">
 						<i class="fa fa-list-ul fa-2x"></i>
 					</button>
-					<button type="button" value="return" onclick="showTableView('change-table', 'change-list');" id="table-view-button" title="Table view">
+					<button type="button" value="return" onclick="showTableView('change-table', 'change-list');" class="table-view-button" title="Table view">
 						<i class="fa fa-table fa-2x"></i>
 					</button>
-					<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" id="select-table-button" title="Select the table">
+					<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" class="select-table-button" title="Select the table">
 						<i class="fa fa-files-o fa-2x"></i>
 					</button>
 											
@@ -108,8 +108,8 @@
      							 </div>
       							 <div class="comment-body">
         							<div class="text">
-          								<p>{{ change.comment }}</p>
-          								<span class="change-revision" tooltip="Revision ID"> #{{ change.revisionNumber }} </span>        				    			
+          								<p class="change-comment">{{ change.comment }}</p>
+          								<span class="change-revision" tooltip="Revision ID"> {{ change.revisionNumber }} </span>        				    			
           								<span ng-switch="change.files.length">
 											<span ng-switch-when="0">No file committed</span>
 											<span ng-switch-default>
@@ -157,13 +157,13 @@
 					</div>
 					
 					<!-- buttons for switching between 2 views of the completion list -->
-					<button type="button" value="return" onclick="showListView('comp-list', 'comp-table');" id="list-view-button" disabled="disabled"  title="List view">
+					<button type="button" value="return" onclick="showListView('comp-list', 'comp-table');" class="list-view-button" disabled="disabled"  title="List view">
 						<i class="fa fa-list-ul fa-2x"></i>
 					</button>
-					<button type="button" value="return" onclick="showTableView('comp-table', 'comp-list');" id="table-view-button" title="Table view">
+					<button type="button" value="return" onclick="showTableView('comp-table', 'comp-list');" class="table-view-button" title="Table view">
 						<i class="fa fa-table fa-2x"></i>
 					</button>		
-					<button type="button" value="select" onclick="selectTable(document.getElementById('comp-table'));" id="select-table-button" title="Select the table">
+					<button type="button" value="select" onclick="selectTable(document.getElementById('comp-table'));" class="select-table-button" title="Select the table">
 						<i class="fa fa-files-o fa-2x"></i>
 					</button>
 					
@@ -183,7 +183,7 @@
 						      		<td> {{ completion.numChanges }} </td>
 						      		<td> {{ completion.completedDate | date:'medium' }} </td>
 						      		<td>  
-										<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> {{ contributor.fullname }} </span>
+										<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> <u>{{ contributor.fullname }}</u> </span>
 									</td>
 						    	</tr>
 						  	</tbody>    
