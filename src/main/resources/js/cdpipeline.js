@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
 		event.preventDefault();
 		jQuery('html, body').animate({scrollTop: 0}, duration);
 		return false;
-	})
+	});
 });
 
 // Show the 'changes since last completion' in list view
