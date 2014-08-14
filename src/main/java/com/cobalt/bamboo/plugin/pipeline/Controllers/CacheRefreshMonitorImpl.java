@@ -69,7 +69,7 @@ public class CacheRefreshMonitorImpl implements CacheRefreshMonitor, LifecycleAw
 		// Change the authentication to be system authority
 		Authentication oldAuthentication = SecurityContextHolder.getContext().getAuthentication();
 		SecurityContextHolder.getContext().setAuthentication(BambooPermissionManager.SYSTEM_AUTHORITY);
-		cacheManager.putAllCDResult();
+		cacheManager.putAllWallBoardData();
 		
 		// Change the authentication back
 		SecurityContextHolder.getContext().setAuthentication(oldAuthentication);
