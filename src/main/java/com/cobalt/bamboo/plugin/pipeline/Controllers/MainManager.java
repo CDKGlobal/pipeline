@@ -3,7 +3,7 @@ package com.cobalt.bamboo.plugin.pipeline.Controllers;
 import java.util.List;
 
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
-import com.cobalt.bamboo.plugin.pipeline.cdperformance.Grade;
+import com.cobalt.bamboo.plugin.pipeline.cdperformance.UptimeGrade;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 import com.cobalt.bamboo.plugin.pipeline.changelist.Change;
 
@@ -56,5 +56,5 @@ public interface MainManager {
 	 *         Return null if no plan can be found for the given plankey or no build
 	 *         in the plan.
 	 */
-	public Grade getUptimeGradeForPlan(String planKey);
+	public UptimeGrade getUptimeGradeForPlan(String planKey);
 }
