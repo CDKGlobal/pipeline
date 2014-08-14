@@ -327,7 +327,7 @@
 													<small>change</small>
 												</span>
 												<span ng-switch-when="1">
-													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a></changes>
+													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
 													<small>change</small>
 												</span>
 												<span ng-switch-default>
@@ -366,7 +366,7 @@
 													<small>change</small>
 												</span>
 												<span ng-switch-when="1">
-													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a></changes>
+													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
 													<small>change</small>
 												</span>
 												<span ng-switch-default>
@@ -407,7 +407,7 @@
 							<div class="col-md-6">	
 								<!-- contributors -->
 								<div class="contributorList">
-									<span ng-repeat="contributor in result.cdresult.cdresult.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
+									<span ng-repeat="contributor in result.cdresult.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
 										<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
 											<a href="{{ contributor.profilePageUrl }}">
 												<span class="aui-avatar-inner">
