@@ -47,10 +47,10 @@ plugin.filter("emptyToEnd", function () {
 	return function (array, key) {
 		if(!angular.isArray(array)) return;
         var present = array.filter(function (item) {
-            return item[key];
+            return item[key]["lastUpdateTime"];
         });
         var empty = array.filter(function (item) {
-            return !item[key];
+            return !item[key]["lastUpdateTime"];
         });
 		return present.concat(empty);
 	};
@@ -61,13 +61,13 @@ plugin.filter("progressToFront", function () {
 	return function (array, key) {
 		if(!angular.isArray(array)) return;
         var inProgress = array.filter(function (item) {
-            return item[key]["cdpipelineState"] == "CD_IN_PROGRESS";
+            return item[key]["currentBuild"]["cdpipelineState"] == "CD_IN_PROGRESS";
         });
         var queued = array.filter(function (item) {
-        	return item[key]["cdpipelineState"] == "CD_QUEUED";
+        	return item[key]["currentBuild"]["cdpipelineState"] == "CD_QUEUED";
         });
         var finished = array.filter(function (item) {
-            return item[key]["cdpipelineState"] != "CD_IN_PROGRESS" && item[key]["cdpipelineState"] != "CD_QUEUED";
+            return item[key]["currentBuild"]["cdpipelineState"] != "CD_IN_PROGRESS" && item[key]["cdpipelineState"] != "CD_QUEUED";
         });
 		return inProgress.concat(queued).concat(finished);
 	};
@@ -92,13 +92,13 @@ function keywordSearch(){
 		searchString = searchString.toLowerCase();
 		// Using the forEach helper method to loop through the array
 		angular.forEach(arr, function(item){
-            if(item.projectName.toLowerCase().indexOf(searchString) !== -1 |
-                item.planName.toLowerCase().indexOf(searchString) !== -1) {
+            if(item.cdresult.projectName.toLowerCase().indexOf(searchString) !== -1 |
+                item.cdresult.planName.toLowerCase().indexOf(searchString) !== -1) {
                     result.push(item);
             }
-            for (i = 0; i < item.contributors.length; i++) {
-                if (item.contributors[i].username.toLowerCase().indexOf(searchString) !== -1 |
-                     item.contributors[i].fullname.toLowerCase().indexOf(searchString) !== -1) {
+            for (i = 0; i < item.cdresult.contributors.length; i++) {
+                if (item.cdresult.contributors[i].username.toLowerCase().indexOf(searchString) !== -1 |
+                     item.cdresult.contributors[i].fullname.toLowerCase().indexOf(searchString) !== -1) {
                     result.push(item);
                 }
             }

@@ -1,5 +1,7 @@
 package com.cobalt.bamboo.plugin.pipeline.cdresult;
 
+import java.util.Date;
+
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.progressbar.ProgressBar;
 
@@ -99,5 +101,23 @@ public class Build {
 			return progressBar.getPrettyTimeRemaining(false);
 		}
 		return null;
+	}
+	
+	/**
+	 * Get the completed date of this build.
+	 * 
+	 * @return the completed Date of this build.
+	 */
+	public Date getBuildCompletedDate() {
+		return buildResult.getBuildCompletedDate();
+	}
+	
+	/**
+	 * Return whether this build is successful.
+	 * 
+	 * @return true if this build is successful, false otherwise.
+	 */
+	public boolean isSuccessful() {
+		return buildResult.isSuccessful();
 	}
 }

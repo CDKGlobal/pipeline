@@ -16,30 +16,31 @@ public class UptimeGradeFactory {
 	 */
 	public static UptimeGrade createUptimeGrade(List<ResultsSummary> buildList) {
 		if(buildList == null || buildList.size() <= 0){
-			return null;
+			return new UptimeGrade(null, 0, false, null);
 		}
 		
-		// Set startDate to be the first build completed time.
-		// If it's not completed, use the queued time.
-		Date startDate = buildList.get(buildList.size() - 1).getBuildCompletedDate();
-		if(startDate == null){
-			startDate = buildList.get(buildList.size() - 1).getQueueTime();
+		// Set startDate to be the first build with completed time.
+		Date startDate = null;
+		int startBuildIndex = buildList.size();
+		while(startDate == null && startBuildIndex > 0){
+			startBuildIndex--;
+			startDate = buildList.get(startBuildIndex).getBuildCompletedDate();
 		}
 		
 		// Find the most recent completed build.
 		Date currentBuildDate = null;
 		boolean currentBuildState = false;
-		int currentBuildNum = 0;
-		while(currentBuildDate == null){
-			currentBuildDate = buildList.get(currentBuildNum).getBuildCompletedDate();
-			currentBuildState = buildList.get(currentBuildNum).isSuccessful();
-			currentBuildNum++;
+		int currentBuildIndex = 0;
+		while(currentBuildDate == null && currentBuildIndex < buildList.size()){
+			currentBuildDate = buildList.get(currentBuildIndex).getBuildCompletedDate();
+			currentBuildState = buildList.get(currentBuildIndex).isSuccessful();
+			currentBuildIndex++;
 		}
 		
 		// Calculate the uptime starting from the current build.
 		long totalUptime = 0;
-		long lastBuildTime = buildList.get(currentBuildNum).getBuildCompletedDate().getTime();
-		for(int i = currentBuildNum; i < buildList.size(); i++){
+		long lastBuildTime = buildList.get(currentBuildIndex).getBuildCompletedDate().getTime();
+		for(int i = currentBuildIndex; i <= startBuildIndex; i++){
 			ResultsSummary currentBuild = buildList.get(i);
 			Date currentBuildCompletedDate = currentBuild.getBuildCompletedDate();
 			if(currentBuildCompletedDate != null){
