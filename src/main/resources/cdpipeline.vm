@@ -141,10 +141,18 @@
 					<div class="comp-stat">
 						<div class="notepad">
 						 	<div class="notepad-heading"> Statistics  </div>
-							<div class="statline"> <stat> {{ contentData.resultData.upPercentage * 100 | number:0 }}% </stat> uptime </div> 					  	
-							<div class="statline"> <stat> {{ contentData.resultData.successPercentageFormatted * 100 | number:0 }}% </stat> success </div> 
-							<div class="statline"> <stat> {{ contentData.resultData.averageFrequency | number:1 }} </stat> days avg. completion </div> 
-							<div class="statline"> <stat> {{ contentData.resultData.averageChanges | number:1 }} </stat> avg. changes </div> 
+							<div class="statline"><stat>{{ contentData.resultData.upPercentage * 100 | number:0 }}%</stat> uptime</div> 					  	
+							<div class="statline"><stat>{{ contentData.resultData.successPercentageFormatted * 100 | number:0 }}%</stat> success</div> 
+							<div class="statline" ng-switch="contentData.resultData.averageFrequency">
+								<stat ng-switch-when="-1">--</stat>
+								<stat ng-switch-default>{{ contentData.resultData.averageFrequency | number:1 }}</stat>
+								 days avg. completion
+							</div>
+							<div class="statline" ng-switch="contentData.resultData.averageChanges">
+								<stat ng-switch-when="-1">--</stat>
+								<stat ng-switch-default>{{ contentData.resultData.averageChanges | number:1 }}</stat>
+								 avg. changes
+							</div>							
 						</div>
 					</div>
 					
@@ -189,7 +197,7 @@
 				                		<span ng-switch-when="0"></span>
 				                		<span ng-switch-default>                
 											<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> 
-												<img src="{{ contributor.pictureUrl }}" width="35" height="35">
+												<img src="{{ contributor.pictureUrl }}" title="{{contributor.fullname}}" width="35" height="35">
 											</span>    
 										</span>    
 									</p>				
@@ -198,12 +206,13 @@
 				              		{{ completion.completedDate | date:'medium' }} 
 				              		<div> 
 				              			{{ completion.numChanges }} 
-										<span ng-switch="completion.numChanges">
+										<span ng-switch="completion.numChanges" title="since last completion">
+											<span ng-switch-when="0"> commit</span>								
 										   	<span ng-switch-when="1"> commit</span>
 										   	<span ng-switch-default> commits</span>      
 										</span>  
 									</div>  				              	
-				              	</div> 
+				              	</div>  
 				         	</li>
 				        </ul>
 					</div>							
@@ -291,21 +300,31 @@
 								<lastDeploy ng-switch="result.currentBuild.cdpipelineState">
 									<span ng-switch-default>
 										<span class="aui-lozenge aui-lozenge-complete deploy-label">
-											<a ng-click="modalOpenContent('lg', 'completions', result, 'Completions.html')" onclick="cli()">Since Last Completion</a>
+											<a ng-click="modalOpenContent('lg', 'completions', result, 'Completions.html')">Since Last Completion</a>
 										</span><br>										
 										<dayChange>
 											<days ng-switch="result.daysSinceDeploymentFromCurrent">
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span>
 											</days>
-											<small> days</small>
-											<changes ng-switch="result.changes.length">
+											<small ng-switch="result.daysSinceDeploymentFromCurrent"> 
+												<span ng-switch-when="-1">day</span>
+												<span ng-switch-when="0">day</span>
+												<span ng-switch-when="1">day</span>												
+												<span ng-switch-default>days</span>
+											</small>											
+											<changes ng-switch="result.numChanges">
 												<span ng-switch-when="0">{{ result.numChanges }}</span>
 												<span ng-switch-default>
 													<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a>
 												</span>								
 											</changes>
-											<small>changes</small>												
+											<small ng-switch="result.numChanges">
+												<span ng-switch-when="-1">change</span>
+												<span ng-switch-when="0">change</span>
+												<span ng-switch-when="1">change</span>												
+												<span ng-switch-default>changes</span>
+											</small>										
 										</dayChange>
 									</span>
 									<span ng-switch-when="CD_SUCCESS">
@@ -317,14 +336,24 @@
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span>
 											</days>
-											<small> days ago</small>											
-											<changes ng-switch="result.changes.length">
+											<small ng-switch="result.daysSinceLastUpdateFromCurrent"> 
+												<span ng-switch-when="-1">day ago</span>
+												<span ng-switch-when="0">day ago</span>
+												<span ng-switch-when="1">day ago</span>												
+												<span ng-switch-default>days ago</span>
+											</small>											
+											<changes ng-switch="result.numChanges">
 												<span ng-switch-when="0">{{ result.numChanges }}</span>
 												<span ng-switch-default>
 													<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a>
 												</span>								
-											</changes>
-											<small>changes</small>											
+											</changes ng-switch="result.numChanges">
+											<small>
+												<span ng-switch-when="-1">change</span>
+												<span ng-switch-when="0">change</span>
+												<span ng-switch-when="1">change</span>												
+												<span ng-switch-default>changes</span>
+											</small>											
 										</dayChange>
 									</span>
 								</lastDeploy>

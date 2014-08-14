@@ -57,6 +57,3 @@ function selectTable(el) {
         range.select();
     }
 }
-function cli() {
-document.getElementById("test").style.background = "red";
-};
