@@ -1,43 +1,24 @@
-
-// For the scrolling-to-top button
-jQuery(document).ready(function() {
-	var duration = 500;
-	jQuery(window).scroll(function() {
-		if (jQuery(this).scrollTop() > 0) {
-			jQuery('#scroll-to-top').fadeIn(duration);
-		} else {
-			jQuery('#scroll-to-top').fadeOut(duration);
-		}
-	});
-				
-	jQuery('#scroll-to-top').click(function(event) {
-		event.preventDefault();
-		jQuery('html, body').animate({scrollTop: 0}, duration);
-		return false;
-	});
-});
-
-// Show the 'changes since last completion' in list view
+// Show the changes/completions in list view
 function showListView(list, table) {
 	document.getElementById(table).style.display = "none";
 	document.getElementById(list).style.display = "table";
-	document.getElementById("list-view-button").disabled = true;
-	document.getElementById("table-view-button").disabled = false;
-	document.getElementById("select-table-button").style.display = "none";
-	document.getElementById("select-table-button").disabled = true;
+ 	document.getElementsByClassName("list-view-button")[0].disabled = true;
+ 	document.getElementsByClassName("table-view-button")[0].disabled = false;
+ 	document.getElementsByClassName("select-table-button")[0].style.display = "none";
+ 	document.getElementsByClassName("select-table-button")[0].disabled = true;	
 }
 
-// Show the 'changes since last completion' in table view
+// Show the changes/completions in table view
 function showTableView(table, list) {
 	document.getElementById(table).style.display = "table";
 	document.getElementById(list).style.display = "none";
-	document.getElementById("list-view-button").disabled = false;
-	document.getElementById("table-view-button").disabled = true;
-	document.getElementById("select-table-button").style.display = "block";
-	document.getElementById("select-table-button").disabled = false;
+ 	document.getElementsByClassName("list-view-button")[0].disabled = false;
+ 	document.getElementsByClassName("table-view-button")[0].disabled = true;
+ 	document.getElementsByClassName("select-table-button")[0].style.display = "block";
+ 	document.getElementsByClassName("select-table-button")[0].disabled = false;	
 }
 
-// Show the 'changes since last completion' from the table
+// Select the changes/completions table
 function selectTable(el) {
     var body = document.body, range, sel;
     if (document.createRange && window.getSelection) {

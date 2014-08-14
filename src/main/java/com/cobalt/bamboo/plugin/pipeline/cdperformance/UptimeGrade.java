@@ -11,6 +11,9 @@ public class UptimeGrade {
 	private Date currentBuildDate;
 	
 	public UptimeGrade(Date startDate, long totalUptime, boolean currentBuildSuccess, Date currentBuildDate){
+		if(startDate != null && currentBuildDate != null && startDate.compareTo(currentBuildDate) > 0) {
+			throw new IllegalArgumentException("Current build completed time shouldn't be before first build completed time.");
+		}
 		if(startDate != null){
 			this.startDate = new Date(startDate.getTime());
 		}
@@ -22,6 +25,9 @@ public class UptimeGrade {
 	}
 	
 	public double getUptimePercentage(){
+		if(startDate == null || currentBuildDate == null){
+			return -1;
+		}
 		Date current = new Date();
 		long totalUptimeToCurrent = this.totalUptime;
 		if(currentBuildState){
@@ -31,9 +37,12 @@ public class UptimeGrade {
 	}
 	
 	public String getGrade(){
-		double upTimePercentage = getUptimePercentage();
+		double uptimePercentage = getUptimePercentage();
+		if(uptimePercentage <= 0){
+			return null;
+		}
 		for(int i = 0; i < GRADE_SCALE.length; i++){
-			if(upTimePercentage >= GRADE_SCALE[i]){
+			if(uptimePercentage >= GRADE_SCALE[i]){
 				return LETTER_GRADE[i];
 			}
 		}
