@@ -837,7 +837,7 @@ input[type="text"]:focus {
 }
 
 .deploy-header {
-	position: fixed;
+	position: absolute;
 	top: 1px;
 	padding-top: 30px;
 	left: 5%;
@@ -973,7 +973,7 @@ li.change-file {
 .list-view-button, .table-view-button, .select-table-button {
 	width: 40px;
 	height: 40px;
-	position: fixed;
+	position: absolute;
 	left: 2px;
 	
 	border: 0px;

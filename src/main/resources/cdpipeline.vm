@@ -327,7 +327,7 @@
 													<small>change</small>
 												</span>
 												<span ng-switch-when="1">
-													<changes>1</changes>
+													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a></changes>
 													<small>change</small>
 												</span>
 												<span ng-switch-default>
@@ -366,7 +366,7 @@
 													<small>change</small>
 												</span>
 												<span ng-switch-when="1">
-													<changes>1</changes>
+													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a></changes>
 													<small>change</small>
 												</span>
 												<span ng-switch-default>
