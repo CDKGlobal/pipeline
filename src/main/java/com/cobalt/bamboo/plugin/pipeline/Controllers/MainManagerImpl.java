@@ -14,6 +14,8 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformanceFactory;
+import com.cobalt.bamboo.plugin.pipeline.cdperformance.Grade;
+import com.cobalt.bamboo.plugin.pipeline.cdperformance.UptimeGradeFactory;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResultFactory;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.ContributorBuilder;
@@ -95,6 +97,20 @@ public class MainManagerImpl implements MainManager {
 		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
 		
 		return CDPerformanceFactory.createCDPerformance(buildList, contributorBuilder);
+	}
+	
+	@Override
+	public Grade getUptimeGradeForPlan(String planKey) {
+		PlanKey planKeyObj = PlanKeys.getPlanKey(planKey);
+		Plan plan = planManager.getPlanByKey(planKeyObj);
+		
+		if(plan == null){
+			return null;
+		}
+		
+		List<ResultsSummary> buildList = resultsSummaryManager.getResultSummariesForPlan(plan, 0, 0);
+		
+		return UptimeGradeFactory.createUptimeGrade(buildList);
 	}
 
 	@Override
