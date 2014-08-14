@@ -40,7 +40,7 @@ public class UptimeGrade {
 	
 	public String getGrade(){
 		double uptimePercentage = getUptimePercentage();
-		if(uptimePercentage <= 0){
+		if(uptimePercentage < 0){
 			return null;
 		}
 		for(int i = 0; i < GRADE_SCALE.length; i++){
