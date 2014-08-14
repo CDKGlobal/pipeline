@@ -6,7 +6,7 @@ import com.atlassian.bamboo.resultsummary.ResultsSummary;
 
 public class UptimeGradeFactory {
 
-	public static Grade createUptimeGrade(List<ResultsSummary> buildList) {
+	public static UptimeGrade createUptimeGrade(List<ResultsSummary> buildList) {
 		// TODO
 		
 		return null;
