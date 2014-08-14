@@ -307,23 +307,23 @@
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span>
 											</days>
-											<small ng-switch="result.daysSinceDeploymentFromCurrent"> 
+											<small ng-switch="result.daysSinceDeploymentFromCurrent"> 											
 												<span ng-switch-when="-1">day</span>
 												<span ng-switch-when="0">day</span>
 												<span ng-switch-when="1">day</span>												
-												<span ng-switch-default>days</span>
-											</small>											
+												<span ng-switch-default>days</span>												
+											</small>					
 											<changes ng-switch="result.numChanges">
 												<span ng-switch-when="0">{{ result.numChanges }}</span>
 												<span ng-switch-default>
 													<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a>
 												</span>								
 											</changes>
-											<small ng-switch="result.numChanges">
+											<small ng-switch="result.numChanges">											
 												<span ng-switch-when="-1">change</span>
 												<span ng-switch-when="0">change</span>
 												<span ng-switch-when="1">change</span>												
-												<span ng-switch-default>changes</span>
+												<span ng-switch-default>changes</span>											
 											</small>										
 										</dayChange>
 									</span>
@@ -336,24 +336,24 @@
 												<span ng-switch-when="-1">--</span>
 												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span>
 											</days>
-											<small ng-switch="result.daysSinceLastUpdateFromCurrent"> 
+											<small ng-switch="result.daysSinceLastUpdateFromCurrent"> 									
 												<span ng-switch-when="-1">day ago</span>
 												<span ng-switch-when="0">day ago</span>
 												<span ng-switch-when="1">day ago</span>												
-												<span ng-switch-default>days ago</span>
+												<span ng-switch-default>days ago</span>											
 											</small>											
 											<changes ng-switch="result.numChanges">
 												<span ng-switch-when="0">{{ result.numChanges }}</span>
 												<span ng-switch-default>
 													<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.numChanges }}</a>
 												</span>								
-											</changes ng-switch="result.numChanges">
-											<small>
+											</changes>										
+											<small ng-switch="result.numChanges">										
 												<span ng-switch-when="-1">change</span>
 												<span ng-switch-when="0">change</span>
 												<span ng-switch-when="1">change</span>												
-												<span ng-switch-default>changes</span>
-											</small>											
+												<span ng-switch-default>changes</span>										
+											</small>																
 										</dayChange>
 									</span>
 								</lastDeploy>
