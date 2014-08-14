@@ -2,6 +2,7 @@ package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
 import java.util.List;
 
+import com.cobalt.bamboo.plugin.pipeline.cache.WallBoardData;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 
 /**
@@ -10,26 +11,34 @@ import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 public interface CacheManager {
 	
 	/**
-	 * Put CDResult for all plans into the cache. All of existing data (if any)
+	 * Put WallBoardData for all plans into the cache. All of existing data (if any)
 	 * will be replaced.
 	 */
-	public void putAllCDResult();
+	public void putAllWallBoardData();
 	
 	/**
-	 * Update the CDResult in the cache for the given plan. If the plan already
-	 * exists in the cache, the associated CDResult will be replaced. If the plan
-	 * doesn't exist in the cache yet, a new plan will be created with it's new CDResult.
+	 * Update the WallBoardData in the cache for the given plan. If the plan already
+	 * exists in the cache, the associated WallBoardData will be replaced. If the plan
+	 * doesn't exist in the cache yet, a new plan will be created with it's new WallBoardData.
 	 * 
 	 * @param planKey of the plan to update in the cache
 	 */
-	public void updateCDResultForPlan(String planKey);
+	/**
+	 * Update the WallBoardData in the cache for the given plan. If the plan already
+	 * exists in the cache, the associated WallBoardData will be replaced. If the plan
+	 * doesn't exist in the cache yet, a new plan will be created with it's new WallBoardData.
+	 * 
+	 * @param planKey of the plan to update in the cache
+	 * @param updateUptimeGrade A boolean to indicate whether to update the UptimeGrade in the cache
+	 */
+	public void updateWallBoardDataForPlan(String planKey, boolean updateUptimeGrade);
 	
 	/**
-	 * Get CDResult for all of the plans.
+	 * Get WallBoardData for all of the plans.
 	 * 
-	 * @return a list of CDResult representing all plans.
+	 * @return a list of WallBoardData representing all plans.
 	 */
-	public List<CDResult> getAllCDResult();
+	public List<WallBoardData> getAllWallBoardData();
 	
 	/**
 	 * Clear everything in the cache.

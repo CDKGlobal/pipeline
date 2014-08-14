@@ -6,14 +6,16 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.sal.api.transaction.TransactionTemplate;
-import com.cobalt.bamboo.plugin.pipeline.cache.CDResultsCache;
+import com.cobalt.bamboo.plugin.pipeline.cache.WallBoardCache;
+import com.cobalt.bamboo.plugin.pipeline.cache.WallBoardData;
+import com.cobalt.bamboo.plugin.pipeline.cdperformance.UptimeGrade;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 
 public class CacheManagerImpl implements CacheManager {
 	private final MainManager mainManager;
 	private TransactionTemplate transactionTemplate;
 	private ReadWriteLock lock;
-	CDResultsCache cdResultsCache;
+	WallBoardCache wallBoardCache;
 	
 	/**
 	 * Constructs a CacheManager object.
@@ -26,11 +28,11 @@ public class CacheManagerImpl implements CacheManager {
 		this.mainManager = mainManager;
 		this.transactionTemplate = transactionTemplate;
 		lock = new ReentrantReadWriteLock();
-		cdResultsCache = new CDResultsCache();
+		wallBoardCache = new WallBoardCache();
 	}
 
 	@Override
-	public void putAllCDResult() {
+	public void putAllWallBoardData() {
 		lock.writeLock().lock();
 		transactionTemplate.execute(new TransactionCallback() {
 			
@@ -45,10 +47,10 @@ public class CacheManagerImpl implements CacheManager {
 	}
 	
 	@Override
-	public void updateCDResultForPlan(final String planKey) {
+	public void updateWallBoardDataForPlan(final String planKey, final boolean updateUptimeGrade) {
 		lock.writeLock().lock();
 		
-		if (cdResultsCache.isEmpty()) {
+		if (wallBoardCache.isEmpty()) {
 			transactionTemplate.execute(new TransactionCallback() {
 				
 				@Override
@@ -63,8 +65,16 @@ public class CacheManagerImpl implements CacheManager {
 				@Override
 				public Object doInTransaction() {
 					CDResult cdResult = mainManager.getCDResultForPlan(planKey);
-					if (cdResult != null) {
-						cdResultsCache.put(planKey, cdResult);
+					
+					UptimeGrade uptimeGrade = wallBoardCache.get(planKey).uptimeGrade;
+					if (updateUptimeGrade) {
+						// TODO update uptimeGrade...
+						
+					}
+					
+					if (cdResult != null && uptimeGrade != null) {
+						WallBoardData wallBoardData = new WallBoardData(planKey, cdResult, uptimeGrade);
+						wallBoardCache.put(planKey, wallBoardData);
 					}
 					return null;
 				}
@@ -75,24 +85,24 @@ public class CacheManagerImpl implements CacheManager {
 	}
 
 	@Override
-	public List<CDResult> getAllCDResult() {
+	public List<WallBoardData> getAllWallBoardData() {
 		// to avoid write-lock first causing reading to be waiting for each other
 		lock.readLock().lock();
-		if(!cdResultsCache.isEmpty()){
-			List<CDResult> results = cdResultsCache.getAllCDResults();
+		if(!wallBoardCache.isEmpty()){
+			List<WallBoardData> results = wallBoardCache.getAllWallBoardData();
 			lock.readLock().unlock();
 			return results;
 		}
 		lock.readLock().unlock();
 		
 		lock.writeLock().lock();
-		if (cdResultsCache.isEmpty()) {
+		if (wallBoardCache.isEmpty()) {
 			unlockedCacheRefresh();
 		}
 		lock.writeLock().unlock();
 
 		lock.readLock().lock();
-		List<CDResult> results = cdResultsCache.getAllCDResults();
+		List<WallBoardData> results = wallBoardCache.getAllWallBoardData();
 		lock.readLock().unlock();
 		
 		return results;
@@ -101,16 +111,22 @@ public class CacheManagerImpl implements CacheManager {
 	@Override
 	public void clearCache() {
 		lock.writeLock().lock();
-		cdResultsCache.clear();
+		wallBoardCache.clear();
 		lock.writeLock().unlock();
 	}
 
 	private void unlockedCacheRefresh() {
-		// create a new temporary cache to avoid locking the cache for too long
-		this.cdResultsCache.clear();
+		this.wallBoardCache.clear();
+		
 		List<CDResult> cdResults = mainManager.getCDResults();
+		
 		for (CDResult cdResult : cdResults) {
-			this.cdResultsCache.put(cdResult.getPlanKey(), cdResult);
+			String planKey = cdResult.getPlanKey();
+			UptimeGrade uptimeGrade = mainManager.getUptimeGradeForPlan(planKey);
+			
+			WallBoardData wallBoardData = new WallBoardData(planKey, cdResult, uptimeGrade);
+			
+			this.wallBoardCache.put(planKey, wallBoardData);
 		}
 	}
 }

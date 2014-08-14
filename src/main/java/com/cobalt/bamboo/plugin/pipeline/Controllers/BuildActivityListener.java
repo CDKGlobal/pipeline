@@ -35,13 +35,13 @@ public class BuildActivityListener implements HibernateEventListener {
 			int endIndex = givenPlanKey.lastIndexOf("-");
 			final String planKey = givenPlanKey.substring(0, endIndex);
 			
-			cacheManager.updateCDResultForPlan(planKey);
+			cacheManager.updateWallBoardDataForPlan(planKey, false);
 			
 		} else if (event instanceof ChainCompletedEvent) {
 			ChainCompletedEvent e = (ChainCompletedEvent) event;
 			
 			// the given plan key is in the right format (PROJECT-PLAN)
-			cacheManager.updateCDResultForPlan(e.getPlanKey().getKey());
+			cacheManager.updateWallBoardDataForPlan(e.getPlanKey().getKey(), true);
 		}
 	}
 }

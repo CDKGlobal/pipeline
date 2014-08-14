@@ -19,8 +19,8 @@ import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManager;
 import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
+import com.cobalt.bamboo.plugin.pipeline.cache.WallBoardData;
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
-import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 import com.cobalt.bamboo.plugin.pipeline.changelist.Change;
 
 public class MainPage extends HttpServlet{
@@ -62,7 +62,7 @@ public class MainPage extends HttpServlet{
 	  } else if (query.equalsIgnoreCase("all")) {
 		  // Special Case: JSON request
 		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
-		  List<CDResult> resultList = cacheManager.getAllCDResult();
+		  List<WallBoardData> resultList = cacheManager.getAllWallBoardData();
 		  String json = writer.writeValueAsString(resultList);
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
