@@ -97,7 +97,7 @@ A Pen created at CodePen.io. You can find this one at http://codepen.io/bbodine1
 
 .comp-stat {
 	width: 250px;
-	position: fixed;
+	position: absolute;
 	top: 110px;
 	right: 30px;
 	font-size: 13px;
