@@ -68,8 +68,7 @@ public class CacheManagerImpl implements CacheManager {
 					
 					UptimeGrade uptimeGrade = wallBoardCache.get(planKey).uptimeGrade;
 					if (updateUptimeGrade) {
-						// TODO update uptimeGrade...
-						
+						uptimeGrade.update(cdResult.getCurrentBuild());
 					}
 					
 					if (cdResult != null && uptimeGrade != null) {

@@ -2,12 +2,14 @@ package com.cobalt.bamboo.plugin.pipeline.cdperformance;
 
 import java.util.Date;
 
+import com.cobalt.bamboo.plugin.pipeline.cdresult.Build;
+
 public class UptimeGrade {
-	public static final int[] GRADE_SCALE = {93, 90, 87, 83, 80, 77, 73, 70, 67, 63, 60};
+	public static final double[] GRADE_SCALE = {0.93, 0.90, 0.87, 0.83, 0.80, 0.77, 0.73, 0.70, 0.67, 0.63, 0.60};
 	public static final String[] LETTER_GRADE = {"A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"};
 	private Date startDate;
 	private long totalUptime;
-	private boolean currentBuildState;
+	private boolean currentBuildSuccess;
 	private Date currentBuildDate;
 	
 	public UptimeGrade(Date startDate, long totalUptime, boolean currentBuildSuccess, Date currentBuildDate){
@@ -21,7 +23,7 @@ public class UptimeGrade {
 			this.currentBuildDate = new Date(currentBuildDate.getTime());
 		}
 		this.totalUptime = totalUptime;
-		this.currentBuildState = currentBuildSuccess;
+		this.currentBuildSuccess = currentBuildSuccess;
 	}
 	
 	public double getUptimePercentage(){
@@ -30,7 +32,7 @@ public class UptimeGrade {
 		}
 		Date current = new Date();
 		long totalUptimeToCurrent = this.totalUptime;
-		if(currentBuildState){
+		if(currentBuildSuccess){
 			totalUptimeToCurrent += current.getTime() - currentBuildDate.getTime();
 		}
 		return totalUptimeToCurrent * 1.0 / (current.getTime() - startDate.getTime());
@@ -47,5 +49,19 @@ public class UptimeGrade {
 			}
 		}
 		return LETTER_GRADE[LETTER_GRADE.length - 1];
+	}
+	
+	public void update(Build newBuild) {
+		Date buildCompletedDate = newBuild.getBuildCompletedDate();
+		if(buildCompletedDate != null){
+			if (startDate == null) {
+				startDate = buildCompletedDate;
+			} else if (currentBuildSuccess) {
+				totalUptime += (buildCompletedDate.getTime() - currentBuildDate.getTime());
+			}
+			
+			currentBuildSuccess = newBuild.isSuccessful();
+			currentBuildDate = buildCompletedDate;
+		}
 	}
 }
