@@ -10,7 +10,7 @@ plugin.controller("ModalController", function ($scope, $modal, $window, $http, $
       $scope.url = url;
       var modalInstance = $modal.open({
         templateUrl: "Details.html",
-        controller: ModalInstanceCtrl,
+        controller: ModalURLInstanceCtrl,
         size: "lg",
         resolve: {
           url: function () {
@@ -96,3 +96,13 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, contentData, url, sear
   };
 };
 			
+//Helper method for pop up window with bamboo content
+var ModalURLInstanceCtrl = function ($scope, $modalInstance, contentData, url) {
+
+  $scope.contentData = contentData;
+  $scope.url = url;
+
+  $scope.modalCancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};
