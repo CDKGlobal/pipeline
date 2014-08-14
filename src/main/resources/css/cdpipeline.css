@@ -968,7 +968,7 @@ p {
     left: 65px;
 }
 
-/*draw the vertical line between icon and comments */
+/* draw the vertical line between icon and comments */
 .comments:before {
     width: 3px;
     top: -20px;
@@ -1014,6 +1014,7 @@ p {
 	color: #3b73af;
 }
 
+/* change table */
 #change-table ul {
 	list-style-type: none;
 	padding: 0px;
@@ -1025,6 +1026,7 @@ p {
     max-height: 0px;
     padding-bottom: 10px;
     background: white;
+    color: black;
 }
 
 #change-table td, #change-table th {
@@ -1037,7 +1039,7 @@ p {
 }
 
 .change-table-comment {
-	width: 45%;
+	width: 43%;
 }
 
 .change-table-files {
@@ -1045,7 +1047,7 @@ p {
 }
 
 .change-table-time {
-	width: 10%;
+	width: 12%;
 }
 
 .change-table-row:hover {
@@ -1331,11 +1333,13 @@ stat {
 #comp-table {
   	display: none;
   	color: black;
-  	width: 90%;
+  	width: 95%;
 }
 
 #comp-table td, #comp-table th {
   	padding: 5px;
+	border: #999999 solid 2px;
+	background: white;
 }
 
 #comp-table thead {
