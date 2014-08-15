@@ -293,6 +293,19 @@
 
 							<!-- project/plan column -->
 							<div class="col-md-2">
+								<div class="uptimeGrade">
+									<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, 'Completions.html')">
+										<div class="flyoutlink">
+									  		<div class="flyoutlink-inner {{result.uptimeGrade.grade | letterOnly }}">
+									    		<div class="grade">{{ result.uptimeGrade.grade | letterOnly }}</div>
+									    		<div class="grade-label">
+									      			<div class="grade-label-inner">{{ result.uptimeGrade.uptimePercentage * 100 | number : 0 }}% <small>uptime</small></div>
+									    		</div>
+									  		</div>
+										</div>
+									</a>
+								</div>
+
 								<projectPlan>
 									<project>
 										<a ng-click="modalOpenUrl('../../browse/' + result.cdresult.projectKey)">
