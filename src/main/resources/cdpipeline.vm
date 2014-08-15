@@ -133,7 +133,7 @@
 		    <!-- pop up window for project, plan and build -->
 		    <script type="text/ng-template" id="Details.html">
 		        <div class="modal-body">		        	
-		        	<iframe src="{{url}}"></iframe>	        
+		        	<iframe src="../../browse/{{ contentData.planKey }}"></iframe>	        
 		        </div>
 		    </script>
 
@@ -208,7 +208,7 @@
 							
 					        <ul id="comp-list">
 					         	<li ng-repeat="completion in contentData.resultData.completions">
-									<div id="baseUrl">{{url}}</div>
+									<div id="baseUrl">../../browse/{{contentData.planKey}}</div>
 					            	<div class="comp-list-build" id="{{completion.buildNumber }}" onclick="showBuildPage(this.id);"><a> #{{ completion.buildNumber }} </a></div>
 					              	<div class="item-info">
 					                	<p ng-switch="completion.numChanges" class="description">
@@ -312,7 +312,7 @@
 								<lastDeploy ng-switch="result.cdresult.currentBuild.cdpipelineState">
 									<span ng-switch-default>
 										<span class="aui-lozenge aui-lozenge-complete deploy-label">
-											<a ng-click="modalForCompletions('../../browse/' + result.cdresult.planKey, result.cdresult)">
+											<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, 'Completions.html')">
 												Since Last Completion
 											</a>										
 										</span><br>										
@@ -353,8 +353,8 @@
 									</span>
 									<span ng-switch-when="CD_SUCCESS">
 										<span class="aui-lozenge aui-lozenge-complete deploy-label deploy-success">
-											<a ng-click="modalForCompletions('../../browse/' + result.cdresult.planKey, result.cdresult)">
-												Since Last Completion
+											<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, 'Completions.html')">
+												Current Completion
 											</a>										
 										</span><br>										
 										<dayChange>
