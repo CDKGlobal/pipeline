@@ -136,3 +136,10 @@ plugin.filter('percentageLimit', function(){
 	};
 });
 
+// Filter that strips the '+' or '-' of letter grades.
+// E.g. from B+ to B.
+plugin.filter('letterOnly', function() {
+	return function(input){
+		return input.substring(0, 1);
+	};
+});
