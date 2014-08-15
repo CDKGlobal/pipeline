@@ -1,7 +1,6 @@
 package com.cobalt.bamboo.plugin.pipeline.changelist;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 public class Change {
@@ -70,8 +69,8 @@ public class Change {
 	 * Get the date of the change
 	 * @return the date of the change
 	 */
-	public String getDateFormatted() {
-		return date.toString();
+	public Date getDate() {
+		return new Date(date.getTime());
 	}
 	
 	/**
