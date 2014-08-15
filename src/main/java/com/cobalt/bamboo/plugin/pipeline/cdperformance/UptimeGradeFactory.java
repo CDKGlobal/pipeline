@@ -11,8 +11,7 @@ public class UptimeGradeFactory {
 	 * Return a UptimeGrade generated based on the given buildList, ignoring all
 	 * builds that in queue but never started yet.
 	 * @param buildList to calculate the uptime grade with
-	 * @return UptimeGrade based on the given buildList. Return null if the given
-	 *         buildList is null or it's empty.
+	 * @return UptimeGrade based on the given buildList.
 	 */
 	public static UptimeGrade createUptimeGrade(List<ResultsSummary> buildList) {
 		if(buildList == null || buildList.size() <= 0){

@@ -109,6 +109,9 @@ public class Build {
 	 * @return the completed Date of this build.
 	 */
 	public Date getBuildCompletedDate() {
+		if(buildResult == null){
+			return null;
+		}
 		return buildResult.getBuildCompletedDate();
 	}
 	
@@ -118,6 +121,9 @@ public class Build {
 	 * @return true if this build is successful, false otherwise.
 	 */
 	public boolean isSuccessful() {
+		if(buildResult == null){
+			return false;
+		}
 		return buildResult.isSuccessful();
 	}
 }

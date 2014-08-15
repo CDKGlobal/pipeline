@@ -12,6 +12,15 @@ public class UptimeGrade {
 	private boolean currentBuildSuccess;
 	private Date currentBuildDate;
 	
+	/**
+	 * Construct a UptimeGrade with the first build state, the totalUptime before the most recent completed build,
+	 * whether the most recent completed build is successful and the datetime of the most recent completed build.
+	 * Throws IllegalArgumentException if the currentBuildDate is before startDate
+	 * @param startDate the completed time of the first completed build
+	 * @param totalUptime total uptime before the most recent completed build
+	 * @param currentBuildSuccess whether the most recent completed build is successful
+	 * @param currentBuildDate of the most recent completed build
+	 */
 	public UptimeGrade(Date startDate, long totalUptime, boolean currentBuildSuccess, Date currentBuildDate){
 		if(startDate != null && currentBuildDate != null && startDate.compareTo(currentBuildDate) > 0) {
 			throw new IllegalArgumentException("Current build completed time shouldn't be before first build completed time.");
@@ -26,6 +35,11 @@ public class UptimeGrade {
 		this.currentBuildSuccess = currentBuildSuccess;
 	}
 	
+	/**
+	 * Get the uptime percentage of this grade
+	 * Return -1 if there's no completed build.
+	 * @return the uptime percentage of this grade
+	 */
 	public double getUptimePercentage(){
 		if(startDate == null || currentBuildDate == null){
 			return -1;
@@ -38,6 +52,11 @@ public class UptimeGrade {
 		return totalUptimeToCurrent * 1.0 / (current.getTime() - startDate.getTime());
 	}
 	
+	/**
+	 * Get the grade based on the uptime percentage
+	 * Return null if there's no complted build.
+	 * @return the grade based on the uptime percentage
+	 */
 	public String getGrade(){
 		double uptimePercentage = getUptimePercentage();
 		if(uptimePercentage < 0){
@@ -51,6 +70,10 @@ public class UptimeGrade {
 		return LETTER_GRADE[LETTER_GRADE.length - 1];
 	}
 	
+	/**
+	 * Update with the most recent build.
+	 * @param newBuild to update in order to calculate the uptime percentage
+	 */
 	public void update(Build newBuild) {
 		Date buildCompletedDate = newBuild.getBuildCompletedDate();
 		if(buildCompletedDate != null){
