@@ -34,7 +34,7 @@ plugin.controller("ModalController", function ($scope, $modal, $window, $http, $
     $scope.contentData = {};
     $scope.searchParam = searchParam;
     if(dataType !== ''){
-      $scope.contentData = { planName: result.planName, numChanges: result.numChanges, resultData: {}};
+      $scope.contentData = { planName: result.planName, numChanges: result.numChanges, planKey: result.planKey, resultData: {}};
       $http.get('?data=' + dataType + '&plankey=' + result.planKey).then( function(r) {
         $scope.contentData.resultData = r.data;
         $rootScope.dataLoaded = true;
@@ -56,35 +56,6 @@ plugin.controller("ModalController", function ($scope, $modal, $window, $http, $
          }
       }
     });
-  };
-
-
-  /* --------------------------------------------------------------------------------------- */
-  /* -------------------------- Modal Window for list of completions ----------------------- */
-  /* --------------------------------------------------------------------------------------- */
-  $scope.modalForCompletions = function (url, result) { 
-	$scope.url = url;
-  
-   	$scope.contentData = {};
-    $scope.contentData = { planName: result.planName, numChanges: result.numChanges, resultData: {}};
-	$http.get('?data=completions' + '&plankey=' + result.planKey).then( function(r) {
-    	$scope.contentData.resultData = r.data;
-        $rootScope.dataLoaded = true;
-    });
-      
-      var modalInstance = $modal.open({
-        templateUrl: "Completions.html",
-        controller: ModalURLInstanceCtrl,
-        size: "lg",
-        resolve: {
-          url: function () {
-            return $scope.url;
-          },
-          contentData: function () {
-          	return $scope.contentData;
-          }
-        }
-      });
   }; 
   
   /* --------------------------------------------------------------------------------------- */

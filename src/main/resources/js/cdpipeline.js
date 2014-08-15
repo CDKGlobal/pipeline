@@ -43,9 +43,7 @@ function selectTable(el) {
 // link a build number to its corresponding page on Bamboo
 function showBuildPage(buildNumber) {
 	// set the url of iframe
-	document.getElementById("buildPage").src = document.getElementById("baseUrl").innerHTML;
-	document.getElementById("buildPage").src += '-';
-	document.getElementById("buildPage").src += buildNumber;
+	document.getElementById("buildPage").src = document.getElementById("baseUrl").innerHTML + '-' + buildNumber;
 	document.getElementById("buildPage").style.display = "block";
 	document.getElementById("completions-window").style.display = "none";
 	document.getElementById("return-comp-button").style.display = "block";
