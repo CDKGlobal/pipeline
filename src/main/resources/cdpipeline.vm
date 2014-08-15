@@ -130,6 +130,13 @@
 		        </div>
 		    </script>
 
+		    <!-- pop up window for project, plan and build -->
+		    <script type="text/ng-template" id="Details.html">
+		        <div class="modal-body">		        	
+		        	<iframe src="{{url}}"></iframe>	        
+		        </div>
+		    </script>
+
 		    <!-- pop up window for a list of completions (/ release history) -->
 		    <script type="text/ng-template" id="Completions.html">
 		        <div class="modal-body" id="modal-completions">	
@@ -229,11 +236,6 @@
 						</div>							
 			        </div>
 			    </div>
-		    </script>
-
-		    <!-- pop up window for project, plan and build -->
-		    <script type="text/ng-template" id="Details.html">
-		        <div class="modal-body"></div>
 		    </script>
 
 			<!-- a floating menu on the left -->
