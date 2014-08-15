@@ -847,6 +847,12 @@ input[type="text"]:focus {
 	height: 70px;
 }
 
+#history {
+	font-size: 14px;
+	font-weight: normal;
+	color: #707070;	
+}
+
 .deploy-header plan {
 	font-size: 25px;
 	display: block;
@@ -929,33 +935,65 @@ li.change-file {
 	width: 12%;
 }
 
-.change-table-row:hover {
-	background: #ebf2f9
-}
+
 
 /*------------------------------------
 	list of completions
 --------------------------------------*/
 .completions-page {	
-	color: #3b73af;
 	color: #707070;
 	position: relative;
 	top: 60px;
 	left: 5%;
-	height: 90%;
+	height: 87%;
 	width: 70%;
+	padding: 15px;
+	
 	overflow: scroll;
-	padding: 20px;
-	padding-bottom: 20px;
+}
+
+#baseUrl {
+	display: none;
+}
+
+#buildPage {
+	display: none;
+}
+
+#modal-completions{
+    min-height: 470px !important;
+}
+
+#completions-window{
+	height:100%;
+	padding-bottom: 10px;
+}
+
+#comp-list {
+	height: 630px;
+}
+
+#return-comp-button {
+	display: none;
+	
+	border: 0px;
+	background: white;
+	vertical-align: center;
+	text-decoration: none;
+	background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.1));
+	border-radius: 3px;
+	color: black;
+	text-shadow: 0 1px 1px rgba(255,255,255,.7);
+	box-shadow: 0 0 0 1px rgba(0,0,0,.2), 0 1px 2px rgba(0,0,0,.2), inset 0 1px 2px rgba(255,255,255,.7);
+}
+
+#modal-completions {
+	background: #f5f5f5;
 }
 
 .deploy-label a {
 	color: white !important;
 	text-decoration: none;
-}
-
-#completions-window {
-	background: #f5f5f5;
 }
 
 #completions-window img {
@@ -1014,7 +1052,6 @@ li.change-file {
 #change-table, #comp-table {
 	display: none;
     position: relative;
-    padding-bottom: 10px;
     background: white;
     color: black;
 }
@@ -1025,3 +1062,6 @@ li.change-file {
 	border: #999999 solid 2px;
 }
 
+tbody tr:hover {
+	background: #ebf2f9
+}
