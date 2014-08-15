@@ -67,13 +67,13 @@
 						<div class="changes"><changes>{{contentData.numChanges}}</changes> changes since last completion </div>
 					</div>
 					<!-- buttons for switching between 2 views of the change list -->
-					<button type="button" value="return" onclick="showListView('change-list', 'change-table');" class="list-view-button" disabled="disabled"  title="List view">
+					<button type="button" onclick="showListView('change-list', 'change-table');" class="list-view-button" disabled="disabled" title="List view">
 						<i class="fa fa-list-ul fa-2x"></i>
 					</button>
-					<button type="button" value="return" onclick="showTableView('change-table', 'change-list');" class="table-view-button" title="Table view">
+					<button type="button" onclick="showTableView('change-table', 'change-list');" class="table-view-button" title="Table view">
 						<i class="fa fa-table fa-2x"></i>
 					</button>
-					<button type="button" value="select" onclick="selectTable(document.getElementById('change-table'));" class="select-table-button" title="Select the table">
+					<button type="button" onclick="selectTable(document.getElementById('change-table'));" class="select-table-button" title="Select the table">
 						<i class="fa fa-files-o fa-2x"></i>
 					</button>
 											
@@ -95,7 +95,7 @@
 							    	<td class="change-table-comment"> {{ change.comment }} </td>
 							    	<td class="change-table-revision"> {{ change.revisionNumber }} </td>
 							    	<td class="change-table-files"> <ul><li ng-repeat="file in change.files"> {{ file }} </li></ul> </td>
-							    	<td class="change-table-time"> {{ change.dateFormatted }} </td>
+							    	<td class="change-table-time"> {{ change.date | date:'medium' }} </td>
 								</tr> 
     						</tbody>
 						</table>
@@ -130,100 +130,110 @@
 		        </div>
 		    </script>
 
-		    <!-- pop up window for completions -->
+		    <!-- pop up window for a list of completions (/ release history) -->
 		    <script type="text/ng-template" id="Completions.html">
-		        <div class="modal-body" id="completions-window">							
-					<div class="deploy-header">					
-						<div><plan>{{contentData.planName}}</plan></div>
-						<div class="changes"><changes>{{contentData.resultData.completions.length}}</changes> completed pipelines</div>					
-					</div>
-	
-					<div class="comp-stat">
-						<div class="notepad">
-						 	<div class="notepad-heading"> Statistics  </div>
-							<div class="statline"><stat>{{ contentData.resultData.upPercentage * 100 | number:0 }}%</stat> uptime</div> 					  	
-							<div class="statline"><stat>{{ contentData.resultData.successPercentageFormatted * 100 | number:0 }}%</stat> success</div> 
-							<div class="statline" ng-switch="contentData.resultData.averageFrequency">
-								<stat ng-switch-when="-1">--</stat>
-								<stat ng-switch-default>{{ contentData.resultData.averageFrequency | number:1 }}</stat>
-								 days avg. completion
-							</div>
-							<div class="statline" ng-switch="contentData.resultData.averageChanges">
-								<stat ng-switch-when="-1">--</stat>
-								<stat ng-switch-default>{{ contentData.resultData.averageChanges | number:1 }}</stat>
-								 avg. changes
-							</div>							
+		        <div class="modal-body" id="modal-completions">	
+		        	<button type="button" onclick="returnToCompletions();" id="return-comp-button">
+		        		<i class="fa fa-hand-o-left"></i> back
+					</button>
+					
+					<!-- a build page on Bamboo-->
+		       		<iframe id="buildPage">
+		       		
+		       		</iframe>
+		       		
+		        	<div id="completions-window">				
+						<div class="deploy-header">					
+							<div><plan>{{contentData.planName}}<span id="history"> 's release history</span></plan></div>
+							<div class="changes"><changes>{{contentData.resultData.completions.length}}</changes> completed pipeline(s)</div>					
 						</div>
-					</div>
-					
-					<!-- buttons for switching between 2 views of the completion list -->
-					<button type="button" value="return" onclick="showListView('comp-list', 'comp-table');" class="list-view-button" disabled="disabled"  title="List view">
-						<i class="fa fa-list-ul fa-2x"></i>
-					</button>
-					<button type="button" value="return" onclick="showTableView('comp-table', 'comp-list');" class="table-view-button" title="Table view">
-						<i class="fa fa-table fa-2x"></i>
-					</button>		
-					<button type="button" value="select" onclick="selectTable(document.getElementById('comp-table'));" class="select-table-button" title="Select the table">
-						<i class="fa fa-files-o fa-2x"></i>
-					</button>
-					
-					<div class="completions-page">			        	
-						<table id="comp-table">				
-						  	<thead>
-						    	<tr>
-						      		<th> Build# </th>
-						      		<th> Changes </th>
-						      		<th> Time </th>
-						      		<th> Contributors </th>
-						    	</tr>
-						 	</thead>
-						  	<tbody>
-						    	<tr ng-repeat="completion in contentData.resultData.completions">
-						      		<td> {{ completion.buildNumber }} </td>
-						      		<td> {{ completion.numChanges }} </td>
-						      		<td> {{ completion.completedDate | date:'medium' }} </td>
-						      		<td>  
-										<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> <u>{{ contributor.fullname }}</u> </span>
-									</td>
-						    	</tr>
-						  	</tbody>    
-						</table>
 						
-				        <ul id="comp-list">
-				         	<li ng-repeat="completion in contentData.resultData.completions">
-				            	<div class="comp-list-build"> #{{ completion.buildNumber }} </div>
-				              	<div class="item-info">
-				                	<p ng-switch="completion.numChanges" class="description">
-				                		<span ng-switch-when="0"></span>
-				                		<span ng-switch-default>                
-											<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> 
-												<img src="{{ contributor.pictureUrl }}" title="{{contributor.fullname}}" width="35" height="35">
+						<div class="comp-stat">
+							<div class="notepad">
+							 	<div class="notepad-heading"> Statistics  </div>
+								<div class="statline"><stat>{{ contentData.resultData.upPercentage * 100 | number:0 }}%</stat> uptime</div> 					  	
+								<div class="statline"><stat>{{ contentData.resultData.successPercentageFormatted * 100 | number:0 }}%</stat> success</div> 
+								<div class="statline" ng-switch="contentData.resultData.averageFrequency">
+									<stat ng-switch-when="-1">--</stat>
+									<stat ng-switch-default>{{ contentData.resultData.averageFrequency | number:1 }}</stat>
+									 avg. days/completion
+								</div>
+								<div class="statline" ng-switch="contentData.resultData.averageChanges">
+									<stat ng-switch-when="-1">--</stat>
+									<stat ng-switch-default>{{ contentData.resultData.averageChanges | number:1 }}</stat>
+									 avg. changes/completion
+								</div>							
+							</div>
+						</div>
+						
+						<!-- buttons for switching between 2 views of the completion list -->
+						<button type="button" onclick="showListView('comp-list', 'comp-table');" class="list-view-button" disabled="disabled"  title="List view">
+							<i class="fa fa-list-ul fa-2x"></i>
+						</button>
+						<button type="button" onclick="showTableView('comp-table', 'comp-list');" class="table-view-button" title="Table view">
+							<i class="fa fa-table fa-2x"></i>
+						</button>		
+						<button type="button" onclick="selectTable(document.getElementById('comp-table'));" class="select-table-button" title="Select the table">
+							<i class="fa fa-files-o fa-2x"></i>
+						</button>
+						
+						<div class="completions-page">			        	
+							<table id="comp-table">				
+							  	<thead>
+							    	<tr>
+							      		<th> Build# </th>
+							      		<th> Changes </th>
+							      		<th> Time </th>
+							      		<th> Contributors </th>
+							    	</tr>
+							 	</thead>
+							  	<tbody>
+							    	<tr ng-repeat="completion in contentData.resultData.completions">
+							      		<td> {{ completion.buildNumber }} </td>
+							      		<td> {{ completion.numChanges }} </td>
+							      		<td> {{ completion.completedDate | date:'medium' }} </td>
+							      		<td>  
+											<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> <u>{{ contributor.fullname }}</u> </span>
+										</td>
+							    	</tr>
+							  	</tbody>    
+							</table>
+							
+					        <ul id="comp-list">
+					         	<li ng-repeat="completion in contentData.resultData.completions">
+									<div id="baseUrl">{{url}}</div>
+					            	<div class="comp-list-build" id="{{completion.buildNumber }}" onclick="showBuildPage(this.id);"><a> #{{ completion.buildNumber }} </a></div>
+					              	<div class="item-info">
+					                	<p ng-switch="completion.numChanges" class="description">
+					                		<span ng-switch-when="0"></span>
+					                		<span ng-switch-default>                
+												<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> 
+													<img src="{{ contributor.pictureUrl }}" title="{{contributor.fullname}}" width="35" height="35">
+												</span>    
 											</span>    
-										</span>    
-									</p>				
-				              	</div>
-				              	<div class="comp-list-date-changes"> 
-				              		{{ completion.completedDate | date:'medium' }} 
-				              		<div> 
-				              			{{ completion.numChanges }} 
-										<span ng-switch="completion.numChanges" title="since last completion">
-											<span ng-switch-when="0"> commit</span>								
-										   	<span ng-switch-when="1"> commit</span>
-										   	<span ng-switch-default> commits</span>      
-										</span>  
-									</div>  				              	
-				              	</div>  
-				         	</li>
-				        </ul>
-					</div>							
-		        </div>
+										</p>				
+					              	</div>
+					              	<div class="comp-list-date-changes"> 
+					              		{{ completion.completedDate | date:'medium' }} 
+					              		<div> 
+					              			{{ completion.numChanges }} 
+											<span ng-switch="completion.numChanges" title="since last completion">
+												<span ng-switch-when="0"> commit</span>								
+											   	<span ng-switch-when="1"> commit</span>
+											   	<span ng-switch-default> commits</span>      
+											</span>  
+										</div>  				              	
+					              	</div>  
+					         	</li>
+					        </ul>
+						</div>							
+			        </div>
+			    </div>
 		    </script>
 
 		    <!-- pop up window for project, plan and build -->
 		    <script type="text/ng-template" id="Details.html">
-		        <div class="modal-body">
-		        	<iframe src="{{url}}"></iframe>
-		        </div>
+		        <div class="modal-body"></div>
 		    </script>
 
 			<!-- a floating menu on the left -->
@@ -300,7 +310,9 @@
 								<lastDeploy ng-switch="result.cdresult.currentBuild.cdpipelineState">
 									<span ng-switch-default>
 										<span class="aui-lozenge aui-lozenge-complete deploy-label">
-											<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, 'Completions.html')">Since Last Completion</a>
+											<a ng-click="modalForCompletions('../../browse/' + result.cdresult.planKey, result.cdresult)">
+												Since Last Completion
+											</a>										
 										</span><br>										
 										<dayChange>
 											<span ng-switch="result.cdresult.daysSinceDeploymentFromCurrent">
@@ -339,7 +351,9 @@
 									</span>
 									<span ng-switch-when="CD_SUCCESS">
 										<span class="aui-lozenge aui-lozenge-complete deploy-label deploy-success">
-											<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, 'Completions.html')">Current Completion</a>
+											<a ng-click="modalForCompletions('../../browse/' + result.cdresult.planKey, result.cdresult)">
+												Since Last Completion
+											</a>										
 										</span><br>										
 										<dayChange>
 											<span ng-switch="result.cdresult.daysSinceDeploymentFromCurrent">
