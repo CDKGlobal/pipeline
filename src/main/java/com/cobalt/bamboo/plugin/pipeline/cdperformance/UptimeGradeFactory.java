@@ -39,16 +39,18 @@ public class UptimeGradeFactory {
 		
 		// Calculate the uptime starting from the current build.
 		long totalUptime = 0;
-		long lastBuildTime = buildList.get(currentBuildIndex).getBuildCompletedDate().getTime();
-		for(int i = currentBuildIndex; i <= startBuildIndex; i++){
-			ResultsSummary currentBuild = buildList.get(i);
-			Date currentBuildCompletedDate = currentBuild.getBuildCompletedDate();
-			if(currentBuildCompletedDate != null){
-				long currentBuildTime = currentBuild.getBuildCompletedDate().getTime();
-				if(currentBuild.isSuccessful()){
-					totalUptime += lastBuildTime - currentBuildTime;
+		if(currentBuildDate != null){
+			long lastBuildTime = currentBuildDate.getTime();
+			for(int i = currentBuildIndex; i <= startBuildIndex; i++){
+				ResultsSummary currentBuild = buildList.get(i);
+				Date currentBuildCompletedDate = currentBuild.getBuildCompletedDate();
+				if(currentBuildCompletedDate != null){
+					long currentBuildTime = currentBuild.getBuildCompletedDate().getTime();
+					if(currentBuild.isSuccessful()){
+						totalUptime += lastBuildTime - currentBuildTime;
+					}
+					lastBuildTime = currentBuildTime;
 				}
-				lastBuildTime = currentBuildTime;
 			}
 		}
 		
