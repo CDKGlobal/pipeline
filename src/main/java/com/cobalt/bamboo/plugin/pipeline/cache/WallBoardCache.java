@@ -1,17 +1,15 @@
 package com.cobalt.bamboo.plugin.pipeline.cache;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class WallBoardCache {
-	private Map<String, WallBoardData> cache;
+	private ConcurrentMap<String, WallBoardData> cache;
 	
 	public WallBoardCache() {
-		cache = new HashMap<String, WallBoardData>();
+		cache = new ConcurrentHashMap<String, WallBoardData>();
 	}
 	
 	public void put(String planKey, WallBoardData wallBoardData) {
