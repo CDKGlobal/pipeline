@@ -341,7 +341,7 @@
 													<small>change</small>
 												</span>
 												<span ng-switch-when="1">
-													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
+													<changes><a ng-click="modalOpenContent('lg', 'changes', result.cdresult, 'Changes.html')">1</a></changes>
 													<small>change</small>
 												</span>
 												<span ng-switch-default>
@@ -358,7 +358,7 @@
 											</a>										
 										</span><br>										
 										<dayChange>
-											<span ng-switch="result.cdresult.daysSinceDeploymentFromCurrent">
+											<span ng-switch="result.cdresult.daysSinceLastUpdateFromCurrent">
 												<span ng-switch-when="-1">
 													<days>--</days>
 													<small>day ago</small>
@@ -372,7 +372,7 @@
 													<small>day ago</small>
 												</span>
 												<span ng-switch-default>
-													<days>{{ result.cdresult.daysSinceDeploymentFromCurrent }}</days>
+													<days>{{ result.cdresult.daysSinceLastUpdateFromCurrent }}</days>
 													<small>days ago</small>
 												</span>
 											</span>					
@@ -382,7 +382,7 @@
 													<small>change</small>
 												</span>
 												<span ng-switch-when="1">
-													<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
+													<changes><a ng-click="modalOpenContent('lg', 'changes', result.cdresult, 'Changes.html')">1</a></changes>
 													<small>change</small>
 												</span>
 												<span ng-switch-default>
