@@ -31,7 +31,8 @@
     
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
     <resource type="download" name="scrollToTop.js" location="/js/scrollToTop.js"/>
-   
+    <resource type="download" name="infinitescroll.js" location="/js/infinitescroll.js"/>
+    
     <resource type="download" name="images/" location="/images"/>
     
     <context>cdpipeline</context>

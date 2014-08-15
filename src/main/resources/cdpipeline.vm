@@ -280,14 +280,14 @@
 			<a href="#" id="scroll-to-top"><i class="fa fa-angle-up fa-2x"></i></a>
 
 			<!-- board section to display all plan's initial info -->
-	        <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}"  ng-cloak>
+	        <div id="board" infinite-scroll="loadMore()" infinite-scroll-distance="2" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}" ng-cloak>
 
 	     	 	<div id="unloadedBoard" ng-hide="dataLoaded">
 	     			<div class="loader">loading...</div>
 					<div id="loadingText">loading...</div>
 	       		</div>
 
-	            <div ng-show="dataLoaded" id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'cdresult.lastUpdateTime':true | searchFor:searchString | progressToFront:'cdresult' | emptyToEnd:'cdresult' track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
+	            <div ng-show="dataLoaded" id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'cdresult.lastUpdateTime':true | searchFor:searchString | progressToFront:'cdresult' | emptyToEnd:'cdresult' | limitTo: totalDisplayed track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
 					<div class="panel panel-default">
 						<div class="panel-body">
 

@@ -23,6 +23,12 @@ plugin.controller("BoardController", function ($scope, autoRefresh, $rootScope) 
 	else {
 		$rootScope.fullURL = currentURL + "?search=";
 	}
+
+	//scroll for new data
+	$scope.totalDisplayed = 10;
+	$scope.loadMore = function() {
+		$scope.totalDisplayed += 5;
+	};
 });
 
 //polls a REST endpoint every five seconds and automatically refreshes
