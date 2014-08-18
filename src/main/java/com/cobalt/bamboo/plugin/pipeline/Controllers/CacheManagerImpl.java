@@ -34,19 +34,7 @@ public class CacheManagerImpl implements CacheManager {
 			@Override
 			public Object doInTransaction() {
 				
-				WallBoardCache newCache = new WallBoardCache();
-				List<CDResult> cdResults = mainManager.getCDResults();
-				
-				for (CDResult cdResult : cdResults) {
-					String planKey = cdResult.getPlanKey();
-					UptimeGrade uptimeGrade = mainManager.getUptimeGradeForPlan(planKey);
-					
-					WallBoardData wallBoardData = new WallBoardData(planKey, cdResult, uptimeGrade);
-					
-					newCache.put(planKey, wallBoardData);
-				}
-				
-				wallBoardCache = newCache;
+				refreshCache();
 				
 				return null;
 			}
@@ -90,7 +78,7 @@ public class CacheManagerImpl implements CacheManager {
 	@Override
 	public List<WallBoardData> getAllWallBoardData() {
 		if (wallBoardCache.isEmpty()) {
-			putAllWallBoardData();
+			refreshCache();
 		}
 		
 		List<WallBoardData> results = wallBoardCache.getAllWallBoardData();
@@ -101,5 +89,26 @@ public class CacheManagerImpl implements CacheManager {
 	@Override
 	public void clearCache() {
 		wallBoardCache.clear();
+	}
+	
+	/*
+	 * A private method that does a full refresh on the cache.
+	 * This method is factored out so that it can be called inside or
+	 * outside of the TransactionTemplate depending on the context.
+	 */
+	private void refreshCache() {
+		WallBoardCache newCache = new WallBoardCache();
+		List<CDResult> cdResults = mainManager.getCDResults();
+		
+		for (CDResult cdResult : cdResults) {
+			String planKey = cdResult.getPlanKey();
+			UptimeGrade uptimeGrade = mainManager.getUptimeGradeForPlan(planKey);
+			
+			WallBoardData wallBoardData = new WallBoardData(planKey, cdResult, uptimeGrade);
+			
+			newCache.put(planKey, wallBoardData);
+		}
+		
+		wallBoardCache = newCache;
 	}
 }
