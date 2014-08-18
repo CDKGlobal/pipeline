@@ -158,7 +158,7 @@
 						<div class="comp-stat">
 							<div class="notepad">
 							 	<div class="notepad-heading"> Pipeline Rating  </div>
-								<div class="statline"><stat>{{ contentData.resultData.upPercentage * 100 | number:0 }}%</stat> uptime</div> 					  	
+								<div class="statline"><stat>{{ contentData.uptimeGrade.uptimePercentage * 100 | number:0 }}%</stat> uptime</div> 					  	
 								<div class="statline"><stat>{{ contentData.resultData.successPercentageFormatted * 100 | number:0 }}%</stat> success</div> 
 								<div class="statline" ng-switch="contentData.resultData.averageFrequency">
 									<stat ng-switch-when="-1">--</stat>
@@ -170,7 +170,7 @@
 									<stat ng-switch-default>{{ contentData.resultData.averageChanges | number:1 }}</stat>
 									 avg. changes/completion
 								</div>	
-								<div id="stamp">{{contentData.grade | letterOnly }}</div>						
+								<div id="stamp">{{contentData.uptimeGrade.grade | letterOnly }}</div>						
 							</div>
 						</div>
 						
@@ -296,7 +296,7 @@
 								<!-- grade & project/plan column -->
 								<div class="col-md-2">
 									<div class="uptimeGrade" ng-switch="result.uptimeGrade.grade">
-										<a ng-switch-default ng-click="modalOpenContent('lg', 'completions', result.cdresult, result.uptimeGrade.grade, 'Completions.html')">
+										<a ng-switch-default ng-click="modalOpenContent('lg', 'completions', result, 'Completions.html')">
 											<div class="flyoutlink">
 										  		<div class="flyoutlink-inner {{result.uptimeGrade.grade | letterOnly }}">
 										    		<div class="grade">{{ result.uptimeGrade.grade | letterOnly }}</div>
@@ -337,9 +337,7 @@
 									<lastDeploy ng-switch="result.cdresult.currentBuild.cdpipelineState">
 										<span ng-switch-default>
 											<span class="aui-lozenge aui-lozenge-complete deploy-label">
-												<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, result.uptimeGrade.grade, 'Completions.html')">
-													Since Last Completion
-												</a>										
+												Since Last Completion										
 											</span><br>										
 											<dayChange>
 												<span ng-switch="result.cdresult.daysSinceDeploymentFromCurrent">
@@ -366,11 +364,11 @@
 														<small>change</small>
 													</span>
 													<span ng-switch-when="1">
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result.cdresult, '', 'Changes.html')">1</a></changes>
+														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
 														<small>change</small>
 													</span>
 													<span ng-switch-default>
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result.cdresult, '', 'Changes.html')">{{ result.cdresult.numChanges }}</a></changes>
+														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.cdresult.numChanges }}</a></changes>
 														<small>changes</small>
 													</span>								
 												</span>										
@@ -378,9 +376,7 @@
 										</span>
 										<span ng-switch-when="CD_SUCCESS">
 											<span class="aui-lozenge aui-lozenge-complete deploy-label deploy-success">
-												<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, result.uptimeGrade.grade, 'Completions.html')">
-													Current Completion
-												</a>										
+												Current Completion
 											</span><br>										
 											<dayChange>
 												<span ng-switch="result.cdresult.daysSinceLastUpdateFromCurrent">
@@ -407,11 +403,11 @@
 														<small>change</small>
 													</span>
 													<span ng-switch-when="1">
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result.cdresult, '', 'Changes.html')">1</a></changes>
+														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
 														<small>change</small>
 													</span>
 													<span ng-switch-default>
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result.cdresult, '', 'Changes.html')">{{ result.cdresult.numChanges }}</a></changes>
+														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.cdresult.numChanges }}</a></changes>
 														<small>changes</small>
 													</span>								
 												</span>																	
