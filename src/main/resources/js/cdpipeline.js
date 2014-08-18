@@ -1,7 +1,7 @@
 // Show the changes/completions in list view
 function showListView(list, table) {
 	document.getElementById(table).style.display = "none";
-	document.getElementById(list).style.display = "table";
+	document.getElementById(list).style.display = "block";
  	document.getElementsByClassName("list-view-button")[0].disabled = true;
  	document.getElementsByClassName("table-view-button")[0].disabled = false;
  	document.getElementsByClassName("select-table-button")[0].style.display = "none";

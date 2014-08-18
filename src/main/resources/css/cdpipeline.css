@@ -995,7 +995,7 @@ input[type="text"]:focus {
 	font-size: 12px;
 }
 
-ul {
+.change-files {
 	display: inline-block;
 }
 
@@ -1186,4 +1186,9 @@ li.change-file {
 
 tbody tr:hover {
 	background: #ebf2f9
+}
+
+
+.aui-nav:hover a {
+	color: white;
 }
