@@ -157,7 +157,7 @@
 						
 						<div class="comp-stat">
 							<div class="notepad">
-							 	<div class="notepad-heading"> Statistics  </div>
+							 	<div class="notepad-heading"> Pipeline Rating  </div>
 								<div class="statline"><stat>{{ contentData.resultData.upPercentage * 100 | number:0 }}%</stat> uptime</div> 					  	
 								<div class="statline"><stat>{{ contentData.resultData.successPercentageFormatted * 100 | number:0 }}%</stat> success</div> 
 								<div class="statline" ng-switch="contentData.resultData.averageFrequency">

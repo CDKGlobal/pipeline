@@ -11,8 +11,6 @@ A Pen created at CodePen.io. You can find this one at http://codepen.io/bbodine1
 */
 
 
-/* list of completions */
-
 .notepad, .notepad:before, .notepad:after {
   	background-color: white;
   	background-image: -webkit-linear-gradient(#f6abca 1px, transparent 1px), -webkit-linear-gradient(#f6abca 1px, transparent 1px), -webkit-linear-gradient(#e8e8e8 1px, transparent 1px);
@@ -34,6 +32,7 @@ A Pen created at CodePen.io. You can find this one at http://codepen.io/bbodine1
   	line-height: 23px;
   	font-size: 12px;
   	color: #666;
+  	left: -10%;
 }
 
 .notepad:before, .notepad:after {
@@ -58,7 +57,7 @@ A Pen created at CodePen.io. You can find this one at http://codepen.io/bbodine1
 
 .notepad-heading {
   	position: relative;
-  	margin: 0 -20px 14px -20px;
+  	margin: 0 -20px 25px -20px;
   	height: 38px;
   	background: #14466a;
   	border-radius: 2px 2px 0 0; 
@@ -100,7 +99,7 @@ A Pen created at CodePen.io. You can find this one at http://codepen.io/bbodine1
 	position: absolute;
 	top: 110px;
 	right: 30px;
-	font-size: 13px;
+	font-size: 15px;
 	padding: 5px;
 }	
 
@@ -112,6 +111,6 @@ stat {
 
 .statline {
 	padding: 0px;
-	padding-bottom: 12px;
+	padding-bottom: 15px;
 }
 

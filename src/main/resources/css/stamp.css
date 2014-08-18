@@ -26,9 +26,9 @@ A Pen created at CodePen.io. You can find this one at http://codepen.io/domenico
   	-o-transform: rotate(-10deg);
   	-moz-transform: rotate(-10deg);
   	-ms-transform: rotate(-10deg);
- 	position:absolute;
-  	top:20%;
- 	left: 68%;
+ 	position: absolute;
+  	top: 20%;
+ 	left: 65%;
 }
 
 #stamp::after {
