@@ -73,7 +73,7 @@ plugin.filter("progressToFront", function () {
         	return item[key]["currentBuild"]["cdpipelineState"] == "CD_QUEUED";
         });
         var finished = array.filter(function (item) {
-            return item[key]["currentBuild"]["cdpipelineState"] != "CD_IN_PROGRESS" && item[key]["cdpipelineState"] != "CD_QUEUED";
+            return item[key]["currentBuild"]["cdpipelineState"] != "CD_IN_PROGRESS" && item[key]["currentBuild"]["cdpipelineState"] != "CD_QUEUED";
         });
 		return inProgress.concat(queued).concat(finished);
 	};
