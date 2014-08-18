@@ -215,7 +215,7 @@
 					                	<p ng-switch="completion.numChanges" class="description">
 					                		<span ng-switch-when="0"></span>
 					                		<span ng-switch-default>                
-												<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit"> 
+												<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit | limitTo:12"> 
 													<img src="{{ contributor.pictureUrl }}" title="{{contributor.fullname}}" width="35" height="35">
 												</span>    
 											</span>    
