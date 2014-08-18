@@ -30,11 +30,11 @@ plugin.controller("ModalController", function ($scope, $modal, $window, $http, $
   /* --------------------------------------------------------------------------------------- */
   /* -------------------------- Modal Window with pipeline content ------------------------- */
   /* --------------------------------------------------------------------------------------- */
-  $scope.modalOpenContent = function (size, dataType, result, modalContent, searchParam) {
+  $scope.modalOpenContent = function (size, dataType, result, cdgrade, modalContent, searchParam) {
     $scope.contentData = {};
     $scope.searchParam = searchParam;
     if(dataType !== ''){
-      $scope.contentData = { planName: result.planName, numChanges: result.numChanges, planKey: result.planKey, resultData: {}};
+      $scope.contentData = { planName: result.planName, numChanges: result.numChanges, planKey: result.planKey, resultData: {}, grade: cdgrade};
       $http.get('?data=' + dataType + '&plankey=' + result.planKey).then( function(r) {
         $scope.contentData.resultData = r.data;
         $rootScope.dataLoaded = true;
