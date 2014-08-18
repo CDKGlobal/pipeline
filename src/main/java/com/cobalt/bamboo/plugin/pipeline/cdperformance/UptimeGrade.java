@@ -76,7 +76,8 @@ public class UptimeGrade {
 	 */
 	public void update(Build newBuild) {
 		Date buildCompletedDate = newBuild.getBuildCompletedDate();
-		if(buildCompletedDate != null){
+		if(buildCompletedDate != null && 
+				(currentBuildDate == null || buildCompletedDate.compareTo(currentBuildDate) > 0)){
 			if (startDate == null) {
 				startDate = buildCompletedDate;
 			} else if (currentBuildSuccess) {
