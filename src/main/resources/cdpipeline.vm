@@ -293,10 +293,10 @@
 						<div class="panel panel-default">
 							<div class="panel-body">
 
-								<!-- project/plan column -->
+								<!-- grade & project/plan column -->
 								<div class="col-md-2">
-									<div class="uptimeGrade">
-										<a ng-click="modalOpenContent('lg', 'completions', result.cdresult, result.uptimeGrade.grade, 'Completions.html')">
+									<div class="uptimeGrade" ng-switch="result.uptimeGrade.grade">
+										<a ng-switch-default ng-click="modalOpenContent('lg', 'completions', result.cdresult, result.uptimeGrade.grade, 'Completions.html')">
 											<div class="flyoutlink">
 										  		<div class="flyoutlink-inner {{result.uptimeGrade.grade | letterOnly }}">
 										    		<div class="grade">{{ result.uptimeGrade.grade | letterOnly }}</div>
@@ -306,6 +306,16 @@
 										  		</div>
 											</div>
 										</a>
+										<div ng-switch-when="null" >
+											<div class="flyoutlink">
+										  		<div class="flyoutlink-inner grade-null">
+										    		<div class="grade">--</div>
+										    		<div class="grade-label">
+										      			<div class="grade-label-inner"><small>no build history</small></div>
+										    		</div>
+										  		</div>
+											</div>
+										</div>
 									</div>
 
 									<projectPlan>
