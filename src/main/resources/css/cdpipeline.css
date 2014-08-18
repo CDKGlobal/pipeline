@@ -64,18 +64,18 @@ body {
 }
 
 .A .grade, .B .grade {
-	border: #8eb021 3px solid;
-	color: #8eb021;
+	border: #007C19 3px solid;
+	color: #007C19;
 }
 
 .C .grade, .D .grade {
-	border: #f1a257 3px solid;
-	color: #f1a257;
+	border: #E67000 3px solid;
+	color: #E67000;
 }
 
 .F .grade {
-	border: #d04437 3px solid;
-	color: #d04437;
+	border: #D11200 3px solid;
+	color: #D11200;
 }
 
 .grade-null .grade {
@@ -89,7 +89,7 @@ body {
   	height: 35px;
   	border-radius: 17px;
   	text-align: center;
-	background-color: #fffdf6;
+	background-color: white;
 }
 
 .grade-label {
