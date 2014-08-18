@@ -133,7 +133,7 @@
 		    <!-- pop up window for project, plan and build -->
 		    <script type="text/ng-template" id="Details.html">
 		        <div class="modal-body">		        	
-		        	<iframe src="../../browse/{{ contentData.planKey }}"></iframe>	        
+		        	<iframe src="{{ url }}"></iframe>	        
 		        </div>
 		    </script>
 
@@ -151,7 +151,7 @@
 		       		
 		        	<div id="completions-window">				
 						<div class="deploy-header">					
-							<div><plan>{{contentData.planName}}<span id="history"> 's release history</span></plan></div>
+							<div><plan>{{contentData.planName}}<span id="history"> release history</span></plan></div>
 							<div class="changes"><changes>{{contentData.resultData.completions.length}}</changes> completed pipeline(s)</div>					
 						</div>
 						
