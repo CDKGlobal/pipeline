@@ -32,11 +32,9 @@ public class CDPerformanceFactory {
 		
 		// Get total number of builds and completed date of the first build
 		// Initialize all counters
-		int totalBuild = buildList.size();
+		int totalBuild = 0;
 		int totalSuccess = 0;
 		int totalChanges = 0;
-		long totalSuccessTime = 0;
-		long lastBuildTime = (new Date()).getTime();
 		List<CompletionStats> completions = new ArrayList<CompletionStats>();
 		Date lastCompletionDate = null;
 		Date startDate = buildList.get(buildList.size() - 1).getBuildCompletedDate();
@@ -49,19 +47,19 @@ public class CDPerformanceFactory {
 			
 			Date currentTime = currentBuild.getBuildCompletedDate();
 			
-			// Increment number of successes if the current build is a success
-			if(currentBuild.isSuccessful()){
-				totalSuccess++;
-				totalSuccessTime += lastBuildTime - currentTime.getTime();
-			}
 			if (currentTime != null) {
-				lastBuildTime = currentTime.getTime();
-			}
-			
-			// Find the most recent completion and set the completed date of the most recent completion
-			if(!getRecentCompletion && !currentBuild.isContinuable() && currentBuild.isSuccessful()){
-				getRecentCompletion = true;
-				lastCompletionDate = currentTime;
+				// Increment number of successes if the current build is a success
+				if(currentBuild.isSuccessful()){
+					totalSuccess++;
+				}
+				
+				totalBuild++;
+				
+				// Find the most recent completion and set the completed date of the most recent completion
+				if(!getRecentCompletion && !currentBuild.isContinuable() && currentBuild.isSuccessful()){
+					getRecentCompletion = true;
+					lastCompletionDate = currentTime;
+				}
 			}
 			
 			// Before the most recent completion
@@ -88,7 +86,7 @@ public class CDPerformanceFactory {
 		if(currentCompletion != null){
 			completions.add(currentCompletion);
 		}
-		return new CDPerformance(totalBuild, totalSuccess, totalChanges, startDate, lastCompletionDate, new Date(), completions, totalSuccessTime);
+		return new CDPerformance(totalBuild, totalSuccess, totalChanges, startDate, lastCompletionDate, completions);
 	}
 	
 	/*

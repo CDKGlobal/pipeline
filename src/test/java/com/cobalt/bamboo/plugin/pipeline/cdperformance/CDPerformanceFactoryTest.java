@@ -64,14 +64,14 @@ public class CDPerformanceFactoryTest {
 	public void testNoSuccessOneBuild(){
 		List<ResultsSummary> buildList = new ArrayList<ResultsSummary>();
 		buildList.add(getChainResultsSummary(true, false, "1", 1, day1));
-		checkExpected(buildList, 0, -1, -1, new ArrayList<Integer>(), new ArrayList<Integer>(), 0);
+		checkExpected(buildList, 0, -1, -1, new ArrayList<Integer>(), new ArrayList<Integer>());
 	}
 	
 	@Test
 	public void testOneSuccessNoCompletionOneBuild(){
 		List<ResultsSummary> buildList = new ArrayList<ResultsSummary>();
 		buildList.add(getChainResultsSummary(true, true, "1", 1, day1));
-		checkExpected(buildList, 1, -1, -1, new ArrayList<Integer>(), new ArrayList<Integer>(), 1);
+		checkExpected(buildList, 1, -1, -1, new ArrayList<Integer>(), new ArrayList<Integer>());
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 1, 1, 0, changes, buildNums, 1);
+		checkExpected(buildList, 1, 1, 0, changes, buildNums);
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(false, false, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 0, -1, -1, changes, buildNums, 0);
+		checkExpected(buildList, 0, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -102,7 +102,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(true, false, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 0.5, -1, -1, changes, buildNums, 0.8);
+		checkExpected(buildList, 0.5, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -112,7 +112,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(true, true, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 0.5, -1, -1, changes, buildNums, 0.2);
+		checkExpected(buildList, 0.5, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -122,7 +122,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(true, true, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 1, -1, -1, changes, buildNums, 1);
+		checkExpected(buildList, 1, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -134,7 +134,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(2);
 		buildNums.add(2);
-		checkExpected(buildList, 0.5, 2, 1, changes, buildNums, 0.8);
+		checkExpected(buildList, 0.5, 2, 1, changes, buildNums);
 	}
 	
 	@Test
@@ -146,7 +146,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.5, 1, 0, changes, buildNums, 0.2);
+		checkExpected(buildList, 0.5, 1, 0, changes, buildNums);
 	}
 	
 	@Test
@@ -158,7 +158,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(2);
 		buildNums.add(2);
-		checkExpected(buildList, 1, 2, 1, changes, buildNums, 1);
+		checkExpected(buildList, 1, 2, 1, changes, buildNums);
 	}
 	
 	@Test
@@ -170,7 +170,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 1, 1, 0, changes, buildNums, 1);
+		checkExpected(buildList, 1, 1, 0, changes, buildNums);
 	}
 	
 	@Test
@@ -184,7 +184,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(2);
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 1, 1, 0.5, changes, buildNums, 1);
+		checkExpected(buildList, 1, 1, 0.5, changes, buildNums);
 	}
 	
 	@Test
@@ -197,7 +197,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(false, false, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 0, -1, -1, changes, buildNums, 0);
+		checkExpected(buildList, 0, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -210,7 +210,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(false, false, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 0.4, -1, -1, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -223,7 +223,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(true, true, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 0.4, -1, -1, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -236,7 +236,7 @@ public class CDPerformanceFactoryTest {
 		buildList.add(getChainResultsSummary(true, true, "1", 1, day1));
 		List<Integer> changes = new ArrayList<Integer>();
 		List<Integer> buildNums = new ArrayList<Integer>();
-		checkExpected(buildList, 1, -1, -1, changes, buildNums, 1);
+		checkExpected(buildList, 1, -1, -1, changes, buildNums);
 	}
 	
 	@Test
@@ -251,7 +251,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.2, 1, 0, changes, buildNums, 0.2);
+		checkExpected(buildList, 0.2, 1, 0, changes, buildNums);
 	}
 	
 	@Test
@@ -266,7 +266,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(3);
 		buildNums.add(3);
-		checkExpected(buildList, 0.2, 3, 2, changes, buildNums, 0.2);
+		checkExpected(buildList, 0.2, 3, 2, changes, buildNums);
 	}
 	
 	@Test
@@ -281,7 +281,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(5);
 		buildNums.add(5);
-		checkExpected(buildList, 0.2, 5, 4, changes, buildNums, 0.2);
+		checkExpected(buildList, 0.2, 5, 4, changes, buildNums);
 	}
 	
 	@Test
@@ -296,7 +296,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.4, 1, 0, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 1, 0, changes, buildNums);
 	}
 	
 	@Test
@@ -311,7 +311,7 @@ public class CDPerformanceFactoryTest {
 		List<Integer> buildNums = new ArrayList<Integer>();
 		changes.add(5);
 		buildNums.add(5);
-		checkExpected(buildList, 0.4, 5, 4, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 5, 4, changes, buildNums);
 	}
 	
 	@Test
@@ -328,7 +328,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(2);
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.4, 1, 0.5, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 1, 0.5, changes, buildNums);
 	}
 	
 	@Test
@@ -345,7 +345,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(4);
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.4, 2, 1.5, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 2, 1.5, changes, buildNums);
 	}
 	
 	@Test
@@ -362,7 +362,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(5);
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.4, 2.5, 2, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 2.5, 2, changes, buildNums);
 	}
 	
 	@Test
@@ -379,7 +379,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(4);
 		changes.add(2);
 		buildNums.add(2);
-		checkExpected(buildList, 0.4, 2, 1.5, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 2, 1.5, changes, buildNums);
 	}
 	
 	@Test
@@ -396,7 +396,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(5);
 		changes.add(2);
 		buildNums.add(2);
-		checkExpected(buildList, 0.4, 2.5, 2, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 2.5, 2, changes, buildNums);
 	}
 	
 	@Test
@@ -413,7 +413,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(5);
 		changes.add(4);
 		buildNums.add(4);
-		checkExpected(buildList, 0.4, 2.5, 2, changes, buildNums, 0.4);
+		checkExpected(buildList, 0.4, 2.5, 2, changes, buildNums);
 	}
 	
 	@Test
@@ -432,7 +432,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(2);
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 0.6, 5.0 / 3, 4.0 / 3, changes, buildNums, 0.6); 
+		checkExpected(buildList, 0.6, 5.0 / 3, 4.0 / 3, changes, buildNums); 
 	}
 	
 	@Test
@@ -451,7 +451,7 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(3);
 		changes.add(2);
 		buildNums.add(2);
-		checkExpected(buildList, 0.6, 4.0/3, 1, changes, buildNums, 0.6); 
+		checkExpected(buildList, 0.6, 4.0/3, 1, changes, buildNums); 
 	}
 	
 	@Test
@@ -474,16 +474,15 @@ public class CDPerformanceFactoryTest {
 		buildNums.add(2);
 		changes.add(1);
 		buildNums.add(1);
-		checkExpected(buildList, 1, 1, 0.8, changes, buildNums, 1);
+		checkExpected(buildList, 1, 1, 0.8, changes, buildNums);
 	}
 	
 	private void checkExpected(List<ResultsSummary> list, double percentage, double changes, double frequency, 
-								List<Integer> completionsChanges, List<Integer> buildNumbers, double upPercentage){
+								List<Integer> completionsChanges, List<Integer> buildNumbers){
 		CDPerformance cdp = CDPerformanceFactory.createCDPerformance(list, cb);
 		assertEquals("Success percentage isn't as expected", percentage, cdp.getSuccessPercentage(), 0.0001);
 		assertEquals("Average changes isn't as expected", changes, cdp.getAverageChanges(), 0.0001);
 		assertEquals("Average frequency isn't as expected", frequency, cdp.getAverageFrequency(), 0.0001);
-		assertEquals("Up Percentage isn't as expected", upPercentage, cdp.getUpPercentage(), 0.0001);
 		List<CompletionStats> completions = cdp.getCompletions();
 		assertEquals("Number of completions isn't as expected", buildNumbers.size(), completions.size());
 		for(int i = 0; i < completions.size(); i++){
