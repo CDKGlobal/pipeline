@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * Cache that stores all the data that is directly shown on the Pipeline wallboard.
+ * This cache is thread safe using Java's Concurrent Map.
+ */
 public class WallBoardCache {
 	private ConcurrentMap<String, WallBoardData> cache;
 	
