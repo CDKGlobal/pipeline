@@ -45,8 +45,6 @@ body {
   	height: 35px;
 
   	border-radius: 17px;  
-  	/*color: #333333;*/
-  	/*color: white;*/
 
   	transition: all 0.35s;
 	-moz-transition: all 0.35s;
@@ -58,9 +56,6 @@ body {
 .flyoutlink:hover {
 	width: 90px;
 	opacity: 1;
-	.grade-label {
-		opacity: 1;
-	}
 }
 
 .flyoutlink-inner {
@@ -69,28 +64,29 @@ body {
 }
 
 .A .grade, .B .grade {
-	/*background-color: #8eb021;*/
 	border: #8eb021 3px solid;
 	color: #8eb021;
 }
 
 .C .grade, .D .grade {
-	/*background-color: #f1a257;*/
 	border: #f1a257 3px solid;
 	color: #f1a257;
 }
 
 .F .grade {
-	/*background-color: #d04437;*/
 	border: #d04437 3px solid;
 	color: #d04437;
+}
+
+.grade-null .grade {
+	border: #999999 3px solid;
+	color: #999999;
 }
 
 .grade {
   	float: left;
   	width: 35px;
   	height: 35px;
-  	/*padding: 5px;*/
   	border-radius: 17px;
   	text-align: center;
 	background-color: #fffdf6;

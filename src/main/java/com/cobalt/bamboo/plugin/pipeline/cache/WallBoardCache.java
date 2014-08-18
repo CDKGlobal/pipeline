@@ -36,6 +36,10 @@ public class WallBoardCache {
 		return cache.get(planKey);
 	}
 	
+	public boolean containsPlan(String planKey) {
+		return cache.containsKey(planKey);
+	}
+	
 	public void clear() {
 		cache.clear();
 	}
