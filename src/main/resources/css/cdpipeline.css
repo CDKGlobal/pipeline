@@ -831,10 +831,6 @@ iframe {
 }
 
 #superpipe-logo {
-	background-image: url(../../download/resources/com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources/images/superpipe-logo-sm.png);
-	height: 72px;
-	width: 72px;
-	display: inline-block;
 	vertical-align: middle;
 	margin-top: 10px;
 }
