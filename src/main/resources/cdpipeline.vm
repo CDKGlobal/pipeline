@@ -289,207 +289,213 @@
 						<div id="loadingText">loading...</div>
 		       		</div>
 
-		            <div ng-show="dataLoaded" id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'cdresult.lastUpdateTime':true | searchFor:searchString | progressToFront:'cdresult' | emptyToEnd:'cdresult' | limitTo: totalDisplayed track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
-						<div class="panel panel-default">
-							<div class="panel-body">
+		       		<div ng-show="dataLoaded" ng-switch="results.resp">
+		       			<div ng-switch-when="null" id="firstLoad-info">Plugin initializing<span></span><span></span><span></span></div>
 
-								<!-- grade & project/plan column -->
-								<div class="col-md-2">
-									<div class="uptimeGrade" ng-switch="result.uptimeGrade.grade">
-										<a ng-switch-default ng-click="modalOpenContent('lg', 'completions', result, 'Completions.html')">
-											<div class="flyoutlink">
-										  		<div class="flyoutlink-inner {{result.uptimeGrade.grade | letterOnly }}">
-										    		<div class="grade">{{ result.uptimeGrade.grade | letterOnly }}</div>
-										    		<div class="grade-label">
-										      			<div class="grade-label-inner">{{ result.uptimeGrade.uptimePercentage * 100 | number : 0 }}% <small>uptime</small></div>
-										    		</div>
-										  		</div>
-											</div>
-										</a>
-										<div ng-switch-when="null" >
-											<div class="flyoutlink">
-										  		<div class="flyoutlink-inner grade-null">
-										    		<div class="grade">--</div>
-										    		<div class="grade-label">
-										      			<div class="grade-label-inner"><small>no build history</small></div>
-										    		</div>
-										  		</div>
-											</div>
-										</div>
-									</div>
+		       			<div ng-switch-default>
+				            <div id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'cdresult.lastUpdateTime':true | searchFor:searchString | progressToFront:'cdresult' | emptyToEnd:'cdresult' | limitTo: totalDisplayed track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
+								<div class="panel panel-default">
+									<div class="panel-body">
 
-									<projectPlan>
-										<project>
-											<a ng-click="modalOpenUrl('../../browse/' + result.cdresult.projectKey)">
-												{{ result.cdresult.projectName }}
-											</a>
-										</project><br>
-										<plan>
-											<a ng-click="modalOpenUrl('../../browse/' + result.cdresult.planKey)">
-												{{ result.cdresult.planName }}
-											</a>
-										</plan>
-									</projectPlan>
-								</div>
-								
-								<!-- last deployment column -->
-								<div class="col-md-3">
-									<lastDeploy ng-switch="result.cdresult.currentBuild.cdpipelineState">
-										<span ng-switch-default>
-											<span class="aui-lozenge aui-lozenge-complete deploy-label">
-												Since Last Completion										
-											</span><br>										
-											<dayChange>
-												<span ng-switch="result.cdresult.daysSinceDeploymentFromCurrent">
-													<span ng-switch-when="-1">
-														<days>--</days>
-														<small class="day-margin">day</small>
-													</span>
-													<span ng-switch-when="0">
-														<days>0</days>
-														<small class="day-margin">day</small>
-													</span>
-													<span ng-switch-when="1">
-														<days>1</days>
-														<small class="day-margin">day</small>
-													</span>
-													<span ng-switch-default>
-														<days>{{ result.cdresult.daysSinceDeploymentFromCurrent }}</days>
-														<small class="day-margin">days</small>
-													</span>
-												</span>					
-												<span ng-switch="result.cdresult.numChanges">
-													<span ng-switch-when="0">
-														<changes>0</changes>
-														<small>change</small>
-													</span>
-													<span ng-switch-when="1">
-														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
-															<changes>1</changes>
-															<small>change</small>
-														</a>
-													</span>
-													<span ng-switch-default>
-														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
-															<changes>{{ result.cdresult.numChanges }}</changes>
-															<small>changes</small>
-														</a>
-													</span>								
-												</span>										
-											</dayChange>
-										</span>
-										<span ng-switch-when="CD_SUCCESS">
-											<span class="aui-lozenge aui-lozenge-complete deploy-label deploy-success">
-												Current Completion
-											</span><br>										
-											<dayChange>
-												<span ng-switch="result.cdresult.daysSinceLastUpdateFromCurrent">
-													<span ng-switch-when="-1">
-														<days>--</days>
-														<small class="day-margin">day ago</small>
-													</span>
-													<span ng-switch-when="0">
-														<days>0</days>
-														<small class="day-margin">day ago</small>
-													</span>
-													<span ng-switch-when="1">
-														<days>1</days>
-														<small class="day-margin">day ago</small>
-													</span>
-													<span ng-switch-default>
-														<days>{{ result.cdresult.daysSinceLastUpdateFromCurrent }}</days>
-														<small class="day-margin">days ago</small>
-													</span>
-												</span>					
-												<span ng-switch="result.cdresult.numChanges">
-													<span ng-switch-when="0">
-														<changes>0</changes>
-														<small>change</small>
-													</span>
-													<span ng-switch-when="1">
-														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
-															<changes>1</a></changes>
-															<small>change</small>
-														</a>
-													</span>
-													<span ng-switch-default>
-														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
-															<changes>{{ result.cdresult.numChanges }}</changes>
-															<small>changes</small>
-														</a>
-													</span>								
-												</span>																	
-											</dayChange>
-										</span>
-									</lastDeploy>
-								</div>
-
-								<!-- current build column -->
-								<div class="col-md-1">		
-									<div class="build-state-icon" ng-switch="result.cdresult.currentBuild.cdpipelineState">
-										<span ng-switch-when="CD_SUCCESS" class="icon icon-successful" title="Current build is successful"></span>
-										<span ng-switch-when="CD_FAILED" class="icon icon-failed" title="Current build failed"></span>
-										<span ng-switch-when="CD_IN_PROGRESS" class="icon icon-building" title="Current build is building"></span>
-										<span ng-switch-when="CD_MANUALLY_PAUSED" class="icon icon-successfulPartial" title="Current build stopped at manual stage"></span>
-										<span ng-switch-when="CD_QUEUED" class="icon icon-queued" title="Current build is queued"></span>
-										<span ng-switch-when="CD_NOT_BUILT" class="icon icon-disabled" title="Current build is not built"></span>
-									</div>
-									
-									<buildNumber ng-switch="result.cdresult.currentBuild.buildNumber">
-										<a ng-switch-when="-1" ng-click="modalOpenUrl('../../browse/' + result.cdresult.planKey + '/latest')">--</a>
-										<a ng-switch-default ng-click="modalOpenUrl('../../browse/' + result.cdresult.currentBuild.buildKey)">#{{ result.cdresult.currentBuild.buildNumber }}</a>
-									</buildNumber>
-
-									<div ng-if="result.cdresult.currentBuild.timeRemaining" class="build-progress-bar" ng-switch="result.cdresult.currentBuild.cdpipelineState">
-										<div ng-if="result.cdresult.currentBuild.timeRemaining" ng-switch-when="CD_IN_PROGRESS" class="background-progress" ng-style="{'width' : (result.cdresult.currentBuild.percentageCompleted * 100 | percentageLimit) + '%'}">
-										</div>
-										<div ng-switch-when="CD_IN_PROGRESS" class="timeRemaining" title="{{ result.cdresult.currentBuild.timeRemaining }}">{{ result.cdresult.currentBuild.timeRemaining }}</div>
-										<div ng-switch-when="CD_QUEUED" class="timeRemaining" title="{{ result.cdresult.currentBuild.timeRemaining }}">Queued...</div>
-									</div>
-								</div>
-									
-								<!-- contributor/pipeline column -->
-								<div class="col-md-6">	
-									<!-- contributors -->
-									<div class="contributorList">
-										<span ng-repeat="contributor in result.cdresult.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
-											<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
-												<a href="{{ contributor.profilePageUrl }}">
-													<span class="aui-avatar-inner">
-														<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
-													</span>
+										<!-- grade & project/plan column -->
+										<div class="col-md-2">
+											<div class="uptimeGrade" ng-switch="result.uptimeGrade.grade">
+												<a ng-switch-default ng-click="modalOpenContent('lg', 'completions', result, 'Completions.html')">
+													<div class="flyoutlink">
+												  		<div class="flyoutlink-inner {{result.uptimeGrade.grade | letterOnly }}">
+												    		<div class="grade">{{ result.uptimeGrade.grade | letterOnly }}</div>
+												    		<div class="grade-label">
+												      			<div class="grade-label-inner">{{ result.uptimeGrade.uptimePercentage * 100 | number : 0 }}% <small>uptime</small></div>
+												    		</div>
+												  		</div>
+													</div>
 												</a>
-											</contributor>
-										</span>
-									</div>
-							
-									<!-- pipeline stages -->
-									<div class="pipelineContainer">
-										<span ng-repeat="pipe in result.cdresult.pipelineStages track by pipe.stageName">
-											<!-- show the lines between stages-->
-											<div ng-if="!$first" class="stageLine {{pipe.cdpipelineState}}" ng-style="{'width' : (1/(result.cdresult.pipelineStages.length - 1) * 90 | number: 0) + '%', 'left' : (5 + ($index - 1) * (1/(result.cdresult.pipelineStages.length - 1) * 90) | number: 0 )+ '%'}">
-												<div class="innerStageLine {{pipe.cdpipelineState}}"></div>
+												<div ng-switch-when="null" >
+													<div class="flyoutlink">
+												  		<div class="flyoutlink-inner grade-null">
+												    		<div class="grade">--</div>
+												    		<div class="grade-label">
+												      			<div class="grade-label-inner"><small>no build history</small></div>
+												    		</div>
+												  		</div>
+													</div>
+												</div>
 											</div>
 
-											<!-- show stage circle and name-->
-											<div class="stage {{pipe.cdpipelineState}}" ng-style="{'left' : $index * ((result.cdresult.pipelineStages.length | pipelineWidth) * 90) + '%'}">
-												<div class="stageCircle {{pipe.cdpipelineState}}" ng-switch="pipe.cdpipelineState">
-													<div class="quarter top-anim"></div>
-													<div class="quarter top-anim"></div>
-													<div class="quarter bottom-anim"></div>
-													<div class="quarter bottom-anim"></div>
-													<div class="full"></div>
-													<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manual Stage"></span>
-												</div>
-												<div class="stageNameContainer">
-													<stageName ng-attr-title="{{ pipe.stageName }}">
-														<strong>{{ pipe.stageName }}</strong>
-													</stageName>
-												</div>
+											<projectPlan>
+												<project>
+													<a ng-click="modalOpenUrl('../../browse/' + result.cdresult.projectKey)">
+														{{ result.cdresult.projectName }}
+													</a>
+												</project><br>
+												<plan>
+													<a ng-click="modalOpenUrl('../../browse/' + result.cdresult.planKey)">
+														{{ result.cdresult.planName }}
+													</a>
+												</plan>
+											</projectPlan>
+										</div>
+										
+										<!-- last deployment column -->
+										<div class="col-md-3">
+											<lastDeploy ng-switch="result.cdresult.currentBuild.cdpipelineState">
+												<span ng-switch-default>
+													<span class="aui-lozenge aui-lozenge-complete deploy-label">
+														Since Last Completion										
+													</span><br>										
+													<dayChange>
+														<span ng-switch="result.cdresult.daysSinceDeploymentFromCurrent">
+															<span ng-switch-when="-1">
+																<days>--</days>
+																<small class="day-margin">day</small>
+															</span>
+															<span ng-switch-when="0">
+																<days>0</days>
+																<small class="day-margin">day</small>
+															</span>
+															<span ng-switch-when="1">
+																<days>1</days>
+																<small class="day-margin">day</small>
+															</span>
+															<span ng-switch-default>
+																<days>{{ result.cdresult.daysSinceDeploymentFromCurrent }}</days>
+																<small class="day-margin">days</small>
+															</span>
+														</span>					
+														<span ng-switch="result.cdresult.numChanges">
+															<span ng-switch-when="0">
+																<changes>0</changes>
+																<small>change</small>
+															</span>
+															<span ng-switch-when="1">
+																<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+																	<changes>1</changes>
+																	<small>change</small>
+																</a>
+															</span>
+															<span ng-switch-default>
+																<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+																	<changes>{{ result.cdresult.numChanges }}</changes>
+																	<small>changes</small>
+																</a>
+															</span>								
+														</span>										
+													</dayChange>
+												</span>
+												<span ng-switch-when="CD_SUCCESS">
+													<span class="aui-lozenge aui-lozenge-complete deploy-label deploy-success">
+														Current Completion
+													</span><br>										
+													<dayChange>
+														<span ng-switch="result.cdresult.daysSinceLastUpdateFromCurrent">
+															<span ng-switch-when="-1">
+																<days>--</days>
+																<small class="day-margin">day ago</small>
+															</span>
+															<span ng-switch-when="0">
+																<days>0</days>
+																<small class="day-margin">day ago</small>
+															</span>
+															<span ng-switch-when="1">
+																<days>1</days>
+																<small class="day-margin">day ago</small>
+															</span>
+															<span ng-switch-default>
+																<days>{{ result.cdresult.daysSinceLastUpdateFromCurrent }}</days>
+																<small class="day-margin">days ago</small>
+															</span>
+														</span>					
+														<span ng-switch="result.cdresult.numChanges">
+															<span ng-switch-when="0">
+																<changes>0</changes>
+																<small>change</small>
+															</span>
+															<span ng-switch-when="1">
+																<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+																	<changes>1</a></changes>
+																	<small>change</small>
+																</a>
+															</span>
+															<span ng-switch-default>
+																<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+																	<changes>{{ result.cdresult.numChanges }}</changes>
+																	<small>changes</small>
+																</a>
+															</span>								
+														</span>																	
+													</dayChange>
+												</span>
+											</lastDeploy>
+										</div>
+
+										<!-- current build column -->
+										<div class="col-md-1">		
+											<div class="build-state-icon" ng-switch="result.cdresult.currentBuild.cdpipelineState">
+												<span ng-switch-when="CD_SUCCESS" class="icon icon-successful" title="Current build is successful"></span>
+												<span ng-switch-when="CD_FAILED" class="icon icon-failed" title="Current build failed"></span>
+												<span ng-switch-when="CD_IN_PROGRESS" class="icon icon-building" title="Current build is building"></span>
+												<span ng-switch-when="CD_MANUALLY_PAUSED" class="icon icon-successfulPartial" title="Current build stopped at manual stage"></span>
+												<span ng-switch-when="CD_QUEUED" class="icon icon-queued" title="Current build is queued"></span>
+												<span ng-switch-when="CD_NOT_BUILT" class="icon icon-disabled" title="Current build is not built"></span>
 											</div>
-										</span>
+											
+											<buildNumber ng-switch="result.cdresult.currentBuild.buildNumber">
+												<a ng-switch-when="-1" ng-click="modalOpenUrl('../../browse/' + result.cdresult.planKey + '/latest')">--</a>
+												<a ng-switch-default ng-click="modalOpenUrl('../../browse/' + result.cdresult.currentBuild.buildKey)">#{{ result.cdresult.currentBuild.buildNumber }}</a>
+											</buildNumber>
+
+											<div ng-if="result.cdresult.currentBuild.timeRemaining" class="build-progress-bar" ng-switch="result.cdresult.currentBuild.cdpipelineState">
+												<div ng-if="result.cdresult.currentBuild.timeRemaining" ng-switch-when="CD_IN_PROGRESS" class="background-progress" ng-style="{'width' : (result.cdresult.currentBuild.percentageCompleted * 100 | percentageLimit) + '%'}">
+												</div>
+												<div ng-switch-when="CD_IN_PROGRESS" class="timeRemaining" title="{{ result.cdresult.currentBuild.timeRemaining }}">{{ result.cdresult.currentBuild.timeRemaining }}</div>
+												<div ng-switch-when="CD_QUEUED" class="timeRemaining" title="{{ result.cdresult.currentBuild.timeRemaining }}">Queued...</div>
+											</div>
+										</div>
+											
+										<!-- contributor/pipeline column -->
+										<div class="col-md-6">	
+											<!-- contributors -->
+											<div class="contributorList">
+												<span ng-repeat="contributor in result.cdresult.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
+													<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
+														<a href="{{ contributor.profilePageUrl }}">
+															<span class="aui-avatar-inner">
+																<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
+															</span>
+														</a>
+													</contributor>
+												</span>
+											</div>
+									
+											<!-- pipeline stages -->
+											<div class="pipelineContainer">
+												<span ng-repeat="pipe in result.cdresult.pipelineStages track by pipe.stageName">
+													<!-- show the lines between stages-->
+													<div ng-if="!$first" class="stageLine {{pipe.cdpipelineState}}" ng-style="{'width' : (1/(result.cdresult.pipelineStages.length - 1) * 90 | number: 0) + '%', 'left' : (5 + ($index - 1) * (1/(result.cdresult.pipelineStages.length - 1) * 90) | number: 0 )+ '%'}">
+														<div class="innerStageLine {{pipe.cdpipelineState}}"></div>
+													</div>
+
+													<!-- show stage circle and name-->
+													<div class="stage {{pipe.cdpipelineState}}" ng-style="{'left' : $index * ((result.cdresult.pipelineStages.length | pipelineWidth) * 90) + '%'}">
+														<div class="stageCircle {{pipe.cdpipelineState}}" ng-switch="pipe.cdpipelineState">
+															<div class="quarter top-anim"></div>
+															<div class="quarter top-anim"></div>
+															<div class="quarter bottom-anim"></div>
+															<div class="quarter bottom-anim"></div>
+															<div class="full"></div>
+															<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manual Stage"></span>
+														</div>
+														<div class="stageNameContainer">
+															<stageName ng-attr-title="{{ pipe.stageName }}">
+																<strong>{{ pipe.stageName }}</strong>
+															</stageName>
+														</div>
+													</div>
+												</span>
+											</div>
+										</div>					
 									</div>
-								</div>					
+								</div>
 							</div>
 						</div>
 					</div>
