@@ -29,26 +29,37 @@
 			        	<header>
 			        	<h3>
 			        		About Pipeline</br>
-			        		<version>Version 1.0</version>
+			        		<version>Version 2.0</version>
 			        	</h3>
 			        	</header>
 			        	<content>
 			        		<p> <strong>Pipeline</strong> is a real-time wallbaord that displays build progress in an intuitive pipeline view and encourages developers to contribute to their projects frequently and incrementally by visualizing their continuous delivery practices.
 			        		</p>
+			        		<p> 
+			        			<strong>How does Pipeline calculate your grade? </strong></br>
+			        			<span class="indent">
+			        				It&#39s based on the <a class="non-indent" href="http://en.wikipedia.org/wiki/Availability">Uptime Percentage</a> of your plan. If your current build fails, fix it now!
+			        			</span>
+			        		</p>
+			        		<p>
+			        			Questions?
+			        			<a href="https://github.com/cobaltdev/pipeline/blob/master/User%20Guide.pdf?raw=true">user guide</a></br>
+			        			<small class="indent">Check out our user guide. It explains everything in details.</small>
+			        		</p>
 			        		<p>
 			        			Need Help?
 			        			<a href="https://github.com/cobaltdev/pipeline/wiki">documentation page</a></br>
-			        			<small>You can find description in details, installation instruction and user guide here.</small>
+			        			<small class="indent">You can find description in details, installation instruction and user guide here.</small>
 			        		</p>
 			        		<p>
 			        			Developers?
 			        			<a href="https://github.com/cobaltdev/pipeline">github source page</a></br>
-			        			<small>Pipeline is a open source Bamboo plugin, feel free to change and improve it!</small>
+			        			<small class="indent">Pipeline is a open source Bamboo plugin, feel free to change and improve it!</small>
 			        		</p>
 			        		<p>
 			        			Contact us?
 			        			<a href="mailto:pipelineplugin@cobalt.com">email us</a></br>
-			        			<small>Please contact us if you have any questions or concerns.</small>
+			        			<small class="indent">Please contact us if you have any questions or concerns.</small>
 			        		</p>
 			        	</content>
 			        	<footer>
