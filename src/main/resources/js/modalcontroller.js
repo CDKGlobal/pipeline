@@ -1,6 +1,24 @@
 // Controller for the popup window
 plugin.controller("ModalController", function ($scope, $modal, $window, $http, $rootScope) {
   
+  //create copying link
+  var currentURL = window.location.href;
+  var urlTruncate = currentURL.indexOf("?");
+
+  if (urlTruncate != -1) {
+    var urlNum = currentURL.indexOf("=");
+    if (urlNum != -1) {
+      $scope.searchString = decodeURIComponent(currentURL.substring(urlNum + 1));
+    }
+  }
+
+  $scope.$watch('searchString', function() {
+      window.history.replaceState(null, null, $rootScope.projectName + "?search=" + $scope.searchString);
+      if(window.location.href.indexOf("?search=undefined") != -1 || $scope.searchString === "") {
+        window.history.replaceState(null, null, $rootScope.projectName);
+      }
+  });
+
   /* --------------------------------------------------------------------------------------- */
   /* -------------------------- Modal Window with bamboo content --------------------------- */
   /* --------------------------------------------------------------------------------------- */

@@ -244,8 +244,7 @@
 				<ul id="menu">
 					<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
 					<li ng-click="modalOpenContent('sm', '', '', 'Info.html','')"><a><i class="fa fa-question fa-2x"></i></a></li>
-					<li id="copy-button" ng-click="modalOpenContent('sm','','', 'Copy.html', searchString)"><a><i id="linkIcon" class="fa fa-link fa-2x"></i></a></li>		
-					<li ng-click="goHome()" ng-show="homeButton"><a><i class="fa fa-home fa-2x"></i></a></li>			
+					<li id="copy-button" ng-click="modalOpenContent('sm','','', 'Copy.html', searchString)"><a><i id="linkIcon" class="fa fa-link fa-2x"></i></a></li>				
 				</ul>
 			</div>
 
@@ -267,9 +266,6 @@
 			        </div>
 		        </div>
 			</script>
-
-			<!-- link to copy -->
-			<div id='copy_this_text' ng-hide="true" ng-cloak >{{ fullURL }}{{ searchString }}</div>
 
 			<!-- search button --> 
 	       	<div id="search" ng-hide="searchbar">
