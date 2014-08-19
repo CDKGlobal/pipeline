@@ -5,9 +5,9 @@ plugin.controller("BoardController", function ($scope, autoRefresh, $rootScope) 
 	$rootScope.dataLoaded = false;
 
 	//scroll for new data
-	$scope.totalDisplayed = 10;
+	$scope.totalDisplayed = 15;
 	$scope.loadMore = function() {
-		$scope.totalDisplayed += 10;
+		$scope.totalDisplayed += 5;
 	};
 });
 
