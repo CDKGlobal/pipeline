@@ -2,13 +2,13 @@
 plugin.controller("ModalController", function ($scope, $modal, $window, $http, $rootScope) {
   
   //create copying link
-  var currentURL = window.location.href;
-  var urlTruncate = currentURL.indexOf("?");
+  $rootScope.currentURL = window.location.href;
+  var urlTruncate = $rootScope.currentURL.indexOf("?");
 
   if (urlTruncate != -1) {
-    var urlNum = currentURL.indexOf("=");
+    var urlNum = $rootScope.currentURL.indexOf("=");
     if (urlNum != -1) {
-      $scope.searchString = decodeURIComponent(currentURL.substring(urlNum + 1));
+      $scope.searchString = decodeURIComponent($rootScope.currentURL.substring(urlNum + 1));
     }
   }
 
@@ -17,6 +17,7 @@ plugin.controller("ModalController", function ($scope, $modal, $window, $http, $
       if(window.location.href.indexOf("?search=undefined") != -1 || $scope.searchString === "") {
         window.history.replaceState(null, null, $rootScope.projectName);
       }
+      $rootScope.currentURL = window.location.href;
   });
 
   /* --------------------------------------------------------------------------------------- */

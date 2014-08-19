@@ -261,7 +261,7 @@
 				        	</h3>
 			        	</header>
 			        	<content>
-			    			<p><input id="copyField" type="text" value="{{ fullURL }}{{searchParam}}" onClick="selectText(this);"/></p>
+			    			<p><input id="copyField" type="text" value="{{ currentURL }}" onClick="selectText(this);"/></p>
 			        	</content>
 			        </div>
 		        </div>
