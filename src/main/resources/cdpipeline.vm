@@ -343,19 +343,19 @@
 												<span ng-switch="result.cdresult.daysSinceDeploymentFromCurrent">
 													<span ng-switch-when="-1">
 														<days>--</days>
-														<small>day</small>
+														<small class="day-margin">day</small>
 													</span>
 													<span ng-switch-when="0">
 														<days>0</days>
-														<small>day</small>
+														<small class="day-margin">day</small>
 													</span>
 													<span ng-switch-when="1">
 														<days>1</days>
-														<small>day</small>
+														<small class="day-margin">day</small>
 													</span>
 													<span ng-switch-default>
 														<days>{{ result.cdresult.daysSinceDeploymentFromCurrent }}</days>
-														<small>days</small>
+														<small class="day-margin">days</small>
 													</span>
 												</span>					
 												<span ng-switch="result.cdresult.numChanges">
@@ -386,19 +386,19 @@
 												<span ng-switch="result.cdresult.daysSinceLastUpdateFromCurrent">
 													<span ng-switch-when="-1">
 														<days>--</days>
-														<small>day ago</small>
+														<small class="day-margin">day ago</small>
 													</span>
 													<span ng-switch-when="0">
 														<days>0</days>
-														<small>day ago</small>
+														<small class="day-margin">day ago</small>
 													</span>
 													<span ng-switch-when="1">
 														<days>1</days>
-														<small>day ago</small>
+														<small class="day-margin">day ago</small>
 													</span>
 													<span ng-switch-default>
 														<days>{{ result.cdresult.daysSinceLastUpdateFromCurrent }}</days>
-														<small>days ago</small>
+														<small class="day-margin">days ago</small>
 													</span>
 												</span>					
 												<span ng-switch="result.cdresult.numChanges">
