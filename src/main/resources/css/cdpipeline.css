@@ -167,18 +167,18 @@ days, changes {
 	font-weight: bold;
 }
 
-changes {
-	margin-left: 10px;
-}
-
-
 dayChange a {
 	color: #333333 !important;
 	text-decoration:none !important;	
 }
 
-dayChange:hover a {
-	border-bottom: 2px solid black;
+dayChange a:hover {
+	color: #205081 !important;
+	border-bottom: 1px solid #205081;
+}
+
+.day-margin {
+	margin-right: 10px;
 }
 
 /*-------------------------
