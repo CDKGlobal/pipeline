@@ -1,33 +1,13 @@
 //controller and any services relating to the main boaard
 plugin.controller("BoardController", function ($scope, autoRefresh, $rootScope) {
-	$scope.projectName = "Pipeline";
+	$rootScope.projectName = "cdpipeline";
 	$scope.results = autoRefresh.data;
 	$rootScope.dataLoaded = false;
-	$rootScope.searchbar = false;
-	$rootScope.homeButton = false;
-
-	//create copying link
-	var currentURL = window.location.href;
-	var urlTruncate = currentURL.indexOf("?");
-
-	if (urlTruncate != -1) {
-		$rootScope.searchbar = true;
-		$rootScope.homeButton = true;
-		var urlNum = currentURL.indexOf("=");
-		if (urlNum != -1) {
-			$scope.searchString = decodeURIComponent(currentURL.substring(urlNum + 1));
-		}
-		$rootScope.fullURL = currentURL;
-	}
-
-	else {
-		$rootScope.fullURL = currentURL + "?search=";
-	}
 
 	//scroll for new data
 	$scope.totalDisplayed = 10;
 	$scope.loadMore = function() {
-		$scope.totalDisplayed += 5;
+		$scope.totalDisplayed += 10;
 	};
 });
 
