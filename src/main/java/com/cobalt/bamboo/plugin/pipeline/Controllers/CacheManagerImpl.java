@@ -1,6 +1,7 @@
 package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.sal.api.transaction.TransactionTemplate;
@@ -14,6 +15,8 @@ public class CacheManagerImpl implements CacheManager {
 	private TransactionTemplate transactionTemplate;
 	WallBoardCache wallBoardCache;
 	
+	AtomicBoolean firstLoadDone;
+	
 	/**
 	 * Constructs a CacheManager object.
 	 * 
@@ -25,6 +28,8 @@ public class CacheManagerImpl implements CacheManager {
 		this.mainManager = mainManager;
 		this.transactionTemplate = transactionTemplate;
 		wallBoardCache = new WallBoardCache();
+		
+		firstLoadDone = new AtomicBoolean(false);
 	}
 
 	@Override
@@ -36,6 +41,8 @@ public class CacheManagerImpl implements CacheManager {
 				
 				refreshCache();
 				
+				firstLoadDone.compareAndSet(false, true);
+				
 				return null;
 			}
 		});
@@ -43,42 +50,38 @@ public class CacheManagerImpl implements CacheManager {
 	
 	@Override
 	public void updateWallBoardDataForPlan(final String planKey, final boolean updateUptimeGrade) {
-		if (wallBoardCache.isEmpty()) {
-			putAllWallBoardData();
-		} else {
-			transactionTemplate.execute(new TransactionCallback() {
+		transactionTemplate.execute(new TransactionCallback() {
+			
+			@Override
+			public Object doInTransaction() {
 				
-				@Override
-				public Object doInTransaction() {
-					
-					CDResult cdResult = mainManager.getCDResultForPlan(planKey);
-					
-					UptimeGrade uptimeGrade;
-					if (!wallBoardCache.containsPlan(planKey)) {
-						uptimeGrade = mainManager.getUptimeGradeForPlan(planKey);
-					} else {
-						uptimeGrade = wallBoardCache.get(planKey).uptimeGrade;
-						if (updateUptimeGrade) {
-							uptimeGrade.update(cdResult.getCurrentBuild());
-						}
+				CDResult cdResult = mainManager.getCDResultForPlan(planKey);
+				
+				UptimeGrade uptimeGrade;
+				if (!wallBoardCache.containsPlan(planKey)) {
+					uptimeGrade = mainManager.getUptimeGradeForPlan(planKey);
+				} else {
+					uptimeGrade = wallBoardCache.get(planKey).uptimeGrade;
+					if (updateUptimeGrade) {
+						uptimeGrade.update(cdResult.getCurrentBuild());
 					}
-					
-					
-					if (cdResult != null && uptimeGrade != null) {
-						WallBoardData wallBoardData = new WallBoardData(planKey, cdResult, uptimeGrade);
-						wallBoardCache.put(planKey, wallBoardData);
-					}
-					
-					return null;
 				}
-			});
-		}
+				
+				
+				if (cdResult != null && uptimeGrade != null) {
+					WallBoardData wallBoardData = new WallBoardData(planKey, cdResult, uptimeGrade);
+					wallBoardCache.put(planKey, wallBoardData);
+				}
+				
+				return null;
+			}
+		});
 	}
 
 	@Override
 	public List<WallBoardData> getAllWallBoardData() {
-		if (wallBoardCache.isEmpty()) {
-			refreshCache();
+		if (firstLoadDone.get() == false) {
+			return null;
 		}
 		
 		List<WallBoardData> results = wallBoardCache.getAllWallBoardData();
