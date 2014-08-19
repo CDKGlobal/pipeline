@@ -172,9 +172,13 @@ changes {
 }
 
 
-changes a {
+dayChange a {
 	color: #333333 !important;
+	text-decoration:none !important;	
+}
 
+dayChange:hover a {
+	border-bottom: 2px solid black;
 }
 
 /*-------------------------

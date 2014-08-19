@@ -364,12 +364,16 @@
 														<small>change</small>
 													</span>
 													<span ng-switch-when="1">
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
-														<small>change</small>
+														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+															<changes>1</changes>
+															<small>change</small>
+														</a>
 													</span>
 													<span ng-switch-default>
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.cdresult.numChanges }}</a></changes>
-														<small>changes</small>
+														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+															<changes>{{ result.cdresult.numChanges }}</changes>
+															<small>changes</small>
+														</a>
 													</span>								
 												</span>										
 											</dayChange>
@@ -403,12 +407,16 @@
 														<small>change</small>
 													</span>
 													<span ng-switch-when="1">
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">1</a></changes>
-														<small>change</small>
+														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+															<changes>1</a></changes>
+															<small>change</small>
+														</a>
 													</span>
 													<span ng-switch-default>
-														<changes><a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">{{ result.cdresult.numChanges }}</a></changes>
-														<small>changes</small>
+														<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
+															<changes>{{ result.cdresult.numChanges }}</changes>
+															<small>changes</small>
+														</a>
 													</span>								
 												</span>																	
 											</dayChange>
