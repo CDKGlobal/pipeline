@@ -811,7 +811,7 @@ iframe {
 	text-align: justify;
 }
 
-.about-page content small {
+.about-page .indent {
 	margin-left: 35px;
 }
 
@@ -822,6 +822,15 @@ iframe {
 
 .about-page a {
 	margin-left: 10px;
+}
+
+.about-page a.non-indent {
+	margin-left: 0 !important;
+	color: #205081 !important;
+}
+
+.about-page a.non-indent:hover {
+	color: #205081 !important;
 }
 
 .about-page footer {
