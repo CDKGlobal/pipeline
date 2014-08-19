@@ -7,7 +7,7 @@ window.onload = function() {
 	client.on('load', function(client) {
 
 	    client.on('datarequested', function(client) {
-	    	var text = jQuery('#copy_this_text').text();
+	    	var text = window.location.href;
 	    	client.setText(text);
 	  	});
 	 
