@@ -760,7 +760,7 @@ iframe {
 }
 
 #superpipe-logo {
-	background-image: url(images/superpipe-logo-sm.png);
+	background-image: url(../../download/resources/com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources/images/superpipe-logo-sm.png);
 	height: 72px;
 	width: 72px;
 	display: inline-block;
