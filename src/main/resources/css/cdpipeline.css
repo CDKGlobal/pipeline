@@ -23,6 +23,77 @@ body {
 }
 
 
+/*-------------------------------------
+	'Pluging initializing' animation
+--------------------------------------*/
+
+#firstLoad-info {
+	margin: auto;
+	width: 300px;
+	font-size: 15pt;
+	font-weight: bold;
+	position: relative;
+	top: 100px;
+	color: #333333;
+}
+
+#firstLoad-info span {
+	width: 6px;
+	height: 6px;
+	border-radius: 2px;
+	background-color: #333333;
+	display: inline-block;
+	margin-left: 10px;
+	position: relative;
+	animation: dotJump 0.6s infinite alternate;
+	-webkit-animation: dotJump 0.6s infinite alternate;
+	-moz-animation: dotJump 0.6s infinite alternate;
+	-o-animation: dotJump 0.6s infinite alternate;
+	-ms-animation: dotJump 0.6s infinite alternate;
+}
+
+#firstLoad-info span:nth-of-type(2) {
+	background-color: #454545;
+	animation-delay: 0.2s;
+	-webkit-animation-delay: 0.2s;
+	-moz-animation-delay: 0.2s;
+	-o-animation-delay: 0.2s;
+	-ms-animation-delay: 0.2s;
+}
+
+#firstLoad-info span:nth-of-type(3) {
+	background-color: #565656;
+	animation-delay: 0.4s;
+	-webkit-animation-delay: 0.4s;
+	-moz-animation-delay: 0.4s;
+	-o-animation-delay: 0.4s;
+	-ms-animation-delay: 0.4s;
+}
+
+@keyframes dotJump {
+	0% {top:-15px; width: 8px; height: 8px;}
+	100% {top:0px; width: 6px; height: 6px;}
+}
+
+@-webkit-keyframes dotJump {
+	0% {top:-15px; width: 8px; height: 8px;}
+	100% {top:0px; width: 6px; height: 6px;}
+}
+
+@-moz-animation jump {
+	0% {top:-15px; width: 8px; height: 8px;}
+	100% {top:0px; width: 6px; height: 6px;}}
+
+@-o-animation jump {
+	0% {top:-15px; width: 8px; height: 8px;}
+	100% {top:0px; width: 6px; height: 6px;}
+}
+
+@-ms-animation jump {
+	0% {top:-15px; width: 8px; height: 8px;}
+	100% {top:0px; width: 6px; height: 6px;}
+}
+
 /*-------------------------
 	uptime grade
 --------------------------*/
