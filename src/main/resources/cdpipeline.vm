@@ -419,7 +419,7 @@
 															</span>
 															<span ng-switch-when="1">
 																<a ng-click="modalOpenContent('lg', 'changes', result, 'Changes.html')">
-																	<changes>1</a></changes>
+																	<changes>1</changes>
 																	<small>change</small>
 																</a>
 															</span>
