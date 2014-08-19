@@ -162,12 +162,12 @@
 								<div class="statline"><stat>{{ contentData.resultData.successPercentageFormatted * 100 | number:0 }}%</stat> success</div> 
 								<div class="statline" ng-switch="contentData.resultData.averageFrequency">
 									<stat ng-switch-when="-1">--</stat>
-									<stat ng-switch-default>{{ contentData.resultData.averageFrequency | number:1 }}</stat>
+									<stat ng-switch-default>{{ contentData.resultData.averageFrequency | number:0 }}</stat>
 									 avg. days/completion
 								</div>
 								<div class="statline" ng-switch="contentData.resultData.averageChanges">
 									<stat ng-switch-when="-1">--</stat>
-									<stat ng-switch-default>{{ contentData.resultData.averageChanges | number:1 }}</stat>
+									<stat ng-switch-default>{{ contentData.resultData.averageChanges | number:0 }}</stat>
 									 avg. changes/completion
 								</div>	
 								<div id="stamp">{{contentData.uptimeGrade.grade | letterOnly }}</div>						
