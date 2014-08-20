@@ -296,8 +296,8 @@
 						<div id="loadingText">loading...</div>
 		       		</div>
 
-		       		<div ng-show="dataLoaded" ng-switch="results.resp">
-		       			<div ng-switch-when="null"> 
+		       		<div ng-show="dataLoaded">
+		       			<div ng-show="results.resp == 'null'"> 
 		       				<div id="firstLoad-info">Pipeline initializing<span></span><span></span><span></span></div>
 			       			<div class="aui-message hint" id="firstLoad-msg">
 			       				<div class="aui-icon icon-hint"></div>
@@ -305,7 +305,7 @@
 							</div>
 						</div>
 
-		       			<div ng-switch-default>
+		       			<div ng-show="results.resp != null">
 				            <div id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'cdresult.lastUpdateTime':true | searchFor:searchString | progressToFront:'cdresult' | emptyToEnd:'cdresult' | limitTo: totalDisplayed track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
 								<div class="panel panel-default">
 									<div class="panel-body">
