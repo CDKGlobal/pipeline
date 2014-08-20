@@ -2,6 +2,7 @@ package com.cobalt.bamboo.plugin.pipeline.cache;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -42,5 +43,13 @@ public class WallBoardCache {
 	
 	public void clear() {
 		cache.clear();
+	}
+	
+	public Set<String> getAllPlanKeys() {
+		return cache.keySet();
+	}
+	
+	public void removePlan(String planKey) {
+		cache.remove(planKey);
 	}
 }

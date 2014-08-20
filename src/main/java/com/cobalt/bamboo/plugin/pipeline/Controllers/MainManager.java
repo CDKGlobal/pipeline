@@ -2,6 +2,8 @@ package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
 import java.util.List;
 
+import com.atlassian.bamboo.plan.Plan;
+import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
 import com.cobalt.bamboo.plugin.pipeline.cdperformance.UptimeGrade;
 import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
@@ -57,4 +59,10 @@ public interface MainManager {
 	 *         in the plan.
 	 */
 	public UptimeGrade getUptimeGradeForPlan(String planKey);
+	
+	/**
+	 * Get all TopLevelPlans directly from Bamboo.
+	 * @return a List of TopLevelPlan
+	 */
+	public List<TopLevelPlan> getAllPlans();
 }
