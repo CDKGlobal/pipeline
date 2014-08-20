@@ -19,7 +19,7 @@ public class CacheRefreshMonitorImpl implements CacheRefreshMonitor, LifecycleAw
 	private final PluginScheduler pluginScheduler;
 	private final CacheManager cacheManager;
 	
-	private long interval = 60000L; // default refresh interval (0.5 hr)
+	private long interval = 1800000L; // default refresh interval (0.5 hr)
 	private Date lastRun = null;
 	
 	private CacheRefreshMonitorImpl(PluginScheduler pluginScheduler, CacheManager cacheManager){
