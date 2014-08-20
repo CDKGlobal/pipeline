@@ -1,8 +1,12 @@
 package com.cobalt.bamboo.plugin.pipeline.Controllers;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.atlassian.bamboo.plan.Plan;
+import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.cobalt.bamboo.plugin.pipeline.cache.WallBoardCache;
@@ -100,18 +104,27 @@ public class CacheManagerImpl implements CacheManager {
 	 * outside of the TransactionTemplate depending on the context.
 	 */
 	private void refreshCache() {
-		WallBoardCache newCache = new WallBoardCache();
-		List<CDResult> cdResults = mainManager.getCDResults();
+		//WallBoardCache newCache = new WallBoardCache();
+		//List<CDResult> cdResults = mainManager.getCDResults();
+		List<TopLevelPlan> plans = mainManager.getAllPlans();
+		Set<String> planKeysSet = new HashSet<String>();
 		
-		for (CDResult cdResult : cdResults) {
-			String planKey = cdResult.getPlanKey();
+		for (Plan plan : plans) {
+			String planKey = plan.getPlanKey().getKey();
 			UptimeGrade uptimeGrade = mainManager.getUptimeGradeForPlan(planKey);
-			
+			CDResult cdResult = mainManager.getCDResultForPlan(planKey);
 			WallBoardData wallBoardData = new WallBoardData(planKey, cdResult, uptimeGrade);
 			
-			newCache.put(planKey, wallBoardData);
+			planKeysSet.add(planKey);
+			wallBoardCache.put(planKey, wallBoardData);
 		}
 		
-		wallBoardCache = newCache;
+		for(String planKey : wallBoardCache.getAllPlanKeys()){
+			if(!planKeysSet.contains(planKey)){
+				wallBoardCache.removePlan(planKey);
+			}
+		}
+		
+		//wallBoardCache = newCache;
 	}
 }

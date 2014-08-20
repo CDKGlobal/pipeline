@@ -124,4 +124,9 @@ public class MainManagerImpl implements MainManager {
 		
 		return CDResultFactory.createCDResult(plan, contributorBuilder, planExecutionManager, resultsSummaryManager);
 	}
+
+	@Override
+	public List<TopLevelPlan> getAllPlans() {
+		return planManager.getAllPlans(TopLevelPlan.class);
+	}
 }
