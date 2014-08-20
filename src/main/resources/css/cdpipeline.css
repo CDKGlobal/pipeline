@@ -29,12 +29,12 @@ body {
 
 #firstLoad-info {
 	margin: auto;
-	width: 300px;
+	width: 230px;
 	font-size: 15pt;
 	font-weight: bold;
 	position: relative;
-	top: 100px;
-	color: #333333;
+	top: 150px;
+	color: #205081;
 }
 
 #firstLoad-info span {
@@ -92,6 +92,13 @@ body {
 @-ms-animation jump {
 	0% {top:-15px; width: 8px; height: 8px;}
 	100% {top:0px; width: 6px; height: 6px;}
+}
+
+#firstLoad-msg {
+	width: 50%;
+	margin: auto;
+	position: relative;
+	top: 200px;
 }
 
 /*-------------------------

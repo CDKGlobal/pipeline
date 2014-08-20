@@ -13,9 +13,9 @@ import com.cobalt.bamboo.plugin.pipeline.cdresult.CDResult;
 public class CacheManagerImpl implements CacheManager {
 	private final MainManager mainManager;
 	private TransactionTemplate transactionTemplate;
-	WallBoardCache wallBoardCache;
+	private WallBoardCache wallBoardCache;
 	
-	AtomicBoolean firstLoadDone;
+	private AtomicBoolean firstLoadDone;
 	
 	/**
 	 * Constructs a CacheManager object.
