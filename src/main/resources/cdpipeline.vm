@@ -297,7 +297,13 @@
 		       		</div>
 
 		       		<div ng-show="dataLoaded" ng-switch="results.resp">
-		       			<div ng-switch-when="null" id="firstLoad-info">Plugin initializing<span></span><span></span><span></span></div>
+		       			<div ng-switch-when="null"> 
+		       				<div id="firstLoad-info">Pipeline initializing<span></span><span></span><span></span></div>
+			       			<div class="aui-message hint" id="firstLoad-msg">
+			       				<div class="aui-icon icon-hint"></div>
+							    <p>Don't worry, this only happens upon installation. This might take several minutes depending on your data size. Please be patient!
+							</div>
+						</div>
 
 		       			<div ng-switch-default>
 				            <div id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'cdresult.lastUpdateTime':true | searchFor:searchString | progressToFront:'cdresult' | emptyToEnd:'cdresult' | limitTo: totalDisplayed track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
