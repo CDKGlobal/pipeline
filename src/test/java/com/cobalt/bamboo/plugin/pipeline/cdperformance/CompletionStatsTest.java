@@ -62,23 +62,6 @@ public class CompletionStatsTest {
 		}
 	}
 	
-	// Test the sorting of Contributors in statesult.
-	@Test
-	public void numCommitSortingTestOfContributors(){
-		CompletionStats stat = new CompletionStats(0, current);		
-		stat.addContributor(test1);
-		stat.updateContributor("test 1", current);
-		stat.updateContributor("test 1", current);
-		stat.addContributor(test2);
-		stat.updateContributor("test 2", test2.getLastCommitTime());
-		stat.addContributor(test3);
-		List<Contributor> contributors = stat.getContributorsSortedByNumCommits();
-		assertEquals("There should not be dulplicate identical Contributors", 3, contributors.size());
-		assertEquals("The list of Contributors should be sorted by number of commits", test1.getUsername(), contributors.get(0).getUsername());
-		assertEquals("The list of Contributors should be sorted by number of commits", test2.getUsername(), contributors.get(1).getUsername());
-		assertEquals("The list of Contributors should be sorted by number of commits", test3.getUsername(), contributors.get(2).getUsername());
-	}
-	
 	@Test
 	public void lastCommitTimeSortingTestOfContributors(){
 		CompletionStats stat = new CompletionStats(0, current);		
