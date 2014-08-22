@@ -118,16 +118,6 @@ public class CompletionStats {
 	}
 	
 	/**
-	 * Return all contributors sorted by number of commits in descending order.
-	 * Tie breaks by the time of their last commit (more recent comes first)
-	 * 
-	 * @return a sorted list of Contributors by number of commits
-	 */
-	public List<Contributor> getContributorsSortedByNumCommits(){
-		return this.getContributorsSortedBy(new CommitCountComparator());
-	}
-	
-	/**
 	 * Return all contributors sorted by the time of their last commit, contributor
 	 * who commits most recently comes first.
 	 * Tie breaks by number of commits (one with more commits comes first)
@@ -143,7 +133,7 @@ public class CompletionStats {
 	 * 
 	 * @return a Set of Contributor
 	 */
-	public Set<Contributor> getContributors(){
+	Set<Contributor> getContributors(){
 		Set<Contributor> results = new HashSet<Contributor>();
 		for(String name : contributors.keySet()){
 			results.add(contributors.get(name));
