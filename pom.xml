@@ -13,36 +13,36 @@
     <description>Real-time pipeline wallboard that provides an intuitive view and encourages continuous delivery practices.</description>
     <packaging>atlassian-plugin</packaging>
     <properties>
-        <bamboo.version>5.5.1</bamboo.version>
-        <bamboo.data.version>5.3</bamboo.data.version>
-        <amps.version>5.0.4</amps.version>
-        <plugin.testrunner.version>1.2.0</plugin.testrunner.version>
+        <bamboo.version>5.7.0</bamboo.version>
+        <bamboo.data.version>5.7.0</bamboo.data.version>
+        <amps.version>5.0.13</amps.version>
+        <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
     </properties>
     <scm>
         <connection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/</connection>
         <developerConnection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/</developerConnection>
         <url>http://perforce.cobaltgroup.com/ReleaseEngineering/CDPipeline/trunk/</url>
     </scm>
-    <pluginRepositories>
-        <pluginRepository>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>repo</name>
-            <url>http://artifactory.cobalt.com/artifactory/repo</url>
-        </pluginRepository>
-    </pluginRepositories>
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>repo</name>
-            <url>http://artifactory.cobalt.com/artifactory/repo</url>
-        </repository>
-    </repositories>
+    <!--<pluginRepositories>-->
+    <!--<pluginRepository>-->
+    <!--<snapshots>-->
+    <!--<enabled>true</enabled>-->
+    <!--</snapshots>-->
+    <!--<id>central</id>-->
+    <!--<name>repo</name>-->
+    <!--<url>http://artifactory.cobalt.com/artifactory/repo</url>-->
+    <!--</pluginRepository>-->
+    <!--</pluginRepositories>-->
+    <!--<repositories>-->
+    <!--<repository>-->
+    <!--<snapshots>-->
+    <!--<enabled>true</enabled>-->
+    <!--</snapshots>-->
+    <!--<id>central</id>-->
+    <!--<name>repo</name>-->
+    <!--<url>http://artifactory.cobalt.com/artifactory/repo</url>-->
+    <!--</repository>-->
+    <!--</repositories>-->
     <dependencies>
         <dependency>
             <groupId>com.atlassian.bamboo</groupId>
@@ -133,8 +133,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
         </plugins>

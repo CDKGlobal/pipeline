@@ -1,44 +1,40 @@
 package com.cobalt.bamboo.plugin.pipeline.servlet;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.atlassian.sal.api.auth.LoginUriProvider;
+import com.atlassian.sal.api.user.UserManager;
+import com.atlassian.templaterenderer.TemplateRenderer;
+import com.cobalt.bamboo.plugin.pipeline.cache.CacheManager;
+import com.cobalt.bamboo.plugin.pipeline.cache.WallBoardData;
+import com.cobalt.bamboo.plugin.pipeline.domain.model.Change;
+import com.cobalt.bamboo.plugin.pipeline.domain.model.PerformanceSummary;
+import com.cobalt.bamboo.plugin.pipeline.domain.services.PlanService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.atlassian.sal.api.auth.LoginUriProvider;
-import com.atlassian.sal.api.user.UserManager;
-import com.atlassian.templaterenderer.TemplateRenderer;
-import com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManager;
-import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
-import com.cobalt.bamboo.plugin.pipeline.cache.WallBoardData;
-import com.cobalt.bamboo.plugin.pipeline.cdperformance.CDPerformance;
-import com.cobalt.bamboo.plugin.pipeline.changelist.Change;
-
 public class MainPage extends HttpServlet{
-	private static final Logger log = LoggerFactory.getLogger(MainPage.class);
+
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer renderer;
     private final CacheManager cacheManager;
-    private final MainManager mainManager;
+    private final PlanService planService;
    
     public MainPage(UserManager userManager, LoginUriProvider loginUriProvider,  TemplateRenderer renderer,
-    				CacheManager cacheManager, MainManager mainManager)
+                    CacheManager cacheManager, PlanService planService)
     {
       this.userManager = userManager;
       this.loginUriProvider = loginUriProvider;
       this.renderer = renderer;
       this.cacheManager = cacheManager;
-      this.mainManager = mainManager;
+        this.planService = planService;
     }
    
     @Override
@@ -67,15 +63,15 @@ public class MainPage extends HttpServlet{
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
 	  } else if (query.equalsIgnoreCase("changes") && request.getParameter("plankey") != null){
-		  List<Change> changeList = mainManager.getChangeListForPlan(request.getParameter("plankey"));
-		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
-		  String json = writer.writeValueAsString(changeList);
+          List<Change> changeList = planService.getChangeListForPlan(request.getParameter("plankey"));
+          ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
+          String json = writer.writeValueAsString(changeList);
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
 	  } else if (query.equalsIgnoreCase("completions") && request.getParameter("plankey") != null){
-		  CDPerformance performance = mainManager.getPerformanceStatsForPlan(request.getParameter("plankey"));
-		  ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
-		  String json = writer.writeValueAsString(performance);
+          PerformanceSummary performance = planService.getPerformanceStatsForPlan(request.getParameter("plankey"));
+          ObjectWriter writer = (new ObjectMapper()).writer().withDefaultPrettyPrinter();
+          String json = writer.writeValueAsString(performance);
 		  response.setContentType("application/json;charset=utf-8");
 		  response.getWriter().write(json);
 	  } else{

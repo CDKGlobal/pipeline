@@ -26,12 +26,9 @@ public class WallBoardCache {
 	}
 	
 	public List<WallBoardData> getAllWallBoardData() {
-		List<WallBoardData> resultList = new ArrayList<WallBoardData>();
-		for (String planKey : cache.keySet()) {
-			resultList.add(cache.get(planKey));
-		}
-		return resultList;
-	}
+        List<WallBoardData> resultList = new ArrayList<WallBoardData>(cache.values());
+        return resultList;
+    }
 	
 	public WallBoardData get(String planKey) {
 		return cache.get(planKey);
