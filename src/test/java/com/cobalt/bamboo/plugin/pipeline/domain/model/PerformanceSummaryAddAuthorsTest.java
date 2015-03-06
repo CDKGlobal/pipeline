@@ -21,7 +21,7 @@ public class PerformanceSummaryAddAuthorsTest {
 	@Before
 	public void setup() {
 
-        cb = new ContributorBuilder("");
+        cb = new ContributorBuilder(null);
         stat = new CompletionStats(1, new Date());
     }
 	

@@ -227,7 +227,7 @@
 					                		<span ng-switch-when="0"></span>
 					                		<span ng-switch-default>                
 												<span ng-repeat="contributor in completion.contributorsSortedByLatestCommit | limitTo:12"> 
-													<img src="{{ contributor.pictureUrl }}" title="{{contributor.fullname}}" width="35" height="35">
+													<img src="{{contributor.pictureUrl}}" title="{{contributor.fullname}}" width="35" height="35">
 												</span>    
 											</span>    
 										</p>				
@@ -470,10 +470,10 @@
 											<!-- contributors -->
 											<div class="contributorList">
 												<span ng-repeat="contributor in result.cdresult.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
-													<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
-														<a href="{{ contributor.profilePageUrl }}">
+													<contributor username="{{contributor.username}}" numCommits=" {{contributor.numCommits}}">
+														<a href="{{contributor.profilePageUrl}}">
 															<span class="aui-avatar-inner">
-																<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
+																<img alt="{{contributor.fullname}}" src="{{contributor.pictureUrl}}" />
 															</span>
 														</a>
 													</contributor>
@@ -499,8 +499,8 @@
 															<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manual Stage"></span>
 														</div>
 														<div class="stageNameContainer">
-															<stageName ng-attr-title="{{ pipe.stageName }}">
-																<strong>{{ pipe.stageName }}</strong>
+															<stageName ng-attr-title="{{pipe.stageName}}">
+																<strong>{{pipe.stageName}}</strong>
 															</stageName>
 														</div>
 													</div>

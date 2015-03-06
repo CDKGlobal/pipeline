@@ -43,6 +43,7 @@
     <component key="cacheManager" class="com.cobalt.bamboo.plugin.pipeline.cache.CacheManagerImpl" public="true">
         <interface>com.cobalt.bamboo.plugin.pipeline.cache.CacheManager</interface>
     </component>
+    <component key="contributorBuilder" class="com.cobalt.bamboo.plugin.pipeline.domain.model.ContributorBuilder"/>
     <component key="planService" class="com.cobalt.bamboo.plugin.pipeline.domain.services.PlanServiceImpl"
                public="true">
         <interface>com.cobalt.bamboo.plugin.pipeline.domain.services.PlanService</interface>

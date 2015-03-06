@@ -28,7 +28,7 @@ public class PerformanceSummaryFactoryTest {
 
     @Before
     public void setup() {
-        cb = new ContributorBuilder("");
+        cb = new ContributorBuilder(null);
         day1 = new Date();
         day2 = new Date();
         day3 = new Date();

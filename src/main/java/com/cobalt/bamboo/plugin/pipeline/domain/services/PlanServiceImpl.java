@@ -1,5 +1,6 @@
 package com.cobalt.bamboo.plugin.pipeline.domain.services;
 
+import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.plan.*;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
@@ -16,12 +17,8 @@ public class PlanServiceImpl implements PlanService {
     private PlanManager planManager;
     private ResultsSummaryManager resultsSummaryManager;
     private PlanExecutionManager planExecutionManager;
+    private JiraApplinksService jiraApplinksService;
     private ContributorBuilder contributorBuilder;
-
-    public PlanServiceImpl() {
-        String jiraBaseUrl = "";
-        this.contributorBuilder = new ContributorBuilder(jiraBaseUrl);
-    }
 
     @Override
     public List<ProjectReport> getCDResults() {
@@ -127,4 +124,13 @@ public class PlanServiceImpl implements PlanService {
     public void setContributorBuilder(ContributorBuilder contributorBuilder) {
         this.contributorBuilder = contributorBuilder;
     }
+
+    public JiraApplinksService getJiraApplinksService() {
+        return jiraApplinksService;
+    }
+
+    public void setJiraApplinksService(JiraApplinksService jiraApplinksService) {
+        this.jiraApplinksService = jiraApplinksService;
+    }
+
 }

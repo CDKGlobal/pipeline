@@ -21,7 +21,7 @@ public class AddAllAuthorsInCommitsTest {
 
 	@Before
 	public void setup() {
-        cb = new ContributorBuilder("");
+        cb = new ContributorBuilder(null);
         cdresult = new ProjectReport("project", "project - plan", "project", "plan");
     }
 
