@@ -6,8 +6,8 @@
     <artifactId>cdpipeline</artifactId>
     <version>1.0-SNAPSHOT</version>
     <organization>
-        <name>Team Superpipe</name>
-        <url>https://confluence.cobalt.com/display/DEV/Team+SuperPipe+Project+page</url>
+        <name>CDK Global</name>
+        <url>https://github.com/CDKGlobal/pipeline</url>
     </organization>
     <name>Pipeline</name>
     <description>Real-time pipeline wallboard that provides an intuitive view and encourages continuous delivery practices.</description>
@@ -18,11 +18,6 @@
         <amps.version>5.0.13</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
     </properties>
-    <scm>
-        <connection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/</connection>
-        <developerConnection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/</developerConnection>
-        <url>http://perforce.cobaltgroup.com/ReleaseEngineering/CDPipeline/trunk/</url>
-    </scm>
     <!--<pluginRepositories>-->
     <!--<pluginRepository>-->
     <!--<snapshots>-->
