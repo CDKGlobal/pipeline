@@ -1,6 +1,6 @@
 window.onload = function() {
 	//copy to clipboard function
-	ZeroClipboard.config({moviePath: 'http://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf', forceHandCursor: true});
+	ZeroClipboard.config({moviePath: '//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/1.3.5/ZeroClipboard.swf', forceHandCursor: true});
 				 
 	var client = new ZeroClipboard(jQuery("#copy-button"));
 	
