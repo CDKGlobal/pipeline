@@ -18,32 +18,22 @@
         <amps.version>5.0.13</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
     </properties>
-    <!--<pluginRepositories>-->
-    <!--<pluginRepository>-->
-    <!--<snapshots>-->
-    <!--<enabled>true</enabled>-->
-    <!--</snapshots>-->
-    <!--<id>central</id>-->
-    <!--<name>repo</name>-->
-    <!--<url>http://artifactory.cobalt.com/artifactory/repo</url>-->
-    <!--</pluginRepository>-->
-    <!--</pluginRepositories>-->
-    <!--<repositories>-->
-    <!--<repository>-->
-    <!--<snapshots>-->
-    <!--<enabled>true</enabled>-->
-    <!--</snapshots>-->
-    <!--<id>central</id>-->
-    <!--<name>repo</name>-->
-    <!--<url>http://artifactory.cobalt.com/artifactory/repo</url>-->
-    <!--</repository>-->
-    <!--</repositories>-->
     <dependencies>
         <dependency>
             <groupId>com.atlassian.bamboo</groupId>
             <artifactId>atlassian-bamboo-web</artifactId>
             <version>${bamboo.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.octo.captcha</groupId>
+                    <artifactId>jcaptcha</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.octo.captcha</groupId>
+                    <artifactId>jcaptcha-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -128,8 +118,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
