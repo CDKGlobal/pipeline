@@ -20,15 +20,20 @@ public class UptimeGrade {
 	 * @param currentBuildDate of the most recent completed build
 	 */
 	public UptimeGrade(Date startDate, long totalUptime, boolean currentBuildSuccess, Date currentBuildDate){
-		if(startDate != null && currentBuildDate != null && startDate.compareTo(currentBuildDate) > 0) {
-			throw new IllegalArgumentException("Current build completed time shouldn't be before first build completed time.");
-		}
 		if(startDate != null){
 			this.startDate = new Date(startDate.getTime());
 		}
 		if(currentBuildDate != null){
 			this.currentBuildDate = new Date(currentBuildDate.getTime());
 		}
+		/**
+		 * This shouldn't happen, but it has, and so we'll just do our best (since we can't change the data)
+		 * and end up with a build that took no time (but at least can be graded on failure/success).
+		 */
+		if (startDate != null && currentBuildDate != null && startDate.compareTo(currentBuildDate) > 0) {
+			this.startDate = currentBuildDate;
+		}
+
 		this.totalUptime = totalUptime;
 		this.currentBuildSuccess = currentBuildSuccess;
 	}
