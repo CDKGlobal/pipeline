@@ -25,11 +25,6 @@ public class UptimeGradeTest {
 		assertEquals("Grade is not as expected.", null, g.getGrade());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testCurrentDateBeforeStartDate() {
-		UptimeGrade g = new UptimeGrade(new Date(), 0, false, new Date((new Date()).getTime() - 1000000));
-	}
-	
 	@Test
 	public void testStartDateEqualsCurrentBuildDateSuccess() {
 		Date current = new Date();
