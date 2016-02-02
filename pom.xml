@@ -13,8 +13,8 @@
     <description>Real-time pipeline wallboard that provides an intuitive view and encourages continuous delivery practices.</description>
     <packaging>atlassian-plugin</packaging>
     <properties>
-        <bamboo.version>5.7.0</bamboo.version>
-        <bamboo.data.version>5.7.0</bamboo.data.version>
+        <bamboo.version>5.10.0</bamboo.version>
+        <bamboo.data.version>5.10.0</bamboo.data.version>
         <amps.version>6.2.1</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
     </properties>
